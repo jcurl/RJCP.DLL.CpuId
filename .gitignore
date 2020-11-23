@@ -1,0 +1,11 @@
+*.user
+*.suo
+*.sdf
+*.opensdf
+.vs/
+bin/
+obj/
+/packages
+/CpuIdDll/Debug/
+/CpuIdDll/Release/
+/CpuIdDll/ipch/

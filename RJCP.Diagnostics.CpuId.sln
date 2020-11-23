@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJCP.Diagnostics.CpuId", "CpuId\RJCP.Diagnostics.CpuId.csproj", "{8806B71D-BE80-4C2E-995D-7202C57E4FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RJCP.Diagnostics.CpuIdTest", "CpuIdTest\RJCP.Diagnostics.CpuIdTest.csproj", "{8CF6E8EB-7C34-4039-968B-00FCD4648AB0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8806B71D-BE80-4C2E-995D-7202C57E4FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8806B71D-BE80-4C2E-995D-7202C57E4FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8806B71D-BE80-4C2E-995D-7202C57E4FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8806B71D-BE80-4C2E-995D-7202C57E4FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF6E8EB-7C34-4039-968B-00FCD4648AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF6E8EB-7C34-4039-968B-00FCD4648AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF6E8EB-7C34-4039-968B-00FCD4648AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF6E8EB-7C34-4039-968B-00FCD4648AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CF4A801-28CE-4F88-8938-775CFE757DD8}
+	EndGlobalSection
+EndGlobal
