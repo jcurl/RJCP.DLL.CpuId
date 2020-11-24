@@ -36,18 +36,6 @@
         int ProcessorType { get; }
 
         /// <summary>
-        /// Gets the maximum possible number of APIC cores allocated to this package.
-        /// </summary>
-        /// <value>The maximum number of APIC cores allocated to this package.</value>
-        int ApicMaxThreads { get; }
-
-        /// <summary>
-        /// Gets the APIC identifier, from CPUID Function 01h.
-        /// </summary>
-        /// <value>The APIC identifier.</value>
-        int ApicId { get; }
-
-        /// <summary>
         /// Access to the CPUID registers for the CPU.
         /// </summary>
         /// <value>The CPUID registers.</value>

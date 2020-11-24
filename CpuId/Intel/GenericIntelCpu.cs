@@ -3,59 +3,28 @@
     /// <summary>
     /// CPU information for a generic Intel Clone.
     /// </summary>
-    public class GenericIntelCpu : ICpuIdX86
+    public class GenericIntelCpu : GenericIntelCpuBase
     {
-        private readonly BasicCpu m_Cpu;
+        private const int FeatureInformationFunction = 1;
 
-        internal GenericIntelCpu(BasicCpu cpu)
+        internal GenericIntelCpu(BasicCpu cpu) : base(cpu)
         {
-            m_Cpu = cpu;
-            Features = new CpuFeatures();
+            if (cpu.FunctionCount == 0) return;
+
+            CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            int eax = feature.Result[0];
+            ProcessorSignature = eax & 0x0FFF3FFF;
+
+            int extendedFamily = (ProcessorSignature >> 20) & 0xFF;
+            int extendedModel = (ProcessorSignature >> 16) & 0xF;
+            int familyCode = (ProcessorSignature >> 8) & 0xF;
+            int modelNumber = (ProcessorSignature >> 4) & 0xF;
+
+            Family = extendedFamily + familyCode;
+            Model = (extendedModel << 4) + modelNumber;
+            ProcessorType = (ProcessorSignature >> 12) & 0x3;
+            Stepping = ProcessorSignature & 0xF;
+            Description = string.Empty;
         }
-
-        /// <inheritdoc/>
-        public virtual CpuVendor CpuVendor
-        {
-            get { return CpuVendor.Unknown; }
-        }
-
-        /// <inheritdoc/>
-        public string VendorId
-        {
-            get { return m_Cpu.VendorId; }
-        }
-
-        /// <inheritdoc/>
-        public ICpuRegisters Registers
-        {
-            get { return m_Cpu.CpuRegisters; }
-        }
-
-        /// <inheritdoc/>
-        public string Description { get; protected set; }
-
-        /// <inheritdoc/>
-        public int ProcessorSignature { get; protected set; }
-
-        /// <inheritdoc/>
-        public int Family { get; protected set; }
-
-        /// <inheritdoc/>
-        public int Model { get; protected set; }
-
-        /// <inheritdoc/>
-        public int Stepping { get; protected set; }
-
-        /// <inheritdoc/>
-        public int ProcessorType { get; protected set; }
-
-        /// <inheritdoc/>
-        public int ApicId { get; protected set; }
-
-        /// <inheritdoc/>
-        public int ApicMaxThreads { get; protected set; }
-
-        /// <inheritdoc/>
-        public CpuFeatures Features { get; private set; }
     }
 }

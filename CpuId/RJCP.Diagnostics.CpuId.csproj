@@ -44,6 +44,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Intel\BasicCpu.cs" />
     <Compile Include="Intel\GenericIntelCpu.cs" />
+    <Compile Include="Intel\GenericIntelCpuBase.cs" />
     <Compile Include="Intel\GenuineIntelCpu.cs" />
     <Compile Include="Intel\ICpuIdX86.cs" />
     <Compile Include="Intel\IntelLegacySignatures.cs" />

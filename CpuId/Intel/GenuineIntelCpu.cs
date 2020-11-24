@@ -5,7 +5,7 @@
     /// <summary>
     /// Description of a GenuineIntel CPU.
     /// </summary>
-    public class GenuineIntelCpu : GenericIntelCpu
+    public class GenuineIntelCpu : GenericIntelCpuBase
     {
         private const int FeatureInformationFunction = 1;
         private const int ExtendedFeatureFunction = 7;
@@ -37,7 +37,7 @@
             if (m_FamilyCode != 0x0F) {
                 Family = m_FamilyCode;
             } else {
-                Family = m_ExtendedModel + m_FamilyCode;
+                Family = m_ExtendedFamily + m_FamilyCode;
             }
             if (m_FamilyCode == 0x06 || m_FamilyCode == 0x0F) {
                 Model = (m_ExtendedModel << 4) + m_ModelNumber;
@@ -346,5 +346,17 @@
         {
             get { return CpuVendor.GenuineIntel; }
         }
+
+        /// <summary>
+        /// Gets the maximum possible number of APIC cores allocated to this package.
+        /// </summary>
+        /// <value>The maximum number of APIC cores allocated to this package.</value>
+        public int ApicMaxThreads { get; private set; }
+
+        /// <summary>
+        /// Gets the APIC identifier, from CPUID Function 01h.
+        /// </summary>
+        /// <value>The APIC identifier.</value>
+        public int ApicId { get; private set; }
     }
 }
