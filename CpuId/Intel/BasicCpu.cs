@@ -14,7 +14,8 @@
             VendorId = GetVendorId(vendorFunction);
 
             CpuIdRegister extendedFunction = CpuRegisters.GetCpuId(ExtendedFunction, 0);
-            ExtendedFunctionCount = extendedFunction.Result[0] & 0x7FFFFFFF;
+            if ((extendedFunction.Result[0] & ExtendedFunction) != 0)
+                ExtendedFunctionCount = extendedFunction.Result[0] & 0x7FFFFFFF;
         }
 
         private string GetVendorId(CpuIdRegister register)

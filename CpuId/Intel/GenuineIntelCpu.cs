@@ -96,56 +96,46 @@
             }
 
             // 3. Check CPUID.00000001.EBX bits 7:0 != 0. If so, get branding information as per table 7-1.
-            CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if ((feature.Result[1] & 0xFF) != 0) {
-                switch (feature.Result[1] & 0xFF) {
-                case 1:
-                case 10:
-                case 20:
-                    return "Intel(R) Celeron(R) Processor";
-                case 2:
-                case 4:
-                    return "Intel(R) Pentium(R) III Processor";
-                case 3:
-                    if (m_ProcessorSignature == 0x06b1) {
-                        return "Intel(R) Celeron(R) Processor";
-                    } else {
-                        return "Intel(R) Pentium(R) III Xeon(R) Processor";
-                    }
-                case 6:
-                    return "Mobile Intel(R) Pentium(R) III Processor-M";
-                case 7:
-                case 15:
-                case 19:
-                case 23:
-                    return "Mobile Intel(R) Celeron(R) Processor";
-                case 8:
-                case 9:
-                    return "Intel(R) Pentium(R) 4 Processor";
-                case 11:
-                    if (m_ProcessorSignature == 0x0F13) {
-                        return "Intel(R) Xeon(R) Processor MP";
-                    } else {
-                        return "Intel(R) Xeon(R) Processor";
-                    }
-                case 12:
-                    return "Intel(R) Xeon(R) Processor MP";
-                case 14:
-                    if (m_ProcessorSignature == 0x0F13) {
-                        return "Intel(R) Xeon(R) Processor MP";
-                    } else {
-                        return "Mobile Intel(R) Pentium(R) 4 Processor-M";
-                    }
-                case 17:
-                case 21:
-                    return "Mobile Genuine Intel(R) Processor";
-                case 18:
-                    return "Intel(R) Celeron(R) M Processor";
-                case 22:
-                    return "Intel(R) Pentium(M) M Processor";
-                default:
-                    return "Intel(R) Processor";
-                }
+            switch (m_Brand) {
+            case 0:
+                break;
+            case 1:
+            case 10:
+            case 20:
+                return "Intel(R) Celeron(R) processor";
+            case 2:
+            case 4:
+                return "Intel(R) Pentium(R) III processor";
+            case 3:
+                if (m_ProcessorSignature == 0x06B1) return "Intel(R) Celeron(R) processor";
+                return "Intel(R) Pentium(R) III Xeon(R) processor";
+            case 6:
+                return "Mobile Intel(R) Pentium(R) III processor-M";
+            case 7:
+            case 15:
+            case 19:
+            case 23:
+                return "Mobile Intel(R) Celeron(R) processor";
+            case 8:
+            case 9:
+                return "Intel(R) Pentium(R) 4 processor";
+            case 11:
+                if (m_ProcessorSignature == 0x0F13) return "Intel(R) Xeon(R) processor MP";
+                return "Intel(R) Xeon(R) processsor";
+            case 12:
+                return "Intel(R) Xeon(R) processor MP";
+            case 14:
+                if (m_ProcessorSignature == 0xF13) return "Intel(R) Xeon(R) processsor";
+                return "Mobile Intel(R) Pentium(R) 4 processor-M";
+            case 17:
+            case 21:
+                return "Mobile Genuine Intel(R) processor";
+            case 18:
+                return "Intel(R) Celeron(R) M processor";
+            case 22:
+                return "Intel(R) Pentium(R) M processor";
+            default:
+                return "Intel(R) Processor";
             }
 
             // If 3 fails; Check processor signature (table 5.3, 5.4) and section 5.1.3

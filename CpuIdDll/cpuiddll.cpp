@@ -287,13 +287,15 @@ static int inteliddump(struct cpuidinfo *info, size_t bytes)
 	}
 
 	// Dump the extended values second
-	p = 1;
-	while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
-		info[el].veax = 0x80000000 + p;
-		info[el].vecx = 0;
-		cpuidget(info+el);
-		p++;
-		el++;
+	if (info[1].peax & 0x80000000) {
+		p = 1; c = (int)(info[1].peax & 0x7FFFFFFF);
+		while (p <= c && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+			info[el].veax = 0x80000000 + p;
+			info[el].vecx = 0;
+			cpuidget(info+el);
+			p++;
+			el++;
+		}
 	}
 
 	return el;
