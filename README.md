@@ -30,3 +30,4 @@ Functionality supported, based on Application Note 485 (May 2012):
   * Current APIC Id
 * Function 80000002-4h
   * Brand String
+* Function 07h

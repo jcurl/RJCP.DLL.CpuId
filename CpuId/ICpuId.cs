@@ -26,5 +26,11 @@
         /// </summary>
         /// <value>The detailed description of the CPU.</value>
         string Description { get; }
+
+        /// <summary>
+        /// Gets the CPU features known and available.
+        /// </summary>
+        /// <value>The features known and available.</value>
+        CpuFeatures Features { get; }
     }
 }

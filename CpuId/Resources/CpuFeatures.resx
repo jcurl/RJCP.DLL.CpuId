@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1GB_PAGE" xml:space="preserve">
+    <value>1GB pages supported</value>
+  </data>
+  <data name="ACPI" xml:space="preserve">
+    <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
+  </data>
+  <data name="ADX" xml:space="preserve">
+    <value>ADCX (unsigned integer addition with carry flag) instruction</value>
+  </data>
+  <data name="AESNI" xml:space="preserve">
+    <value>AES 128bit instruction Extensions</value>
+  </data>
+  <data name="APIC" xml:space="preserve">
+    <value>On-chip APIC hardware</value>
+  </data>
+  <data name="AVX" xml:space="preserve">
+    <value>Advanced Vector Extensions</value>
+  </data>
+  <data name="AVX2" xml:space="preserve">
+    <value>Advanced Vector Extensions 2</value>
+  </data>
+  <data name="AVX512BW" xml:space="preserve">
+    <value>AVX512 32/64-bit vector mask instructions</value>
+  </data>
+  <data name="AVX512CD" xml:space="preserve">
+    <value>AVX512 change detection, broadcast mask instructions</value>
+  </data>
+  <data name="AVX512DQ" xml:space="preserve">
+    <value>AVX512 16-bit vector mask instructions</value>
+  </data>
+  <data name="AVX512ER" xml:space="preserve">
+    <value>AVX512 approximate exponential instructions. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="AVX512F" xml:space="preserve">
+    <value>AVX512 8-bit vector mask instructions</value>
+  </data>
+  <data name="AVX512PF" xml:space="preserve">
+    <value>AVX512 prefetch instructions. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="AVX512VL" xml:space="preserve">
+    <value>AVX512 vector x/y instructions</value>
+  </data>
+  <data name="AVX512_4FMAPS" xml:space="preserve">
+    <value>AVX512 packed single precision fused multiply add instructions. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="AVX512_4VNNIW" xml:space="preserve">
+    <value>AVX512 dotproduct multiplication instructions. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="AVX512_BITALG" xml:space="preserve">
+    <value>AVX512 bit counting instructions</value>
+  </data>
+  <data name="AVX512_IFMA" xml:space="preserve">
+    <value>AVX512 Fuse Multiply Add instructions</value>
+  </data>
+  <data name="AVX512_VBMI" xml:space="preserve">
+    <value>AVX512 bit manipulation instructions (VPERMB, VPERMI2B, VPERMT2B, VPMULTISHIFTQB)</value>
+  </data>
+  <data name="AVX512_VBMI2" xml:space="preserve">
+    <value>AVX512 bit manipulation instructions (VPCOMPRESSB, VCOMPRESSW, VPEXPANDB, VPEXPANDW, VPSHLD, VPSHLDV, VPSHRD, VPSHRDV)</value>
+  </data>
+  <data name="AVX512_VNNI" xml:space="preserve">
+    <value>AVX512 multiply and add instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS)</value>
+  </data>
+  <data name="AVX512_VPOPCNTDQ" xml:space="preserve">
+    <value>AVX512 instructions VPOPCNTDQ. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="BMI1" xml:space="preserve">
+    <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
+  </data>
+  <data name="BMI2" xml:space="preserve">
+    <value>Bit manipulation instructions (BZHI, MULX, PDEP, PEXT, RORX, SARX/SHLX/SHRX</value>
+  </data>
+  <data name="CET_IBT" xml:space="preserve">
+    <value>CET indirect branch tracking</value>
+  </data>
+  <data name="CET_SS" xml:space="preserve">
+    <value>Supports CET shadow stack features</value>
+  </data>
+  <data name="CLDEMOTE" xml:space="preserve">
+    <value>Cache line demote</value>
+  </data>
+  <data name="CLFLUSHOPT" xml:space="preserve">
+    <value>CLFLUSHOPT (flush cache line optimized) instruction</value>
+  </data>
+  <data name="CLFSH" xml:space="preserve">
+    <value>CLFLUSH (flush cache line) instruction</value>
+  </data>
+  <data name="CLWB" xml:space="preserve">
+    <value>CLWB (Cache line write back) instruction</value>
+  </data>
+  <data name="CMOV" xml:space="preserve">
+    <value>Conditional Move Instruction</value>
+  </data>
+  <data name="CMPXCHG16B" xml:space="preserve">
+    <value>CMPXCHG16B (compare/exchange atomically 128-bit) instruction</value>
+  </data>
+  <data name="CNXT-ID" xml:space="preserve">
+    <value>L1 Context ID</value>
+  </data>
+  <data name="CX8" xml:space="preserve">
+    <value>CMPXCHG8 instruction</value>
+  </data>
+  <data name="DCA" xml:space="preserve">
+    <value>Direct Cache Access</value>
+  </data>
+  <data name="DE" xml:space="preserve">
+    <value>Debugging Extension</value>
+  </data>
+  <data name="DS" xml:space="preserve">
+    <value>Debug Store</value>
+  </data>
+  <data name="DS-CPL" xml:space="preserve">
+    <value>CPL Qualified Debug Store</value>
+  </data>
+  <data name="DTES64" xml:space="preserve">
+    <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
+  </data>
+  <data name="EIST" xml:space="preserve">
+    <value>Enhanced Intel SpeedStep(R) Technology</value>
+  </data>
+  <data name="F16C" xml:space="preserve">
+    <value>16-bit floating-point conversion instructions</value>
+  </data>
+  <data name="FAST REP MOV" xml:space="preserve">
+    <value>Fast REP MOV</value>
+  </data>
+  <data name="FDP_EXCPTN_ONLY" xml:space="preserve">
+    <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
+  </data>
+  <data name="FMA" xml:space="preserve">
+    <value>Fused Multiply Add</value>
+  </data>
+  <data name="FPU" xml:space="preserve">
+    <value>Floating-point Unit On-Chip</value>
+  </data>
+  <data name="FPU-CS DEP" xml:space="preserve">
+    <value>Deprecates FPU CS and FPU DS values</value>
+  </data>
+  <data name="FSGSBASE" xml:space="preserve">
+    <value>RDFSBASE/RDGSBSAE/WRFSBASE/WRGSBASE instructions</value>
+  </data>
+  <data name="FXSR" xml:space="preserve">
+    <value>FXSAVE and FXSTOR instructions</value>
+  </data>
+  <data name="GFNI" xml:space="preserve">
+    <value>AVX Galois Field instructions</value>
+  </data>
+  <data name="HLE" xml:space="preserve">
+    <value>Hardware lock elision instructions</value>
+  </data>
+  <data name="HTT" xml:space="preserve">
+    <value>Multi-Threading</value>
+  </data>
+  <data name="HYBRID" xml:space="preserve">
+    <value>Processor identified as a hybrid part</value>
+  </data>
+  <data name="IA32_ARCH_CAPABILITIES" xml:space="preserve">
+    <value>IA32_ARCH_CAPABILITIES MSR supported, CPU specific</value>
+  </data>
+  <data name="IA32_CORE_CAPABILITIES" xml:space="preserve">
+    <value>IA32_CORE_CAPABILITIES MSR supported, CPU specific</value>
+  </data>
+  <data name="IA32_TSC_ADJUST" xml:space="preserve">
+    <value>IA32_TSC_ADJUST MSR</value>
+  </data>
+  <data name="IA64" xml:space="preserve">
+    <value>Intel(R) 64 Instruction Set Architecture</value>
+  </data>
+  <data name="IBRS/IBPB" xml:space="preserve">
+    <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
+  </data>
+  <data name="INVPCID" xml:space="preserve">
+    <value>INVPCID instruction for system software that manages process-context identifiers</value>
+  </data>
+  <data name="L1D_FLUSH" xml:space="preserve">
+    <value>IA32_FLUSH_CMD MSR supported</value>
+  </data>
+  <data name="LAHF" xml:space="preserve">
+    <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
+  </data>
+  <data name="LZCNT" xml:space="preserve">
+    <value>LZCNT (count leading zero bits) instruction</value>
+  </data>
+  <data name="MCA" xml:space="preserve">
+    <value>Machine-Check Architecture</value>
+  </data>
+  <data name="MCE" xml:space="preserve">
+    <value>Machine-Check Exception</value>
+  </data>
+  <data name="MD_CLEAR" xml:space="preserve">
+    <value>MD_CLEAR supported</value>
+  </data>
+  <data name="MMX" xml:space="preserve">
+    <value>MMX Technologies</value>
+  </data>
+  <data name="MONITOR" xml:space="preserve">
+    <value>MONITOR and MWAIT instructions</value>
+  </data>
+  <data name="MOVBE" xml:space="preserve">
+    <value>MOVBE instruction</value>
+  </data>
+  <data name="MOVDIR64B" xml:space="preserve">
+    <value>MOVDIR64B instruction</value>
+  </data>
+  <data name="MOVDIRI" xml:space="preserve">
+    <value>MOVDIRI instruction</value>
+  </data>
+  <data name="MPX" xml:space="preserve">
+    <value>Intel(R) Memory Protection Extensions</value>
+  </data>
+  <data name="MSR" xml:space="preserve">
+    <value>Model Specific Registers</value>
+  </data>
+  <data name="MTRR" xml:space="preserve">
+    <value>Memory Type Range Registers</value>
+  </data>
+  <data name="OSPKE" xml:space="preserve">
+    <value>OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions)</value>
+  </data>
+  <data name="OSXSAVE" xml:space="preserve">
+    <value>OS-Enabled Extended State Management</value>
+  </data>
+  <data name="PAE" xml:space="preserve">
+    <value>Physical Address Extension</value>
+  </data>
+  <data name="PAT" xml:space="preserve">
+    <value>Page Attribute Table</value>
+  </data>
+  <data name="PBE" xml:space="preserve">
+    <value>Pending Break Enable</value>
+  </data>
+  <data name="PCID" xml:space="preserve">
+    <value>Process Context Identifiers</value>
+  </data>
+  <data name="PCLMULQDQ" xml:space="preserve">
+    <value>PCLMULQDQ Instruction</value>
+  </data>
+  <data name="PDCM" xml:space="preserve">
+    <value>Perfmon and Debug Capability</value>
+  </data>
+  <data name="PGE" xml:space="preserve">
+    <value>Page Global Enable</value>
+  </data>
+  <data name="PKS" xml:space="preserve">
+    <value>Protection keys for supervisor-mode pages</value>
+  </data>
+  <data name="PKU" xml:space="preserve">
+    <value>Protection Keys for User Mode</value>
+  </data>
+  <data name="POPCNT" xml:space="preserve">
+    <value>POPCNT instruction</value>
+  </data>
+  <data name="PREFETCHW" xml:space="preserve">
+    <value>Prefetch data into caches in anticipation of a write</value>
+  </data>
+  <data name="PREFETCHWT1" xml:space="preserve">
+    <value>Prefetch data into caches in anticipation of a write, with T1 hint. Intel(R) Xeon Phi(TM) only</value>
+  </data>
+  <data name="PROCTRC" xml:space="preserve">
+    <value>Intel Processor Trace</value>
+  </data>
+  <data name="PSE" xml:space="preserve">
+    <value>Page Size Extension</value>
+  </data>
+  <data name="PSE-36" xml:space="preserve">
+    <value>36-bit Page Size Extension</value>
+  </data>
+  <data name="PSN" xml:space="preserve">
+    <value>Processor Serial Number is present and enabled</value>
+  </data>
+  <data name="RDPID" xml:space="preserve">
+    <value>RPID and IA32_TSX_AUX</value>
+  </data>
+  <data name="RDRAND" xml:space="preserve">
+    <value>RDRAND (read random number) instruction</value>
+  </data>
+  <data name="RDSEED" xml:space="preserve">
+    <value>RDSEED (read random seed) instruction</value>
+  </data>
+  <data name="RDT-A" xml:space="preserve">
+    <value>Intel(R) Resource Director Technology Allocation</value>
+  </data>
+  <data name="RDT-M" xml:space="preserve">
+    <value>Intel(R) Resource Director Technology Monitoring</value>
+  </data>
+  <data name="RDTSCP" xml:space="preserve">
+    <value>RDTSCP and IA32_TSX_AUX supported</value>
+  </data>
+  <data name="REP MOVSB/STOSB" xml:space="preserve">
+    <value>Enhanded REP MOVSB/STOSB</value>
+  </data>
+  <data name="RTM" xml:space="preserve">
+    <value>RTM transaction</value>
+  </data>
+  <data name="SDBG" xml:space="preserve">
+    <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
+  </data>
+  <data name="SEP" xml:space="preserve">
+    <value>Fast System Call</value>
+  </data>
+  <data name="SGX" xml:space="preserve">
+    <value>Intel(R) Software Guard Extensions</value>
+  </data>
+  <data name="SGX_LC" xml:space="preserve">
+    <value>SGX Launch Configuration</value>
+  </data>
+  <data name="SHA" xml:space="preserve">
+    <value>Intel(R) Secure Hash Algorithm Extensions</value>
+  </data>
+  <data name="SMAP" xml:space="preserve">
+    <value>Supervisor Mode Access Prevention</value>
+  </data>
+  <data name="SMEP" xml:space="preserve">
+    <value>Supervisor Mode Execution Prevention</value>
+  </data>
+  <data name="SMX" xml:space="preserve">
+    <value>Safer Mode Extensions</value>
+  </data>
+  <data name="SS" xml:space="preserve">
+    <value>Self Snoop</value>
+  </data>
+  <data name="SSBD" xml:space="preserve">
+    <value>Speculative Store Bypass Disable (SSBD)</value>
+  </data>
+  <data name="SSE" xml:space="preserve">
+    <value>Streaming SIMD Extensions</value>
+  </data>
+  <data name="SSE2" xml:space="preserve">
+    <value>Streaming SIMD Extensions 2</value>
+  </data>
+  <data name="SSE3" xml:space="preserve">
+    <value>Streaming SIMD Extensions 3</value>
+  </data>
+  <data name="SSE4.1" xml:space="preserve">
+    <value>Streaming SIMD Extensions 4.1</value>
+  </data>
+  <data name="SSE4.2" xml:space="preserve">
+    <value>Streaming SIMD Extensions 4.2</value>
+  </data>
+  <data name="SSSE3" xml:space="preserve">
+    <value>Supplemental Streaming SIMD Extensions 3</value>
+  </data>
+  <data name="STIBP" xml:space="preserve">
+    <value>Single thread indirect branch predictors (STIBP)</value>
+  </data>
+  <data name="SYSCALL" xml:space="preserve">
+    <value>SYSCALL and SYSRET instructions are supported</value>
+  </data>
+  <data name="TM" xml:space="preserve">
+    <value>Thermal Monitor</value>
+  </data>
+  <data name="TM2" xml:space="preserve">
+    <value>Thermal Monitor 2</value>
+  </data>
+  <data name="TSC" xml:space="preserve">
+    <value>Time Stamp Counter</value>
+  </data>
+  <data name="TSC-DEADLINE" xml:space="preserve">
+    <value>Time Stamp Counter Deadline</value>
+  </data>
+  <data name="UMIP" xml:space="preserve">
+    <value>User-mode Instruction Prevention</value>
+  </data>
+  <data name="VAES" xml:space="preserve">
+    <value>AES 128-bit on vectored data 256bit registers</value>
+  </data>
+  <data name="VME" xml:space="preserve">
+    <value>Virtual Mode Extension</value>
+  </data>
+  <data name="VMX" xml:space="preserve">
+    <value>Virtual Maxhine Extensions</value>
+  </data>
+  <data name="VPCLMULQDQ" xml:space="preserve">
+    <value>VPCLMULQDQ Instruction</value>
+  </data>
+  <data name="WAITPKG" xml:space="preserve">
+    <value>Wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
+  </data>
+  <data name="X2APIC" xml:space="preserve">
+    <value>Extended APIC support</value>
+  </data>
+  <data name="XD" xml:space="preserve">
+    <value>Execution Disable bit</value>
+  </data>
+  <data name="XSAVE" xml:space="preserve">
+    <value>XSAVE/XSTOR states</value>
+  </data>
+  <data name="XTPR" xml:space="preserve">
+    <value>xTPR Update Control</value>
+  </data>
+</root>

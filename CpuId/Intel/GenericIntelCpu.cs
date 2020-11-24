@@ -10,6 +10,7 @@
         internal GenericIntelCpu(BasicCpu cpu)
         {
             m_Cpu = cpu;
+            Features = new CpuFeatures();
         }
 
         /// <inheritdoc/>
@@ -53,5 +54,8 @@
 
         /// <inheritdoc/>
         public int ApicMaxThreads { get; protected set; }
+
+        /// <inheritdoc/>
+        public CpuFeatures Features { get; private set; }
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpuIdFactory.cs" />
+    <Compile Include="CpuFeatures.cs" />
     <Compile Include="Intel\CpuIdRegister.cs" />
     <Compile Include="Intel\CpuRegisters.cs" />
     <Compile Include="CpuVendor.cs" />
@@ -51,6 +52,11 @@
     <Compile Include="Intel\GenuineIntelCpu.cs" />
     <Compile Include="Intel\ICpuIdX86.cs" />
     <Compile Include="Intel\IntelLegacySignatures.cs" />
+    <Compile Include="Resources\CpuFeatures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CpuFeatures.resx</DependentUpon>
+    </Compile>
     <Compile Include="WindowsCpuIdFactory.cs" />
     <Compile Include="Intel\X86CpuIdFactory.cs" />
     <Compile Include="ICpuId.cs" />
@@ -76,6 +82,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CpuFeatures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CpuFeatures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

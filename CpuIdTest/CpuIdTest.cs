@@ -30,6 +30,11 @@
                         reg.Function, reg.SubFunction, reg.Result[0], reg.Result[1], reg.Result[2], reg.Result[3]);
                 }
             }
+
+            foreach (string feature in cpu.Features) {
+                Console.WriteLine("Feature: [{0}] {1} ({2})",
+                    cpu.Features[feature] ? "X" : "-", feature, cpu.Features.Description(feature));
+            }
         }
     }
 }
