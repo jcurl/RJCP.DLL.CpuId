@@ -60,28 +60,29 @@ namespace RJCP.Diagnostics.CpuIdWin
 
         private void mnuFileSave_Click(object sender, EventArgs e)
         {
-#if OFFLINE_CPUID
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.AddExtension = true;
-            dlg.AutoUpgradeEnabled = true;
-            dlg.CheckPathExists = true;
-            dlg.DefaultExt = "xml";
-            dlg.OverwritePrompt = true;
-            dlg.Title = "Save CPUID information";
-            dlg.FileName = System.Environment.MachineName;
-            dlg.ValidateNames = true;
-            dlg.ShowDialog();
+            if (m_CpuId is Intel.GenericIntelCpuBase x86cpu) {
+                SaveFileDialog dlg = new SaveFileDialog {
+                    AddExtension = true,
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                    DefaultExt = "xml",
+                    OverwritePrompt = true,
+                    Title = "Save CPUID information",
+                    FileName = Environment.MachineName.ToLowerInvariant(),
+                    ValidateNames = true
+                };
+                dlg.ShowDialog();
 
-            if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
-            try {
-                m_CpuId.Save(dlg.FileName);
-            } catch (Exception ex) {
-                string message = string.Format("Error saving file: {0}", ex.Message);
-                MessageBox.Show(message, "Error Saving File");
+                if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
+
+                try {
+                    x86cpu.Save(dlg.FileName);
+                } catch (Exception ex) {
+                    string message = string.Format("Error saving file: {0}", ex.Message);
+                    MessageBox.Show(message, "Error Saving File");
+                }
             }
-#else
-            // Not yet supported
-#endif
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)
