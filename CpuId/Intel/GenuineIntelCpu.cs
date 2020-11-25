@@ -139,7 +139,7 @@
             }
 
             // If 3 fails; Check processor signature (table 5.3, 5.4) and section 5.1.3
-            return IntelLegacySignatures.GetType(m_ExtendedFamily, m_ExtendedModel, m_ProcessorType, m_FamilyCode, m_ModelNumber, m_SteppingId);
+            return IntelLegacySignatures.GetType(m_ExtendedFamily, m_ExtendedModel, m_ProcessorType, m_FamilyCode, m_ModelNumber);
         }
 
         private void WriteDescription(StringBuilder brand, CpuIdRegister register)

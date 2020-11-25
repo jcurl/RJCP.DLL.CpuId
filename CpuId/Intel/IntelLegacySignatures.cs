@@ -62,7 +62,7 @@
             [0x006] = "Pentium 4, Pentium D, Pentium Extreme, Xeon, Xeon MP, Celeron D, Model 06h, 65nm",
         };
 
-        public static string GetType(int extfamily, int extmodel, int type, int family, int model, int stepping)
+        public static string GetType(int extfamily, int extmodel, int type, int family, int model)
         {
             if (extfamily != 0) return string.Empty;
             switch (family) {
