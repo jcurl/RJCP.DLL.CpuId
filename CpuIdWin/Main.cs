@@ -31,23 +31,22 @@ namespace RJCP.Diagnostics.CpuIdWin
 
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
-#if OFFLINE_CPUID
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.CheckFileExists = true;
-            dlg.AutoUpgradeEnabled = true;
-            dlg.Filter = "CPUID Dumps (*.xml)|*.xml";
-            dlg.Title = "Open CPUID information";
+            OpenFileDialog dlg = new OpenFileDialog {
+                CheckFileExists = true,
+                AutoUpgradeEnabled = true,
+                Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                Title = "Open CPUID information"
+            };
             dlg.ShowDialog();
 
             if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
             try {
-                m_CpuId = new CpuId(dlg.FileName);
+                m_CpuId = Global.CpuXmlFactory.Create(dlg.FileName);
             } catch (Exception ex) {
                 string message = string.Format("Error opening file: {0}", ex.Message);
                 MessageBox.Show(message, "Error opening File");
                 return;
             }
-#endif
 
             UpdateForm();
         }

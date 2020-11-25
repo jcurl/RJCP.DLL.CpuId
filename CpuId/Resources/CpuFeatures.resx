@@ -406,7 +406,7 @@
     <value>RDTSCP and IA32_TSX_AUX supported</value>
   </data>
   <data name="REP MOVSB/STOSB" xml:space="preserve">
-    <value>Enhanded REP MOVSB/STOSB</value>
+    <value>Enhanced REP MOVSB/STOSB</value>
   </data>
   <data name="RTM" xml:space="preserve">
     <value>RTM transaction</value>

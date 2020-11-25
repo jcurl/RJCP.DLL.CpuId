@@ -1,19 +1,46 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
+    using System.Xml;
+
     internal class BasicCpu
     {
         private const int VendorIdFunction = 0;
         private const int ExtendedFunction = unchecked((int)0x80000000);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BasicCpu"/> class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor reads all CPU information from the current CPU node.
+        /// </remarks>
         public BasicCpu()
         {
-            CpuRegisters = new CpuRegisters();
+            Initialize(new CpuRegisters());
+        }
 
-            CpuIdRegister vendorFunction = CpuRegisters.GetCpuId(VendorIdFunction, 0);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BasicCpu"/> class.
+        /// </summary>
+        /// <param name="node">The XML node containing the CPUID information.</param>
+        /// <remarks>
+        /// This method is used to load all CPUID information from a XML file.
+        /// </remarks>
+        public BasicCpu(XmlNode node)
+        {
+            Initialize(new CpuXmlRegisters(node));
+        }
+
+        private void Initialize(ICpuRegisters register)
+        {
+            CpuRegisters = register;
+
+            CpuIdRegister vendorFunction = register.GetCpuId(VendorIdFunction, 0);
+            if (vendorFunction == null) return;
             FunctionCount = vendorFunction.Result[0];
             VendorId = GetVendorId(vendorFunction);
 
-            CpuIdRegister extendedFunction = CpuRegisters.GetCpuId(ExtendedFunction, 0);
+            CpuIdRegister extendedFunction = register.GetCpuId(ExtendedFunction, 0);
+            if (extendedFunction == null) return;
             if ((extendedFunction.Result[0] & ExtendedFunction) != 0)
                 ExtendedFunctionCount = extendedFunction.Result[0] & 0x7FFFFFFF;
         }

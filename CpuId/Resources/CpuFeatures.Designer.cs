@@ -925,7 +925,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enhanded REP MOVSB/STOSB.
+        ///   Looks up a localized string similar to Enhanced REP MOVSB/STOSB.
         /// </summary>
         internal static string REP_MOVSB_STOSB {
             get {

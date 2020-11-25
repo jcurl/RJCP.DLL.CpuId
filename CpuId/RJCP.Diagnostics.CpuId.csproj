@@ -39,11 +39,13 @@
   <ItemGroup>
     <Compile Include="CpuIdFactory.cs" />
     <Compile Include="CpuFeatures.cs" />
+    <Compile Include="CpuIdXmlFactory.cs" />
     <Compile Include="Intel\CpuIdRegister.cs" />
     <Compile Include="Intel\CpuRegisters.cs" />
     <Compile Include="CpuVendor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Intel\BasicCpu.cs" />
+    <Compile Include="Intel\CpuXmlRegisters.cs" />
     <Compile Include="Intel\GenericIntelCpu.cs" />
     <Compile Include="Intel\GenericIntelCpuBase.cs" />
     <Compile Include="Intel\GenuineIntelCpu.cs" />

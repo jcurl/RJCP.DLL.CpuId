@@ -406,7 +406,6 @@
             // 
             // mnuFileOpen
             // 
-            this.mnuFileOpen.Enabled = false;
             this.mnuFileOpen.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileOpen.Image")));
             this.mnuFileOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mnuFileOpen.Name = "mnuFileOpen";

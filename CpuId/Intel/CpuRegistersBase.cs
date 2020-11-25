@@ -37,7 +37,10 @@
             CpuIdRegister result;
             int lastRegisterIndex = m_NextRegisterIndex;
             do {
-                if (m_NextRegisterIndex == m_CurrentRegisterList.Count) m_NextRegisterIndex = 0;
+                if (m_NextRegisterIndex == m_CurrentRegisterList.Count) {
+                    if (lastRegisterIndex == 0) return null;
+                    m_NextRegisterIndex = 0;
+                }
                 result = m_CurrentRegisterList[m_NextRegisterIndex];
                 m_NextRegisterIndex++;
 
