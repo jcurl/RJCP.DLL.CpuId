@@ -160,7 +160,7 @@ namespace RJCP.Diagnostics.CpuIdWin
             ListViewGroup lvg;
             ListViewGroup lvgs = lstCpuIdRegisters.Groups["lvgStandardFunctions"];
             ListViewGroup lvge = lstCpuIdRegisters.Groups["lvgExtendedFunctions"];
-            foreach (Intel.CpuIdRegister reg in cpu.Registers.Registers) {
+            foreach (Intel.CpuIdRegister reg in cpu.Registers) {
                 if ((reg.Function & (1 << 31)) == 0) {
                     lvg = lvgs;
                 } else {

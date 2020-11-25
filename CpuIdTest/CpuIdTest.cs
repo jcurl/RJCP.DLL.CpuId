@@ -28,7 +28,7 @@
                     Console.WriteLine("Intel: Max Threads / Package: {0}", intelCpu.ApicMaxThreads);
                 }
 
-                foreach (var reg in x86cpu.Registers.Registers) {
+                foreach (var reg in x86cpu.Registers) {
                     Console.WriteLine("{0:X8} {1:X8}: {2:X8} {3:X8} {4:X8} {5:X8}",
                         reg.Function, reg.SubFunction, reg.Result[0], reg.Result[1], reg.Result[2], reg.Result[3]);
                 }

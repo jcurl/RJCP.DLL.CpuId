@@ -103,7 +103,7 @@
 
         private void WriteRegisters(XmlWriter xmlWriter)
         {
-            foreach (CpuIdRegister register in Registers.Registers) {
+            foreach (CpuIdRegister register in Registers) {
                 xmlWriter.WriteStartElement("register");
                 xmlWriter.WriteAttributeString("eax", register.Function.ToString("X8"));
                 xmlWriter.WriteAttributeString("ecx", register.SubFunction.ToString("X8"));

@@ -1,6 +1,7 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
 
     internal abstract class CpuRegistersBase : ICpuRegisters
@@ -63,9 +64,14 @@
             m_RegisterList.Add(result);
         }
 
-        public IEnumerable<CpuIdRegister> Registers
+        public IEnumerator<CpuIdRegister> GetEnumerator()
         {
-            get { return m_RegisterList; }
+            return m_RegisterList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

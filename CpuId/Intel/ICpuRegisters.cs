@@ -5,7 +5,7 @@
     /// <summary>
     /// Access to the CPU's Identification Registers.
     /// </summary>
-    public interface ICpuRegisters
+    public interface ICpuRegisters : IEnumerable<CpuIdRegister>
     {
         /// <summary>
         /// Call the CPU Identification Register function.
@@ -14,11 +14,5 @@
         /// <param name="subfunction">The sub-function number.</param>
         /// <returns>The results of the function call.</returns>
         CpuIdRegister GetCpuId(int function, int subfunction);
-
-        /// <summary>
-        /// Access to the CPUID registers
-        /// </summary>
-        /// <value>The CPUID registers.</value>
-        IEnumerable<CpuIdRegister> Registers { get; }
     }
 }
