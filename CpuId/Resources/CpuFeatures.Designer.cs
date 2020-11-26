@@ -70,6 +70,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 5 Level Paging.
+        /// </summary>
+        internal static string _5L_PAGE {
+            get {
+                return ResourceManager.GetString("5L_PAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thermal Monitoring and Software Controlled Clock Facilities.
         /// </summary>
         internal static string ACPI {
@@ -79,7 +88,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADCX (unsigned integer addition with carry flag) instruction.
+        ///   Looks up a localized string similar to Multi-Precision Add-Carry Instruction Extensions.
         /// </summary>
         internal static string ADX {
             get {
@@ -97,7 +106,34 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On-chip APIC hardware.
+        ///   Looks up a localized string similar to Tile computation on bfloat16 numbers.
+        /// </summary>
+        internal static string AMX_BF16 {
+            get {
+                return ResourceManager.GetString("AMX_BF16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tile computation on 8-bit integers.
+        /// </summary>
+        internal static string AMX_INT8 {
+            get {
+                return ResourceManager.GetString("AMX_INT8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tile architecture.
+        /// </summary>
+        internal static string AMX_TILE {
+            get {
+                return ResourceManager.GetString("AMX_TILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On-chip Advanced Programmable Interrupt Controller hardware.
         /// </summary>
         internal static string APIC {
             get {
@@ -124,7 +160,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 packed single precision fused multiply add instructions. Intel(R) Xeon Phi(TM) only.
+        ///   Looks up a localized string similar to AVX512 packed single precision fused multiply add instructions.
         /// </summary>
         internal static string AVX512_4FMAPS {
             get {
@@ -133,11 +169,20 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 dotproduct multiplication instructions. Intel(R) Xeon Phi(TM) only.
+        ///   Looks up a localized string similar to AVX512 4-register neural network instructions.
         /// </summary>
-        internal static string AVX512_4VNNIW {
+        internal static string AVX512_4NNIW {
             get {
-                return ResourceManager.GetString("AVX512_4VNNIW", resourceCulture);
+                return ResourceManager.GetString("AVX512_4NNIW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AVX512 bfloat16 instructions.
+        /// </summary>
+        internal static string AVX512_BF16 {
+            get {
+                return ResourceManager.GetString("AVX512_BF16", resourceCulture);
             }
         }
         
@@ -151,11 +196,20 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 Fuse Multiply Add instructions.
+        ///   Looks up a localized string similar to AVX512 Integer Fuse Multiply Add instructions.
         /// </summary>
         internal static string AVX512_IFMA {
             get {
                 return ResourceManager.GetString("AVX512_IFMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AVX512 population count double/quad word instructions.
+        /// </summary>
+        internal static string AVX512_POPCNTDQ {
+            get {
+                return ResourceManager.GetString("AVX512_POPCNTDQ", resourceCulture);
             }
         }
         
@@ -178,7 +232,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 multiply and add instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS).
+        ///   Looks up a localized string similar to AVX512 neural network instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS).
         /// </summary>
         internal static string AVX512_VNNI {
             get {
@@ -187,16 +241,16 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 instructions VPOPCNTDQ. Intel(R) Xeon Phi(TM) only.
+        ///   Looks up a localized string similar to AVX512 VP2INTERSECT double/quad word instructions.
         /// </summary>
-        internal static string AVX512_VPOPCNTDQ {
+        internal static string AVX512_VP2INTERSECT {
             get {
-                return ResourceManager.GetString("AVX512_VPOPCNTDQ", resourceCulture);
+                return ResourceManager.GetString("AVX512_VP2INTERSECT", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 32/64-bit vector mask instructions.
+        ///   Looks up a localized string similar to AVX512 byte and word instructions.
         /// </summary>
         internal static string AVX512BW {
             get {
@@ -205,7 +259,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 change detection, broadcast mask instructions.
+        ///   Looks up a localized string similar to AVX512 conflict detection, broadcast mask instructions.
         /// </summary>
         internal static string AVX512CD {
             get {
@@ -214,7 +268,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 16-bit vector mask instructions.
+        ///   Looks up a localized string similar to AVX512 double/quadword instructions.
         /// </summary>
         internal static string AVX512DQ {
             get {
@@ -223,7 +277,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 approximate exponential instructions. Intel(R) Xeon Phi(TM) only.
+        ///   Looks up a localized string similar to AVX512 approximate exponential and reciprocal instructions.
         /// </summary>
         internal static string AVX512ER {
             get {
@@ -232,7 +286,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 8-bit vector mask instructions.
+        ///   Looks up a localized string similar to AVX512 foundation instructions.
         /// </summary>
         internal static string AVX512F {
             get {
@@ -241,7 +295,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 prefetch instructions. Intel(R) Xeon Phi(TM) only.
+        ///   Looks up a localized string similar to AVX512 prefetch instructions.
         /// </summary>
         internal static string AVX512PF {
             get {
@@ -250,7 +304,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AVX512 vector x/y instructions.
+        ///   Looks up a localized string similar to AVX512 vector length instructions.
         /// </summary>
         internal static string AVX512VL {
             get {
@@ -286,7 +340,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Supports CET shadow stack features.
+        ///   Looks up a localized string similar to Control flow enforcement (CET) shadow stack features.
         /// </summary>
         internal static string CET_SS {
             get {
@@ -304,7 +358,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CLFLUSHOPT (flush cache line optimized) instruction.
+        ///   Looks up a localized string similar to CLFLUSHOPT (flush cache line optimized) instruction, support persistent memory programming.
         /// </summary>
         internal static string CLFLUSHOPT {
             get {
@@ -322,7 +376,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CLWB (Cache line write back) instruction.
+        ///   Looks up a localized string similar to CLWB (Cache line write back) instruction, support persistent memory programming.
         /// </summary>
         internal static string CLWB {
             get {
@@ -367,7 +421,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Direct Cache Access.
+        ///   Looks up a localized string similar to Direct Cache Access for DMA writes.
         /// </summary>
         internal static string DCA {
             get {
@@ -376,7 +430,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debugging Extension.
+        ///   Looks up a localized string similar to Debugging Extensions.
         /// </summary>
         internal static string DE {
             get {
@@ -385,7 +439,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debug Store.
+        ///   Looks up a localized string similar to Debug Store, trace of executed jumps.
         /// </summary>
         internal static string DS {
             get {
@@ -421,20 +475,29 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 16-bit floating-point conversion instructions.
+        ///   Looks up a localized string similar to Enqueue Stores.
         /// </summary>
-        internal static string F16C {
+        internal static string ENQCMD {
             get {
-                return ResourceManager.GetString("F16C", resourceCulture);
+                return ResourceManager.GetString("ENQCMD", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fast REP MOV.
+        ///   Looks up a localized string similar to Enhanced REP MOVSB/STOSB.
         /// </summary>
-        internal static string FAST_REP_MOV {
+        internal static string ERMS {
             get {
-                return ResourceManager.GetString("FAST REP MOV", resourceCulture);
+                return ResourceManager.GetString("ERMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 16-bit floating-point conversion (half precision) instructions.
+        /// </summary>
+        internal static string F16C {
+            get {
+                return ResourceManager.GetString("F16C", resourceCulture);
             }
         }
         
@@ -448,7 +511,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fused Multiply Add.
+        ///   Looks up a localized string similar to Fused Multiply Add (FMA3).
         /// </summary>
         internal static string FMA {
             get {
@@ -475,11 +538,20 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RDFSBASE/RDGSBSAE/WRFSBASE/WRGSBASE instructions.
+        ///   Looks up a localized string similar to Read/Write register FS/GS instructions.
         /// </summary>
         internal static string FSGSBASE {
             get {
                 return ResourceManager.GetString("FSGSBASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast short REP MOV.
+        /// </summary>
+        internal static string FSRM {
+            get {
+                return ResourceManager.GetString("FSRM", resourceCulture);
             }
         }
         
@@ -502,7 +574,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hardware lock elision instructions.
+        ///   Looks up a localized string similar to TSX Hardware lock elision instructions.
         /// </summary>
         internal static string HLE {
             get {
@@ -529,7 +601,25 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IA32_ARCH_CAPABILITIES MSR supported, CPU specific.
+        ///   Looks up a localized string similar to CPU is running in Hypervisor mode.
+        /// </summary>
+        internal static string HYPERVISOR {
+            get {
+                return ResourceManager.GetString("HYPERVISOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel(R) 64 Instruction Set Architecture.
+        /// </summary>
+        internal static string IA32_64 {
+            get {
+                return ResourceManager.GetString("IA32_64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speculative Side Channel mitigates, IA32_ARCH_CAPABILITIES MSR supported, CPU specific.
         /// </summary>
         internal static string IA32_ARCH_CAPABILITIES {
             get {
@@ -538,7 +628,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IA32_CORE_CAPABILITIES MSR supported, CPU specific.
+        ///   Looks up a localized string similar to Support for a MSR listing model-specific core capabilities, IA32_CORE_CAPABILITIES MSR supported, CPU specific.
         /// </summary>
         internal static string IA32_CORE_CAPABILITIES {
             get {
@@ -556,7 +646,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Intel(R) 64 Instruction Set Architecture.
+        ///   Looks up a localized string similar to IA64 processor emulating in x86 mode.
         /// </summary>
         internal static string IA64 {
             get {
@@ -569,7 +659,16 @@ namespace RJCP.Diagnostics.Resources {
         /// </summary>
         internal static string IBRS_IBPB {
             get {
-                return ResourceManager.GetString("IBRS/IBPB", resourceCulture);
+                return ResourceManager.GetString("IBRS_IBPB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel Processor Trace.
+        /// </summary>
+        internal static string INTEL_PT {
+            get {
+                return ResourceManager.GetString("INTEL_PT", resourceCulture);
             }
         }
         
@@ -597,6 +696,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string LAHF {
             get {
                 return ResourceManager.GetString("LAHF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Architectural Last Branch Records.
+        /// </summary>
+        internal static string LBR {
+            get {
+                return ResourceManager.GetString("LBR", resourceCulture);
             }
         }
         
@@ -637,7 +745,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MMX Technologies.
+        ///   Looks up a localized string similar to MMX Technologies, Multimedia Extensions.
         /// </summary>
         internal static string MMX {
             get {
@@ -655,7 +763,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MOVBE instruction.
+        ///   Looks up a localized string similar to MOVBE (big-endian) instruction.
         /// </summary>
         internal static string MOVBE {
             get {
@@ -772,6 +880,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Persistent Memory PCOMMIT instruction (deprecated, hardware manufacturers support ADR - Asynchronous DRAM refresh).
+        /// </summary>
+        internal static string PCOMMIT {
+            get {
+                return ResourceManager.GetString("PCOMMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform configuration (Memory Encryption Technologies instructions).
+        /// </summary>
+        internal static string PCONFIG {
+            get {
+                return ResourceManager.GetString("PCONFIG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perfmon and Debug Capability.
         /// </summary>
         internal static string PDCM {
@@ -781,7 +907,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Global Enable.
+        ///   Looks up a localized string similar to Page Global Enable bit in CR4.
         /// </summary>
         internal static string PGE {
             get {
@@ -799,7 +925,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protection Keys for User Mode.
+        ///   Looks up a localized string similar to Protection Keys for user-mode pages.
         /// </summary>
         internal static string PKU {
             get {
@@ -808,7 +934,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to POPCNT instruction.
+        ///   Looks up a localized string similar to POPCNT, population count, instruction.
         /// </summary>
         internal static string POPCNT {
             get {
@@ -831,15 +957,6 @@ namespace RJCP.Diagnostics.Resources {
         internal static string PREFETCHWT1 {
             get {
                 return ResourceManager.GetString("PREFETCHWT1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Intel Processor Trace.
-        /// </summary>
-        internal static string PROCTRC {
-            get {
-                return ResourceManager.GetString("PROCTRC", resourceCulture);
             }
         }
         
@@ -871,7 +988,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RPID and IA32_TSX_AUX.
+        ///   Looks up a localized string similar to Read Processor ID and IA32_TSX_AUX.
         /// </summary>
         internal static string RDPID {
             get {
@@ -880,7 +997,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RDRAND (read random number) instruction.
+        ///   Looks up a localized string similar to On-chip random number generator, RDRAND instruction.
         /// </summary>
         internal static string RDRAND {
             get {
@@ -925,16 +1042,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enhanced REP MOVSB/STOSB.
-        /// </summary>
-        internal static string REP_MOVSB_STOSB {
-            get {
-                return ResourceManager.GetString("REP MOVSB/STOSB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RTM transaction.
+        ///   Looks up a localized string similar to TSX restricted transactional memory.
         /// </summary>
         internal static string RTM {
             get {
@@ -952,11 +1060,20 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fast System Call.
+        ///   Looks up a localized string similar to Fast System Call, SYSENTER and SYSEXIT instructions.
         /// </summary>
         internal static string SEP {
             get {
                 return ResourceManager.GetString("SEP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serialize instruction execution.
+        /// </summary>
+        internal static string SERIALIZE {
+            get {
+                return ResourceManager.GetString("SERIALIZE", resourceCulture);
             }
         }
         
@@ -1011,6 +1128,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string SMX {
             get {
                 return ResourceManager.GetString("SMX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special register buffer data sampling mitigations.
+        /// </summary>
+        internal static string SRBDS_CTRL {
+            get {
+                return ResourceManager.GetString("SRBDS_CTRL", resourceCulture);
             }
         }
         
@@ -1132,11 +1258,29 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time Stamp Counter Deadline.
+        ///   Looks up a localized string similar to Time Stamp Counter Deadline supported by APIC.
         /// </summary>
         internal static string TSC_DEADLINE {
             get {
                 return ResourceManager.GetString("TSC-DEADLINE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        internal static string TSX_FORCE_ABORT {
+            get {
+                return ResourceManager.GetString("TSX_FORCE_ABORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TSX suspend load address tracking.
+        /// </summary>
+        internal static string TSXLDTRK {
+            get {
+                return ResourceManager.GetString("TSXLDTRK", resourceCulture);
             }
         }
         
@@ -1150,7 +1294,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AES 128-bit on vectored data 256bit registers.
+        ///   Looks up a localized string similar to Vectored AES 128-bit on vectored data 256bit registers.
         /// </summary>
         internal static string VAES {
             get {
@@ -1159,7 +1303,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Virtual Mode Extension.
+        ///   Looks up a localized string similar to Virtual 8086 Mode Extensions.
         /// </summary>
         internal static string VME {
             get {
@@ -1168,7 +1312,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Virtual Maxhine Extensions.
+        ///   Looks up a localized string similar to Virtual Machine Extensions.
         /// </summary>
         internal static string VMX {
             get {
@@ -1177,7 +1321,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VPCLMULQDQ Instruction.
+        ///   Looks up a localized string similar to Vectored VPCLMULQDQ Instruction.
         /// </summary>
         internal static string VPCLMULQDQ {
             get {
@@ -1186,7 +1330,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wait (TPAUSE, UMONITOR, UMWAIT) instructions.
+        ///   Looks up a localized string similar to User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions.
         /// </summary>
         internal static string WAITPKG {
             get {
@@ -1222,7 +1366,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xTPR Update Control.
+        ///   Looks up a localized string similar to xTPR Update Control, disable sending task priority messages.
         /// </summary>
         internal static string XTPR {
             get {

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cpuid>
+	<processor type="x86">
+		<register eax="00000000" ecx="00000000">00000000,756E6547,6C65746E,49656E69</register>
+		<register eax="80000000" ecx="00000000">00000000,00000000,00000000,00000000</register>
+		<register eax="00000001" ecx="00000000">000906ED,02100800,7FFAFBFF,BFEBFBFF</register>
+	</processor>
+</cpuid>

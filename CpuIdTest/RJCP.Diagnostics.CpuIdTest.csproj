@@ -43,16 +43,86 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpuIdTest.cs" />
+    <Compile Include="Intel\GenericIntelCpuTest.cs" />
+    <Compile Include="Intel\GenuineIntelCpuTest.cs" />
+    <Compile Include="Intel\GenuineIntelFakeCpuTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\nunitextensions\CodeQuality\RJCP.CodeQuality.csproj">
+      <Project>{a4d356f2-15ac-4ffe-b0c4-1d3d0973a124}</Project>
+      <Name>RJCP.CodeQuality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CpuId\RJCP.Diagnostics.CpuId.csproj">
       <Project>{8806b71d-be80-4c2e-995d-7202c57e4ffd}</Project>
       <Name>RJCP.Diagnostics.CpuId</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestResources\FakeIntel\i486dx4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\FakeIntel\nofunctions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\FakeIntel\nofunctions1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenericIntel\i7-9700_novendor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\Core2Quad.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\Dell_c840.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\Dell_M65.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\Dell_M70.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i3-2120T.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\I5-3317U_SurfacePro.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-2630QM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-3820QM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-4930K.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-6600U_SurfaceBook.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-6700K.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-920.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i7-9700.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\i9-10900K.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\Pentium4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\GenuineIntel\xeon-W3540.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

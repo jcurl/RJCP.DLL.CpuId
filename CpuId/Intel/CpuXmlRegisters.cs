@@ -1,7 +1,7 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
-    using System.Xml;
     using System.Globalization;
+    using System.Xml;
 
     internal class CpuXmlRegisters : CpuRegistersBase
     {

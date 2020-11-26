@@ -72,7 +72,6 @@
         /// <returns>The name of the feature.</returns>
         public string Description(string key)
         {
-            if (!m_Features.ContainsKey(key)) return string.Empty;
             return Resources.CpuFeatures.ResourceManager.GetString(key.ToUpper(CultureInfo.InvariantCulture));
         }
 

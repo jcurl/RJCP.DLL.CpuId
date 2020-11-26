@@ -82,7 +82,7 @@
         public ICpuId Create(string fileName)
         {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
-            if (string.IsNullOrEmpty(fileName) )throw new ArgumentException("File name is empty", nameof(fileName));
+            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name is empty", nameof(fileName));
 
             XmlDocument xmlDoc = new XmlDocument {
                 XmlResolver = null

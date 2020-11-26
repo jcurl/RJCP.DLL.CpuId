@@ -120,17 +120,29 @@
   <data name="1GB_PAGE" xml:space="preserve">
     <value>1GB pages supported</value>
   </data>
+  <data name="5L_PAGE" xml:space="preserve">
+    <value>5 Level Paging</value>
+  </data>
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
   </data>
   <data name="ADX" xml:space="preserve">
-    <value>ADCX (unsigned integer addition with carry flag) instruction</value>
+    <value>Multi-Precision Add-Carry Instruction Extensions</value>
   </data>
   <data name="AESNI" xml:space="preserve">
     <value>AES 128bit instruction Extensions</value>
   </data>
+  <data name="AMX_BF16" xml:space="preserve">
+    <value>Tile computation on bfloat16 numbers</value>
+  </data>
+  <data name="AMX_INT8" xml:space="preserve">
+    <value>Tile computation on 8-bit integers</value>
+  </data>
+  <data name="AMX_TILE" xml:space="preserve">
+    <value>Tile architecture</value>
+  </data>
   <data name="APIC" xml:space="preserve">
-    <value>On-chip APIC hardware</value>
+    <value>On-chip Advanced Programmable Interrupt Controller hardware</value>
   </data>
   <data name="AVX" xml:space="preserve">
     <value>Advanced Vector Extensions</value>
@@ -139,37 +151,43 @@
     <value>Advanced Vector Extensions 2</value>
   </data>
   <data name="AVX512BW" xml:space="preserve">
-    <value>AVX512 32/64-bit vector mask instructions</value>
+    <value>AVX512 byte and word instructions</value>
   </data>
   <data name="AVX512CD" xml:space="preserve">
-    <value>AVX512 change detection, broadcast mask instructions</value>
+    <value>AVX512 conflict detection, broadcast mask instructions</value>
   </data>
   <data name="AVX512DQ" xml:space="preserve">
-    <value>AVX512 16-bit vector mask instructions</value>
+    <value>AVX512 double/quadword instructions</value>
   </data>
   <data name="AVX512ER" xml:space="preserve">
-    <value>AVX512 approximate exponential instructions. Intel(R) Xeon Phi(TM) only</value>
+    <value>AVX512 approximate exponential and reciprocal instructions</value>
   </data>
   <data name="AVX512F" xml:space="preserve">
-    <value>AVX512 8-bit vector mask instructions</value>
+    <value>AVX512 foundation instructions</value>
   </data>
   <data name="AVX512PF" xml:space="preserve">
-    <value>AVX512 prefetch instructions. Intel(R) Xeon Phi(TM) only</value>
+    <value>AVX512 prefetch instructions</value>
   </data>
   <data name="AVX512VL" xml:space="preserve">
-    <value>AVX512 vector x/y instructions</value>
+    <value>AVX512 vector length instructions</value>
   </data>
   <data name="AVX512_4FMAPS" xml:space="preserve">
-    <value>AVX512 packed single precision fused multiply add instructions. Intel(R) Xeon Phi(TM) only</value>
+    <value>AVX512 packed single precision fused multiply add instructions</value>
   </data>
-  <data name="AVX512_4VNNIW" xml:space="preserve">
-    <value>AVX512 dotproduct multiplication instructions. Intel(R) Xeon Phi(TM) only</value>
+  <data name="AVX512_4NNIW" xml:space="preserve">
+    <value>AVX512 4-register neural network instructions</value>
+  </data>
+  <data name="AVX512_BF16" xml:space="preserve">
+    <value>AVX512 bfloat16 instructions</value>
   </data>
   <data name="AVX512_BITALG" xml:space="preserve">
     <value>AVX512 bit counting instructions</value>
   </data>
   <data name="AVX512_IFMA" xml:space="preserve">
-    <value>AVX512 Fuse Multiply Add instructions</value>
+    <value>AVX512 Integer Fuse Multiply Add instructions</value>
+  </data>
+  <data name="AVX512_POPCNTDQ" xml:space="preserve">
+    <value>AVX512 population count double/quad word instructions</value>
   </data>
   <data name="AVX512_VBMI" xml:space="preserve">
     <value>AVX512 bit manipulation instructions (VPERMB, VPERMI2B, VPERMT2B, VPMULTISHIFTQB)</value>
@@ -178,10 +196,10 @@
     <value>AVX512 bit manipulation instructions (VPCOMPRESSB, VCOMPRESSW, VPEXPANDB, VPEXPANDW, VPSHLD, VPSHLDV, VPSHRD, VPSHRDV)</value>
   </data>
   <data name="AVX512_VNNI" xml:space="preserve">
-    <value>AVX512 multiply and add instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS)</value>
+    <value>AVX512 neural network instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS)</value>
   </data>
-  <data name="AVX512_VPOPCNTDQ" xml:space="preserve">
-    <value>AVX512 instructions VPOPCNTDQ. Intel(R) Xeon Phi(TM) only</value>
+  <data name="AVX512_VP2INTERSECT" xml:space="preserve">
+    <value>AVX512 VP2INTERSECT double/quad word instructions</value>
   </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
@@ -193,19 +211,19 @@
     <value>CET indirect branch tracking</value>
   </data>
   <data name="CET_SS" xml:space="preserve">
-    <value>Supports CET shadow stack features</value>
+    <value>Control flow enforcement (CET) shadow stack features</value>
   </data>
   <data name="CLDEMOTE" xml:space="preserve">
     <value>Cache line demote</value>
   </data>
   <data name="CLFLUSHOPT" xml:space="preserve">
-    <value>CLFLUSHOPT (flush cache line optimized) instruction</value>
+    <value>CLFLUSHOPT (flush cache line optimized) instruction, support persistent memory programming</value>
   </data>
   <data name="CLFSH" xml:space="preserve">
     <value>CLFLUSH (flush cache line) instruction</value>
   </data>
   <data name="CLWB" xml:space="preserve">
-    <value>CLWB (Cache line write back) instruction</value>
+    <value>CLWB (Cache line write back) instruction, support persistent memory programming</value>
   </data>
   <data name="CMOV" xml:space="preserve">
     <value>Conditional Move Instruction</value>
@@ -220,13 +238,13 @@
     <value>CMPXCHG8 instruction</value>
   </data>
   <data name="DCA" xml:space="preserve">
-    <value>Direct Cache Access</value>
+    <value>Direct Cache Access for DMA writes</value>
   </data>
   <data name="DE" xml:space="preserve">
-    <value>Debugging Extension</value>
+    <value>Debugging Extensions</value>
   </data>
   <data name="DS" xml:space="preserve">
-    <value>Debug Store</value>
+    <value>Debug Store, trace of executed jumps</value>
   </data>
   <data name="DS-CPL" xml:space="preserve">
     <value>CPL Qualified Debug Store</value>
@@ -237,17 +255,20 @@
   <data name="EIST" xml:space="preserve">
     <value>Enhanced Intel SpeedStep(R) Technology</value>
   </data>
-  <data name="F16C" xml:space="preserve">
-    <value>16-bit floating-point conversion instructions</value>
+  <data name="ENQCMD" xml:space="preserve">
+    <value>Enqueue Stores</value>
   </data>
-  <data name="FAST REP MOV" xml:space="preserve">
-    <value>Fast REP MOV</value>
+  <data name="ERMS" xml:space="preserve">
+    <value>Enhanced REP MOVSB/STOSB</value>
+  </data>
+  <data name="F16C" xml:space="preserve">
+    <value>16-bit floating-point conversion (half precision) instructions</value>
   </data>
   <data name="FDP_EXCPTN_ONLY" xml:space="preserve">
     <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
   </data>
   <data name="FMA" xml:space="preserve">
-    <value>Fused Multiply Add</value>
+    <value>Fused Multiply Add (FMA3)</value>
   </data>
   <data name="FPU" xml:space="preserve">
     <value>Floating-point Unit On-Chip</value>
@@ -256,7 +277,10 @@
     <value>Deprecates FPU CS and FPU DS values</value>
   </data>
   <data name="FSGSBASE" xml:space="preserve">
-    <value>RDFSBASE/RDGSBSAE/WRFSBASE/WRGSBASE instructions</value>
+    <value>Read/Write register FS/GS instructions</value>
+  </data>
+  <data name="FSRM" xml:space="preserve">
+    <value>Fast short REP MOV</value>
   </data>
   <data name="FXSR" xml:space="preserve">
     <value>FXSAVE and FXSTOR instructions</value>
@@ -265,7 +289,7 @@
     <value>AVX Galois Field instructions</value>
   </data>
   <data name="HLE" xml:space="preserve">
-    <value>Hardware lock elision instructions</value>
+    <value>TSX Hardware lock elision instructions</value>
   </data>
   <data name="HTT" xml:space="preserve">
     <value>Multi-Threading</value>
@@ -273,20 +297,29 @@
   <data name="HYBRID" xml:space="preserve">
     <value>Processor identified as a hybrid part</value>
   </data>
+  <data name="HYPERVISOR" xml:space="preserve">
+    <value>CPU is running in Hypervisor mode</value>
+  </data>
+  <data name="IA32_64" xml:space="preserve">
+    <value>Intel(R) 64 Instruction Set Architecture</value>
+  </data>
   <data name="IA32_ARCH_CAPABILITIES" xml:space="preserve">
-    <value>IA32_ARCH_CAPABILITIES MSR supported, CPU specific</value>
+    <value>Speculative Side Channel mitigates, IA32_ARCH_CAPABILITIES MSR supported, CPU specific</value>
   </data>
   <data name="IA32_CORE_CAPABILITIES" xml:space="preserve">
-    <value>IA32_CORE_CAPABILITIES MSR supported, CPU specific</value>
+    <value>Support for a MSR listing model-specific core capabilities, IA32_CORE_CAPABILITIES MSR supported, CPU specific</value>
   </data>
   <data name="IA32_TSC_ADJUST" xml:space="preserve">
     <value>IA32_TSC_ADJUST MSR</value>
   </data>
   <data name="IA64" xml:space="preserve">
-    <value>Intel(R) 64 Instruction Set Architecture</value>
+    <value>IA64 processor emulating in x86 mode</value>
   </data>
-  <data name="IBRS/IBPB" xml:space="preserve">
+  <data name="IBRS_IBPB" xml:space="preserve">
     <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
+  </data>
+  <data name="INTEL_PT" xml:space="preserve">
+    <value>Intel Processor Trace</value>
   </data>
   <data name="INVPCID" xml:space="preserve">
     <value>INVPCID instruction for system software that manages process-context identifiers</value>
@@ -296,6 +329,9 @@
   </data>
   <data name="LAHF" xml:space="preserve">
     <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
+  </data>
+  <data name="LBR" xml:space="preserve">
+    <value>Architectural Last Branch Records</value>
   </data>
   <data name="LZCNT" xml:space="preserve">
     <value>LZCNT (count leading zero bits) instruction</value>
@@ -310,13 +346,13 @@
     <value>MD_CLEAR supported</value>
   </data>
   <data name="MMX" xml:space="preserve">
-    <value>MMX Technologies</value>
+    <value>MMX Technologies, Multimedia Extensions</value>
   </data>
   <data name="MONITOR" xml:space="preserve">
     <value>MONITOR and MWAIT instructions</value>
   </data>
   <data name="MOVBE" xml:space="preserve">
-    <value>MOVBE instruction</value>
+    <value>MOVBE (big-endian) instruction</value>
   </data>
   <data name="MOVDIR64B" xml:space="preserve">
     <value>MOVDIR64B instruction</value>
@@ -354,29 +390,32 @@
   <data name="PCLMULQDQ" xml:space="preserve">
     <value>PCLMULQDQ Instruction</value>
   </data>
+  <data name="PCOMMIT" xml:space="preserve">
+    <value>Persistent Memory PCOMMIT instruction (deprecated, hardware manufacturers support ADR - Asynchronous DRAM refresh)</value>
+  </data>
+  <data name="PCONFIG" xml:space="preserve">
+    <value>Platform configuration (Memory Encryption Technologies instructions)</value>
+  </data>
   <data name="PDCM" xml:space="preserve">
     <value>Perfmon and Debug Capability</value>
   </data>
   <data name="PGE" xml:space="preserve">
-    <value>Page Global Enable</value>
+    <value>Page Global Enable bit in CR4</value>
   </data>
   <data name="PKS" xml:space="preserve">
     <value>Protection keys for supervisor-mode pages</value>
   </data>
   <data name="PKU" xml:space="preserve">
-    <value>Protection Keys for User Mode</value>
+    <value>Protection Keys for user-mode pages</value>
   </data>
   <data name="POPCNT" xml:space="preserve">
-    <value>POPCNT instruction</value>
+    <value>POPCNT, population count, instruction</value>
   </data>
   <data name="PREFETCHW" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write</value>
   </data>
   <data name="PREFETCHWT1" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write, with T1 hint. Intel(R) Xeon Phi(TM) only</value>
-  </data>
-  <data name="PROCTRC" xml:space="preserve">
-    <value>Intel Processor Trace</value>
   </data>
   <data name="PSE" xml:space="preserve">
     <value>Page Size Extension</value>
@@ -388,10 +427,10 @@
     <value>Processor Serial Number is present and enabled</value>
   </data>
   <data name="RDPID" xml:space="preserve">
-    <value>RPID and IA32_TSX_AUX</value>
+    <value>Read Processor ID and IA32_TSX_AUX</value>
   </data>
   <data name="RDRAND" xml:space="preserve">
-    <value>RDRAND (read random number) instruction</value>
+    <value>On-chip random number generator, RDRAND instruction</value>
   </data>
   <data name="RDSEED" xml:space="preserve">
     <value>RDSEED (read random seed) instruction</value>
@@ -405,17 +444,17 @@
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
   </data>
-  <data name="REP MOVSB/STOSB" xml:space="preserve">
-    <value>Enhanced REP MOVSB/STOSB</value>
-  </data>
   <data name="RTM" xml:space="preserve">
-    <value>RTM transaction</value>
+    <value>TSX restricted transactional memory</value>
   </data>
   <data name="SDBG" xml:space="preserve">
     <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
   </data>
   <data name="SEP" xml:space="preserve">
-    <value>Fast System Call</value>
+    <value>Fast System Call, SYSENTER and SYSEXIT instructions</value>
+  </data>
+  <data name="SERIALIZE" xml:space="preserve">
+    <value>Serialize instruction execution</value>
   </data>
   <data name="SGX" xml:space="preserve">
     <value>Intel(R) Software Guard Extensions</value>
@@ -434,6 +473,9 @@
   </data>
   <data name="SMX" xml:space="preserve">
     <value>Safer Mode Extensions</value>
+  </data>
+  <data name="SRBDS_CTRL" xml:space="preserve">
+    <value>Special register buffer data sampling mitigations</value>
   </data>
   <data name="SS" xml:space="preserve">
     <value>Self Snoop</value>
@@ -475,25 +517,31 @@
     <value>Time Stamp Counter</value>
   </data>
   <data name="TSC-DEADLINE" xml:space="preserve">
-    <value>Time Stamp Counter Deadline</value>
+    <value>Time Stamp Counter Deadline supported by APIC</value>
+  </data>
+  <data name="TSXLDTRK" xml:space="preserve">
+    <value>TSX suspend load address tracking</value>
+  </data>
+  <data name="TSX_FORCE_ABORT" xml:space="preserve">
+    <value>-</value>
   </data>
   <data name="UMIP" xml:space="preserve">
     <value>User-mode Instruction Prevention</value>
   </data>
   <data name="VAES" xml:space="preserve">
-    <value>AES 128-bit on vectored data 256bit registers</value>
+    <value>Vectored AES 128-bit on vectored data 256bit registers</value>
   </data>
   <data name="VME" xml:space="preserve">
-    <value>Virtual Mode Extension</value>
+    <value>Virtual 8086 Mode Extensions</value>
   </data>
   <data name="VMX" xml:space="preserve">
-    <value>Virtual Maxhine Extensions</value>
+    <value>Virtual Machine Extensions</value>
   </data>
   <data name="VPCLMULQDQ" xml:space="preserve">
-    <value>VPCLMULQDQ Instruction</value>
+    <value>Vectored VPCLMULQDQ Instruction</value>
   </data>
   <data name="WAITPKG" xml:space="preserve">
-    <value>Wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
+    <value>User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
   </data>
   <data name="X2APIC" xml:space="preserve">
     <value>Extended APIC support</value>
@@ -505,6 +553,6 @@
     <value>XSAVE/XSTOR states</value>
   </data>
   <data name="XTPR" xml:space="preserve">
-    <value>xTPR Update Control</value>
+    <value>xTPR Update Control, disable sending task priority messages</value>
   </data>
 </root>

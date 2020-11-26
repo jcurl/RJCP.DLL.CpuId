@@ -8,9 +8,9 @@
             [0x003] = "IntelDX2 OverDrive",
             [0x004] = "Intel486 SL",
             [0x005] = "IntelSX2",
-            [0x007] = "IntexDX2 Write-Back Enhanced",
-            [0x008] = "IntexDX4(TM)",
-            [0x018] = "IntexDX4(TM) OverDrive"
+            [0x007] = "IntelDX2 Write-Back Enhanced",
+            [0x008] = "IntelDX4(TM)",
+            [0x018] = "IntelDX4(TM) OverDrive"
         };
 
         private static readonly Dictionary<int, string> Pentium = new Dictionary<int, string>() {
