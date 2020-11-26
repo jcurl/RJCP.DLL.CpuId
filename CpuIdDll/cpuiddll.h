@@ -26,6 +26,7 @@ struct cpuidinfo {
 CPUIDDLL_API int WINAPI cpuid(DWORD eax, DWORD ecx, LPDWORD peax, LPDWORD pebx, LPDWORD pecx, LPDWORD pedx);
 CPUIDDLL_API int WINAPI hascpuid();
 CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes);
+CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int core);
 
 #ifdef __cplusplus 
 }

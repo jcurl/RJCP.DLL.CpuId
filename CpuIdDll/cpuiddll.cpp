@@ -59,13 +59,7 @@ CPUIDDLL_API int WINAPI hascpuid()
 
 #define cpuidget(info) cpuid((info)->veax, (info)->vecx, &((info)->peax), &((info)->pebx), &((info)->pecx), &((info)->pedx))
 
-/// <summary>
-/// Performs a dump of known CPUID values
-/// </summary>
-/// <param name="info">cpuidinfo array to dump into</param>
-/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>. </param>
-/// <returns>Number of elements</returns>
-CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes)
+static int iddump_internal(struct cpuidinfo *info, size_t bytes)
 {
 	if (info == NULL || bytes < 2 * sizeof(struct cpuidinfo)) return 0;
 
@@ -94,6 +88,41 @@ CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes)
 	default:
 		return defaultiddump(info, bytes);
 	}
+}
+
+/// <summary>
+/// Performs a dump of known CPUID values on the current core
+/// </summary>
+/// <param name="info">cpuidinfo array to dump into</param>
+/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>. </param>
+/// <returns>Number of elements</returns>
+CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes)
+{
+	DWORD currentProcessor = GetCurrentProcessorNumber();
+	return iddumponcore(info, bytes, currentProcessor);
+}
+
+/// <summary>
+/// Performs a dump of known CPUID values using the specified core
+/// </summary>
+/// <param name="info">cpuidinfo array to dump into</param>
+/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>. </param>
+/// <returns>Number of elements</returns>
+CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int core)
+{
+	if (core < 0 || core > 64) {
+		SetLastError(ERROR_INVALID_PARAMETER);
+		return -1;
+	}
+
+	HANDLE currentThread = GetCurrentThread();
+	DWORD_PTR newMask = 1 << core;
+	DWORD_PTR affinity = SetThreadAffinityMask(currentThread, newMask);
+	if (!affinity) return -1;
+
+	int result = iddump_internal(info, bytes);
+	SetThreadAffinityMask(currentThread, affinity);
+	return result;
 }
 
 static int inteliddump(struct cpuidinfo *info, size_t bytes)
@@ -202,20 +231,14 @@ static int inteliddump(struct cpuidinfo *info, size_t bytes)
 			}
 			break;
 		case 18:
-			// Only supported if CPUID(EAX=07H, ECX=0H):EBX[SGX] = 1
-			if (!sgx) {
-				p++;
-				continue;
-			} else {
-				info[el].veax = p;
-				info[el].vecx = q;
-				cpuidget(info+el);
+			info[el].veax = p;
+			info[el].vecx = q;
+			cpuidget(info+el);
 
-				if (q < 2 || (info[el].peax & 0x03)) {
-					q++;
-				} else {
-					q = 0; p++;
-				}
+			if (q < 2 || (info[el].peax & 0x03)) {
+				q++;
+			} else {
+				q = 0; p++;
 			}
 			break;
 		case 20:
@@ -263,18 +286,6 @@ static int inteliddump(struct cpuidinfo *info, size_t bytes)
 				p++; q = 0;
 			}
 			break;
-		case 8:
-		case 12:
-		case 14:
-		case 17:
-		case 19:
-		case 25:
-		case 27:
-		case 28:
-		case 29:
-		case 30:
-			p++;
-			continue;
 		default:
 			info[el].veax = p;
 			info[el].vecx = 0;
@@ -342,12 +353,14 @@ static int amdiddump(struct cpuidinfo *info, size_t bytes)
 
 	// Dump the extended values second
 	p = 1;
-	while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
-		info[el].veax = 0x80000000 + p;
-		info[el].vecx = 0;
-		cpuidget(info+el);
-		p++;
-		el++;
+	if (info[1].peax & 0x80000000) {
+		while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+			info[el].veax = 0x80000000 + p;
+			info[el].vecx = 0;
+			cpuidget(info+el);
+			p++;
+			el++;
+		}
 	}
 
 	return el;
