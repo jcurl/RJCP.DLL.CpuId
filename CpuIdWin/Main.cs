@@ -71,8 +71,8 @@ namespace RJCP.Diagnostics.CpuIdWin
                     FileName = Environment.MachineName.ToLowerInvariant(),
                     ValidateNames = true
                 };
-                dlg.ShowDialog();
-
+                DialogResult result = dlg.ShowDialog();
+                if (result != DialogResult.OK) return;
                 if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
 
                 try {

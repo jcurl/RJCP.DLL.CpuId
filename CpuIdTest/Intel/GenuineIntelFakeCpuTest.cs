@@ -1,12 +1,8 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NUnit.Framework;
     using System.IO;
     using CodeQuality.NUnitExtensions;
+    using NUnit.Framework;
 
 
     class GenuineIntelFakeCpuTest
