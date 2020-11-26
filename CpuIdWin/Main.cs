@@ -10,7 +10,7 @@ namespace RJCP.Diagnostics.CpuIdWin
         public Main()
         {
             InitializeComponent();
-            m_CpuId = Global.CpuFactory.Create();
+            GetLocal();
 
             int lvwWidth = (lstCpuIdRegisters.Width) / 6 - 2;
             lstCpuIdRegisters.Columns[0].Width = lvwWidth;
@@ -21,6 +21,17 @@ namespace RJCP.Diagnostics.CpuIdWin
             lstCpuIdRegisters.Columns[5].Width = lvwWidth;
 
             UpdateForm();
+        }
+
+        private void GetLocal()
+        {
+            try {
+                m_CpuId = Global.CpuFactory.Create();
+            } catch (Exception ex) {
+                string message = string.Format("An error occurred getting CPU information:\n{0}", ex.Message);
+                MessageBox.Show(message, "CpuIdWin", MessageBoxButtons.OK);
+                m_CpuId = null;
+            }
         }
 
         private void mnuFileNew_Click(object sender, EventArgs e)
@@ -53,7 +64,7 @@ namespace RJCP.Diagnostics.CpuIdWin
 
         private void mnuFileOpenLocal_Click(object sender, EventArgs e)
         {
-            m_CpuId = Global.CpuFactory.Create();
+            GetLocal();
             UpdateForm();
         }
 
