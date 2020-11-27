@@ -152,7 +152,8 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 			info[el].vecx = q;
 			cpuidget(info+el);
 
-			if (q < 1) {
+			if (q == 0) c = info[el].peax;
+			if (q < 1 || q < c) {
 				q++;
 			} else {
 				q = 0; p++;
