@@ -36,7 +36,7 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 	int q = 0;
 	int c = 0;
 
-	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 		switch (p) {
 		case 2:
 			// Cache Descriptors
@@ -48,7 +48,7 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 			// 8 bits of EAX to know how often to call this function.
 			//
 			// Newer documentation in Volume 2, May 2020 says that the first byte is
-			// always 0x01 and should be ignored. Both documentats are correct.
+			// always 0x01 and should be ignored. Both documents are correct.
 			if (q == 0) c = info[el].peax & 0xFF;
 			if (c != 0 && q < c - 1) {
 				q++;
@@ -199,7 +199,7 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 	// Dump the extended values second
 	if (info[1].peax & 0x80000000) {
 		p = 1; c = (int)(info[1].peax & 0x7FFFFFFF);
-		while (p <= c && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+		while (p <= c && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 			info[el].veax = 0x80000000 + p;
 			info[el].vecx = 0;
 			cpuidget(info+el);

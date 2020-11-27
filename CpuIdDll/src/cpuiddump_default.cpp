@@ -32,7 +32,7 @@ int iddump_default(struct cpuidinfo *info, size_t bytes)
 {
 	int el = 2;
 	int p = 1;
-	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 		info[el].veax = p;
 		info[el].vecx = 0;
 		cpuidget(info+el);
@@ -42,7 +42,7 @@ int iddump_default(struct cpuidinfo *info, size_t bytes)
 
 	// Dump the extended values second
 	p = 1;
-	while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+	while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 		info[el].veax = 0x80000000 + p;
 		info[el].vecx = 0;
 		cpuidget(info+el);

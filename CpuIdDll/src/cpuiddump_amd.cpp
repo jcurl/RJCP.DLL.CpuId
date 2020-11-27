@@ -34,7 +34,7 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 	int el = 2;
 	int p = 1;
 	int q = 0;
-	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 		switch (p) {
 		case 13:
 			switch(q) {
@@ -71,7 +71,7 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 	// Dump the extended values second
 	p = 1;
 	if (info[1].peax & 0x80000000) {
-		while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes > (el + 1) * sizeof(struct cpuidinfo)) {
+		while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 			info[el].veax = 0x80000000 + p;
 			info[el].vecx = 0;
 			cpuidget(info+el);
