@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// (C) 2012-2020, Jason Curl
+//
+////////////////////////////////////////////////////////////////////////////////
+//
+// Header: cpuidtypes.h
+//
+// Description:
+//  Types definitions
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef _PRV_CPUIDTYPES_H
+#define _PRV_CPUIDTYPES_H
+
+/// <summary>
+/// The supported vendors in this DLL.
+/// </summary>
+typedef enum vendor_t {
+	/// <summary>
+	/// Unknown vendor.
+	/// </summary>
+	VENDOR_UNKNOWN,
+
+	/// <summary>
+	/// Intel.
+	/// </summary>
+	VENDOR_INTEL,
+
+	/// <summary>
+	/// AMD.
+	/// </summary>
+	VENDOR_AMD,
+};
+
+#endif
