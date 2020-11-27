@@ -36,6 +36,8 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 	int q = 0;
 	int c = 0;
 
+	int sgx;
+
 	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
 		switch (p) {
 		case 2:
@@ -75,8 +77,12 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 			cpuidget(info+el);
 
 			// EAX contains the number of subleaves when ECX == 0.
-			// EAX == 0 as return means no subleaves
-			if (q == 0) c = info[el].peax;
+			// EAX == 0 as return means no subleaves. We get as necessary
+			// some flags on further decoding.
+			if (q == 0) {
+				c = info[el].peax;
+				sgx = info[el].pebx & 0x4;
+			}
 			if (q < c) {
 				q++;
 			} else {
@@ -134,7 +140,8 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 			info[el].vecx = q;
 			cpuidget(info+el);
 
-			if (q < 2 || (info[el].peax & 0x03)) {
+			// Enumerate ECX=0, 1, 2, and only 3 or higher if SGX is set and the Type is not invalid
+			if (q < 2 || (sgx && (info[el].peax & 0xF))) {
 				q++;
 			} else {
 				q = 0; p++;
