@@ -90,15 +90,16 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 			}
 			break;
 		case 11:
+		case 31:
 			// x2APIC features
 			info[el].veax = p;
 			info[el].vecx = q;
 			cpuidget(info+el);
 
-			if (info[el].peax || info[el].pebx) {
+			if (info[el].pebx & 0xFFFF) {
 				q++;
 			} else {
-				q = 0; p++;
+				p++; q = 0;
 			}
 			break;
 		case 13:
@@ -180,17 +181,6 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 
 			if (q == 0) c = info[el].peax;
 			if (q < c) {
-				q++;
-			} else {
-				p++; q = 0;
-			}
-			break;
-		case 31:
-			info[el].veax = p;
-			info[el].vecx = q;
-			cpuidget(info+el);
-
-			if (info[el].pebx & 0xFFFF) {
 				q++;
 			} else {
 				p++; q = 0;
