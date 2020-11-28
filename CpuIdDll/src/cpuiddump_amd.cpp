@@ -29,56 +29,46 @@
 /// <item>1: The CPUID[80000000h] results.</item>
 /// </list>
 /// </remarks>
+/// <returns>Number of elements put into <paramref name="info"/>.</returns>
 int iddump_amd(struct cpuidinfo *info, size_t bytes)
 {
-	int el = 2;
+	int i = 2;
 	int p = 1;
 	int q = 0;
-	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
+	while (p <= (int)(info[0].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
 		switch (p) {
 		case 13:
 			switch(q) {
 			case 0:
-				info[el].veax = p;
-				info[el].vecx = 0;
-				cpuidget(info+el);
+				info[i].veax = p;
+				info[i].vecx = 0;
+				cpuidget(info + i);
 				q++;
 				break;
 			case 1:
-				info[el].veax = p;
-				info[el].vecx = 2;
-				cpuidget(info+el);
+				info[i].veax = p;
+				info[i].vecx = 2;
+				cpuidget(info + i);
 				q++;
 				break;
 			case 2:
-				info[el].veax = p;
-				info[el].vecx = 62;
-				cpuidget(info+el);
+				info[i].veax = p;
+				info[i].vecx = 62;
+				cpuidget(info + i);
 				q = 0; p++;
 				break;
 			}
 			break;
 		default:
-			info[el].veax = p;
-			info[el].vecx = 0;
-			cpuidget(info+el);
+			info[i].veax = p;
+			info[i].vecx = 0;
+			cpuidget(info + i);
 			p++;
 			break;
 		}
-		el++;
+		i++;
 	}
 
-	// Dump the extended values second
-	p = 1;
-	if (info[1].peax & 0x80000000) {
-		while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
-			info[el].veax = 0x80000000 + p;
-			info[el].vecx = 0;
-			cpuidget(info+el);
-			p++;
-			el++;
-		}
-	}
-
-	return el;
+	i += iddump_region(0x80000000, info + 1, info + i, bytes - i * sizeof(struct cpuidinfo));
+	return i;
 }

@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClCompile Include="src\cpuiddll.cpp" />
     <ClCompile Include="src\cpuiddump_amd.cpp" />
+    <ClCompile Include="src\cpuiddump_common.cpp" />
     <ClCompile Include="src\cpuiddump_default.cpp" />
     <ClCompile Include="src\cpuiddump_intel.cpp" />
     <ClCompile Include="src\cpuiddump_main.cpp" />

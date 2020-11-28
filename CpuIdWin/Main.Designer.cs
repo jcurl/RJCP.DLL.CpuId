@@ -28,7 +28,9 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Standard Functions", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Extended Functions", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Intel Xeon Phi Functions", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Hypervisor Functions", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Extended Functions", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tbcCpuId = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
@@ -304,11 +306,17 @@
             this.lstCpuIdRegisters.GridLines = true;
             listViewGroup1.Header = "Standard Functions";
             listViewGroup1.Name = "lvgStandardFunctions";
-            listViewGroup2.Header = "Extended Functions";
-            listViewGroup2.Name = "lvgExtendedFunctions";
+            listViewGroup2.Header = "Intel Xeon Phi Functions";
+            listViewGroup2.Name = "lvgPhiFunctions";
+            listViewGroup3.Header = "Hypervisor Functions";
+            listViewGroup3.Name = "lvgHypervisorFunctions";
+            listViewGroup4.Header = "Extended Functions";
+            listViewGroup4.Name = "lvgExtendedFunctions";
             this.lstCpuIdRegisters.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
-            listViewGroup2});
+            listViewGroup2,
+            listViewGroup3,
+            listViewGroup4});
             this.lstCpuIdRegisters.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstCpuIdRegisters.HideSelection = false;
             this.lstCpuIdRegisters.Location = new System.Drawing.Point(0, 130);

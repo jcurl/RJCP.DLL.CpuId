@@ -31,6 +31,7 @@
 /// at least one less than the maximum possible number of entries possible give by the
 /// <paramref name="bytes"/> parameter.
 /// </remarks>
+/// <returns>Number of elements put into <paramref name="info"/>.</returns>
 int iddump_main(struct cpuidinfo *info, size_t bytes)
 {
 	if (info == NULL || bytes < 2 * sizeof(struct cpuidinfo)) return 0;
@@ -52,11 +53,16 @@ int iddump_main(struct cpuidinfo *info, size_t bytes)
 		vendor = VENDOR_UNKNOWN;
 	}
 
+	int i;
 	switch (vendor) {
 	case VENDOR_INTEL:
-		return iddump_intel(info, bytes);
+		i = iddump_intel(info, bytes);
+		i += iddump_hypervisor(info, info + i, bytes - i * sizeof(struct cpuidinfo));
+		return i;
 	case VENDOR_AMD:
-		return iddump_amd(info, bytes);
+		i = iddump_amd(info, bytes);
+		i += iddump_hypervisor(info, info + i, bytes - i * sizeof(struct cpuidinfo));
+		return i;
 	default:
 		return iddump_default(info, bytes);
 	}

@@ -28,26 +28,12 @@
 /// <item>1: The CPUID[80000000h] results.</item>
 /// </list>
 /// </remarks>
+/// <returns>Number of elements put into <paramref name="info"/>.</returns>
 int iddump_default(struct cpuidinfo *info, size_t bytes)
 {
-	int el = 2;
-	int p = 1;
-	while (p <= (int)(info[0].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
-		info[el].veax = p;
-		info[el].vecx = 0;
-		cpuidget(info+el);
-		p++;
-		el++;
-	}
+	int i = 2;
 
-	// Dump the extended values second
-	p = 1;
-	while (p <= (int)(info[1].peax & 0x7FFFFFFF) && bytes >= (el + 1) * sizeof(struct cpuidinfo)) {
-		info[el].veax = 0x80000000 + p;
-		info[el].vecx = 0;
-		cpuidget(info+el);
-		p++;
-		el++;
-	}
-	return el;
+	i += iddump_region(0x00000000, info    , info + i, bytes - i * sizeof(struct cpuidinfo));
+	i += iddump_region(0x80000000, info + 1, info + i, bytes - i * sizeof(struct cpuidinfo));
+	return i;
 }
