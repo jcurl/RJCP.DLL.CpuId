@@ -35,26 +35,45 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 	int i = 2;
 	int p = 1;
 	int q = 0;
+	int c = 0;
+
 	while (p <= (int)(info[0].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
 		switch (p) {
+		case 7:
+			// Structured Extended Feature Flags. 
+			info[i].veax = p;
+			info[i].vecx = q;
+			cpuidget(info + i);
+
+			// EAX contains the number of subleaves when ECX == 0.
+			// EAX == 0 as return means no subleaves.
+			if (q == 0) {
+				c = info[i].peax;
+			}
+			if (q < c) {
+				q++;
+			} else {
+				q = 0; p++;
+			}
+			break;
 		case 13:
+			info[i].veax = p;
+			info[i].vecx = q;
+			cpuidget(info + i);
+
 			switch(q) {
 			case 0:
-				info[i].veax = p;
-				info[i].vecx = 0;
-				cpuidget(info + i);
-				q++;
-				break;
 			case 1:
-				info[i].veax = p;
-				info[i].vecx = 2;
-				cpuidget(info + i);
+			case 11:
 				q++;
 				break;
 			case 2:
-				info[i].veax = p;
-				info[i].vecx = 62;
-				cpuidget(info + i);
+				q = 11;
+				break;
+			case 12:
+				q = 62;
+				break;
+			case 62:
 				q = 0; p++;
 				break;
 			}
@@ -69,6 +88,33 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 		i++;
 	}
 
-	i += iddump_region(0x80000000, info + 1, info + i, bytes - i * sizeof(struct cpuidinfo));
+	if (info[1].peax & 0x80000000) {
+		p = 1;
+		q = 0;
+		while (p <= (int)(info[1].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
+			switch (p) {
+			case 29:
+				info[i].veax = 0x80000000 + p;
+				info[i].vecx = q;
+				cpuidget(info + i);
+
+				// Enumerate ECX=0, 1, 2, and only 3 or higher if SGX is set and the Type is not invalid
+				if (info[i].peax & 0xF) {
+					q++;
+				} else {
+					q = 0; p++;
+				}
+				break;
+			default:
+				info[i].veax = 0x80000000 + p;
+				info[i].vecx = 0;
+				cpuidget(info + i);
+				p++;
+				break;
+			}
+			i++;
+		}
+	}
+
 	return i;
 }

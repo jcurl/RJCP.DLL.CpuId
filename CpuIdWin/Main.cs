@@ -54,7 +54,11 @@ namespace RJCP.Diagnostics.CpuIdWin
             try {
                 m_CpuId = Global.CpuXmlFactory.Create(dlg.FileName);
             } catch (Exception ex) {
+#if DEBUG
+                string message = string.Format("Error opening file: {0}", ex.ToString());
+#else
                 string message = string.Format("Error opening file: {0}", ex.Message);
+#endif
                 MessageBox.Show(message, "Error opening File");
                 return;
             }
@@ -134,6 +138,7 @@ namespace RJCP.Diagnostics.CpuIdWin
             lblVendor.Text = cpu.VendorId ?? "-";
             lblCpuName.Text = cpu.Description ?? "-";
 
+            lblBrand.Text = cpu.BrandString ?? "-";
             lblFamily.Text = string.Format("{0:X}", cpu.Family);
             lblModel.Text = string.Format("{0:X}", cpu.Model);
             lblStepping.Text = string.Format("{0:X}", cpu.Stepping);

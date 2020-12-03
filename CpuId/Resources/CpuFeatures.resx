@@ -120,8 +120,17 @@
   <data name="1GB_PAGE" xml:space="preserve">
     <value>1GB pages supported</value>
   </data>
+  <data name="3DNOW" xml:space="preserve">
+    <value>3DNow!™ instructions</value>
+  </data>
+  <data name="3DNOWEXT" xml:space="preserve">
+    <value>AMD extensions to 3DNow! instructions</value>
+  </data>
   <data name="5L_PAGE" xml:space="preserve">
     <value>5 Level Paging</value>
+  </data>
+  <data name="ABM" xml:space="preserve">
+    <value>LZCNT (count leading zero bits) instruction</value>
   </data>
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
@@ -131,6 +140,12 @@
   </data>
   <data name="AESNI" xml:space="preserve">
     <value>AES 128bit instruction Extensions</value>
+  </data>
+  <data name="AHF64" xml:space="preserve">
+    <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
+  </data>
+  <data name="AM" xml:space="preserve">
+    <value>LOCK MOV CR0 means MOV CR8</value>
   </data>
   <data name="AMX_BF16" xml:space="preserve">
     <value>Tile computation on bfloat16 numbers</value>
@@ -143,6 +158,9 @@
   </data>
   <data name="APIC" xml:space="preserve">
     <value>On-chip Advanced Programmable Interrupt Controller hardware</value>
+  </data>
+  <data name="ASRFPEP" xml:space="preserve">
+    <value>FP Error Pointers Restored by XRSTOR</value>
   </data>
   <data name="AVX" xml:space="preserve">
     <value>Advanced Vector Extensions</value>
@@ -225,8 +243,14 @@
   <data name="CLWB" xml:space="preserve">
     <value>CLWB (Cache line write back) instruction, support persistent memory programming</value>
   </data>
+  <data name="CLZERO" xml:space="preserve">
+    <value>CLZERO instruction supported</value>
+  </data>
   <data name="CMOV" xml:space="preserve">
     <value>Conditional Move Instruction</value>
+  </data>
+  <data name="CMP" xml:space="preserve">
+    <value>Core Multi-processing Legacy Mode</value>
   </data>
   <data name="CMPXCHG16B" xml:space="preserve">
     <value>CMPXCHG16B (compare/exchange atomically 128-bit) instruction</value>
@@ -236,6 +260,9 @@
   </data>
   <data name="CX8" xml:space="preserve">
     <value>CMPXCHG8 instruction</value>
+  </data>
+  <data name="DBE" xml:space="preserve">
+    <value>Data access breakpoint extension</value>
   </data>
   <data name="DCA" xml:space="preserve">
     <value>Direct Cache Access for DMA writes</value>
@@ -252,6 +279,9 @@
   <data name="DTES64" xml:space="preserve">
     <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
   </data>
+  <data name="EFER.LMSLE" xml:space="preserve">
+    <value>EFER.LMSLE is unsupported</value>
+  </data>
   <data name="EIST" xml:space="preserve">
     <value>Enhanced Intel SpeedStep(R) Technology</value>
   </data>
@@ -261,14 +291,26 @@
   <data name="ERMS" xml:space="preserve">
     <value>Enhanced REP MOVSB/STOSB</value>
   </data>
+  <data name="ES" xml:space="preserve">
+    <value>SEV Encrypted State supported</value>
+  </data>
+  <data name="EXTAPICSPACE" xml:space="preserve">
+    <value>Extended APIC space. PResents of extended APIC register</value>
+  </data>
   <data name="F16C" xml:space="preserve">
     <value>16-bit floating-point conversion (half precision) instructions</value>
   </data>
   <data name="FDP_EXCPTN_ONLY" xml:space="preserve">
     <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
   </data>
+  <data name="FFXSR" xml:space="preserve">
+    <value>FXSAVE and FXRSTOR instruction optimizations</value>
+  </data>
   <data name="FMA" xml:space="preserve">
     <value>Fused Multiply Add (FMA3)</value>
+  </data>
+  <data name="FMA4" xml:space="preserve">
+    <value>Four-operand FMA instruction support</value>
   </data>
   <data name="FPU" xml:space="preserve">
     <value>Floating-point Unit On-Chip</value>
@@ -300,9 +342,6 @@
   <data name="HYPERVISOR" xml:space="preserve">
     <value>CPU is running in Hypervisor mode</value>
   </data>
-  <data name="IA32_64" xml:space="preserve">
-    <value>Intel(R) 64 Instruction Set Architecture</value>
-  </data>
   <data name="IA32_ARCH_CAPABILITIES" xml:space="preserve">
     <value>Speculative Side Channel mitigates, IA32_ARCH_CAPABILITIES MSR supported, CPU specific</value>
   </data>
@@ -315,26 +354,53 @@
   <data name="IA64" xml:space="preserve">
     <value>IA64 processor emulating in x86 mode</value>
   </data>
+  <data name="IBPB" xml:space="preserve">
+    <value>PRED_CMD.IBPB</value>
+  </data>
+  <data name="IBRS" xml:space="preserve">
+    <value>SPEC_CTRL.IBRS</value>
+  </data>
+  <data name="IBRS_ALL" xml:space="preserve">
+    <value>IBRS always on mode</value>
+  </data>
   <data name="IBRS_IBPB" xml:space="preserve">
     <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
+  </data>
+  <data name="IBRS_PREF" xml:space="preserve">
+    <value>IBRS preferred</value>
+  </data>
+  <data name="IBS" xml:space="preserve">
+    <value>Instruction based sampling</value>
   </data>
   <data name="INTEL_PT" xml:space="preserve">
     <value>Intel Processor Trace</value>
   </data>
+  <data name="INT_WBINVD" xml:space="preserve">
+    <value>WBINVD/WBNOINVD are interruptible</value>
+  </data>
+  <data name="INVLPGB" xml:space="preserve">
+    <value>INVLPGB and TLBSYNC instruction supported</value>
+  </data>
+  <data name="INVLPGB_NESTED" xml:space="preserve">
+    <value>INVLPGB support for invalidating guest nested translations</value>
+  </data>
   <data name="INVPCID" xml:space="preserve">
     <value>INVPCID instruction for system software that manages process-context identifiers</value>
+  </data>
+  <data name="IRPERF" xml:space="preserve">
+    <value>Instruction Retired Counter MSR available</value>
   </data>
   <data name="L1D_FLUSH" xml:space="preserve">
     <value>IA32_FLUSH_CMD MSR supported</value>
   </data>
-  <data name="LAHF" xml:space="preserve">
-    <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
-  </data>
   <data name="LBR" xml:space="preserve">
     <value>Architectural Last Branch Records</value>
   </data>
-  <data name="LZCNT" xml:space="preserve">
-    <value>LZCNT (count leading zero bits) instruction</value>
+  <data name="LM" xml:space="preserve">
+    <value>Long Mode. Access to 64-bit instructions and registers</value>
+  </data>
+  <data name="LWP" xml:space="preserve">
+    <value>Lightweight profiling support</value>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
@@ -342,14 +408,26 @@
   <data name="MCE" xml:space="preserve">
     <value>Machine-Check Exception</value>
   </data>
+  <data name="MCOMMIT" xml:space="preserve">
+    <value>MCOMMIT instruction supported</value>
+  </data>
   <data name="MD_CLEAR" xml:space="preserve">
     <value>MD_CLEAR supported</value>
+  </data>
+  <data name="MISALIGNSSE" xml:space="preserve">
+    <value>Misaligned SSE mode</value>
   </data>
   <data name="MMX" xml:space="preserve">
     <value>MMX Technologies, Multimedia Extensions</value>
   </data>
+  <data name="MMXEXT" xml:space="preserve">
+    <value>AMD extensions to MMX instructions</value>
+  </data>
   <data name="MONITOR" xml:space="preserve">
     <value>MONITOR and MWAIT instructions</value>
+  </data>
+  <data name="MONITORX" xml:space="preserve">
+    <value>MONITORX instruction support</value>
   </data>
   <data name="MOVBE" xml:space="preserve">
     <value>MOVBE (big-endian) instruction</value>
@@ -360,6 +438,9 @@
   <data name="MOVDIRI" xml:space="preserve">
     <value>MOVDIRI instruction</value>
   </data>
+  <data name="MP" xml:space="preserve">
+    <value>MP-capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable.</value>
+  </data>
   <data name="MPX" xml:space="preserve">
     <value>Intel(R) Memory Protection Extensions</value>
   </data>
@@ -369,14 +450,23 @@
   <data name="MTRR" xml:space="preserve">
     <value>Memory Type Range Registers</value>
   </data>
+  <data name="NODEID" xml:space="preserve">
+    <value>Node ID: MSR C001_100Ch</value>
+  </data>
   <data name="OSPKE" xml:space="preserve">
     <value>OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions)</value>
+  </data>
+  <data name="OSVW" xml:space="preserve">
+    <value>OS visible workaround. Indicates OS-visible workaround suppor</value>
   </data>
   <data name="OSXSAVE" xml:space="preserve">
     <value>OS-Enabled Extended State Management</value>
   </data>
   <data name="PAE" xml:space="preserve">
     <value>Physical Address Extension</value>
+  </data>
+  <data name="PAGEFLUSHMSR" xml:space="preserve">
+    <value>Page Flush MSR available</value>
   </data>
   <data name="PAT" xml:space="preserve">
     <value>Page Attribute Table</value>
@@ -398,6 +488,18 @@
   </data>
   <data name="PDCM" xml:space="preserve">
     <value>Perfmon and Debug Capability</value>
+  </data>
+  <data name="PERFCTREXTCORE" xml:space="preserve">
+    <value>Processor performance counter extensions support. Indicates support for MSRC001_020[A,8,6,4,2,0] and MSRC001_020[B,9,7,5,3,1]</value>
+  </data>
+  <data name="PERFCTREXTNB" xml:space="preserve">
+    <value>NB performance counter extensions support. Indicates support for MSRC001_024[6,4,2,0] and MSRC001_024[7,5,3,1]</value>
+  </data>
+  <data name="PERFL2I" xml:space="preserve">
+    <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
+  </data>
+  <data name="PERFTSC" xml:space="preserve">
+    <value>Performance time-stamp counter</value>
   </data>
   <data name="PGE" xml:space="preserve">
     <value>Page Global Enable bit in CR4</value>
@@ -429,6 +531,9 @@
   <data name="RDPID" xml:space="preserve">
     <value>Read Processor ID and IA32_TSX_AUX</value>
   </data>
+  <data name="RDPRU" xml:space="preserve">
+    <value>RDPRU instruction supported</value>
+  </data>
   <data name="RDRAND" xml:space="preserve">
     <value>On-chip random number generator, RDRAND instruction</value>
   </data>
@@ -456,6 +561,9 @@
   <data name="SERIALIZE" xml:space="preserve">
     <value>Serialize instruction execution</value>
   </data>
+  <data name="SEV" xml:space="preserve">
+    <value>Secure Encrypted Virtualization supported</value>
+  </data>
   <data name="SGX" xml:space="preserve">
     <value>Intel(R) Software Guard Extensions</value>
   </data>
@@ -465,14 +573,23 @@
   <data name="SHA" xml:space="preserve">
     <value>Intel(R) Secure Hash Algorithm Extensions</value>
   </data>
+  <data name="SKINIT" xml:space="preserve">
+    <value>SKINIT and STGI are supported. Indicates support for SKINIT and STGI, independent of the value of MSRC000_0080[SVME]</value>
+  </data>
   <data name="SMAP" xml:space="preserve">
     <value>Supervisor Mode Access Prevention</value>
+  </data>
+  <data name="SME" xml:space="preserve">
+    <value>Secure Memory Encryption supported</value>
   </data>
   <data name="SMEP" xml:space="preserve">
     <value>Supervisor Mode Execution Prevention</value>
   </data>
   <data name="SMX" xml:space="preserve">
     <value>Safer Mode Extensions</value>
+  </data>
+  <data name="SNP" xml:space="preserve">
+    <value>SEV Secure Nested Paging supported</value>
   </data>
   <data name="SRBDS_CTRL" xml:space="preserve">
     <value>Special register buffer data sampling mitigations</value>
@@ -498,20 +615,38 @@
   <data name="SSE4.2" xml:space="preserve">
     <value>Streaming SIMD Extensions 4.2</value>
   </data>
+  <data name="SSE4A" xml:space="preserve">
+    <value>EXTRQ, INSERTQ, MOVNTSS, and MOVNTSD instruction support</value>
+  </data>
   <data name="SSSE3" xml:space="preserve">
     <value>Supplemental Streaming SIMD Extensions 3</value>
   </data>
   <data name="STIBP" xml:space="preserve">
     <value>Single thread indirect branch predictors (STIBP)</value>
   </data>
+  <data name="STIBP_ALL" xml:space="preserve">
+    <value>STIBP always on mode</value>
+  </data>
+  <data name="SVM" xml:space="preserve">
+    <value>Secure Virtual Machine</value>
+  </data>
   <data name="SYSCALL" xml:space="preserve">
     <value>SYSCALL and SYSRET instructions are supported</value>
+  </data>
+  <data name="TBM" xml:space="preserve">
+    <value>Trailing bit manipulation instruction support</value>
+  </data>
+  <data name="TCE" xml:space="preserve">
+    <value>Translation cache extension, EFER.TCE</value>
   </data>
   <data name="TM" xml:space="preserve">
     <value>Thermal Monitor</value>
   </data>
   <data name="TM2" xml:space="preserve">
     <value>Thermal Monitor 2</value>
+  </data>
+  <data name="TOPX" xml:space="preserve">
+    <value>Topology extensions support</value>
   </data>
   <data name="TSC" xml:space="preserve">
     <value>Time Stamp Counter</value>
@@ -534,6 +669,9 @@
   <data name="VME" xml:space="preserve">
     <value>Virtual 8086 Mode Extensions</value>
   </data>
+  <data name="VMPL" xml:space="preserve">
+    <value>VM Permission Levels supported</value>
+  </data>
   <data name="VMX" xml:space="preserve">
     <value>Virtual Machine Extensions</value>
   </data>
@@ -543,14 +681,36 @@
   <data name="WAITPKG" xml:space="preserve">
     <value>User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
   </data>
+  <data name="WBNOINVD" xml:space="preserve">
+    <value>WBNOINVD instruction supported</value>
+  </data>
+  <data name="WDT" xml:space="preserve">
+    <value>Watchdog timer support. See APM2 and APM3. Indicates support for
+MSRC001_0074</value>
+  </data>
   <data name="X2APIC" xml:space="preserve">
     <value>Extended APIC support</value>
   </data>
   <data name="XD" xml:space="preserve">
     <value>Execution Disable bit</value>
   </data>
+  <data name="XGETBV" xml:space="preserve">
+    <value>XGETBV with ECX = 1 supported</value>
+  </data>
+  <data name="XOP" xml:space="preserve">
+    <value>Extended operation support</value>
+  </data>
   <data name="XSAVE" xml:space="preserve">
     <value>XSAVE/XSTOR states</value>
+  </data>
+  <data name="XSAVEC" xml:space="preserve">
+    <value>XSAVEC and compact XRSTOR supported</value>
+  </data>
+  <data name="XSAVEOPT" xml:space="preserve">
+    <value>XSAVEOPT is available</value>
+  </data>
+  <data name="XSAVES" xml:space="preserve">
+    <value>XSAVES, XRSTOR, and XSS are supported</value>
   </data>
   <data name="XTPR" xml:space="preserve">
     <value>xTPR Update Control, disable sending task priority messages</value>

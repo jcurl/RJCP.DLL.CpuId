@@ -39,6 +39,8 @@
             this.lblVendor = new System.Windows.Forms.Label();
             this.lbltxtVendor = new System.Windows.Forms.Label();
             this.tabX86 = new System.Windows.Forms.TabPage();
+            this.lblBrand = new System.Windows.Forms.Label();
+            this.lbltxtBrand = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
             this.lbltxtType = new System.Windows.Forms.Label();
             this.lblStepping = new System.Windows.Forms.Label();
@@ -135,7 +137,7 @@
             this.lbltxtCpuName.Name = "lbltxtCpuName";
             this.lbltxtCpuName.Size = new System.Drawing.Size(84, 16);
             this.lbltxtCpuName.TabIndex = 4;
-            this.lbltxtCpuName.Text = "Brand Name: ";
+            this.lbltxtCpuName.Text = "Processor: ";
             this.lbltxtCpuName.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblVendor
@@ -160,6 +162,8 @@
             // 
             // tabX86
             // 
+            this.tabX86.Controls.Add(this.lblBrand);
+            this.tabX86.Controls.Add(this.lbltxtBrand);
             this.tabX86.Controls.Add(this.lblType);
             this.tabX86.Controls.Add(this.lbltxtType);
             this.tabX86.Controls.Add(this.lblStepping);
@@ -179,11 +183,31 @@
             this.tabX86.Text = "80x86";
             this.tabX86.UseVisualStyleBackColor = true;
             // 
+            // lblBrand
+            // 
+            this.lblBrand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBrand.Location = new System.Drawing.Point(96, 16);
+            this.lblBrand.Name = "lblBrand";
+            this.lblBrand.Size = new System.Drawing.Size(381, 16);
+            this.lblBrand.TabIndex = 31;
+            this.lblBrand.Text = "-";
+            // 
+            // lbltxtBrand
+            // 
+            this.lbltxtBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lbltxtBrand.Location = new System.Drawing.Point(6, 16);
+            this.lbltxtBrand.Name = "lbltxtBrand";
+            this.lbltxtBrand.Size = new System.Drawing.Size(84, 16);
+            this.lbltxtBrand.TabIndex = 30;
+            this.lbltxtBrand.Text = "Brand: ";
+            this.lbltxtBrand.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // lblType
             // 
             this.lblType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblType.Location = new System.Drawing.Point(96, 88);
+            this.lblType.Location = new System.Drawing.Point(96, 105);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(381, 16);
             this.lblType.TabIndex = 29;
@@ -192,7 +216,7 @@
             // lbltxtType
             // 
             this.lbltxtType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtType.Location = new System.Drawing.Point(6, 88);
+            this.lbltxtType.Location = new System.Drawing.Point(6, 105);
             this.lbltxtType.Name = "lbltxtType";
             this.lbltxtType.Size = new System.Drawing.Size(84, 16);
             this.lbltxtType.TabIndex = 28;
@@ -203,7 +227,7 @@
             // 
             this.lblStepping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStepping.Location = new System.Drawing.Point(96, 72);
+            this.lblStepping.Location = new System.Drawing.Point(96, 89);
             this.lblStepping.Name = "lblStepping";
             this.lblStepping.Size = new System.Drawing.Size(381, 16);
             this.lblStepping.TabIndex = 27;
@@ -212,7 +236,7 @@
             // lbltxtStepping
             // 
             this.lbltxtStepping.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtStepping.Location = new System.Drawing.Point(6, 72);
+            this.lbltxtStepping.Location = new System.Drawing.Point(6, 89);
             this.lbltxtStepping.Name = "lbltxtStepping";
             this.lbltxtStepping.Size = new System.Drawing.Size(84, 16);
             this.lbltxtStepping.TabIndex = 26;
@@ -223,7 +247,7 @@
             // 
             this.lblModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblModel.Location = new System.Drawing.Point(96, 56);
+            this.lblModel.Location = new System.Drawing.Point(96, 73);
             this.lblModel.Name = "lblModel";
             this.lblModel.Size = new System.Drawing.Size(381, 16);
             this.lblModel.TabIndex = 25;
@@ -232,7 +256,7 @@
             // lbltxtModel
             // 
             this.lbltxtModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtModel.Location = new System.Drawing.Point(6, 56);
+            this.lbltxtModel.Location = new System.Drawing.Point(6, 73);
             this.lbltxtModel.Name = "lbltxtModel";
             this.lbltxtModel.Size = new System.Drawing.Size(84, 16);
             this.lbltxtModel.TabIndex = 24;
@@ -243,7 +267,7 @@
             // 
             this.lblFamily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFamily.Location = new System.Drawing.Point(96, 40);
+            this.lblFamily.Location = new System.Drawing.Point(96, 57);
             this.lblFamily.Name = "lblFamily";
             this.lblFamily.Size = new System.Drawing.Size(381, 16);
             this.lblFamily.TabIndex = 23;
@@ -252,7 +276,7 @@
             // lbltxtFamily
             // 
             this.lbltxtFamily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtFamily.Location = new System.Drawing.Point(6, 40);
+            this.lbltxtFamily.Location = new System.Drawing.Point(6, 57);
             this.lbltxtFamily.Name = "lbltxtFamily";
             this.lbltxtFamily.Size = new System.Drawing.Size(84, 16);
             this.lbltxtFamily.TabIndex = 22;
@@ -263,7 +287,7 @@
             // 
             this.lblSignature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSignature.Location = new System.Drawing.Point(96, 16);
+            this.lblSignature.Location = new System.Drawing.Point(96, 32);
             this.lblSignature.Name = "lblSignature";
             this.lblSignature.Size = new System.Drawing.Size(381, 16);
             this.lblSignature.TabIndex = 21;
@@ -272,7 +296,7 @@
             // lbltxtSignature
             // 
             this.lbltxtSignature.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtSignature.Location = new System.Drawing.Point(6, 16);
+            this.lbltxtSignature.Location = new System.Drawing.Point(6, 32);
             this.lbltxtSignature.Name = "lbltxtSignature";
             this.lbltxtSignature.Size = new System.Drawing.Size(84, 16);
             this.lbltxtSignature.TabIndex = 20;
@@ -282,7 +306,7 @@
             // lbltxtCpuIdValues
             // 
             this.lbltxtCpuIdValues.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtCpuIdValues.Location = new System.Drawing.Point(3, 114);
+            this.lbltxtCpuIdValues.Location = new System.Drawing.Point(3, 136);
             this.lbltxtCpuIdValues.Name = "lbltxtCpuIdValues";
             this.lbltxtCpuIdValues.Size = new System.Drawing.Size(84, 13);
             this.lbltxtCpuIdValues.TabIndex = 19;
@@ -319,10 +343,10 @@
             listViewGroup4});
             this.lstCpuIdRegisters.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstCpuIdRegisters.HideSelection = false;
-            this.lstCpuIdRegisters.Location = new System.Drawing.Point(0, 130);
+            this.lstCpuIdRegisters.Location = new System.Drawing.Point(0, 152);
             this.lstCpuIdRegisters.MultiSelect = false;
             this.lstCpuIdRegisters.Name = "lstCpuIdRegisters";
-            this.lstCpuIdRegisters.Size = new System.Drawing.Size(480, 289);
+            this.lstCpuIdRegisters.Size = new System.Drawing.Size(480, 267);
             this.lstCpuIdRegisters.TabIndex = 18;
             this.lstCpuIdRegisters.UseCompatibleStateImageBehavior = false;
             this.lstCpuIdRegisters.View = System.Windows.Forms.View.Details;
@@ -652,6 +676,8 @@
         private System.Windows.Forms.ColumnHeader colOutEbx;
         private System.Windows.Forms.ColumnHeader colOutEcx;
         private System.Windows.Forms.ColumnHeader colOutEdx;
+        private System.Windows.Forms.Label lblBrand;
+        private System.Windows.Forms.Label lbltxtBrand;
     }
 }
 

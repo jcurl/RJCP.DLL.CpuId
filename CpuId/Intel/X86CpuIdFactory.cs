@@ -19,6 +19,8 @@
             switch (cpu.VendorId) {
             case "GenuineIntel":
                 return new GenuineIntelCpu(cpu);
+            case "AuthenticAMD":
+                return new AuthenticAmdCpu(cpu);
             default:
                 return new GenericIntelCpu(cpu);
             }

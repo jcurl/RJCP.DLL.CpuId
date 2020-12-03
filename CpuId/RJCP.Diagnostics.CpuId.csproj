@@ -40,16 +40,27 @@
     <Compile Include="CpuIdFactory.cs" />
     <Compile Include="CpuFeatures.cs" />
     <Compile Include="CpuIdXmlFactory.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+Default.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+Family14.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+Family12.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+Family11.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+Family10.cs" />
+    <Compile Include="Intel\AuthenticAmdCpu.cs" />
     <Compile Include="Intel\CpuIdRegister.cs" />
     <Compile Include="Intel\CpuRegisters.cs" />
     <Compile Include="CpuVendor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Intel\BasicCpu.cs" />
     <Compile Include="Intel\CpuXmlRegisters.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier+FamilyF.cs" />
+    <Compile Include="Intel\FamilyTree\INode.cs" />
+    <Compile Include="Intel\FamilyTree\Node.cs" />
+    <Compile Include="Intel\FamilyTree\NodeEmpty.cs" />
     <Compile Include="Intel\GenericIntelCpu.cs" />
     <Compile Include="Intel\GenericIntelCpuBase.cs" />
     <Compile Include="Intel\GenuineIntelCpu.cs" />
     <Compile Include="Intel\ICpuIdX86.cs" />
+    <Compile Include="Intel\AmdBrandIdentifier.cs" />
     <Compile Include="Intel\IntelLegacySignatures.cs" />
     <Compile Include="Resources\CpuFeatures.Designer.cs">
       <AutoGen>True</AutoGen>

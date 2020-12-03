@@ -36,6 +36,12 @@
         int ProcessorType { get; }
 
         /// <summary>
+        /// Gets the brand string for the processor.
+        /// </summary>
+        /// <value>The brand string for the processor.</value>
+        string BrandString { get; }
+
+        /// <summary>
         /// Access to the CPUID registers for the CPU.
         /// </summary>
         /// <value>The CPUID registers.</value>

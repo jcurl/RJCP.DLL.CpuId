@@ -5,8 +5,6 @@
     /// </summary>
     public class GenericIntelCpu : GenericIntelCpuBase
     {
-        private const int FeatureInformationFunction = 1;
-
         internal GenericIntelCpu(BasicCpu cpu) : base(cpu)
         {
             if (cpu.FunctionCount == 0) return;

@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpuIdTest.cs" />
+    <Compile Include="Intel\AuthenticAmdCpuTest.cs" />
+    <Compile Include="Intel\FeatureCheck.cs" />
     <Compile Include="Intel\GenericIntelCpuTest.cs" />
     <Compile Include="Intel\GenuineIntelCpuTest.cs" />
     <Compile Include="Intel\GenuineIntelFakeCpuTest.cs" />
@@ -63,6 +65,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="TestResources\AuthenticAmd\AMD A8.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\AuthenticAmd\AMD Geode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\AuthenticAmd\AMD Opteron-2347-HE.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\AuthenticAmd\AMD PhenomIIX2-550.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\FakeIntel\i486dx4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
