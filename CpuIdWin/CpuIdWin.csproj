@@ -31,15 +31,51 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CpuDumpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CpuDumpControl.Designer.cs">
+      <DependentUpon>CpuDumpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CpuFeaturesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CpuFeaturesControl.Designer.cs">
+      <DependentUpon>CpuFeaturesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CpuDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CpuDetailsControl.Designer.cs">
+      <DependentUpon>CpuDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CpuIdTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CpuIdTree.Designer.cs">
+      <DependentUpon>CpuIdTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NodeType.cs" />
+    <Compile Include="Controls\ThemeListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ThemeTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeNodeData.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Main.cs">
@@ -48,8 +84,22 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Native\User32.cs" />
+    <Compile Include="Native\UxTheme.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\CpuDumpControl.resx">
+      <DependentUpon>CpuDumpControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CpuFeaturesControl.resx">
+      <DependentUpon>CpuFeaturesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CpuDetailsControl.resx">
+      <DependentUpon>CpuDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CpuIdTree.resx">
+      <DependentUpon>CpuIdTree.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -64,6 +114,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CpuId\RJCP.Diagnostics.CpuId.csproj">

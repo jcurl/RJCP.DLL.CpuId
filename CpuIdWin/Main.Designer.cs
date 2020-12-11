@@ -27,40 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Standard Functions", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Intel Xeon Phi Functions", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Hypervisor Functions", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Extended Functions", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.tbcCpuId = new System.Windows.Forms.TabControl();
-            this.tabMain = new System.Windows.Forms.TabPage();
-            this.lblCpuName = new System.Windows.Forms.Label();
-            this.lbltxtCpuName = new System.Windows.Forms.Label();
-            this.lblVendor = new System.Windows.Forms.Label();
-            this.lbltxtVendor = new System.Windows.Forms.Label();
-            this.tabX86 = new System.Windows.Forms.TabPage();
-            this.lblBrand = new System.Windows.Forms.Label();
-            this.lbltxtBrand = new System.Windows.Forms.Label();
-            this.lblType = new System.Windows.Forms.Label();
-            this.lbltxtType = new System.Windows.Forms.Label();
-            this.lblStepping = new System.Windows.Forms.Label();
-            this.lbltxtStepping = new System.Windows.Forms.Label();
-            this.lblModel = new System.Windows.Forms.Label();
-            this.lbltxtModel = new System.Windows.Forms.Label();
-            this.lblFamily = new System.Windows.Forms.Label();
-            this.lbltxtFamily = new System.Windows.Forms.Label();
-            this.lblSignature = new System.Windows.Forms.Label();
-            this.lbltxtSignature = new System.Windows.Forms.Label();
-            this.lbltxtCpuIdValues = new System.Windows.Forms.Label();
-            this.lstCpuIdRegisters = new System.Windows.Forms.ListView();
-            this.colInEax = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colInEcx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colOutEax = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colOutEbx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colOutEcx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colOutEdx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabFeatures = new System.Windows.Forms.TabPage();
-            this.lstCpuFeatures = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,320 +52,9 @@
             this.mnuHelpSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbcCpuId.SuspendLayout();
-            this.tabMain.SuspendLayout();
-            this.tabX86.SuspendLayout();
-            this.tabFeatures.SuspendLayout();
+            this.cpuIdTree1 = new RJCP.Diagnostics.CpuIdWin.Controls.CpuIdTree();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tbcCpuId
-            // 
-            this.tbcCpuId.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbcCpuId.Controls.Add(this.tabMain);
-            this.tbcCpuId.Controls.Add(this.tabX86);
-            this.tbcCpuId.Controls.Add(this.tabFeatures);
-            this.tbcCpuId.Location = new System.Drawing.Point(12, 27);
-            this.tbcCpuId.Name = "tbcCpuId";
-            this.tbcCpuId.SelectedIndex = 0;
-            this.tbcCpuId.Size = new System.Drawing.Size(491, 445);
-            this.tbcCpuId.TabIndex = 0;
-            // 
-            // tabMain
-            // 
-            this.tabMain.Controls.Add(this.lblCpuName);
-            this.tabMain.Controls.Add(this.lbltxtCpuName);
-            this.tabMain.Controls.Add(this.lblVendor);
-            this.tabMain.Controls.Add(this.lbltxtVendor);
-            this.tabMain.Location = new System.Drawing.Point(4, 22);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(483, 419);
-            this.tabMain.TabIndex = 0;
-            this.tabMain.Text = "Main";
-            this.tabMain.UseVisualStyleBackColor = true;
-            // 
-            // lblCpuName
-            // 
-            this.lblCpuName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCpuName.Location = new System.Drawing.Point(96, 32);
-            this.lblCpuName.Name = "lblCpuName";
-            this.lblCpuName.Size = new System.Drawing.Size(381, 16);
-            this.lblCpuName.TabIndex = 5;
-            this.lblCpuName.Text = "-";
-            // 
-            // lbltxtCpuName
-            // 
-            this.lbltxtCpuName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtCpuName.Location = new System.Drawing.Point(6, 32);
-            this.lbltxtCpuName.Name = "lbltxtCpuName";
-            this.lbltxtCpuName.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtCpuName.TabIndex = 4;
-            this.lbltxtCpuName.Text = "Processor: ";
-            this.lbltxtCpuName.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblVendor
-            // 
-            this.lblVendor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVendor.Location = new System.Drawing.Point(96, 16);
-            this.lblVendor.Name = "lblVendor";
-            this.lblVendor.Size = new System.Drawing.Size(381, 16);
-            this.lblVendor.TabIndex = 1;
-            this.lblVendor.Text = "-";
-            // 
-            // lbltxtVendor
-            // 
-            this.lbltxtVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtVendor.Location = new System.Drawing.Point(6, 16);
-            this.lbltxtVendor.Name = "lbltxtVendor";
-            this.lbltxtVendor.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtVendor.TabIndex = 0;
-            this.lbltxtVendor.Text = "Vendor: ";
-            this.lbltxtVendor.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tabX86
-            // 
-            this.tabX86.Controls.Add(this.lblBrand);
-            this.tabX86.Controls.Add(this.lbltxtBrand);
-            this.tabX86.Controls.Add(this.lblType);
-            this.tabX86.Controls.Add(this.lbltxtType);
-            this.tabX86.Controls.Add(this.lblStepping);
-            this.tabX86.Controls.Add(this.lbltxtStepping);
-            this.tabX86.Controls.Add(this.lblModel);
-            this.tabX86.Controls.Add(this.lbltxtModel);
-            this.tabX86.Controls.Add(this.lblFamily);
-            this.tabX86.Controls.Add(this.lbltxtFamily);
-            this.tabX86.Controls.Add(this.lblSignature);
-            this.tabX86.Controls.Add(this.lbltxtSignature);
-            this.tabX86.Controls.Add(this.lbltxtCpuIdValues);
-            this.tabX86.Controls.Add(this.lstCpuIdRegisters);
-            this.tabX86.Location = new System.Drawing.Point(4, 22);
-            this.tabX86.Name = "tabX86";
-            this.tabX86.Size = new System.Drawing.Size(483, 419);
-            this.tabX86.TabIndex = 3;
-            this.tabX86.Text = "80x86";
-            this.tabX86.UseVisualStyleBackColor = true;
-            // 
-            // lblBrand
-            // 
-            this.lblBrand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBrand.Location = new System.Drawing.Point(96, 16);
-            this.lblBrand.Name = "lblBrand";
-            this.lblBrand.Size = new System.Drawing.Size(381, 16);
-            this.lblBrand.TabIndex = 31;
-            this.lblBrand.Text = "-";
-            // 
-            // lbltxtBrand
-            // 
-            this.lbltxtBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtBrand.Location = new System.Drawing.Point(6, 16);
-            this.lbltxtBrand.Name = "lbltxtBrand";
-            this.lbltxtBrand.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtBrand.TabIndex = 30;
-            this.lbltxtBrand.Text = "Brand: ";
-            this.lbltxtBrand.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblType
-            // 
-            this.lblType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblType.Location = new System.Drawing.Point(96, 105);
-            this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(381, 16);
-            this.lblType.TabIndex = 29;
-            this.lblType.Text = "-";
-            // 
-            // lbltxtType
-            // 
-            this.lbltxtType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtType.Location = new System.Drawing.Point(6, 105);
-            this.lbltxtType.Name = "lbltxtType";
-            this.lbltxtType.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtType.TabIndex = 28;
-            this.lbltxtType.Text = "Proc Type: ";
-            this.lbltxtType.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblStepping
-            // 
-            this.lblStepping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStepping.Location = new System.Drawing.Point(96, 89);
-            this.lblStepping.Name = "lblStepping";
-            this.lblStepping.Size = new System.Drawing.Size(381, 16);
-            this.lblStepping.TabIndex = 27;
-            this.lblStepping.Text = "-";
-            // 
-            // lbltxtStepping
-            // 
-            this.lbltxtStepping.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtStepping.Location = new System.Drawing.Point(6, 89);
-            this.lbltxtStepping.Name = "lbltxtStepping";
-            this.lbltxtStepping.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtStepping.TabIndex = 26;
-            this.lbltxtStepping.Text = "Stepping: ";
-            this.lbltxtStepping.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblModel
-            // 
-            this.lblModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblModel.Location = new System.Drawing.Point(96, 73);
-            this.lblModel.Name = "lblModel";
-            this.lblModel.Size = new System.Drawing.Size(381, 16);
-            this.lblModel.TabIndex = 25;
-            this.lblModel.Text = "-";
-            // 
-            // lbltxtModel
-            // 
-            this.lbltxtModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtModel.Location = new System.Drawing.Point(6, 73);
-            this.lbltxtModel.Name = "lbltxtModel";
-            this.lbltxtModel.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtModel.TabIndex = 24;
-            this.lbltxtModel.Text = "Model: ";
-            this.lbltxtModel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblFamily
-            // 
-            this.lblFamily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFamily.Location = new System.Drawing.Point(96, 57);
-            this.lblFamily.Name = "lblFamily";
-            this.lblFamily.Size = new System.Drawing.Size(381, 16);
-            this.lblFamily.TabIndex = 23;
-            this.lblFamily.Text = "-";
-            // 
-            // lbltxtFamily
-            // 
-            this.lbltxtFamily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtFamily.Location = new System.Drawing.Point(6, 57);
-            this.lbltxtFamily.Name = "lbltxtFamily";
-            this.lbltxtFamily.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtFamily.TabIndex = 22;
-            this.lbltxtFamily.Text = "Family: ";
-            this.lbltxtFamily.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblSignature
-            // 
-            this.lblSignature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSignature.Location = new System.Drawing.Point(96, 32);
-            this.lblSignature.Name = "lblSignature";
-            this.lblSignature.Size = new System.Drawing.Size(381, 16);
-            this.lblSignature.TabIndex = 21;
-            this.lblSignature.Text = "-";
-            // 
-            // lbltxtSignature
-            // 
-            this.lbltxtSignature.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtSignature.Location = new System.Drawing.Point(6, 32);
-            this.lbltxtSignature.Name = "lbltxtSignature";
-            this.lbltxtSignature.Size = new System.Drawing.Size(84, 16);
-            this.lbltxtSignature.TabIndex = 20;
-            this.lbltxtSignature.Text = "Signature: ";
-            this.lbltxtSignature.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lbltxtCpuIdValues
-            // 
-            this.lbltxtCpuIdValues.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltxtCpuIdValues.Location = new System.Drawing.Point(3, 136);
-            this.lbltxtCpuIdValues.Name = "lbltxtCpuIdValues";
-            this.lbltxtCpuIdValues.Size = new System.Drawing.Size(84, 13);
-            this.lbltxtCpuIdValues.TabIndex = 19;
-            this.lbltxtCpuIdValues.Text = "CPUID Values";
-            // 
-            // lstCpuIdRegisters
-            // 
-            this.lstCpuIdRegisters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstCpuIdRegisters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstCpuIdRegisters.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colInEax,
-            this.colInEcx,
-            this.colOutEax,
-            this.colOutEbx,
-            this.colOutEcx,
-            this.colOutEdx});
-            this.lstCpuIdRegisters.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lstCpuIdRegisters.FullRowSelect = true;
-            this.lstCpuIdRegisters.GridLines = true;
-            listViewGroup1.Header = "Standard Functions";
-            listViewGroup1.Name = "lvgStandardFunctions";
-            listViewGroup2.Header = "Intel Xeon Phi Functions";
-            listViewGroup2.Name = "lvgPhiFunctions";
-            listViewGroup3.Header = "Hypervisor Functions";
-            listViewGroup3.Name = "lvgHypervisorFunctions";
-            listViewGroup4.Header = "Extended Functions";
-            listViewGroup4.Name = "lvgExtendedFunctions";
-            this.lstCpuIdRegisters.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
-            this.lstCpuIdRegisters.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstCpuIdRegisters.HideSelection = false;
-            this.lstCpuIdRegisters.Location = new System.Drawing.Point(0, 152);
-            this.lstCpuIdRegisters.MultiSelect = false;
-            this.lstCpuIdRegisters.Name = "lstCpuIdRegisters";
-            this.lstCpuIdRegisters.Size = new System.Drawing.Size(480, 267);
-            this.lstCpuIdRegisters.TabIndex = 18;
-            this.lstCpuIdRegisters.UseCompatibleStateImageBehavior = false;
-            this.lstCpuIdRegisters.View = System.Windows.Forms.View.Details;
-            // 
-            // colInEax
-            // 
-            this.colInEax.Text = "EAX";
-            // 
-            // colInEcx
-            // 
-            this.colInEcx.Text = "ECX";
-            // 
-            // colOutEax
-            // 
-            this.colOutEax.Text = "-> EAX";
-            // 
-            // colOutEbx
-            // 
-            this.colOutEbx.Text = "-> EBX";
-            // 
-            // colOutEcx
-            // 
-            this.colOutEcx.Text = "-> ECX";
-            // 
-            // colOutEdx
-            // 
-            this.colOutEdx.Text = "-> EDX";
-            // 
-            // tabFeatures
-            // 
-            this.tabFeatures.Controls.Add(this.lstCpuFeatures);
-            this.tabFeatures.Location = new System.Drawing.Point(4, 22);
-            this.tabFeatures.Name = "tabFeatures";
-            this.tabFeatures.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFeatures.Size = new System.Drawing.Size(483, 419);
-            this.tabFeatures.TabIndex = 2;
-            this.tabFeatures.Text = "Features";
-            this.tabFeatures.UseVisualStyleBackColor = true;
-            // 
-            // lstCpuFeatures
-            // 
-            this.lstCpuFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstCpuFeatures.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstCpuFeatures.FormattingEnabled = true;
-            this.lstCpuFeatures.IntegralHeight = false;
-            this.lstCpuFeatures.Location = new System.Drawing.Point(0, 0);
-            this.lstCpuFeatures.Name = "lstCpuFeatures";
-            this.lstCpuFeatures.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.lstCpuFeatures.Size = new System.Drawing.Size(483, 419);
-            this.lstCpuFeatures.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -408,7 +64,7 @@
             this.mnuHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(515, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -603,19 +259,28 @@
             this.mnuHelpAbout.Size = new System.Drawing.Size(122, 22);
             this.mnuHelpAbout.Text = "&About...";
             // 
+            // cpuIdTree1
+            // 
+            this.cpuIdTree1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cpuIdTree1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cpuIdTree1.Location = new System.Drawing.Point(12, 27);
+            this.cpuIdTree1.Name = "cpuIdTree1";
+            this.cpuIdTree1.Size = new System.Drawing.Size(760, 402);
+            this.cpuIdTree1.TabIndex = 2;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 484);
-            this.Controls.Add(this.tbcCpuId);
+            this.ClientSize = new System.Drawing.Size(784, 441);
+            this.Controls.Add(this.cpuIdTree1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(512, 400);
             this.Name = "Main";
             this.Text = "CpuID";
-            this.tbcCpuId.ResumeLayout(false);
-            this.tabMain.ResumeLayout(false);
-            this.tabX86.ResumeLayout(false);
-            this.tabFeatures.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -624,11 +289,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tbcCpuId;
-        private System.Windows.Forms.TabPage tabMain;
-        private System.Windows.Forms.Label lblVendor;
-        private System.Windows.Forms.Label lbltxtVendor;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuFileNew;
@@ -652,32 +312,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuHelpSearch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem mnuHelpAbout;
-        private System.Windows.Forms.Label lblCpuName;
-        private System.Windows.Forms.Label lbltxtCpuName;
         private System.Windows.Forms.ToolStripMenuItem mnuFileOpenLocal;
-        private System.Windows.Forms.TabPage tabFeatures;
-        private System.Windows.Forms.CheckedListBox lstCpuFeatures;
-        private System.Windows.Forms.TabPage tabX86;
-        private System.Windows.Forms.Label lblType;
-        private System.Windows.Forms.Label lbltxtType;
-        private System.Windows.Forms.Label lblStepping;
-        private System.Windows.Forms.Label lbltxtStepping;
-        private System.Windows.Forms.Label lblModel;
-        private System.Windows.Forms.Label lbltxtModel;
-        private System.Windows.Forms.Label lblFamily;
-        private System.Windows.Forms.Label lbltxtFamily;
-        private System.Windows.Forms.Label lblSignature;
-        private System.Windows.Forms.Label lbltxtSignature;
-        private System.Windows.Forms.Label lbltxtCpuIdValues;
-        private System.Windows.Forms.ListView lstCpuIdRegisters;
-        private System.Windows.Forms.ColumnHeader colInEax;
-        private System.Windows.Forms.ColumnHeader colInEcx;
-        private System.Windows.Forms.ColumnHeader colOutEax;
-        private System.Windows.Forms.ColumnHeader colOutEbx;
-        private System.Windows.Forms.ColumnHeader colOutEcx;
-        private System.Windows.Forms.ColumnHeader colOutEdx;
-        private System.Windows.Forms.Label lblBrand;
-        private System.Windows.Forms.Label lbltxtBrand;
+        private Controls.CpuIdTree cpuIdTree1;
     }
 }
 
