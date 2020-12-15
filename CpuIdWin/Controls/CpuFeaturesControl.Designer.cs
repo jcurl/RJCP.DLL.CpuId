@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvwFeatures = new ThemeListView();
+            this.lvwFeatures = new RJCP.Diagnostics.CpuIdWin.Controls.ThemeListView();
             this.hdrFeature = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -54,6 +54,7 @@
             this.lvwFeatures.TabIndex = 0;
             this.lvwFeatures.UseCompatibleStateImageBehavior = false;
             this.lvwFeatures.View = System.Windows.Forms.View.Details;
+            this.lvwFeatures.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvwFeatures_ItemCheck);
             // 
             // hdrFeature
             // 

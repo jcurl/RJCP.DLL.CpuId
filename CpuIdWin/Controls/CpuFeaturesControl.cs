@@ -21,5 +21,12 @@
             hdrFeature.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             hdrDescription.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
+
+        private void lvwFeatures_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // The check boxes are read only. If the handle isn't created, then we're in the construction phase and we
+            // should be able to set the value.
+            if (IsHandleCreated) e.NewValue = e.CurrentValue;
+        }
     }
 }
