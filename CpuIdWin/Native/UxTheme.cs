@@ -2,7 +2,9 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Security;
 
+    [SuppressUnmanagedCodeSecurity]
     internal static class UxTheme
     {
         [DllImport("uxtheme", CharSet = CharSet.Unicode)]

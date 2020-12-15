@@ -2,7 +2,9 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Security;
 
+    [SuppressUnmanagedCodeSecurity]
     internal static class User32
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
