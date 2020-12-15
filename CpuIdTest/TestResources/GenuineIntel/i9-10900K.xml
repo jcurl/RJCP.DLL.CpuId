@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<cpuid>
-	<processor type="x86" description="taken from online database">
+<cpuid type="x86" description="taken from online database">
+	<processor>
 		<register eax="00000000" ecx="00000000">00000016,756E6547,6C65746E,49656E69</register>
 		<register eax="80000000" ecx="00000000">80000008,00000000,00000000,00000000</register>
 		<register eax="00000001" ecx="00000000">000A0655,00200800,7FFAFBFF,BFEBFBFF</register>

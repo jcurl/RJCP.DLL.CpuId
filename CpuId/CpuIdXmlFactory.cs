@@ -1,6 +1,8 @@
 ﻿namespace RJCP.Diagnostics
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
     using System.Xml;
 
     /// <summary>
@@ -32,6 +34,8 @@
         {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("FileName may not be an empty string", nameof(fileName));
+
+            m_FileName = fileName;
         }
 
         private string m_FileName;
@@ -81,6 +85,23 @@
         /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
         public ICpuId Create(string fileName)
         {
+            XmlNode cpuIdNode = GetCpuIdNode(fileName);
+            if (cpuIdNode == null) return null;
+            string processor = cpuIdNode.Attributes["type"]?.Value;
+            if (processor == null) processor = "x86";
+
+            switch (processor) {
+            case "x86":
+                Intel.X86CpuIdFactoryXml x86Factory = new Intel.X86CpuIdFactoryXml(cpuIdNode);
+                return x86Factory.Create();
+            default:
+                // This processor type is unknown.
+                return null;
+            }
+        }
+
+        private XmlNode GetCpuIdNode(string fileName)
+        {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name is empty", nameof(fileName));
 
@@ -89,20 +110,82 @@
             };
             xmlDoc.Load(fileName);
 
-            XmlNode node = xmlDoc.SelectSingleNode("/cpuid/processor");
-            if (node == null) return null;
+            return xmlDoc.SelectSingleNode("/cpuid");
+        }
 
-            string processor = node.Attributes["type"]?.Value;
+        /// <summary>
+        /// Retrieves information about all CPUs using the file name in the property <see cref="FileName"/>.
+        /// </summary>
+        /// <returns>An enumerable collection of all CPUs.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// <see cref="FileName"/> is <see langword="null"/>
+        /// <para>- or -</para>
+        /// <see cref="FileName"/> is empty.
+        /// </exception>
+        public IEnumerable<ICpuId> CreateAll()
+        {
+            if (FileName == null) throw new InvalidOperationException("FileName is null");
+            if (string.IsNullOrEmpty(FileName)) throw new InvalidOperationException("File name is empty");
+
+            return CreateAll(FileName);
+        }
+
+        /// <summary>
+        /// Retrieves information about CPUs using the file name given as the parameter.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>An enumerable collection of all CPUs.</returns>
+        public IEnumerable<ICpuId> CreateAll(string fileName)
+        {
+            XmlNode cpuIdNode = GetCpuIdNode(fileName);
+            if (cpuIdNode == null) return new ICpuId[0];
+            string processor = cpuIdNode.Attributes["type"]?.Value;
             if (processor == null) processor = "x86";
 
             switch (processor) {
             case "x86":
-                Intel.X86CpuIdFactory x86Factory = new Intel.X86CpuIdFactory();
-                return x86Factory.Create(node);
+                Intel.X86CpuIdFactoryXml x86Factory = new Intel.X86CpuIdFactoryXml(cpuIdNode);
+                return x86Factory.CreateAll();
             default:
                 // This processor type is unknown.
-                return null;
+                return new ICpuId[0];
             }
+        }
+
+        /// <summary>
+        /// Writes the cached CPUID information to an XML file.
+        /// </summary>
+        /// <param name="fileName">Name of the file to write to.</param>
+        /// <param name="cpus">The collection of CPUs that should be written to the XML writer.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="fileName" /> may not be <see langword="null" />.</exception>
+        /// <exception cref="ArgumentException"><paramref name="fileName" /> may not be an empty string.</exception>
+        public static void Save(string fileName, IEnumerable<ICpuId> cpus)
+        {
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name may not be empty", nameof(fileName));
+
+            List<Intel.GenericIntelCpuBase> x86cpus = new List<Intel.GenericIntelCpuBase>();
+            foreach (ICpuId cpu in cpus) {
+                if (cpu is Intel.GenericIntelCpuBase x86cpu) {
+                    x86cpus.Add(x86cpu);
+                }
+            }
+
+            using (XmlWriter xmlWriter = XmlWriter.Create(fileName, SaveXmlSettings())) {
+                if (x86cpus.Count > 0) Intel.X86CpuIdFactoryXml.Save(xmlWriter, x86cpus);
+            }
+        }
+
+        private static XmlWriterSettings SaveXmlSettings()
+        {
+            return new XmlWriterSettings {
+                CloseOutput = true,
+                ConformanceLevel = ConformanceLevel.Document,
+                Encoding = Encoding.UTF8,
+                Indent = true,
+                IndentChars = "\t",
+                NewLineOnAttributes = false
+            };
         }
     }
 }

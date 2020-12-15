@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpuIdTest.cs" />
+    <Compile Include="CpuIdXmlFactoryTest.cs" />
     <Compile Include="Intel\AuthenticAmdCpuTest.cs" />
     <Compile Include="Intel\FeatureCheck.cs" />
     <Compile Include="Intel\GenericIntelCpuTest.cs" />

@@ -64,37 +64,49 @@ struct cpuidinfo {
 /// <summary>
 /// Executes the CPUID on the current processor for eax and ecx.
 /// </summary>
-/// <param name="eax">EAX input</param>
-/// <param name="ecx">ECX input</param>
-/// <param name="peax">EAX output</param>
-/// <param name="pebx">EBX output</param>
-/// <param name="pecx">ECX output</param>
-/// <param name="pedx">EDX output</param>
+/// <param name="eax">EAX input.</param>
+/// <param name="ecx">ECX input.</param>
+/// <param name="peax">EAX output.</param>
+/// <param name="pebx">EBX output.</param>
+/// <param name="pecx">ECX output.</param>
+/// <param name="pedx">EDX output.</param>
 /// <returns>Returns zero on success.</returns>
 CPUIDDLL_API int WINAPI cpuid(DWORD eax, DWORD ecx, LPDWORD peax, LPDWORD pebx, LPDWORD pecx, LPDWORD pedx);
 
 /// <summary>
-/// Checks if this processor supports the CPUID instruction
+/// Checks if this processor supports the CPUID instruction.
 /// </summary>
 /// <returns>Returns non-zero if CPUID is supported.</returns>
 CPUIDDLL_API int WINAPI hascpuid();
 
 /// <summary>
-/// Performs a dump of known CPUID values on the current core
+/// Performs a dump of known CPUID values on the current core.
 /// </summary>
-/// <param name="info">cpuidinfo array to dump into</param>
-/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>. </param>
+/// <param name="info">cpuidinfo array to dump into.</param>
+/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>.</param>
 /// <returns>Number of elements put into <paramref name="info"/>.</returns>
 CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes);
 
 /// <summary>
-/// Performs a dump of known CPUID values using the specified core
+/// Performs a dump of known CPUID values using the specified core.
 /// </summary>
-/// <param name="info">cpuidinfo array to dump into</param>
-/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>. </param>
+/// <param name="info">cpuidinfo array to dump into.</param>
+/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>.</param>
 /// <returns>Number of elements put into <paramref name="info"/>.</returns>
 CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int core);
 
+/// <summary>
+/// Performs a dump of known CPUID values for each core.
+/// </summary>
+/// <param name="info">cpuidinfo array to dump into.</param>
+/// <param name="bytes">Number of bytes allocated by <paramref name="info"/>.</param>
+/// <returns>Number of elements put into <paramref name="info"/>.</returns>
+/// <remarks>
+/// The array buffer provided, <paramref name="info"/> is filled for all cores. The first
+/// element is a fake CPUID entry, of veax being 0xFFFFFFFF and vecx being the core number.
+/// </remarks>
+
+CPUIDDLL_API int WINAPI iddumpall(struct cpuidinfo *info, size_t bytes);
 #ifdef __cplusplus 
 }
 #endif

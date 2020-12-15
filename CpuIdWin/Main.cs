@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace RJCP.Diagnostics.CpuIdWin
@@ -28,9 +29,9 @@ namespace RJCP.Diagnostics.CpuIdWin
             if (result != DialogResult.OK) return;
             if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
 
-            ICpuId cpuId;
+            IEnumerable<ICpuId> cpus;
             try {
-                cpuId = Global.CpuXmlFactory.Create(dlg.FileName);
+                cpus = Global.CpuXmlFactory.CreateAll(dlg.FileName);
             } catch (Exception ex) {
 #if DEBUG
                 string message = string.Format("Error opening file: {0}", ex.ToString());
@@ -42,7 +43,9 @@ namespace RJCP.Diagnostics.CpuIdWin
             }
 
             cpuIdTree1.Cores.Clear();
-            cpuIdTree1.Cores.Add(cpuId);
+            foreach (ICpuId cpu in cpus) {
+                cpuIdTree1.Cores.Add(cpu);
+            }
         }
 
         private void mnuFileOpenLocal_Click(object sender, EventArgs e)
@@ -53,30 +56,27 @@ namespace RJCP.Diagnostics.CpuIdWin
         private void mnuFileSave_Click(object sender, EventArgs e)
         {
             if (cpuIdTree1.Cores.Count == 0) return;
-            ICpuId cpuId = cpuIdTree1.Cores[0];
 
-            if (cpuId is Intel.GenericIntelCpuBase x86cpu) {
-                SaveFileDialog dlg = new SaveFileDialog {
-                    AddExtension = true,
-                    AutoUpgradeEnabled = true,
-                    CheckPathExists = true,
-                    Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
-                    DefaultExt = "xml",
-                    OverwritePrompt = true,
-                    Title = "Save CPUID information",
-                    FileName = Environment.MachineName.ToLowerInvariant(),
-                    ValidateNames = true
-                };
-                DialogResult result = dlg.ShowDialog();
-                if (result != DialogResult.OK) return;
-                if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
+            SaveFileDialog dlg = new SaveFileDialog {
+                AddExtension = true,
+                AutoUpgradeEnabled = true,
+                CheckPathExists = true,
+                Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                DefaultExt = "xml",
+                OverwritePrompt = true,
+                Title = "Save CPUID information",
+                FileName = Environment.MachineName.ToLowerInvariant(),
+                ValidateNames = true
+            };
+            DialogResult result = dlg.ShowDialog();
+            if (result != DialogResult.OK) return;
+            if (string.IsNullOrWhiteSpace(dlg.FileName)) return;
 
-                try {
-                    x86cpu.Save(dlg.FileName);
-                } catch (Exception ex) {
-                    string message = string.Format("Error saving file: {0}", ex.Message);
-                    MessageBox.Show(message, "Error Saving File");
-                }
+            try {
+                CpuIdXmlFactory.Save(dlg.FileName, cpuIdTree1.Cores);
+            } catch (Exception ex) {
+                string message = string.Format("Error saving file: {0}", ex.Message);
+                MessageBox.Show(message, "Error Saving File");
             }
         }
 
@@ -89,8 +89,10 @@ namespace RJCP.Diagnostics.CpuIdWin
         {
             cpuIdTree1.Cores.Clear();
             try {
-                ICpuId cpuId = Global.CpuFactory.Create();
-                cpuIdTree1.Cores.Add(cpuId);
+                IEnumerable<ICpuId> cpus = Global.CpuFactory.CreateAll();
+                foreach (ICpuId cpu in cpus) {
+                    cpuIdTree1.Cores.Add(cpu);
+                }
             } catch (Exception ex) {
                 string message = string.Format("An error occurred getting CPU information:\n{0}", ex.Message);
                 MessageBox.Show(message, "CpuIdWin", MessageBoxButtons.OK);

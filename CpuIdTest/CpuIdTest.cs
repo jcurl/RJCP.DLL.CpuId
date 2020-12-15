@@ -1,6 +1,7 @@
 ﻿namespace RJCP.Diagnostics
 {
     using System;
+    using System.Collections.Generic;
     using NUnit.Framework;
 
     [TestFixture]
@@ -12,6 +13,27 @@
             ICpuIdFactory factory = new CpuIdFactory();
             ICpuId cpu = factory.Create();
             Assert.That(cpu, Is.Not.Null);
+            DumpCpu(cpu);
+        }
+
+        [Test]
+        public void AllCpuId()
+        {
+            ICpuIdFactory factory = new CpuIdFactory();
+            IEnumerable<ICpuId> cpus = factory.CreateAll();
+
+            Assert.That(cpus, Is.Not.Null);
+
+            int cpuNumber = 0;
+            foreach (ICpuId cpu in cpus) {
+                Console.WriteLine("==> CPU #{0}", cpuNumber);
+                DumpCpu(cpu);
+                cpuNumber++;
+            }
+        }
+
+        private void DumpCpu(ICpuId cpu)
+        {
             Console.WriteLine("CPU Vendor: {0}", cpu.CpuVendor);
             Console.WriteLine("CPU Vendor Id: {0}", cpu.VendorId);
             Console.WriteLine("CPU Description: {0}", cpu.Description);

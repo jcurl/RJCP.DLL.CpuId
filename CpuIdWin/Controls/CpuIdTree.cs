@@ -13,6 +13,8 @@
         private readonly ObservableCollection<ICpuId> m_Cores = new ObservableCollection<ICpuId>();
         private readonly Dictionary<TreeNode, TreeNodeData> m_NodeControls = new Dictionary<TreeNode, TreeNodeData>();
 
+        private int m_NodeId;
+
         public CpuIdTree()
         {
             InitializeComponent();
@@ -25,7 +27,8 @@
             switch (e.Action) {
             case NotifyCollectionChangedAction.Add:
                 for (int i = 0; i < e.NewItems.Count; i++) {
-                    tvwCpuId.Nodes.Insert(e.NewStartingIndex + i, BuildTreeNode(e.NewItems[i] as ICpuId));
+                    tvwCpuId.Nodes.Insert(e.NewStartingIndex + i, BuildTreeNode(e.NewItems[i] as ICpuId, m_NodeId));
+                    m_NodeId++;
                 }
                 break;
             case NotifyCollectionChangedAction.Remove:
@@ -40,6 +43,7 @@
                     if (nodeData.Control != null) nodeData.Control.Dispose();
                 }
                 m_NodeControls.Clear();
+                m_NodeId = 0;
                 break;
             case NotifyCollectionChangedAction.Move:
                 TreeNode node = tvwCpuId.Nodes[e.OldStartingIndex];
@@ -51,7 +55,8 @@
                     throw new NotSupportedException("Replacing multiple indices is not supported");
 
                 RemoveTreeNode(tvwCpuId.Nodes[e.NewStartingIndex]);
-                tvwCpuId.Nodes[e.NewStartingIndex] = BuildTreeNode(e.NewItems[0] as ICpuId);
+                m_NodeId++;
+                tvwCpuId.Nodes[e.NewStartingIndex] = BuildTreeNode(e.NewItems[0] as ICpuId, m_NodeId);
                 break;
             }
         }
@@ -67,9 +72,10 @@
             return selectedNode;
         }
 
-        private TreeNode BuildTreeNode(ICpuId cpuId)
+        private TreeNode BuildTreeNode(ICpuId cpuId, int nodeNumber)
         {
-            TreeNode node = new TreeNode("Node") {
+            string nodeName = string.Format("Node: {0}", nodeNumber);
+            TreeNode node = new TreeNode(nodeName) {
                 ImageKey = "icoCpu",
                 SelectedImageKey = "icoCpu"
             };

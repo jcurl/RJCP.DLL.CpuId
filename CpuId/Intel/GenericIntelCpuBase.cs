@@ -279,23 +279,6 @@
         }
 
         /// <summary>
-        /// Writes the cached CPUID registers (those found in <see cref="Registers" /> to an XML file.
-        /// </summary>
-        /// <param name="fileName">Name of the file to write to.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="fileName"/> may not be <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
-        public void Save(string fileName)
-        {
-            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name may not be empty", nameof(fileName));
-            using (XmlWriter xmlWriter = XmlWriter.Create(fileName, SaveXmlSettings())) {
-                xmlWriter.WriteStartElement("cpuid");
-                Save(xmlWriter);
-                xmlWriter.WriteEndElement();
-            }
-        }
-
-        /// <summary>
         /// Writes the cached CPUID registers (those found in <see cref="Registers"/> to an XML writer.
         /// </summary>
         /// <param name="xmlWriter">The XML writer to write to.</param>
@@ -304,22 +287,8 @@
         {
             if (xmlWriter == null) throw new ArgumentNullException(nameof(xmlWriter));
             xmlWriter.WriteStartElement("processor");
-            xmlWriter.WriteAttributeString("type", "x86");
             WriteRegisters(xmlWriter);
             xmlWriter.WriteEndElement();
-        }
-
-        private XmlWriterSettings SaveXmlSettings()
-        {
-            XmlWriterSettings xmlSettings = new XmlWriterSettings {
-                CloseOutput = true,
-                ConformanceLevel = ConformanceLevel.Document,
-                Encoding = Encoding.UTF8,
-                Indent = true,
-                IndentChars = "\t",
-                NewLineOnAttributes = false
-            };
-            return xmlSettings;
         }
 
         private void WriteRegisters(XmlWriter xmlWriter)

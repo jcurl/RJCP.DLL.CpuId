@@ -14,5 +14,8 @@
 
         [DllImport("cpuid.dll")]
         public static extern int iddump([Out] CpuIdInfo[] s, int len);
+
+        [DllImport("cpuid.dll")]
+        public static extern int iddumpall([Out] CpuIdInfo[] s, int len);
     }
 }

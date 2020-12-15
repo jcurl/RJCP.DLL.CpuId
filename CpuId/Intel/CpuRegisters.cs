@@ -1,21 +1,37 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
     using System;
-    using System.Runtime.InteropServices;
     using Native;
 
     internal class CpuRegisters : CpuRegistersBase
     {
-        public CpuRegisters()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CpuRegisters"/> class.
+        /// </summary>
+        /// <param name="data">The CPUID data.</param>
+        /// <param name="offset">The offset into <paramref name="data"/> for the node in question.</param>
+        /// <param name="length">The length of the cpu data <paramref name="data"/> for the node in question.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="data"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="offset"/> is negative</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="length"/> is negative</exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="length"/> and <paramref name="offset"/> would exceed the boundaries of the array/buffer
+        /// <paramref name="data"/>.
+        /// </exception>
+        /// <remarks>
+        /// Creates CPU data based on the native CPU data read.
+        /// </remarks>
+        public CpuRegisters(CpuIdLib.CpuIdInfo[] data, int offset, int length)
         {
-            if (CpuIdLib.hascpuid() == 0)
-                throw new PlatformNotSupportedException("CPUID instruction not supported");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "offset is negative");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "length is negative");
+            if (offset > data.Length - length) throw new ArgumentException("The length and offset would exceed the boundaries of the array/buffer");
 
-            CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[256];
-            int r = CpuIdLib.iddump(data, Marshal.SizeOf(data[0]) * data.Length);
-            for (int i = 0; i < r; i++) {
-                CpuIdRegister result = new CpuIdRegister(data[i].veax, data[i].vecx,
-                    new int[] { data[i].peax, data[i].pebx, data[i].pecx, data[i].pedx });
+            for (int i = 0; i < length; i++) {
+                int r = offset + i;
+                CpuIdRegister result = new CpuIdRegister(data[r].veax, data[r].vecx,
+                    new int[] { data[r].peax, data[r].pebx, data[r].pecx, data[r].pedx });
                 AddRegister(result);
             }
         }

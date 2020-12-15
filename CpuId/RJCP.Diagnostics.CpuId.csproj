@@ -62,6 +62,8 @@
     <Compile Include="Intel\ICpuIdX86.cs" />
     <Compile Include="Intel\AmdBrandIdentifier.cs" />
     <Compile Include="Intel\IntelLegacySignatures.cs" />
+    <Compile Include="Intel\X86CpuIdFactoryXml.cs" />
+    <Compile Include="Intel\X86CpuIdFactoryBase.cs" />
     <Compile Include="Resources\CpuFeatures.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

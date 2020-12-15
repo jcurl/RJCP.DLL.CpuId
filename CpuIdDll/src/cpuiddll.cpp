@@ -48,3 +48,22 @@ CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int c
 	SetThreadAffinityMask(currentThread, affinity);
 	return result;
 }
+
+CPUIDDLL_API int WINAPI iddumpall(struct cpuidinfo *info, size_t bytes)
+{
+	if (info == NULL || bytes < 3 * sizeof(struct cpuidinfo)) return 0;
+
+	SYSTEM_INFO sysInfo = {0, };
+	GetNativeSystemInfo(&sysInfo);
+
+	int i = 0;
+	for (int core = 0; core < sysInfo.dwNumberOfProcessors && (i + 3) * sizeof(struct cpuidinfo ) < bytes; core++) {
+		info[i].veax = 0xFFFFFFFF;
+		info[i].vecx = core;
+
+		int c = iddumponcore(info + i + 1, bytes - (i + 1) * sizeof(struct cpuidinfo), core);
+		i += c + 1;
+	}
+
+	return i;
+}

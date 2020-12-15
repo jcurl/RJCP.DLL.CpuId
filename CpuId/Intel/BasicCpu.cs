@@ -1,6 +1,8 @@
 ﻿namespace RJCP.Diagnostics.Intel
 {
+    using System;
     using System.Xml;
+    using Native;
 
     internal class BasicCpu
     {
@@ -10,12 +12,25 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicCpu"/> class.
         /// </summary>
-        /// <remarks>
-        /// This constructor reads all CPU information from the current CPU node.
-        /// </remarks>
-        public BasicCpu()
+        /// <param name="data">The CPUID data.</param>
+        /// <param name="offset">The offset into <paramref name="data"/> for the node in question.</param>
+        /// <param name="length">The length of the cpu data <paramref name="data"/> for the node in question.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="data"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="offset"/> is negative</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="length"/> is negative</exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="length"/> and <paramref name="offset"/> would exceed the boundaries of the array/buffer
+        /// <paramref name="data"/>.
+        /// </exception>
+        /// <remarks>This constructor reads all CPU information from the current CPU node.</remarks>
+        public BasicCpu(CpuIdLib.CpuIdInfo[] data, int offset, int length)
         {
-            Initialize(new CpuRegisters());
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "offset is negative");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "length is negative");
+            if (offset > data.Length - length) throw new ArgumentException("The length and offset would exceed the boundaries of the array/buffer");
+
+            Initialize(new CpuRegisters(data, offset, length));
         }
 
         /// <summary>
