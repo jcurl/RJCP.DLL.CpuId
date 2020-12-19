@@ -547,7 +547,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EFER.LMSLE is unsupported.
+        ///   Looks up a localized string similar to EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported.
         /// </summary>
         internal static string EFER_LMSLE {
             get {
@@ -583,7 +583,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEV Encrypted State supported.
+        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Encrypted State supported.
         /// </summary>
         internal static string ES {
             get {
@@ -592,7 +592,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extended APIC space. PResents of extended APIC register.
+        ///   Looks up a localized string similar to Extended APIC space. Presence of extended APIC register.
         /// </summary>
         internal static string EXTAPICSPACE {
             get {
@@ -628,7 +628,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fused Multiply Add (FMA3).
+        ///   Looks up a localized string similar to Fused Multiply Add (FMA3) 3-operand.
         /// </summary>
         internal static string FMA {
             get {
@@ -772,7 +772,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PRED_CMD.IBPB.
+        ///   Looks up a localized string similar to Indirect branch prediction barrier software control available, Spectre mitigation for branch prediction side channel timing attacks.
         /// </summary>
         internal static string IBPB {
             get {
@@ -781,7 +781,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SPEC_CTRL.IBRS.
+        ///   Looks up a localized string similar to Indirect branch restricted speculation, Spectre mitigation enabled.
         /// </summary>
         internal static string IBRS {
             get {
@@ -826,7 +826,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WBINVD/WBNOINVD are interruptible.
+        ///   Looks up a localized string similar to WBINVD/WBNOINVD instructions are interruptible.
         /// </summary>
         internal static string INT_WBINVD {
             get {
@@ -898,7 +898,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Long Mode. Access to 64-bit instructions and registers.
+        ///   Looks up a localized string similar to Long Mode. Access to 64-bit instructions and registers, also known as x86_64 or x64.
         /// </summary>
         internal static string LM {
             get {
@@ -1024,7 +1024,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MP-capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable..
+        ///   Looks up a localized string similar to Multi-Processor capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable..
         /// </summary>
         internal static string MP {
             get {
@@ -1078,7 +1078,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OS visible workaround. Indicates OS-visible workaround suppor.
+        ///   Looks up a localized string similar to OS visible workaround. Indicates OS-visible workaround support for the Operating System.
         /// </summary>
         internal static string OSVW {
             get {
@@ -1429,7 +1429,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SKINIT and STGI are supported. Indicates support for SKINIT and STGI, independent of the value of MSRC000_0080[SVME].
+        ///   Looks up a localized string similar to SKINIT and STGI are supported, independent of the value of MSRC000_0080[SVME].
         /// </summary>
         internal static string SKINIT {
             get {
@@ -1474,7 +1474,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEV Secure Nested Paging supported.
+        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Secure Nested Paging supported.
         /// </summary>
         internal static string SNP {
             get {
@@ -1492,7 +1492,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Self Snoop.
+        ///   Looks up a localized string similar to CPU Cache implements Self Snoop.
         /// </summary>
         internal static string SS {
             get {

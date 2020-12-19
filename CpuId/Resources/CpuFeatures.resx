@@ -280,7 +280,7 @@
     <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
   </data>
   <data name="EFER.LMSLE" xml:space="preserve">
-    <value>EFER.LMSLE is unsupported</value>
+    <value>EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported</value>
   </data>
   <data name="EIST" xml:space="preserve">
     <value>Enhanced Intel SpeedStep(R) Technology</value>
@@ -292,10 +292,10 @@
     <value>Enhanced REP MOVSB/STOSB</value>
   </data>
   <data name="ES" xml:space="preserve">
-    <value>SEV Encrypted State supported</value>
+    <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
   </data>
   <data name="EXTAPICSPACE" xml:space="preserve">
-    <value>Extended APIC space. PResents of extended APIC register</value>
+    <value>Extended APIC space. Presence of extended APIC register</value>
   </data>
   <data name="F16C" xml:space="preserve">
     <value>16-bit floating-point conversion (half precision) instructions</value>
@@ -307,7 +307,7 @@
     <value>FXSAVE and FXRSTOR instruction optimizations</value>
   </data>
   <data name="FMA" xml:space="preserve">
-    <value>Fused Multiply Add (FMA3)</value>
+    <value>Fused Multiply Add (FMA3) 3-operand</value>
   </data>
   <data name="FMA4" xml:space="preserve">
     <value>Four-operand FMA instruction support</value>
@@ -355,10 +355,10 @@
     <value>IA64 processor emulating in x86 mode</value>
   </data>
   <data name="IBPB" xml:space="preserve">
-    <value>PRED_CMD.IBPB</value>
+    <value>Indirect branch prediction barrier software control available, Spectre mitigation for branch prediction side channel timing attacks</value>
   </data>
   <data name="IBRS" xml:space="preserve">
-    <value>SPEC_CTRL.IBRS</value>
+    <value>Indirect branch restricted speculation, Spectre mitigation enabled</value>
   </data>
   <data name="IBRS_ALL" xml:space="preserve">
     <value>IBRS always on mode</value>
@@ -376,7 +376,7 @@
     <value>Intel Processor Trace</value>
   </data>
   <data name="INT_WBINVD" xml:space="preserve">
-    <value>WBINVD/WBNOINVD are interruptible</value>
+    <value>WBINVD/WBNOINVD instructions are interruptible</value>
   </data>
   <data name="INVLPGB" xml:space="preserve">
     <value>INVLPGB and TLBSYNC instruction supported</value>
@@ -397,7 +397,7 @@
     <value>Architectural Last Branch Records</value>
   </data>
   <data name="LM" xml:space="preserve">
-    <value>Long Mode. Access to 64-bit instructions and registers</value>
+    <value>Long Mode. Access to 64-bit instructions and registers, also known as x86_64 or x64</value>
   </data>
   <data name="LWP" xml:space="preserve">
     <value>Lightweight profiling support</value>
@@ -439,7 +439,7 @@
     <value>MOVDIRI instruction</value>
   </data>
   <data name="MP" xml:space="preserve">
-    <value>MP-capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable.</value>
+    <value>Multi-Processor capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable.</value>
   </data>
   <data name="MPX" xml:space="preserve">
     <value>Intel(R) Memory Protection Extensions</value>
@@ -457,7 +457,7 @@
     <value>OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions)</value>
   </data>
   <data name="OSVW" xml:space="preserve">
-    <value>OS visible workaround. Indicates OS-visible workaround suppor</value>
+    <value>OS visible workaround. Indicates OS-visible workaround support for the Operating System</value>
   </data>
   <data name="OSXSAVE" xml:space="preserve">
     <value>OS-Enabled Extended State Management</value>
@@ -574,7 +574,7 @@
     <value>Intel(R) Secure Hash Algorithm Extensions</value>
   </data>
   <data name="SKINIT" xml:space="preserve">
-    <value>SKINIT and STGI are supported. Indicates support for SKINIT and STGI, independent of the value of MSRC000_0080[SVME]</value>
+    <value>SKINIT and STGI are supported, independent of the value of MSRC000_0080[SVME]</value>
   </data>
   <data name="SMAP" xml:space="preserve">
     <value>Supervisor Mode Access Prevention</value>
@@ -589,13 +589,13 @@
     <value>Safer Mode Extensions</value>
   </data>
   <data name="SNP" xml:space="preserve">
-    <value>SEV Secure Nested Paging supported</value>
+    <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
   </data>
   <data name="SRBDS_CTRL" xml:space="preserve">
     <value>Special register buffer data sampling mitigations</value>
   </data>
   <data name="SS" xml:space="preserve">
-    <value>Self Snoop</value>
+    <value>CPU Cache implements Self Snoop</value>
   </data>
   <data name="SSBD" xml:space="preserve">
     <value>Speculative Store Bypass Disable (SSBD)</value>
