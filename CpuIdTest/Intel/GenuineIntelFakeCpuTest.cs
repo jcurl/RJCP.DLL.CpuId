@@ -9,7 +9,7 @@
     {
         private readonly static string TestResources = Path.Combine(Deploy.TestDirectory, "TestResources", "FakeIntel");
 
-        public static ICpuIdX86 GetCpu(string fileName)
+        private static ICpuIdX86 GetCpu(string fileName)
         {
             string fullPath = Path.Combine(TestResources, fileName);
 

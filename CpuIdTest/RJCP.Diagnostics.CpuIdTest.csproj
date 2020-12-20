@@ -64,7 +64,9 @@
       <Name>RJCP.Diagnostics.CpuId</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="$(SolutionDir)\packages\NUnit.Analyzers.0.6.0\analyzers\dotnet\cs\nunit.analyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="TestResources\AuthenticAmd\AMD A8.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
