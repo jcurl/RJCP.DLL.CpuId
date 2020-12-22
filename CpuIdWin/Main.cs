@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace RJCP.Diagnostics.CpuIdWin
+﻿namespace RJCP.Diagnostics.CpuIdWin
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    using CpuId;
+
     public partial class Main : Form
     {
         public Main()

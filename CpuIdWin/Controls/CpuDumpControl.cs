@@ -1,7 +1,7 @@
 ﻿namespace RJCP.Diagnostics.CpuIdWin.Controls
 {
     using System.Windows.Forms;
-    using Intel;
+    using CpuId.Intel;
 
     public partial class CpuDumpControl : UserControl
     {

@@ -1,6 +1,7 @@
 ﻿namespace RJCP.Diagnostics
 {
     using System.Collections.Generic;
+    using CpuId;
 
     /// <summary>
     /// An interface for a CPU factory to get information about a CPU.

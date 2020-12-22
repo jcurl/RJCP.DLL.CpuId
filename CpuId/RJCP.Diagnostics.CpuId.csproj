@@ -38,53 +38,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpuIdFactory.cs" />
-    <Compile Include="CpuFeatures.cs" />
     <Compile Include="CpuIdXmlFactory.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+Default.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+Family14.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+Family12.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+Family11.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+Family10.cs" />
-    <Compile Include="Intel\AuthenticAmdCpu.cs" />
-    <Compile Include="Intel\CpuIdRegister.cs" />
-    <Compile Include="Intel\CpuRegisters.cs" />
+    <Compile Include="CpuId\CpuFeatures.cs" />
+    <Compile Include="CpuId\ICpuId.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+Default.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+Family14.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+Family12.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+Family11.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+Family10.cs" />
+    <Compile Include="CpuId\Intel\AmdBrandIdentifier+FamilyF.cs" />
+    <Compile Include="CpuId\Intel\AuthenticAmdCpu.cs" />
+    <Compile Include="CpuId\Intel\BasicCpu.cs" />
+    <Compile Include="CpuId\Intel\CpuIdRegister.cs" />
+    <Compile Include="CpuId\Intel\CpuRegisters.cs" />
+    <Compile Include="CpuId\Intel\CpuRegistersBase.cs" />
+    <Compile Include="CpuId\Intel\CpuXmlRegisters.cs" />
+    <Compile Include="CpuId\Intel\FamilyTree\INode.cs" />
+    <Compile Include="CpuId\Intel\FamilyTree\Node.cs" />
+    <Compile Include="CpuId\Intel\FamilyTree\NodeEmpty.cs" />
+    <Compile Include="CpuId\Intel\GenericIntelCpu.cs" />
+    <Compile Include="CpuId\Intel\GenericIntelCpuBase.cs" />
+    <Compile Include="CpuId\Intel\GenuineIntelCpu.cs" />
+    <Compile Include="CpuId\Intel\ICpuIdX86.cs" />
+    <Compile Include="CpuId\Intel\ICpuRegisters.cs" />
+    <Compile Include="CpuId\Intel\IntelLegacySignatures.cs" />
+    <Compile Include="CpuId\Intel\X86CpuIdFactoryXml.cs" />
+    <Compile Include="CpuId\Intel\X86CpuIdFactoryBase.cs" />
+    <Compile Include="CpuId\Intel\X86CpuIdFactory.cs" />
+    <Compile Include="CpuId\WindowsCpuIdFactory.cs" />
     <Compile Include="CpuVendor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Intel\BasicCpu.cs" />
-    <Compile Include="Intel\CpuXmlRegisters.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier+FamilyF.cs" />
-    <Compile Include="Intel\FamilyTree\INode.cs" />
-    <Compile Include="Intel\FamilyTree\Node.cs" />
-    <Compile Include="Intel\FamilyTree\NodeEmpty.cs" />
-    <Compile Include="Intel\GenericIntelCpu.cs" />
-    <Compile Include="Intel\GenericIntelCpuBase.cs" />
-    <Compile Include="Intel\GenuineIntelCpu.cs" />
-    <Compile Include="Intel\ICpuIdX86.cs" />
-    <Compile Include="Intel\AmdBrandIdentifier.cs" />
-    <Compile Include="Intel\IntelLegacySignatures.cs" />
-    <Compile Include="Intel\X86CpuIdFactoryXml.cs" />
-    <Compile Include="Intel\X86CpuIdFactoryBase.cs" />
+    <Compile Include="ICpuIdFactory.cs" />
     <Compile Include="Resources\CpuFeatures.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CpuFeatures.resx</DependentUpon>
     </Compile>
-    <Compile Include="WindowsCpuIdFactory.cs" />
-    <Compile Include="Intel\X86CpuIdFactory.cs" />
-    <Compile Include="ICpuId.cs" />
-    <Compile Include="ICpuIdFactory.cs" />
-    <Compile Include="Intel\ICpuRegisters.cs" />
     <Compile Include="Native\CpuIdLib+CpuIdInfo.cs" />
     <Compile Include="Native\CpuIdLib.cs" />
     <Compile Include="Native\Kernel32+LoadLibraryFlags.cs" />
-    <Compile Include="Native\OSArchitecture.cs" />
     <Compile Include="Native\Kernel32+PROCESSOR_INFO_UNION.cs" />
     <Compile Include="Native\Kernel32+SYSTEM_INFO.cs" />
     <Compile Include="Native\Kernel32.cs" />
-    <Compile Include="Native\Win32.cs" />
+    <Compile Include="Native\OSArchitecture.cs" />
     <Compile Include="Native\SafeLibraryHandle.cs" />
+    <Compile Include="Native\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Intel\CpuRegistersBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\cpuid.dll">

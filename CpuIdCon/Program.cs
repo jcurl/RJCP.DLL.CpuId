@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using CpuId;
 
     public static class Program
     {

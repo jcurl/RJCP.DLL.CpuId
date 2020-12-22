@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using CpuId;
     using NUnit.Framework;
 
     [TestFixture]
@@ -38,7 +39,7 @@
             Console.WriteLine("CPU Vendor Id: {0}", cpu.VendorId);
             Console.WriteLine("CPU Description: {0}", cpu.Description);
 
-            if (cpu is Intel.ICpuIdX86 x86cpu) {
+            if (cpu is CpuId.Intel.ICpuIdX86 x86cpu) {
                 Console.WriteLine("x86: Brand: {0}", x86cpu.BrandString);
                 Console.WriteLine("x86: Signature: {0:X}h", x86cpu.ProcessorSignature);
                 Console.WriteLine("x86: Family: {0:X}h", x86cpu.Family);

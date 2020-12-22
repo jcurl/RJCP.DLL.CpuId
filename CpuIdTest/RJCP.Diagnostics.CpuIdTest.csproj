@@ -44,11 +44,11 @@
   <ItemGroup>
     <Compile Include="CpuIdTest.cs" />
     <Compile Include="CpuIdXmlFactoryTest.cs" />
-    <Compile Include="Intel\AuthenticAmdCpuTest.cs" />
-    <Compile Include="Intel\FeatureCheck.cs" />
-    <Compile Include="Intel\GenericIntelCpuTest.cs" />
-    <Compile Include="Intel\GenuineIntelCpuTest.cs" />
-    <Compile Include="Intel\GenuineIntelFakeCpuTest.cs" />
+    <Compile Include="CpuId\Intel\AuthenticAmdCpuTest.cs" />
+    <Compile Include="CpuId\Intel\FeatureCheck.cs" />
+    <Compile Include="CpuId\Intel\GenericIntelCpuTest.cs" />
+    <Compile Include="CpuId\Intel\GenuineIntelCpuTest.cs" />
+    <Compile Include="CpuId\Intel\GenuineIntelFakeCpuTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

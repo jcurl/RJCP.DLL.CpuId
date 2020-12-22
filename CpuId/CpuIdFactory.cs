@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using CpuId;
 
     /// <summary>
     /// Factory for getting a class with information about the CPU on the current thread.

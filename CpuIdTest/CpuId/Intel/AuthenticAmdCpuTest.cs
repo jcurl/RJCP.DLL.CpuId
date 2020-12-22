@@ -1,0 +1,173 @@
+﻿namespace RJCP.Diagnostics.CpuId.Intel
+{
+    using System.IO;
+    using CodeQuality.NUnitExtensions;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class AuthenticAmdCpuTest
+    {
+        private readonly static string TestResources = Path.Combine(Deploy.TestDirectory, "TestResources", "AuthenticAmd");
+
+        private static readonly string[] CpuId01Ecx = new[] {
+            "SSE3", "PCLMULQDQ", "", "MONITOR", "", "", "", "",
+            "", "SSSE3", "", "", "FMA", "CMPXCHG16B", "", "",
+            "", "PCID", "", "SSE4.1", "SSE4.2", "", "MOVBE", "POPCNT",
+            "", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
+        };
+
+        private static readonly string[] CpuId01Edx = new[] {
+            "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
+            "CX8", "APIC", "", "SEP", "MTRR", "PGE", "MCA", "CMOV",
+            "PAT", "PSE-36", "", "CLFSH", "", "", "", "MMX",
+            "FXSR", "SSE", "SSE2", "", "HTT", "", "", ""
+        };
+
+        private static readonly string[] CpuId07Ebx = new[] {
+            "FSGSBASE", "", "", "BMI1", "", "AVX2", "", "SMEP",
+            "BMI2", "", "INVPCID", "", "", "", "", "",
+            "", "", "RDSEED", "ADX", "SMAP", "", "", "CLFLUSHOPT",
+            "CLWB", "", "", "", "", "SHA", "", ""
+        };
+
+        private static readonly string[] CpuId07Ecx = new[] {
+            "", "", "UMIP", "PKU", "OSPKE", "", "", "CET_SS",
+            "", "VAES", "VPCLMULQDQ", "", "", "", "", "",
+            "", "", "", "", "", "", "RDPID", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07Edx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId13Eax = new[] {
+            "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId81Ecx = new[] {
+            "AHF64", "CMP", "SVM", "ExtApicSpace", "AM", "ABM", "SSE4A", "MisAlignSSE",
+            "PREFETCHW", "OSVW", "IBS", "XOP", "SKINIT", "WDT", "", "LWP",
+            "FMA4", "TCE", "", "NODEID", "", "TBM", "TOPX", "PerfCtrExtCore",
+            "PerfCtrExtNB", "", "DBE", "PerfTSC", "PerfL2I", "MONITORX", "", ""
+        };
+
+        private static readonly string[] CpuId81Edx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "SYSCALL", "", "", "", "",
+            "", "", "", "MP", "XD", "", "MMXEXT", "",
+            "", "FFXSR", "1GB_PAGE", "RDTSCP", "", "LM", "3DNowExt", "3DNow"
+        };
+
+        private static readonly string[] CpuId88Ebx = new[] {
+            "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", "", "", "",
+            "MCOMMIT", "WBNOINVD", "", "", "IBPB", "INT_WBINVD", "IBRS", "STIBP",
+            "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "", "EFER.LMSLE", "INVLPGB_NESTED", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId81FEbx = new[] {
+            "SME", "SEV", "PageFlushMsr", "ES", "SNP", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private FeatureCheck FeatureCheck { get; set; }
+
+        public AuthenticAmdCpuTest()
+        {
+            FeatureCheck = new FeatureCheck();
+            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].ECX", CpuId01Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].EDX", CpuId01Edx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EBX", CpuId07Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].ECX", CpuId07Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EDX", CpuId07Edx);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].EAX", CpuId13Eax);
+            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].ECX", CpuId81Ecx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].EDX", CpuId81Edx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID[80000008h].EBX", CpuId88Ebx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID[8000001Fh].EBX", CpuId81FEbx);
+        }
+        private AuthenticAmdCpu GetCpu(string fileName)
+        {
+            string fullPath = Path.Combine(TestResources, fileName);
+            FeatureCheck.LoadCpu(fullPath);
+            AuthenticAmdCpu x86cpu = FeatureCheck.Cpu as AuthenticAmdCpu;
+            Assert.That(x86cpu, Is.Not.Null);
+            Assert.That(x86cpu.CpuVendor, Is.EqualTo(CpuVendor.AuthenticAmd));
+            Assert.That(x86cpu.VendorId, Is.EqualTo("AuthenticAMD"));
+            return x86cpu;
+        }
+
+        private void CheckSignature(int signature)
+        {
+            Assert.That(FeatureCheck.Cpu.ProcessorSignature
+                , Is.EqualTo(signature), "Signature incorrect");
+            Assert.That(FeatureCheck.Cpu.Stepping,
+                Is.EqualTo(signature & 0xF), "Stepping incorrect");
+            Assert.That(FeatureCheck.Cpu.Model,
+                Is.EqualTo(((signature >> 4) & 0xF) + ((signature >> 12) & 0xF0)), "Model incorrect");
+            Assert.That(FeatureCheck.Cpu.Family,
+                Is.EqualTo(((signature >> 8) & 0xF) + ((signature >> 20) & 0xFF)), "Family incorrect");
+            Assert.That(FeatureCheck.Cpu.ProcessorType,
+                Is.EqualTo((signature >> 12) & 0x3), "Processor Type incorrect");
+        }
+
+        [Test]
+        public void CheckDescription()
+        {
+            // We just want to load any file, to get the AuthenticAmdCpu to check for descriptions
+            GetCpu("AMD A8.xml");
+            FeatureCheck.AssertOnMissingDescription();
+        }
+
+        [Test]
+        public void AmdA8()
+        {
+            AuthenticAmdCpu cpu = GetCpu("AMD A8.xml");
+            CheckSignature(0x610F01);
+            FeatureCheck.Check("standard", 0x3698320B, 0x178BFBFF, 0x00000008, 0x00000000, 0x00000000);
+            FeatureCheck.Check("extended", 0x01EBBFFF, 0x2FD3FBFF, 0x00000000);
+            Assert.That(cpu.Description, Is.EqualTo("AMD A8-5500 APU with Radeon(tm) HD Graphics"));
+        }
+
+        [Test]
+        public void AmdGeode()
+        {
+            AuthenticAmdCpu cpu = GetCpu("AMD Geode.xml");
+            CheckSignature(0x5A2);
+            FeatureCheck.Check("standard", 0x00000000, 0x0088A93D);
+            FeatureCheck.Check("extended", 0x00000000, 0xC0C0A13D);
+            Assert.That(cpu.Description, Is.EqualTo("Geode(TM) Integrated Processor by AMD PCS"));
+        }
+
+        [Test]
+        public void AmdOpteron2347HE()
+        {
+            AuthenticAmdCpu cpu = GetCpu("AMD Opteron-2347-HE.xml");
+            CheckSignature(0x100F21);
+            FeatureCheck.Check("standard", 0x00802009, 0x17BFBFFD);
+            FeatureCheck.Check("extended", 0x000007FF, 0xEFD3FBFF, 0x00003030);
+            Assert.That(cpu.Description, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
+            Assert.That(cpu.BrandString, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
+        }
+
+        [Test]
+        public void AmdPhenomIIX2550()
+        {
+            AuthenticAmdCpu cpu = GetCpu("AMD PhenomIIX2-550.xml");
+            CheckSignature(0x100F42);
+            FeatureCheck.Check("standard", 0x00802009, 0x178BFBFF);
+            FeatureCheck.Check("extended", 0x000037FF, 0xEFD3FBFF, 0x00002001);
+            Assert.That(cpu.Description, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
+            Assert.That(cpu.BrandString, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
+        }
+    }
+}

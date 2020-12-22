@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Xml;
+    using CpuId;
 
     /// <summary>
     /// Factory for getting a class with information about the CPU recorded to an XML file.
@@ -92,7 +93,7 @@
 
             switch (processor) {
             case "x86":
-                Intel.X86CpuIdFactoryXml x86Factory = new Intel.X86CpuIdFactoryXml(cpuIdNode);
+                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new CpuId.Intel.X86CpuIdFactoryXml(cpuIdNode);
                 return x86Factory.Create();
             default:
                 // This processor type is unknown.
@@ -144,7 +145,7 @@
 
             switch (processor) {
             case "x86":
-                Intel.X86CpuIdFactoryXml x86Factory = new Intel.X86CpuIdFactoryXml(cpuIdNode);
+                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new CpuId.Intel.X86CpuIdFactoryXml(cpuIdNode);
                 return x86Factory.CreateAll();
             default:
                 // This processor type is unknown.
@@ -164,15 +165,15 @@
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name may not be empty", nameof(fileName));
 
-            List<Intel.GenericIntelCpuBase> x86cpus = new List<Intel.GenericIntelCpuBase>();
+            List<CpuId.Intel.GenericIntelCpuBase> x86cpus = new List<CpuId.Intel.GenericIntelCpuBase>();
             foreach (ICpuId cpu in cpus) {
-                if (cpu is Intel.GenericIntelCpuBase x86cpu) {
+                if (cpu is CpuId.Intel.GenericIntelCpuBase x86cpu) {
                     x86cpus.Add(x86cpu);
                 }
             }
 
             using (XmlWriter xmlWriter = XmlWriter.Create(fileName, SaveXmlSettings())) {
-                if (x86cpus.Count > 0) Intel.X86CpuIdFactoryXml.Save(xmlWriter, x86cpus);
+                if (x86cpus.Count > 0) CpuId.Intel.X86CpuIdFactoryXml.Save(xmlWriter, x86cpus);
             }
         }
 

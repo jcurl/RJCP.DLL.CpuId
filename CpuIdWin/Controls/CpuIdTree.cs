@@ -6,7 +6,8 @@
     using System.Collections.Specialized;
     using System.Drawing;
     using System.Windows.Forms;
-    using Intel;
+    using CpuId;
+    using CpuId.Intel;
 
     public partial class CpuIdTree : UserControl
     {
