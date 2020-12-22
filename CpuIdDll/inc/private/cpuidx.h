@@ -7,7 +7,7 @@
 // Header: cpuidx.h
 //
 // Description:
-//  Defines signatures for entry points to the assembly code to execute the\
+//  Defines signatures for entry points to the assembly code to execute the
 //  CPUID instruction. This is the same for 32-bit and 64-bit
 //
 ////////////////////////////////////////////////////////////////////////////////

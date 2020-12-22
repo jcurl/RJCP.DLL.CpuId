@@ -167,6 +167,7 @@
     <ClInclude Include="inc\private\cpuid.h" />
     <ClInclude Include="inc\private\cpuidtypes.h" />
     <ClInclude Include="inc\private\cpuidx.h" />
+    <ClInclude Include="inc\private\kernelfunc.h" />
     <ClInclude Include="inc\private\stdafx.h" />
     <ClInclude Include="inc\private\targetver.h" />
   </ItemGroup>
@@ -191,6 +192,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\getcurrentprocessornumber.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

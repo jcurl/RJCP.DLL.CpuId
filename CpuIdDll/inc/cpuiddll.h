@@ -85,6 +85,13 @@ CPUIDDLL_API int WINAPI hascpuid();
 /// <param name="info">cpuidinfo array to dump into.</param>
 /// <param name="bytes">Number of bytes allocated by <paramref name="info"/>.</param>
 /// <returns>Number of elements put into <paramref name="info"/>.</returns>
+/// <remarks>
+/// On Windows XP, it's not possible to know on what processor the current thread
+/// is running, so it will always execute on the first processor. To specify which
+/// processor it should be run on, use the method <see cref="iddumponcore"/>. On
+/// Windows Server 2003 and later, the thread affinity is set to the current processor,
+/// but this is generally indeterminate. Again, it's advised to use <see cref="iddumponcore"/>.
+/// </remarks>
 CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes);
 
 /// <summary>
