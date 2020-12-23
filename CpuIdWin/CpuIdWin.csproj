@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CpuCacheControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CpuCacheControl.Designer.cs">
+      <DependentUpon>CpuCacheControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CpuTopologyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,6 +90,7 @@
     <Compile Include="Controls\TreeNodeData.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\Text.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +101,9 @@
     <Compile Include="Native\UxTheme.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\CpuCacheControl.resx">
+      <DependentUpon>CpuCacheControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CpuTopologyControl.resx">
       <DependentUpon>CpuTopologyControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,10 +1,14 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Description of a GenuineIntel CPU.
     /// </summary>
     public class GenuineIntelCpu : GenericIntelCpuBase
     {
+        internal const int LegacyCache = 0x02;
         internal const int LegacyTopology = 0x04;
         internal const int ExtendedTopology = 0x0B;
         internal const int ExtendedTopology2 = 0x1F;
@@ -45,7 +49,8 @@
             BrandString = IntelLegacySignatures.GetType(m_ExtendedFamily, m_ExtendedModel, m_ProcessorType, m_FamilyCode, m_ModelNumber);
             Description = GetDescription();
             FindFeatures(cpu);
-            GetTopology(cpu);
+            GetCpuTopology(cpu);
+            GetCacheTopology(cpu);
         }
 
         private void GetProcessorSignature(BasicCpu cpu)
@@ -351,22 +356,23 @@
             get { return CpuVendor.GenuineIntel; }
         }
 
-        private void GetTopology(BasicCpu cpu)
+        private void GetCpuTopology(BasicCpu cpu)
         {
             if (!Features["HTT"] || !Features["APIC"]) {
                 if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology) {
                     CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
                     Topology.ApicId = x2apic.Result[3];
-                    Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
-                    Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
                 } else if (cpu.FunctionCount >= FeatureInformationFunction) {
                     CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
                     Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
-                    Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
-                    Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
                 } else {
                     Topology.ApicId = -1;
+                    return;
                 }
+
+                int mnlpbits = Log2Pof2(GetMaxNumberOfLogicalProcessors(cpu));
+                Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, ~(-1 << mnlpbits)));
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package, -1 << mnlpbits));
                 return;
             }
 
@@ -390,9 +396,20 @@
                 } else {
                     Topology.ApicId = 0;
                 }
-                Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
-                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
+
+                int mnlpbits = Log2Pof2(GetMaxNumberOfLogicalProcessors(cpu));
+                Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, ~(-1 << mnlpbits)));
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package, -1 << mnlpbits));
             }
+        }
+
+        private int GetMaxNumberOfLogicalProcessors(BasicCpu cpu)
+        {
+            if (Features["HTT"]) {
+                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                return (apic.Result[1] >> 16) & 0xFF;
+            }
+            return 1;
         }
 
         private void GetExtendedTopology(BasicCpu cpu, int leaf)
@@ -410,7 +427,7 @@
                 int mask = ~(-1 << width);
                 int id = (int)((Topology.ApicId >> lwidth) & mask);
 
-                Topology.CoreTopology.Add(new CpuTopo(id, (CpuTopoType)ltype));
+                Topology.CoreTopology.Add(new CpuTopo(id, (CpuTopoType)ltype, mask));
 
                 level++;
                 lwidth = cwidth;
@@ -419,7 +436,8 @@
 
             topo = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
             int pwidth = Log2Pof2((topo.Result[1] >> 16) & 0xFF);
-            Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> pwidth, CpuTopoType.Package));
+            int pmask = -1 << pwidth;
+            Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> pwidth, CpuTopoType.Package, pmask));
         }
 
         private void GetLegacyTopology(CpuIdRegister apic, CpuIdRegister topo)
@@ -430,30 +448,243 @@
             int smtWidth = Log2Pof2(maxApic / maxCore);
             long smtMask = ~(-1 << smtWidth);
             long smtId = Topology.ApicId & smtMask;
-            Topology.CoreTopology.Add(new CpuTopo(smtId, CpuTopoType.Smt));
+            Topology.CoreTopology.Add(new CpuTopo(smtId, CpuTopoType.Smt, smtMask));
 
             int coreWidth = Log2Pof2(maxCore);
             long coreMask = ~(-1 << coreWidth);
             long coreId = (Topology.ApicId >> smtWidth) & coreMask;
-            Topology.CoreTopology.Add(new CpuTopo(coreId, CpuTopoType.Core));
+            Topology.CoreTopology.Add(new CpuTopo(coreId, CpuTopoType.Core, coreMask));
 
             int pkgWidth = smtWidth + coreWidth;  // Should be the same as maxApic.
             long pkgId = Topology.ApicId >> pkgWidth;
-            Topology.CoreTopology.Add(new CpuTopo(pkgId, CpuTopoType.Package));
+            long pkgMask = -1 << pkgWidth;
+            Topology.CoreTopology.Add(new CpuTopo(pkgId, CpuTopoType.Package, pkgMask));
         }
 
-        private int Log2Pof2(int value)
+        private void GetCacheTopology(BasicCpu cpu)
         {
-            if (value == 0) return -1;
+            if (cpu.FunctionCount >= LegacyCache) {
+                bool leafTlb = false;
+                bool leafCpu = false;
+                bool noExtraCache = false;
+                CpuIdRegister cache = cpu.CpuRegisters.GetCpuId(LegacyCache, 0);
+                if (cache != null && (cache.Result[0] & 0xFF) == 0x01) {
+                    GetLegacyCacheTopology(cache.Result[0] & unchecked((int)0xFFFFFF00), ref leafCpu, ref leafTlb, ref noExtraCache);
+                    GetLegacyCacheTopology(cache.Result[1], ref leafCpu, ref leafTlb, ref noExtraCache);
+                    GetLegacyCacheTopology(cache.Result[2], ref leafCpu, ref leafTlb, ref noExtraCache);
+                    GetLegacyCacheTopology(cache.Result[3], ref leafCpu, ref leafTlb, ref noExtraCache);
+                }
+                FixLegacyCacheMask(noExtraCache);
 
-            int lowBits = 0;
-            for (int i = 0; i < 31; i++) {
-                bool shifted = (value & 0x01) != 0;
-                value = (value >> 1) & 0x7FFFFFFF;
-                if (value == 0) return i + lowBits;
-                if (shifted) lowBits = 1;
+                if (leafCpu && cpu.FunctionCount > LegacyTopology) GetCacheTopologyLeaf(LegacyTopology);
             }
-            return 31 + lowBits;
+        }
+
+        private void GetLegacyCacheTopology(int register, ref bool leafCpu, ref bool leafTlb, ref bool noExtraCache)
+        {
+            if ((register & unchecked((int)0x80000000)) != 0) return;
+            GetLegacyCacheTopologyEntry(register & 0xFF, ref leafCpu, ref leafTlb, ref noExtraCache);
+            GetLegacyCacheTopologyEntry((register >> 8) & 0xFF, ref leafCpu, ref leafTlb, ref noExtraCache);
+            GetLegacyCacheTopologyEntry((register >> 16) & 0xFF, ref leafCpu, ref leafTlb, ref noExtraCache);
+            GetLegacyCacheTopologyEntry((register >> 24) & 0xFF, ref leafCpu, ref leafTlb, ref noExtraCache);
+        }
+
+        private static readonly Dictionary<int, List<CacheTopo>> CacheLookup = new Dictionary<int, List<CacheTopo>>() {
+            [0x01] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 4, 32) },
+            [0x02] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4M, 0, 2) },
+            [0x03] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 64) },
+            [0x04] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4M, 4, 8) },
+            [0x05] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4M, 4, 32) },
+            [0x06] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Instruction, 4, 32, 8) },
+            [0x08] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Instruction, 4, 32, 16) },
+            [0x09] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Instruction, 4, 64, 32) },
+            [0x0A] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 2, 32, 8) },
+            [0x0B] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4M, 4, 4) },
+            [0x0C] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 4, 32, 16) },
+            [0x0D] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 4, 64, 16) },
+            [0x0E] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 6, 64, 24) },
+            [0x1D] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 2, 64, 128) },
+            [0x21] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 64, 256) },
+            [0x22] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 4, 128, 256) },
+            [0x23] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 128, 512) },
+            [0x24] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 16, 64, 1024) },
+            [0x25] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 128, 2048) },
+            [0x29] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 128, 4096) },
+            [0x2C] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 8, 64, 32) },
+            [0x30] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Instruction, 8, 64, 32) },
+            [0x40] = null,  // No 2nd-level cache or, if processor contains a valid 2nd-level cache, no 3rd level cache
+            [0x41] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 32, 128) },
+            [0x42] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 32, 256) },
+            [0x43] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 32, 512) },
+            [0x44] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 32, 1024) },
+            [0x45] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 32, 2048) },
+            [0x46] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 4, 64, 4096) },
+            [0x47] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 64, 8192) },
+            [0x48] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 12, 64, 3072) },
+            [0x49] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 16, 64, 4096) },     // Note Xeon 0fH, 06H is Level 3
+            [0x4A] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 12, 64, 6144) },
+            [0x4B] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 16, 64, 8192) },
+            [0x4C] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 12, 64, 12288) },
+            [0x4D] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 16, 64, 16384) },
+            [0x4E] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 24, 64, 6144) },
+            [0x4F] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 0, 32) },
+            [0x50] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k2M4M, 0, 64) },
+            [0x51] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k2M4M, 0, 128) },
+            [0x52] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k2M4M, 0, 256) },
+            [0x55] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 0, 7) },
+            [0x56] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4M, 4, 16) },
+            [0x57] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 16) },
+            [0x59] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 0, 16) },
+            [0x5A] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb2M4M, 4, 32) },
+            [0x5B] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k4M, 0, 64) },
+            [0x5C] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k4M, 0, 128) },
+            [0x5D] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k4M, 0, 256) },
+            [0x60] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 8, 64, 16) },
+            [0x61] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 0, 48) },
+            [0x63] = new List<CacheTopo>() {
+                new CacheTopoTlb(1, CacheType.DataTlb2M, 4, 32),
+                new CacheTopoTlb(1, CacheType.DataTlb1G, 4, 4)
+            },
+            [0x64] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 512) },
+            [0x66] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 4, 64, 8) },
+            [0x67] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 4, 64, 16) },
+            [0x68] = new List<CacheTopo>() { new CacheTopoCpu(1, CacheType.Data, 4, 64, 32) },
+            [0x6A] = new List<CacheTopo>() { new CacheTopoTlb(2, CacheType.UnifiedTlb4k, 8, 64) },
+            [0x6B] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 8, 256) },
+            [0x6C] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb2M4M, 8, 128) },
+            [0x6D] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb1G, 0, 16) },
+            [0x70] = new List<CacheTopo>() { new CacheTopoTrace(CacheType.Trace, 8, 12 * 1024) },
+            [0x71] = new List<CacheTopo>() { new CacheTopoTrace(CacheType.Trace, 8, 16 * 1024) },
+            [0x72] = new List<CacheTopo>() { new CacheTopoTrace(CacheType.Trace, 8, 32 * 1024) },
+            [0x76] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 0, 8) },
+            [0x78] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 64, 1024) },
+            [0x79] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 128, 128) },
+            [0x7A] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 128, 256) },
+            [0x7B] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 128, 512) },
+            [0x7C] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 128, 1024) },
+            [0x7D] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 64, 2048) },
+            [0x7F] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 2, 64, 512) },
+            [0x80] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 64, 512) },
+            [0x82] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 32, 256) },
+            [0x83] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 32, 512) },
+            [0x84] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 32, 1024) },
+            [0x85] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 32, 2048) },
+            [0x86] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 4, 64, 512) },
+            [0x87] = new List<CacheTopo>() { new CacheTopoCpu(2, CacheType.Unified, 8, 64, 1024) },
+            [0xA0] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 0, 32) },
+            [0xB0] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 4, 128) },
+            [0xB1] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb2M, 4, 128) },
+            [0xB2] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 4, 64) },
+            [0xB3] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 128) },
+            [0xB4] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 256) },
+            [0xB5] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 8, 64) },
+            [0xB6] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 8, 128) },
+            [0xBA] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 64) },
+            [0xC0] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k4M, 4, 8) },
+            [0xC1] = new List<CacheTopo>() { new CacheTopoTlb(2, CacheType.UnifiedTlb4k2M, 8, 1024) },
+            [0xC2] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k2M, 4, 16) },
+            [0xC3] = new List<CacheTopo>() {
+                new CacheTopoTlb(2, CacheType.UnifiedTlb4k2M, 6, 1536),
+                new CacheTopoTlb(2, CacheType.unifiedTlb1G, 4, 16)
+            },
+            [0xC4] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb2M4M, 4, 32) },
+            [0xCA] = new List<CacheTopo>() { new CacheTopoTlb(2, CacheType.UnifiedTlb4k, 4, 512) },
+            [0xD0] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 4, 64, 512) },
+            [0xD1] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 4, 64, 1024) },
+            [0xD2] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 4, 64, 2048) },
+            [0xD6] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 64, 1024) },
+            [0xD7] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 64, 2048) },
+            [0xD8] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 8, 64, 4096) },
+            [0xDC] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 12, 64, 1536) },
+            [0xDD] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 12, 64, 3072) },
+            [0xDE] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 12, 64, 6144) },
+            [0xE2] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 16, 64, 2048) },
+            [0xE3] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 16, 64, 4096) },
+            [0xE4] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 16, 64, 8192) },
+            [0xEA] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 24, 64, 12288) },
+            [0xEB] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 24, 64, 18432) },
+            [0xEC] = new List<CacheTopo>() { new CacheTopoCpu(3, CacheType.Unified, 24, 64, 24576) },
+            [0xF0] = new List<CacheTopo>() { new CacheTopoPrefetch(CacheType.Prefetch, 64) },
+            [0xF1] = new List<CacheTopo>() { new CacheTopoPrefetch(CacheType.Prefetch, 128) },
+            [0xFE] = null, // CPUID Leaf 2 doesn't report TLB. Use CPUID Leaf 18h
+            [0xFF] = null, // CPUID Leaf 2 doesn't report Cache Descriptor. Use CPUID Leaf 04h
+        };
+
+        private void GetLegacyCacheTopologyEntry(int value, ref bool leafCpu, ref bool leafTlb, ref bool noExtraCache)
+        {
+            switch (value) {
+            case 0x40:
+                noExtraCache = true;
+                return;
+            case 0xFE:
+                leafTlb = true;
+                return;
+            case 0xFF:
+                leafCpu = true;
+                return;
+            }
+
+            if (!CacheLookup.TryGetValue(value, out List<CacheTopo> entries)) return;
+            if (entries == null) return;
+
+            if (value == 0x49 && Family == 0xF && Model == 0x6) {
+                // Special case for 0x49 for Xeon Processor MP, Family 0Fh, Model 06h
+                entries = new List<CacheTopo>() {
+                    new CacheTopoCpu(3, CacheType.Unified, 16, 64, 4096)
+                };
+            }
+
+            foreach (CacheTopo entry in entries) {
+                Topology.CacheTopology.Add(entry);
+            }
+        }
+
+        private void FixLegacyCacheMask(bool noExtraCache)
+        {
+            long smtMask = 0;
+            long coreMask = 0;
+            long pkgMask = 0;
+
+            foreach (CpuTopo core in Topology.CoreTopology) {
+                switch (core.TopoType) {
+                case CpuTopoType.Smt:
+                    smtMask = core.Mask;
+                    break;
+                case CpuTopoType.Core:
+                    coreMask = core.Mask;
+                    break;
+                case CpuTopoType.Package:
+                    pkgMask = ~core.Mask;
+                    break;
+                }
+            }
+
+            int maxLevel = 0;
+            foreach (CacheTopoCpu entry in Topology.CacheTopology.OfType<CacheTopoCpu>()) {
+                if (maxLevel < entry.Level) maxLevel = entry.Level;
+            }
+
+            foreach (CacheTopoCpu entry in Topology.CacheTopology.OfType<CacheTopoCpu>()) {
+                if (entry.Mask == -1) {
+                    if (entry.Level == 1) {
+                        entry.Mask = smtMask;
+                    } else if (entry.Level == 2) {
+                        if (noExtraCache) {
+                            if (maxLevel == 2) {
+                                // Level 2 is shared across cores
+                                entry.Mask = coreMask;
+                            } else {
+                                // Level 2 is shared across threads
+                                entry.Mask = smtMask;
+                            }
+                        } else {
+                            entry.Mask = smtMask;
+                        }
+                    } else if (entry.Level >= 3) {
+                        entry.Mask = pkgMask;
+                    }
+                }
+            }
         }
     }
 }

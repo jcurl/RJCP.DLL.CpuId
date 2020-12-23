@@ -123,7 +123,6 @@
                 });
                 node.Nodes.Add(nodeTopology);
 
-#if DEBUG
                 TreeNode nodeCache = new TreeNode("Cache") {
                     ImageKey = "icoCache",
                     SelectedImageKey = "icoCache"
@@ -133,7 +132,6 @@
                     CpuId = cpuId,
                 });
                 node.Nodes.Add(nodeCache);
-#endif
 
                 TreeNode nodeDump = new TreeNode("Dump") {
                     ImageKey = "icoDump",
@@ -193,6 +191,10 @@
                 case NodeType.CpuTopology:
                     if (x86cpu == null) return;
                     data.Control = new CpuTopologyControl(x86cpu);
+                    break;
+                case NodeType.CpuCache:
+                    if (x86cpu == null) return;
+                    data.Control = new CpuCacheControl(x86cpu);
                     break;
                 default:
                     // We don't have a user control for this action.

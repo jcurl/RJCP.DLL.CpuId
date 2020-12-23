@@ -21,6 +21,7 @@ information, see the MAML documentation in code.
   - [3.3. Dumping Registers](#33-dumping-registers)
   - [3.4. Topology](#34-topology)
     - [3.4.1. The Core Topology](#341-the-core-topology)
+    - [3.4.2. The Cache Topology](#342-the-cache-topology)
 - [4. Future Work](#4-future-work)
   - [4.1. Thread Affinity](#41-thread-affinity)
   - [4.2. Processor Groups](#42-processor-groups)
@@ -59,6 +60,7 @@ Use the following code snippet:
 
 ```csharp
 using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
 
 ICpuIdFactory factory = new CpuIdFactory();
 ICpuId cpu = factory.Create();
@@ -74,6 +76,7 @@ To get a collection of all CPUs that the Operating System is aware of:
 ```csharp
 using SYstem.Collections.Generic;
 using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
 
 ICpuIdFactory factory = new CpuIdFactory();
 IEnumerable<ICpuId> cpus = factory.CreateAll();
@@ -90,7 +93,9 @@ later).
 Use the following code snippet to load data from a previously saved XML file.
 
 ```csharp
+using SYstem.Collections.Generic;
 using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
 
 string fileName = "cpu.xml";
 CpuIdXmlFactory factory = new CpuIdXmlFactory();
@@ -101,7 +106,9 @@ The factory `CpuIdXmlFactory` implements the `ICpuIdFactory` interface, so it
 can be used as a mock in your unit testing.
 
 ```csharp
+using SYstem.Collections.Generic;
 using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
 
 ICpuIdFactory factory = new CpuIdXmlFactory() {
     FileName = "cpu.xml";
@@ -132,7 +139,9 @@ work is in the framework itself. You can use this for your own programs to make
 a dump within code.
 
 ```csharp
+using SYstem.Collections.Generic;
 using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
 
 ICpuIdFactory cpuFactory = new CpuIdFactory();
 IEnumerable<ICpuId> cpus = cpuFactory.CreateAll();
@@ -215,6 +224,11 @@ table, which is out side of the scope of CpuId.NET.
 
 Each element contains an identifier (which thread, which core, which package
 number) which is derived from the APIC identifier.
+
+#### 3.4.2. The Cache Topology
+
+Each core has cache, exposed by `Topology.CacheTopoList`. This is a list of
+different caches for Data, Instruction, Unified caches for the CPU or MMU (TLB).
 
 ## 4. Future Work
 

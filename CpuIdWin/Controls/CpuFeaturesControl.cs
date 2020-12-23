@@ -1,5 +1,6 @@
 ﻿namespace RJCP.Diagnostics.CpuIdWin.Controls
 {
+    using System;
     using System.Windows.Forms;
     using CpuId;
 
@@ -7,6 +8,8 @@
     {
         public CpuFeaturesControl(ICpuId cpuId)
         {
+            if (cpuId == null) throw new ArgumentNullException(nameof(cpuId));
+
             InitializeComponent();
 
             foreach (string feature in cpuId.Features) {

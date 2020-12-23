@@ -191,11 +191,14 @@
             }
         }
 
-        public void AssertCoreTopo(CpuTopoType topoType, int id)
+        public void AssertCoreTopo(CpuTopoType topoType, int id, int mask)
         {
             foreach (CpuTopo cpuTopo in Cpu.Topology.CoreTopology) {
-                if (cpuTopo.TopoType == topoType  && cpuTopo.Id == id)
+                if (cpuTopo.TopoType == topoType  && cpuTopo.Id == id) {
+                    Assert.That(cpuTopo.Mask, Is.EqualTo(mask),
+                        "CPU Topo '{0}' of id {1} mask mismatch", topoType.ToString(), id);
                     return;
+                }
             }
 
             Assert.Fail("CPU Topo '{0}' of id {1} not found", topoType.ToString(), id);

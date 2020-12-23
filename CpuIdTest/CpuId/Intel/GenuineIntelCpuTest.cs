@@ -97,6 +97,7 @@
             Assert.That(x86cpu.CpuVendor, Is.EqualTo(CpuVendor.GenuineIntel));
             Assert.That(x86cpu.VendorId, Is.EqualTo("GenuineIntel"));
             Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+            Assert.That(x86cpu.Topology.CacheTopology.IsReadOnly, Is.True);
             return x86cpu;
         }
 
@@ -134,8 +135,8 @@
             Assert.That(cpu.Features["APIC"], Is.True);
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1);
         }
 
         [Test]
@@ -149,8 +150,8 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Pentium(R) M processor 2.00GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1);
         }
 
         [Test]
@@ -175,9 +176,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM)2 Quad  CPU   Q9450  @ 2.66GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 2);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 2, 3);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 2);
         }
 
         [Test]
@@ -191,9 +192,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) Duo CPU      T2700  @ 2.33GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 1);
         }
 
         [Test]
@@ -207,9 +208,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7 CPU         920  @ 2.67GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -223,9 +224,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -239,9 +240,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i3-2120T CPU @ 2.60GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 1);
         }
 
         [Test]
@@ -255,9 +256,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-2630QM CPU @ 2.00GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 3);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 3, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -271,9 +272,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -287,9 +288,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-3820QM CPU @ 2.70GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -303,9 +304,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-4930K CPU @ 3.40GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 4);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 4, 15);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 5);
         }
 
         [Test]
@@ -320,9 +321,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 1);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 1, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1, 7);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -359,8 +360,8 @@
 
             Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
             Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
-            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
-            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core, 0);  // Could also be 1, but HTT=0 implies 1 core, so this is zero.
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg, -1); // Could also be -1 << 1, but HTT=0, implies 1 core.
         }
 
         [Test]
@@ -402,9 +403,9 @@
 
             Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
             Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
-            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
-            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0);
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt, 1);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core, 7);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -448,9 +449,9 @@
 
             Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
             Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
-            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
-            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg);
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt, 0);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core, 1);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg, -1 << 1);
         }
 
         [Test]
@@ -487,9 +488,9 @@
 
             Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
             Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
-            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
-            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0);
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt, 1);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core, 7);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 4);
         }
 
         [Test]
@@ -504,9 +505,9 @@
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz"));
 
             Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
-            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 15);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 5);
         }
     }
 }

@@ -25,6 +25,7 @@
             }
 
             x86cpu.Topology.CoreTopology.IsReadOnly = true;
+            x86cpu.Topology.CacheTopology.IsReadOnly = true;
             return x86cpu;
         }
     }

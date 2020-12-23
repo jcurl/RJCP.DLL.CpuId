@@ -10,10 +10,12 @@
         /// </summary>
         /// <param name="id">The identifier for this core, derived from the APIC Id.</param>
         /// <param name="topoType">The topology type for this entry.</param>
-        public CpuTopo(long id, CpuTopoType topoType)
+        /// <param name="mask">The APIC mask which defines this processor level.</param>
+        public CpuTopo(long id, CpuTopoType topoType, long mask)
         {
             Id = id;
             TopoType = topoType;
+            Mask = mask;
         }
 
         /// <summary>
@@ -21,6 +23,18 @@
         /// </summary>
         /// <value>The identifier.</value>
         public long Id { get; private set; }
+
+        /// <summary>
+        /// Defines the APIC mask which defines this processor level.
+        /// </summary>
+        /// <value>The mask.</value>
+        /// <remarks>
+        /// A value of -1 indicates that the mask is not known. A value of zero indicates that this level is not defined
+        /// in the APIC identifier, but a value more than zero doesn't mean that the processor has such a level, only
+        /// that there are bits reserved in the APIC identifier, or otherwise known, as the maximum number of possible
+        /// cores. The mask also includes lower level cores.
+        /// </remarks>
+        public long Mask { get; private set; }
 
         /// <summary>
         /// Gets the topology description for the core that the <see cref="Id"/> represents.

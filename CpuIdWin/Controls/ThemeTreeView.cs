@@ -23,7 +23,7 @@
 
             if (!DesignMode && Environment.OSVersion.Version.Major >= 6) {
                 const int styleMask = TVS_EX_DOUBLEBUFFER + TVS_EX_AUTOHSCROLL + TVS_EX_FADEINOUTEXPANDOS;
-                const int style = TVS_EX_DOUBLEBUFFER + TVS_EX_AUTOHSCROLL + TVS_EX_FADEINOUTEXPANDOS;
+                const int style = TVS_EX_DOUBLEBUFFER + TVS_EX_AUTOHSCROLL;
 
                 SetWindowTheme(Handle, "explorer", null);
                 SendMessage(Handle, TVM_SETEXTENDEDSTYLE, styleMask, style);

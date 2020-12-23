@@ -74,6 +74,13 @@
     <Compile Include="CpuVendor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICpuIdFactory.cs" />
+    <Compile Include="CpuId\Intel\CacheTopo.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoCpu.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoList.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoPrefetch.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoTlb.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoTrace.cs" />
+    <Compile Include="CpuId\Intel\CacheType.cs" />
     <Compile Include="Resources\CpuFeatures.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -16,5 +16,11 @@
         /// </summary>
         /// <value>Information about the core topology.</value>
         public CpuTopoList CoreTopology { get; } = new CpuTopoList();
+
+        /// <summary>
+        /// Gets information about the cache topology.
+        /// </summary>
+        /// <value>Information about the cache topology.</value>
+        public CacheTopoList CacheTopology { get; } = new CacheTopoList();
     }
 }

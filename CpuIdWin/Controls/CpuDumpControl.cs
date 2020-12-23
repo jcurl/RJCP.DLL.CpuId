@@ -1,5 +1,6 @@
 ﻿namespace RJCP.Diagnostics.CpuIdWin.Controls
 {
+    using System;
     using System.Windows.Forms;
     using CpuId.Intel;
 
@@ -7,6 +8,8 @@
     {
         public CpuDumpControl(ICpuIdX86 cpuId)
         {
+            if (cpuId == null) throw new ArgumentNullException(nameof(cpuId));
+
             InitializeComponent();
 
             ListViewGroup lvg;

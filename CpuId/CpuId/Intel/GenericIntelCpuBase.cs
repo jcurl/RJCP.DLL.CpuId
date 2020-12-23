@@ -283,6 +283,92 @@
         }
 
         /// <summary>
+        /// A common function to get the Log_2 of the Power of 2 for a value.
+        /// </summary>
+        /// <param name="value">The value to get the Log2 for.</param>
+        /// <returns>The Log_2 of the Power of 2 for a value.</returns>
+        /// <remarks>
+        /// While the title sounds complicated, and is the name used in Intel and AMD documentation, this function is
+        /// nothing more than just calculating the most significant bit of the value rounded up to the next power of 2.
+        /// For values that are exactly powers of 2, this is just the position of that single bit. For values that
+        /// aren't, the result is the next bit position more than the upper most bit.
+        /// <para>For example, 2^3 = 8 returns the value of 3.</para>
+        /// <para>
+        /// For example, for value = 2^x + y, where y is non-zero, this function returns x + 1. Thus, if value = 6 = 2^2
+        /// + 2, the result is x + 1 = 2 + 1 = 3.
+        /// </para>
+        /// </remarks>
+        protected int Log2Pof2(int value)
+        {
+            if (value == 0) return -1;
+
+            int lowBits = 0;
+            for (int i = 0; i < 31; i++) {
+                bool shifted = (value & 0x01) != 0;
+                value = (value >> 1) & 0x7FFFFFFF;
+                if (value == 0) return i + lowBits;
+                if (shifted) lowBits = 1;
+            }
+            return 31 + lowBits;
+        }
+
+        /// <summary>
+        /// Gets the cache topology leaf.
+        /// </summary>
+        /// <param name="leaf">The leaf number to use.</param>
+        /// <exception cref="NotSupportedException">
+        /// A cache entry is fully associative, with the number of sets not one.
+        /// </exception>
+        /// <remarks>
+        /// The Intel leaf 4, and AMD leaf 8000001D have the same implementation, this method provides for common code
+        /// between the two. If the exception <see cref="NotSupportedException"/> occurs, this should be reported with a
+        /// CPUID dump for investigation.
+        /// </remarks>
+        protected void GetCacheTopologyLeaf(int leaf)
+        {
+            int subleaf = 0;
+            CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+            while (cache != null && (cache.Result[0] & 0xF) != 0) {
+                int ltype = cache.Result[0] & 0xF;
+
+                CacheType ctype = CacheType.Invalid;
+                switch (ltype) {
+                case 1:
+                    ctype = CacheType.Data;
+                    break;
+                case 2:
+                    ctype = CacheType.Instruction;
+                    break;
+                case 3:
+                    ctype = CacheType.Unified;
+                    break;
+                }
+
+                if (ctype != CacheType.Invalid) {
+                    bool fullyAssoc = (cache.Result[0] & 0x200) != 0;
+                    int sets = cache.Result[2] + 1;
+
+                    if (fullyAssoc && sets != 1)
+                        throw new NotSupportedException("A cache entry is fully associative, with the number of sets not one");
+
+                    int level = (cache.Result[0] >> 5) & 0x7;
+                    int lineSize = (cache.Result[1] & 0xFFF) + 1;
+                    int partitions = ((cache.Result[1] >> 12) & 0x3FF) + 1;
+                    int ways = ((cache.Result[1] >> 22) & 0x3FF) + 1;
+
+                    CacheTopoCpu cacheTopoCpu = new CacheTopoCpu(level, ctype, ways, lineSize, sets, partitions);
+
+                    int numSharingCache = Log2Pof2(((cache.Result[0] >> 14) & 0xFFF) + 1);
+                    cacheTopoCpu.Mask = ~(-1 << numSharingCache);
+                    Topology.CacheTopology.Add(cacheTopoCpu);
+                }
+
+                subleaf++;
+                cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+            }
+        }
+
+        /// <summary>
         /// Writes the cached CPUID registers (those found in <see cref="Registers"/> to an XML writer.
         /// </summary>
         /// <param name="xmlWriter">The XML writer to write to.</param>
