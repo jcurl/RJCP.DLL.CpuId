@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CpuIdTree));
-            this.tvwCpuId = new ThemeTreeView();
+            this.tvwCpuId = new RJCP.Diagnostics.CpuIdWin.Controls.ThemeTreeView();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.pnlInfo = new System.Windows.Forms.Panel();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             this.tvwCpuId.Location = new System.Drawing.Point(3, 3);
             this.tvwCpuId.Name = "tvwCpuId";
             this.tvwCpuId.SelectedImageIndex = 0;
-            this.tvwCpuId.Size = new System.Drawing.Size(139, 480);
+            this.tvwCpuId.Size = new System.Drawing.Size(175, 480);
             this.tvwCpuId.TabIndex = 0;
             this.tvwCpuId.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCpuId_AfterSelect);
             // 
@@ -65,9 +65,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlInfo.Location = new System.Drawing.Point(148, 3);
+            this.pnlInfo.Location = new System.Drawing.Point(184, 3);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(640, 480);
+            this.pnlInfo.Size = new System.Drawing.Size(604, 480);
             this.pnlInfo.TabIndex = 1;
             // 
             // CpuIdTree

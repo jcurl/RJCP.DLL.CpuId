@@ -103,6 +103,7 @@
             Assert.That(x86cpu, Is.Not.Null);
             Assert.That(x86cpu.CpuVendor, Is.EqualTo(CpuVendor.AuthenticAmd));
             Assert.That(x86cpu.VendorId, Is.EqualTo("AuthenticAMD"));
+            Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
             return x86cpu;
         }
 

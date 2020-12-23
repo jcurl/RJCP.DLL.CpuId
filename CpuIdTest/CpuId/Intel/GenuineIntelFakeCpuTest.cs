@@ -16,7 +16,8 @@
             CpuIdXmlFactory factory = new CpuIdXmlFactory();
             ICpuId cpu = factory.Create(fullPath);
             ICpuIdX86 x86cpu = cpu as ICpuIdX86;
-            Assert.That(cpu, Is.Not.Null);
+            Assert.That(x86cpu, Is.Not.Null);
+            Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
             return x86cpu;
         }
 

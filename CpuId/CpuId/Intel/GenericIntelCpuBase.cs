@@ -29,6 +29,7 @@
         {
             m_Cpu = cpu;
             Features = new CpuFeatures();
+            Topology = new Topology();
         }
 
         /// <inheritdoc/>
@@ -72,6 +73,9 @@
 
         /// <inheritdoc/>
         public CpuFeatures Features { get; private set; }
+
+        /// <inheritdoc/>
+        public Topology Topology { get; private set; }
 
         /// <summary>
         /// Gets the brand string from registers 80000002-80000004h.

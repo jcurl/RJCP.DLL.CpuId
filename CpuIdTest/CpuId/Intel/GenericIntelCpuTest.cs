@@ -19,6 +19,8 @@
             Assert.That(cpu, Is.Not.Null);
             Assert.That(cpu.CpuVendor, Is.EqualTo(CpuVendor.Unknown));
             Assert.That(cpu.VendorId, Is.EqualTo("            "));
+            Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+            Assert.That(x86cpu.Topology.CoreTopology.Count, Is.EqualTo(0));
             return x86cpu;
         }
 

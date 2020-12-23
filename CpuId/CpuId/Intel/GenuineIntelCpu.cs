@@ -5,6 +5,10 @@
     /// </summary>
     public class GenuineIntelCpu : GenericIntelCpuBase
     {
+        internal const int LegacyTopology = 0x04;
+        internal const int ExtendedTopology = 0x0B;
+        internal const int ExtendedTopology2 = 0x1F;
+
         private int m_ProcessorSignature;
         private int m_ExtendedFamily;
         private int m_ExtendedModel;
@@ -41,6 +45,7 @@
             BrandString = IntelLegacySignatures.GetType(m_ExtendedFamily, m_ExtendedModel, m_ProcessorType, m_FamilyCode, m_ModelNumber);
             Description = GetDescription();
             FindFeatures(cpu);
+            GetTopology(cpu);
         }
 
         private void GetProcessorSignature(BasicCpu cpu)
@@ -344,6 +349,111 @@
         public override CpuVendor CpuVendor
         {
             get { return CpuVendor.GenuineIntel; }
+        }
+
+        private void GetTopology(BasicCpu cpu)
+        {
+            if (!Features["HTT"] || !Features["APIC"]) {
+                if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology) {
+                    CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+                    Topology.ApicId = x2apic.Result[3];
+                    Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
+                    Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
+                } else if (cpu.FunctionCount >= FeatureInformationFunction) {
+                    CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                    Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
+                    Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
+                    Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
+                } else {
+                    Topology.ApicId = -1;
+                }
+                return;
+            }
+
+            if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology2) {
+                CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+                Topology.ApicId = x2apic.Result[3];
+                GetExtendedTopology(cpu, ExtendedTopology2);
+            } else if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology) {
+                CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+                Topology.ApicId = x2apic.Result[3];
+                GetExtendedTopology(cpu, ExtendedTopology);
+            } else if (cpu.FunctionCount >= LegacyTopology) {
+                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                CpuIdRegister topo = cpu.CpuRegisters.GetCpuId(LegacyTopology, 0);
+                Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
+                GetLegacyTopology(apic, topo);
+            } else {
+                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                if (Features["APIC"]) {
+                    Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
+                } else {
+                    Topology.ApicId = 0;
+                }
+                Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core));
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package));
+            }
+        }
+
+        private void GetExtendedTopology(BasicCpu cpu, int leaf)
+        {
+            int lwidth = 0;
+            int level = 0;
+
+            CpuIdRegister topo = cpu.CpuRegisters.GetCpuId(leaf, level);
+            while (topo != null) {
+                int ltype = (topo.Result[2] >> 8) & 0xFF;
+                if (ltype == 0) break;
+
+                int cwidth = topo.Result[0] & 0xF;
+                int width = cwidth - lwidth;
+                int mask = ~(-1 << width);
+                int id = (int)((Topology.ApicId >> lwidth) & mask);
+
+                Topology.CoreTopology.Add(new CpuTopo(id, (CpuTopoType)ltype));
+
+                level++;
+                lwidth = cwidth;
+                topo = cpu.CpuRegisters.GetCpuId(leaf, level);
+            }
+
+            topo = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            int pwidth = Log2Pof2((topo.Result[1] >> 16) & 0xFF);
+            Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> pwidth, CpuTopoType.Package));
+        }
+
+        private void GetLegacyTopology(CpuIdRegister apic, CpuIdRegister topo)
+        {
+            int maxApic = (apic.Result[1] >> 16) & 0xFF;
+            int maxCore = ((topo.Result[0] >> 26) & 0x3F) + 1;
+
+            int smtWidth = Log2Pof2(maxApic / maxCore);
+            long smtMask = ~(-1 << smtWidth);
+            long smtId = Topology.ApicId & smtMask;
+            Topology.CoreTopology.Add(new CpuTopo(smtId, CpuTopoType.Smt));
+
+            int coreWidth = Log2Pof2(maxCore);
+            long coreMask = ~(-1 << coreWidth);
+            long coreId = (Topology.ApicId >> smtWidth) & coreMask;
+            Topology.CoreTopology.Add(new CpuTopo(coreId, CpuTopoType.Core));
+
+            int pkgWidth = smtWidth + coreWidth;  // Should be the same as maxApic.
+            long pkgId = Topology.ApicId >> pkgWidth;
+            Topology.CoreTopology.Add(new CpuTopo(pkgId, CpuTopoType.Package));
+        }
+
+        private int Log2Pof2(int value)
+        {
+            if (value == 0) return -1;
+
+            int lowBits = 0;
+            for (int i = 0; i < 31; i++) {
+                bool shifted = (value & 0x01) != 0;
+                value = (value >> 1) & 0x7FFFFFFF;
+                if (value == 0) return i + lowBits;
+                if (shifted) lowBits = 1;
+            }
+            return 31 + lowBits;
         }
     }
 }

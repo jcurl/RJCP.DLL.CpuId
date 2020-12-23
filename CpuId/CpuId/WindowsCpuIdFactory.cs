@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Intel;
     using Native;
 
     internal class WindowsCpuIdFactory : ICpuIdFactory
@@ -15,8 +16,12 @@
             case OSArchitecture.x86:
             case OSArchitecture.x86_x64:
                 LoadLibrary();
-                Intel.X86CpuIdFactory factory = new Intel.X86CpuIdFactory();
-                return factory.Create();
+                X86CpuIdFactory factory = new X86CpuIdFactory();
+                ICpuId cpu = factory.Create();
+                if (cpu is ICpuIdX86 x86cpu) {
+                    x86cpu.Topology.CoreTopology.IsReadOnly = true;
+                }
+                return cpu;
             default:
                 throw new PlatformNotSupportedException("Architecture is not supported");
             }
@@ -31,8 +36,14 @@
             case OSArchitecture.x86:
             case OSArchitecture.x86_x64:
                 LoadLibrary();
-                Intel.X86CpuIdFactory factory = new Intel.X86CpuIdFactory();
-                return factory.CreateAll();
+                X86CpuIdFactory factory = new X86CpuIdFactory();
+                IEnumerable<ICpuId> cpus = factory.CreateAll();
+                foreach (ICpuId cpu in cpus) {
+                    if (cpu is ICpuIdX86 x86cpu) {
+                        x86cpu.Topology.CoreTopology.IsReadOnly = true;
+                    }
+                }
+                return cpus;
             default:
                 throw new PlatformNotSupportedException("Architecture is not supported");
             }

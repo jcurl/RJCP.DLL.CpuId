@@ -15,6 +15,10 @@
             ICpuId cpu = factory.Create();
             Assert.That(cpu, Is.Not.Null);
             DumpCpu(cpu);
+
+            if (cpu is CpuId.Intel.ICpuIdX86 x86cpu) {
+                Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+            }
         }
 
         [Test]
@@ -30,6 +34,10 @@
                 Console.WriteLine("==> CPU #{0}", cpuNumber);
                 DumpCpu(cpu);
                 cpuNumber++;
+
+                if (cpu is CpuId.Intel.ICpuIdX86 x86cpu) {
+                    Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+                }
             }
         }
 

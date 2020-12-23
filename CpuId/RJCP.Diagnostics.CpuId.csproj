@@ -51,6 +51,9 @@
     <Compile Include="CpuId\Intel\AuthenticAmdCpu.cs" />
     <Compile Include="CpuId\Intel\BasicCpu.cs" />
     <Compile Include="CpuId\Intel\CpuIdRegister.cs" />
+    <Compile Include="CpuId\Intel\CpuTopo.cs" />
+    <Compile Include="CpuId\Intel\CpuTopoList.cs" />
+    <Compile Include="CpuId\Intel\CpuTopoType.cs" />
     <Compile Include="CpuId\Intel\CpuRegisters.cs" />
     <Compile Include="CpuId\Intel\CpuRegistersBase.cs" />
     <Compile Include="CpuId\Intel\CpuXmlRegisters.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="CpuId\Intel\ICpuIdX86.cs" />
     <Compile Include="CpuId\Intel\ICpuRegisters.cs" />
     <Compile Include="CpuId\Intel\IntelLegacySignatures.cs" />
+    <Compile Include="CpuId\Intel\Topology.cs" />
     <Compile Include="CpuId\Intel\X86CpuIdFactoryXml.cs" />
     <Compile Include="CpuId\Intel\X86CpuIdFactoryBase.cs" />
     <Compile Include="CpuId\Intel\X86CpuIdFactory.cs" />

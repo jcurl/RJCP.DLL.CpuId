@@ -46,5 +46,11 @@
         /// </summary>
         /// <value>The CPUID registers.</value>
         ICpuRegisters Registers { get; }
+
+        /// <summary>
+        /// Gets the topology.
+        /// </summary>
+        /// <value>The topology for the core.</value>
+        Topology Topology { get; }
     }
 }

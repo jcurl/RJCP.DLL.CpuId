@@ -75,7 +75,14 @@
 
         private TreeNode BuildTreeNode(ICpuId cpuId, int nodeNumber)
         {
-            string nodeName = string.Format("Node: {0}", nodeNumber);
+            string nodeName;
+            ICpuIdX86 x86cpuId = cpuId as ICpuIdX86;
+            if (x86cpuId != null && x86cpuId.Topology.ApicId != -1) {
+                nodeName = string.Format("Node: APIC {0:X8}", x86cpuId.Topology.ApicId);
+            } else {
+                nodeName = string.Format("Node: {0}", nodeNumber);
+            }
+
             TreeNode node = new TreeNode(nodeName) {
                 ImageKey = "icoCpu",
                 SelectedImageKey = "icoCpu"
@@ -105,37 +112,39 @@
             });
             node.Nodes.Add(nodeFeatures);
 
-#if DEBUG
-            TreeNode nodeTopology = new TreeNode("Topology") {
-                ImageKey = "icoTopology",
-                SelectedImageKey = "icoTopology"
-            };
-            m_NodeControls.Add(nodeTopology, new TreeNodeData() {
-                NodeType = NodeType.CpuTopology,
-                CpuId = cpuId,
-            });
-            node.Nodes.Add(nodeTopology);
+            if (x86cpuId != null) {
+                TreeNode nodeTopology = new TreeNode("Topology") {
+                    ImageKey = "icoTopology",
+                    SelectedImageKey = "icoTopology"
+                };
+                m_NodeControls.Add(nodeTopology, new TreeNodeData() {
+                    NodeType = NodeType.CpuTopology,
+                    CpuId = cpuId,
+                });
+                node.Nodes.Add(nodeTopology);
 
-            TreeNode nodeCache = new TreeNode("Cache") {
-                ImageKey = "icoCache",
-                SelectedImageKey = "icoCache"
-            };
-            m_NodeControls.Add(nodeCache, new TreeNodeData() {
-                NodeType = NodeType.CpuCache,
-                CpuId = cpuId,
-            });
-            node.Nodes.Add(nodeCache);
+#if DEBUG
+                TreeNode nodeCache = new TreeNode("Cache") {
+                    ImageKey = "icoCache",
+                    SelectedImageKey = "icoCache"
+                };
+                m_NodeControls.Add(nodeCache, new TreeNodeData() {
+                    NodeType = NodeType.CpuCache,
+                    CpuId = cpuId,
+                });
+                node.Nodes.Add(nodeCache);
 #endif
 
-            TreeNode nodeDump = new TreeNode("Dump") {
-                ImageKey = "icoDump",
-                SelectedImageKey = "icoDump"
-            };
-            m_NodeControls.Add(nodeDump, new TreeNodeData() {
-                NodeType = NodeType.CpuDump,
-                CpuId = cpuId,
-            });
-            node.Nodes.Add(nodeDump);
+                TreeNode nodeDump = new TreeNode("Dump") {
+                    ImageKey = "icoDump",
+                    SelectedImageKey = "icoDump"
+                };
+                m_NodeControls.Add(nodeDump, new TreeNodeData() {
+                    NodeType = NodeType.CpuDump,
+                    CpuId = cpuId,
+                });
+                node.Nodes.Add(nodeDump);
+            }
 
             return node;
         }
@@ -158,6 +167,7 @@
 
         public ObservableCollection<ICpuId> Cores { get { return m_Cores; } }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0019:Use pattern matching", Justification = "False positive")]
         private void tvwCpuId_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (!m_NodeControls.TryGetValue(e.Node, out TreeNodeData data)) {
@@ -167,6 +177,8 @@
             }
 
             if (data.Control == null) {
+                ICpuIdX86 x86cpu = data.CpuId as ICpuIdX86;
+
                 switch (data.NodeType) {
                 case NodeType.CpuDetails:
                     data.Control = new CpuDetailsControl(data.CpuId);
@@ -175,8 +187,12 @@
                     data.Control = new CpuFeaturesControl(data.CpuId);
                     break;
                 case NodeType.CpuDump:
-                    if (!(data.CpuId is ICpuIdX86 x86cpu)) return;
+                    if (x86cpu == null) return;
                     data.Control = new CpuDumpControl(x86cpu);
+                    break;
+                case NodeType.CpuTopology:
+                    if (x86cpu == null) return;
+                    data.Control = new CpuTopologyControl(x86cpu);
                     break;
                 default:
                     // We don't have a user control for this action.

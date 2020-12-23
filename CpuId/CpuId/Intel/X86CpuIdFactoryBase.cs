@@ -8,16 +8,24 @@
 
         public abstract IEnumerable<ICpuId> CreateAll();
 
-        protected ICpuId Create(BasicCpu cpu)
+        protected ICpuIdX86 Create(BasicCpu cpu)
         {
+            ICpuIdX86 x86cpu;
+
             switch (cpu.VendorId) {
             case "GenuineIntel":
-                return new GenuineIntelCpu(cpu);
+                x86cpu = new GenuineIntelCpu(cpu);
+                break;
             case "AuthenticAMD":
-                return new AuthenticAmdCpu(cpu);
+                x86cpu = new AuthenticAmdCpu(cpu);
+                break;
             default:
-                return new GenericIntelCpu(cpu);
+                x86cpu = new GenericIntelCpu(cpu);
+                break;
             }
+
+            x86cpu.Topology.CoreTopology.IsReadOnly = true;
+            return x86cpu;
         }
     }
 }

@@ -96,6 +96,7 @@
             Assert.That(x86cpu, Is.Not.Null);
             Assert.That(x86cpu.CpuVendor, Is.EqualTo(CpuVendor.GenuineIntel));
             Assert.That(x86cpu.VendorId, Is.EqualTo("GenuineIntel"));
+            Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
             return x86cpu;
         }
 
@@ -129,6 +130,12 @@
             FeatureCheck.Check("standard", 0x00004400, 0xBFEBFBFF);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Pentium(R) 4 CPU 2.53GHz"));
+            Assert.That(cpu.Features["HTT"], Is.True);
+            Assert.That(cpu.Features["APIC"], Is.True);
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -140,6 +147,10 @@
             FeatureCheck.Check("extended", 0x00000000, 0x00100000);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Pentium(R) M processor 2.00GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -162,6 +173,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x20100000);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM)2 Quad  CPU   Q9450  @ 2.66GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 2);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -173,6 +189,11 @@
             FeatureCheck.Check("extended", 0x00000000, 0x00100000);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) Duo CPU      T2700  @ 2.33GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -184,6 +205,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7 CPU         920  @ 2.67GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -195,6 +221,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -206,6 +237,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i3-2120T CPU @ 2.60GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -217,6 +253,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-2630QM CPU @ 2.00GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 3);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -228,6 +269,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -239,6 +285,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-3820QM CPU @ 2.70GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -250,6 +301,11 @@
             FeatureCheck.Check("extended", 0x00000001, 0x2C100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-4930K CPU @ 3.40GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 4);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -262,30 +318,178 @@
             FeatureCheck.Check("extended", 0x00000121, 0x2C100800);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
+        public void Corei7_6600U_2p1c()
+        {
+            // This has a width of zero bits for the SMT portion, even if the CPU is listed in leaf 4.
+            GetCpu("vmware/i7-6600U_2p1c.xml");
+            Corei7_6600U_2p1c_All(FeatureCheck, 0, 0, 0);
+        }
+
+        [Test]
+        public void Corei7_6600U_2p1c_All()
+        {
+            GetCpu("vmware/i7-6600U_2p1c.xml");
+
+            int apic = 0;
+            foreach (ICpuIdX86 cpu in FeatureCheck.Cpus) {
+                FeatureCheck featureCheck = FeatureCheck.GetFeatureCpu(cpu);
+                Corei7_6600U_2p1c_All(featureCheck, apic, 0, apic);
+                apic += 2;
+            }
+        }
+
+        private void Corei7_6600U_2p1c_All(FeatureCheck x86cpu, int apic, int core, int pkg)
+        {
+            CheckSignature(0x406E3);
+            // Note that by running in VMWare, the feature flags are quite different.
+            x86cpu.Check("standard", 0XF6FA3203, 0x0F8BFBFF, 0x009C27AB, 0x00000000, 0xBC000000);
+            x86cpu.Check("procstate", 0x0000000B);
+            x86cpu.Check("extended", 0x00000121, 0x2C100000);
+            x86cpu.AssertOnDifference();
+            Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
+
+            Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
+            Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(2));
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg);
+        }
+
+        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_6700K()
         {
-            GenuineIntelCpu cpu = GetCpu("i7-6700K.xml");
-            CheckSignature(0x506E3);
-            FeatureCheck.Check("standard", 0x7FFAFBBF, 0xBFEBFBFF, 0x029C6FBF, 0x00000000, 0x9C002400);
-            FeatureCheck.Check("procstate", 0x0000000F);
-            FeatureCheck.Check("extended", 0x00000121, 0x2C100800);
-            FeatureCheck.AssertOnDifference();
-            Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
+            GetCpu("i7-6700K.xml");
+            Corei7_6700K(FeatureCheck, 0, 0, 0);
         }
 
         [Test]
+        public void Corei7_6700K_All()
+        {
+            GetCpu("i7-6700K.xml");
+
+            int apic = 0;
+            int smt = 0;
+            int core = 0;
+            foreach (ICpuIdX86 cpu in FeatureCheck.Cpus) {
+                FeatureCheck featureCheck = FeatureCheck.GetFeatureCpu(cpu);
+                Corei7_6700K(featureCheck, apic, smt, core);
+                apic++;
+                smt++;
+                if (smt == 2) {
+                    smt = 0;
+                    core++;
+                }
+            }
+        }
+
+        private void Corei7_6700K(FeatureCheck x86cpu, int apic, int smt, int core)
+        {
+            CheckSignature(0x506E3);
+            x86cpu.Check("standard", 0x7FFAFBBF, 0xBFEBFBFF, 0x029C6FBF, 0x00000000, 0x9C002400);
+            x86cpu.Check("procstate", 0x0000000F);
+            x86cpu.Check("extended", 0x00000121, 0x2C100800);
+            x86cpu.AssertOnDifference();
+            Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
+
+            Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
+            Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0);
+        }
+
+        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
+        public void Corei7_6700K_vmware()
+        {
+            // This has a width of zero bits for the SMT portion, even if the CPU is listed in leaf 4.
+            GetCpu("vmware/i7-6700K_vmware.xml");
+            Corei7_6700K_vmware(FeatureCheck, 0, 0, 0, 0);
+        }
+
+        [Test]
+        public void Corei7_6700K_All_vmware()
+        {
+            GetCpu("vmware/i7-6700K_vmware.xml");
+
+            int apic = 0;
+            int core = 0;
+            int pkg = 0;
+            foreach (ICpuIdX86 cpu in FeatureCheck.Cpus) {
+                FeatureCheck featureCheck = FeatureCheck.GetFeatureCpu(cpu);
+                Corei7_6700K_vmware(featureCheck, apic, 0, core, pkg);
+                apic++;
+                core++;
+                if (core == 2) {
+                    core = 0;
+                    pkg++;
+                }
+            }
+        }
+
+        private void Corei7_6700K_vmware(FeatureCheck x86cpu, int apic, int smt, int core, int pkg)
+        {
+            CheckSignature(0x506E3);
+            // Note that by running in VMWare, the feature flags are quite different.
+            x86cpu.Check("standard", 0xF7FA3203, 0x1F8BBBFF, 0x009C27AB, 0x00000000, 0xBC000400);
+            x86cpu.Check("procstate", 0x0000000B);
+            x86cpu.Check("extended", 0x00000121, 0x2C100000);
+            x86cpu.AssertOnDifference();
+            Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
+
+            Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
+            Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, pkg);
+        }
+
+        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_9700()
         {
-            GenuineIntelCpu cpu = GetCpu("i7-9700.xml");
+            GetCpu("i7-9700.xml");
+            Corei7_9700(FeatureCheck, 0, 0, 0);
+        }
+
+        [Test]
+        public void Corei7_9700_All()
+        {
+            GetCpu("i7-9700.xml");
+
+            int apic = 0;
+            int core = 0;
+            foreach (ICpuIdX86 cpu in FeatureCheck.Cpus) {
+                FeatureCheck featureCheck = FeatureCheck.GetFeatureCpu(cpu);
+                Corei7_9700(featureCheck, apic, 0, core);
+                apic += 2;
+                core++;
+            }
+        }
+
+        private void Corei7_9700(FeatureCheck x86cpu, int apic, int smt, int core)
+        {
             CheckSignature(0x906ED);
-            FeatureCheck.Check("standard", 0x7FFAFBFF, 0xBFEBFBFF, 0x029C6FBF, 0x40000000, 0xBC000400);
-            FeatureCheck.Check("procstate", 0x0000000F);
-            FeatureCheck.Check("extended", 0x00000121, 0x2C100800);
-            FeatureCheck.AssertOnDifference();
-            Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
+            x86cpu.Check("standard", 0x7FFAFBFF, 0xBFEBFBFF, 0x029C6FBF, 0x40000000, 0xBC000400);
+            x86cpu.Check("procstate", 0x0000000F);
+            x86cpu.Check("extended", 0x00000121, 0x2C100800);
+            x86cpu.AssertOnDifference();
+            Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
+
+            Assert.That(x86cpu.Cpu.Topology.ApicId, Is.EqualTo(apic));
+            Assert.That(x86cpu.Cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            x86cpu.AssertCoreTopo(CpuTopoType.Smt, smt);
+            x86cpu.AssertCoreTopo(CpuTopoType.Core, core);
+            x86cpu.AssertCoreTopo(CpuTopoType.Package, 0);
         }
 
         [Test]
@@ -298,6 +502,11 @@
             FeatureCheck.Check("extended", 0x00000121, 0x2C100000);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz"));
+
+            Assert.That(cpu.Topology.CoreTopology.Count, Is.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0);
         }
     }
 }

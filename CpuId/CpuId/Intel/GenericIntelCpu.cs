@@ -23,6 +23,8 @@
             ProcessorType = (ProcessorSignature >> 12) & 0x3;
             Stepping = ProcessorSignature & 0xF;
             Description = string.Empty;
+
+            Topology.CoreTopology.IsReadOnly = true;
         }
     }
 }

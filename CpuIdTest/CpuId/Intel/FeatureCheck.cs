@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using NUnit.Framework;
 
@@ -49,12 +50,41 @@
             Cpu = factory.Create(fileName) as ICpuIdX86;
             if (Cpu == null) throw new InvalidOperationException("Couldn't load CPU file");
 
+            Cpus = factory.CreateAll(fileName).OfType<ICpuIdX86>();
+
+            Initialize();
+        }
+
+        public void LoadCpu(ICpuIdX86 cpu)
+        {
+            if (cpu == null) throw new ArgumentNullException(nameof(cpu));
+            Cpu = cpu;
+            Cpus = new ICpuIdX86[] { cpu };
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             Expected.Clear();
             Missing.Clear();
             Additional.Clear();
         }
 
         public ICpuIdX86 Cpu { get; private set; }
+
+        public IEnumerable<ICpuIdX86> Cpus { get; private set; }
+
+        public FeatureCheck GetFeatureCpu(ICpuIdX86 cpu)
+        {
+            FeatureCheck newFeature = new FeatureCheck();
+            newFeature.LoadCpu(cpu);
+            foreach (string group in m_FeatureSet.Keys) {
+                foreach (FeatureSet set in m_FeatureSet[group]) {
+                    newFeature.AddFeatureSet(group, set.Name, set.Set);
+                }
+            }
+            return newFeature;
+        }
 
         public void Check(string group, params uint[] registers)
         {
@@ -159,6 +189,16 @@
                 }
                 Assert.Fail("Missing descriptions for: {0}", missingText);
             }
+        }
+
+        public void AssertCoreTopo(CpuTopoType topoType, int id)
+        {
+            foreach (CpuTopo cpuTopo in Cpu.Topology.CoreTopology) {
+                if (cpuTopo.TopoType == topoType  && cpuTopo.Id == id)
+                    return;
+            }
+
+            Assert.Fail("CPU Topo '{0}' of id {1} not found", topoType.ToString(), id);
         }
     }
 }
