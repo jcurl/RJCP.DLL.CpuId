@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cpuid>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000002,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000F27,0001080A,00004400,BFEBFBFF</register>
+		<register eax="00000002" ecx="00000000">665B5101,00000000,00000000,003B7040</register>
+		<register eax="80000000" ecx="00000000">80000004,00000000,00000000,00000000</register>
+		<register eax="80000001" ecx="00000000">00000000,00000000,00000000,00000000</register>
+		<register eax="80000002" ecx="00000000">20202020,20202020,20202020,20202020</register>
+		<register eax="80000003" ecx="00000000">65746E49,2952286C,6C654320,6E6F7265</register>
+		<register eax="80000004" ecx="00000000">20295228,20555043,30302E32,007A4847</register>
+	</processor>
+</cpuid>

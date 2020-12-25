@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cpuid>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,063F02B2,0003F437</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,ACC70366,000151C5</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,F5297DD1,0002C32D</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,F196CD7C,000000FD</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,C6CADBE7,0003F185</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,1B50BC4D,00011728</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,4B995DEA,00037587</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000003,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000673,00000000,00000000,0387FBFF</register>
+		<register eax="00000002" ecx="00000000">03020101,00000000,00000000,0C040844</register>
+		<register eax="00000003" ecx="00000000">00000000,00000000,8BCE9534,00000E5B</register>
+	</processor>
+</cpuid>

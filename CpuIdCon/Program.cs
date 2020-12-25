@@ -9,9 +9,17 @@
         public static int Main()
         {
             ICpuIdFactory cpuFactory = new CpuIdFactory();
+            ICpuId firstCpu = cpuFactory.Create();
+
             IEnumerable<ICpuId> cpus = cpuFactory.CreateAll();
 
-            string fileName = string.Format("{0}.xml", Environment.MachineName);
+            string fileName;
+            if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
+                fileName = string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, Environment.MachineName);
+            } else {
+                fileName = string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, Environment.MachineName);
+            }
+
             try {
                 CpuIdXmlFactory.Save(fileName, cpus);
                 Console.WriteLine("Wrote output to: {0}", fileName);

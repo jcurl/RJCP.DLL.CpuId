@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https://forum.osdev.org/viewtopic.php?f=2&t=21632 -->
+<cpuid>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000001,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000651,00000000,00000000,0183FBFF</register>
+	</processor>
+</cpuid>

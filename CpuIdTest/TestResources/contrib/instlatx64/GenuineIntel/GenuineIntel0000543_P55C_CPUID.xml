@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cpuid>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000001,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00000543,00000000,00000000,008003BF</register>
+	</processor>
+	<processor>
+		<register eax="00000000" ecx="00000000">00000001,756E6547,6C65746E,49656E69</register>
+		<register eax="00000001" ecx="00000000">00002544,00000000,00000000,008003BF</register>
+	</processor>
+</cpuid>
