@@ -225,9 +225,9 @@ namespace RJCP.Diagnostics.Resources {
         /// <summary>
         ///   Looks up a localized string similar to AVX512 4-register neural network instructions.
         /// </summary>
-        internal static string AVX512_4NNIW {
+        internal static string AVX512_4VNNIW {
             get {
-                return ResourceManager.GetString("AVX512_4NNIW", resourceCulture);
+                return ResourceManager.GetString("AVX512_4VNNIW", resourceCulture);
             }
         }
         
@@ -255,15 +255,6 @@ namespace RJCP.Diagnostics.Resources {
         internal static string AVX512_IFMA {
             get {
                 return ResourceManager.GetString("AVX512_IFMA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AVX512 population count double/quad word instructions.
-        /// </summary>
-        internal static string AVX512_POPCNTDQ {
-            get {
-                return ResourceManager.GetString("AVX512_POPCNTDQ", resourceCulture);
             }
         }
         
@@ -300,6 +291,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string AVX512_VP2INTERSECT {
             get {
                 return ResourceManager.GetString("AVX512_VP2INTERSECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AVX512 population count double/quad word instructions.
+        /// </summary>
+        internal static string AVX512_VPOPCNTDQ {
+            get {
+                return ResourceManager.GetString("AVX512_VPOPCNTDQ", resourceCulture);
             }
         }
         

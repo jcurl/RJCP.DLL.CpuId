@@ -192,7 +192,7 @@
   <data name="AVX512_4FMAPS" xml:space="preserve">
     <value>AVX512 packed single precision fused multiply add instructions</value>
   </data>
-  <data name="AVX512_4NNIW" xml:space="preserve">
+  <data name="AVX512_4VNNIW" xml:space="preserve">
     <value>AVX512 4-register neural network instructions</value>
   </data>
   <data name="AVX512_BF16" xml:space="preserve">
@@ -203,9 +203,6 @@
   </data>
   <data name="AVX512_IFMA" xml:space="preserve">
     <value>AVX512 Integer Fuse Multiply Add instructions</value>
-  </data>
-  <data name="AVX512_POPCNTDQ" xml:space="preserve">
-    <value>AVX512 population count double/quad word instructions</value>
   </data>
   <data name="AVX512_VBMI" xml:space="preserve">
     <value>AVX512 bit manipulation instructions (VPERMB, VPERMI2B, VPERMT2B, VPMULTISHIFTQB)</value>
@@ -218,6 +215,9 @@
   </data>
   <data name="AVX512_VP2INTERSECT" xml:space="preserve">
     <value>AVX512 VP2INTERSECT double/quad word instructions</value>
+  </data>
+  <data name="AVX512_VPOPCNTDQ" xml:space="preserve">
+    <value>AVX512 population count double/quad word instructions</value>
   </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>

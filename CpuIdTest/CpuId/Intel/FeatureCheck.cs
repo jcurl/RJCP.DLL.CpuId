@@ -170,14 +170,23 @@
         {
             if (Cpu == null) throw new InvalidOperationException("CPU not loaded");
 
+            // All features in the test case should have a description. An error here indicates a problem in the test
+            // case.
             HashSet<string> missing = new HashSet<string>();
             foreach (List<FeatureSet> group in m_FeatureSet.Values) {
                 foreach (FeatureSet featureSet in group) {
                     foreach (string feature in featureSet.Set) {
-                        if (!string.IsNullOrEmpty(feature) && string.IsNullOrEmpty(Cpu.Features.Description(feature))) {
+                        if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
                             missing.Add(feature);
                         }
                     }
+                }
+            }
+
+            // All features should have a description.
+            foreach (string feature in Cpu.Features) {
+                if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
+                    missing.Add(feature);
                 }
             }
 

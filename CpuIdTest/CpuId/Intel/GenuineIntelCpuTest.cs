@@ -40,13 +40,13 @@
         // Note, AMD Doc #24594, r3.31 says RDPID is EBX[22], Intel spec says RDPID is ECX[22].
         private static readonly string[] CpuId07Ecx = new[] {
             "PREFETCHWT1", "AVX512_VBMI", "UMIP", "PKU", "OSPKE", "WAITPKG", "AVX512_VBMI2", "CET_SS",
-            "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "", "AVX512_POPCNTDQ", "5L_PAGE",
+            "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "", "AVX512_VPOPCNTDQ", "5L_PAGE",
             "", null, null, null, null, null, "RDPID", "",
             "", "CLDEMOTE", "", "MOVDIRI", "MOVDIR64B", "ENQCMD", "SGX_LC", "PKS"
         };
 
         private static readonly string[] CpuId07Edx = new[] {
-            "", "", "AVX512_4NNIW", "AVX512_4FMAPS", "FSRM", "", "", "",
+            "", "", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "", "", "",
             "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "", "", "TSX_FORCE_ABORT", "SERIALIZE", "Hybrid",
             "TSXLDTRK", "", "PCONFIG", "LBR", "CET_IBT", "", "AMX_BF16", "",
             "AMX_TILE", "AMX_INT8", "IBRS_IBPB", "STIBP", "L1D_FLUSH", "IA32_ARCH_CAPABILITIES", "IA32_CORE_CAPABILITIES", "SSBD"
@@ -118,8 +118,8 @@
         [Test]
         public void CheckDescription()
         {
-            // We just want to load any file, to get the IntelCPU to check for descriptions
-            GetCpu("Pentium4.xml");
+            // We should load a file that has the most features
+            GetCpu("i7-9700.xml");
             FeatureCheck.AssertOnMissingDescription();
         }
 
