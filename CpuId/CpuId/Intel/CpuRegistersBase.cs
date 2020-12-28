@@ -64,6 +64,8 @@
             m_RegisterList.Add(result);
         }
 
+        public abstract bool IsOnline { get; }
+
         public IEnumerator<CpuIdRegister> GetEnumerator()
         {
             return m_RegisterList.GetEnumerator();

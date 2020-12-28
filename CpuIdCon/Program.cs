@@ -15,9 +15,17 @@
 
             string fileName;
             if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
-                fileName = string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, Environment.MachineName);
+                if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
+                    fileName = string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, Environment.MachineName);
+                } else {
+                    fileName = string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, Environment.MachineName);
+                }
             } else {
-                fileName = string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, Environment.MachineName);
+                if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
+                    fileName = string.Format("{0} ({1}).xml", firstCpu.VendorId, Environment.MachineName);
+                } else {
+                    fileName = string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, Environment.MachineName);
+                }
             }
 
             try {

@@ -76,8 +76,7 @@
         private TreeNode BuildTreeNode(ICpuId cpuId, int nodeNumber)
         {
             string nodeName;
-            ICpuIdX86 x86cpuId = cpuId as ICpuIdX86;
-            if (x86cpuId != null && x86cpuId.Topology.ApicId != -1) {
+            if (cpuId is ICpuIdX86 x86cpuId && x86cpuId.Topology.ApicId != -1) {
                 nodeName = string.Format("Node: APIC {0:X8}", x86cpuId.Topology.ApicId);
             } else {
                 nodeName = string.Format("Node: {0}", nodeNumber);
@@ -102,17 +101,17 @@
             });
             node.Nodes.Add(nodeDetails);
 
-            TreeNode nodeFeatures = new TreeNode("Features") {
-                ImageKey = "icoFeatures",
-                SelectedImageKey = "icoFeatures"
-            };
-            m_NodeControls.Add(nodeFeatures, new TreeNodeData() {
-                NodeType = NodeType.CpuFeatures,
-                CpuId = cpuId,
-            });
-            node.Nodes.Add(nodeFeatures);
+            if (IsIntelOrAmd(cpuId)) {
+                TreeNode nodeFeatures = new TreeNode("Features") {
+                    ImageKey = "icoFeatures",
+                    SelectedImageKey = "icoFeatures"
+                };
+                m_NodeControls.Add(nodeFeatures, new TreeNodeData() {
+                    NodeType = NodeType.CpuFeatures,
+                    CpuId = cpuId,
+                });
+                node.Nodes.Add(nodeFeatures);
 
-            if (x86cpuId != null) {
                 TreeNode nodeTopology = new TreeNode("Topology") {
                     ImageKey = "icoTopology",
                     SelectedImageKey = "icoTopology"
@@ -132,7 +131,9 @@
                     CpuId = cpuId,
                 });
                 node.Nodes.Add(nodeCache);
+            }
 
+            if (IsX86Cpu(cpuId)) {
                 TreeNode nodeDump = new TreeNode("Dump") {
                     ImageKey = "icoDump",
                     SelectedImageKey = "icoDump"
@@ -145,6 +146,16 @@
             }
 
             return node;
+        }
+
+        private bool IsIntelOrAmd(ICpuId cpuId)
+        {
+            return cpuId is GenuineIntelCpu || cpuId is AuthenticAmdCpu;
+        }
+
+        private bool IsX86Cpu(ICpuId cpuId)
+        {
+            return cpuId is ICpuIdX86;
         }
 
         private void RemoveTreeNode(TreeNode node)

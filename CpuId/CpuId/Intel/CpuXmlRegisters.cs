@@ -37,5 +37,7 @@
         {
             return int.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result);
         }
+
+        public override bool IsOnline { get { return false; } }
     }
 }

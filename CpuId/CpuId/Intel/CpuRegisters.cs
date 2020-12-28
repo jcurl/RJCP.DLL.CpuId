@@ -49,5 +49,7 @@
 
             return result;
         }
+
+        public override bool IsOnline { get { return true; } }
     }
 }

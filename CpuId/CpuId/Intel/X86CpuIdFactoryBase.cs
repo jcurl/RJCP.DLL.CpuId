@@ -14,10 +14,20 @@
 
             switch (cpu.VendorId) {
             case "GenuineIntel":
-                x86cpu = new GenuineIntelCpu(cpu);
+                try {
+                    x86cpu = new GenuineIntelCpu(cpu);
+                } catch {
+                    if (!cpu.CpuRegisters.IsOnline) throw;
+                    x86cpu = new GenericIntelCpu(cpu);
+                }
                 break;
             case "AuthenticAMD":
-                x86cpu = new AuthenticAmdCpu(cpu);
+                try {
+                    x86cpu = new AuthenticAmdCpu(cpu);
+                } catch {
+                    if (!cpu.CpuRegisters.IsOnline) throw;
+                    x86cpu = new GenericIntelCpu(cpu);
+                }
                 break;
             default:
                 x86cpu = new GenericIntelCpu(cpu);
