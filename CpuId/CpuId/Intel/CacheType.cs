@@ -112,6 +112,11 @@
         InstructionTlb4M = Instruction | Tlb | Page4M,
 
         /// <summary>
+        /// A combination describing TLB instruction cache for 1Gb pages.
+        /// </summary>
+        InstructionTlb1G = Instruction | Tlb | Page1G,
+
+        /// <summary>
         /// A combination describing TLB data cache for 4kb pages.
         /// </summary>
         DataTlb4k = Data | Tlb | Page4k,

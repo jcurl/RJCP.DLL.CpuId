@@ -15,6 +15,7 @@
         internal const int FeatureInformationFunction = 1;
         internal const int ExtendedFeatureFunction = 7;
         internal const int ExtendedProcessorState = 13;
+        internal const int MaxExtendedFunction = unchecked((int)0x80000000);
         internal const int ExtendedInformationFunction = unchecked((int)0x80000001);
         internal const int ProcessorBrand1Function = unchecked((int)0x80000002);
         internal const int ProcessorBrand2Function = unchecked((int)0x80000003);

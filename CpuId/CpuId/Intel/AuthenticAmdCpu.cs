@@ -1,11 +1,17 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Linq;
+
     /// <summary>
     /// Description of an AuthenticAMD CPU.
     /// </summary>
     public class AuthenticAmdCpu : GenericIntelCpuBase
     {
+        internal const int CacheTlb = unchecked((int)0x80000005);
+        internal const int CacheL2Tlb = unchecked((int)0x80000006);
+        internal const int CacheTlb1G = unchecked((int)0x80000019);
         internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
+        internal const int CacheTopo = unchecked((int)0x8000001D);
         internal const int ProcessorTopo = unchecked((int)0x8000001E);
 
         private int m_ProcessorSignature;
@@ -43,6 +49,7 @@
             Description = GetDescription();
             FindFeatures(cpu);
             GetCpuTopology(cpu);
+            GetCacheTopology(cpu);
         }
 
         private void GetProcessorSignature(BasicCpu cpu)
@@ -233,7 +240,7 @@
                 ReservedFeature(extfeat, 3, 0x10240400);
             }
 
-            if (cpu.ExtendedFunctionCount < 8) return;
+            if (cpu.ExtendedFunctionCount < ExtendedLmApicId - MaxExtendedFunction) return;
             CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedLmApicId, 0);
             if (extfeat8 != null) {
                 TestFeature("CLZERO", extfeat8, 1, 0);
@@ -255,7 +262,7 @@
                 ReservedFeature(extfeat8, 1, unchecked((int)0xFFC80CE0));
             }
 
-            if (cpu.ExtendedFunctionCount < 31) return;
+            if (cpu.ExtendedFunctionCount < ExtendedEncMem - MaxExtendedFunction) return;
             CpuIdRegister extfeat1f = cpu.CpuRegisters.GetCpuId(ExtendedEncMem, 0);
             if (extfeat1f != null) {
                 TestFeature("SME", extfeat1f, 0, 0);
@@ -277,7 +284,7 @@
         private void GetCpuTopology(BasicCpu cpu)
         {
             CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (!Features["HTT"] || !Features["CMP"] || cpu.ExtendedFunctionCount < 8) {
+            if (!Features["HTT"] || !Features["CMP"] || cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) {
                 Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, 0));
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package, -1));
@@ -299,7 +306,7 @@
             long coreMask = ~(-1 << coreBits);
             long pkgMask = ~coreMask;
 
-            if (!Features["TOPX"] || cpu.ExtendedFunctionCount < 30) {
+            if (!Features["TOPX"] || cpu.ExtendedFunctionCount < ProcessorTopo - MaxExtendedFunction) {
                 Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId & coreMask, CpuTopoType.Core, coreMask));
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> coreBits, CpuTopoType.Package, pkgMask));
@@ -324,6 +331,244 @@
             Topology.CoreTopology.Add(new CpuTopo(core, CpuTopoType.Core, coreMask));
             Topology.CoreTopology.Add(new CpuTopo(die, CpuTopoType.Node, coreMask));
             Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> coreBits, CpuTopoType.Package, pkgMask));
+        }
+
+        private void GetCacheTopology(BasicCpu cpu)
+        {
+            if (Features["TOPX"] && cpu.ExtendedFunctionCount >= CacheTopo - MaxExtendedFunction) {
+                GetCacheTopologyLeaf(CacheTopo);
+            }
+
+            if (!HasCacheType(1, CacheType.Instruction)) {
+                GetLegacyCacheL1Instruction(cpu);
+            }
+
+            if (!HasCacheType(1, CacheType.Data)) {
+                GetLegacyCacheL1Data(cpu);
+            }
+
+            if (!HasCacheType(2, CacheType.Unified)) {
+                GetLegacyCacheL2Unified(cpu);
+            }
+
+            if (!HasCacheType(2, CacheType.Unified)) {
+                GetLegacyCacheL3Unified(cpu);
+            }
+
+            GetLegacyCacheL1DataTlb(cpu);
+            GetLegacyCacheL1InstructionTlb(cpu);
+            GetLegacyCacheL2DataTlb(cpu);
+            GetLegacyCacheL2InstructionTlb(cpu);
+        }
+
+        private bool HasCacheType(int level, CacheType cacheType)
+        {
+            int elements = Topology.CacheTopology.Count(t => {
+                return t.Level == level && ((int)t.CacheType & (int)CacheType.TypeMask) == (int)cacheType;
+            });
+            return elements > 0;
+        }
+
+        private void GetLegacyCacheL1Data(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
+            if (cacheTlb == null) return;
+
+            int ways = (cacheTlb.Result[2] >> 16) & 0xFF;
+            if (ways == 0) return;
+
+            if (ways == 255) ways = 0;
+            int lineSize = cacheTlb.Result[2] & 0xFF;
+            int linesPerTag = (cacheTlb.Result[2] >> 8) & 0xFF;
+            int size = (cacheTlb.Result[2] >> 24) & 0xFF;
+            Topology.CacheTopology.Add(new CacheTopoCpu(1, CacheType.Data, ways, lineSize * linesPerTag, size));
+        }
+
+        private void GetLegacyCacheL1Instruction(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
+            if (cacheTlb == null) return;
+
+            int ways = (cacheTlb.Result[3] >> 16) & 0xFF;
+            if (ways == 0) return;
+
+            if (ways == 255) ways = 0;
+            int lineSize = cacheTlb.Result[3] & 0xFF;
+            int linesPerTag = (cacheTlb.Result[3] >> 8) & 0xFF;
+            int size = (cacheTlb.Result[3] >> 24) & 0xFF;
+            Topology.CacheTopology.Add(new CacheTopoCpu(1, CacheType.Instruction, ways, lineSize * linesPerTag, size));
+        }
+
+        private int GetL2Associativity(int associativity)
+        {
+            switch (associativity) {
+            case 0: return -1;    // Disabled.
+            case 1: return 1;
+            case 2: return 2;
+            case 3: return 3;
+            case 4: return 4;
+            case 5: return 6;
+            case 6: return 8;
+            case 8: return 16;
+            case 9: return -2;    // Get from 8000001Dh.
+            case 10: return 32;
+            case 11: return 48;
+            case 12: return 64;
+            case 13: return 96;
+            case 14: return 128;
+            case 15: return 0;
+            default: return -1;   // Reserved.
+            }
+        }
+
+        private void GetLegacyCacheL2Unified(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheL2 = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
+            if (cacheL2 == null) return;
+
+            int ways = GetL2Associativity((cacheL2.Result[2] >> 12) & 0xF);
+            if (ways < 0) return;
+            int lineSize = cacheL2.Result[2] & 0xFF;
+            int linesPerTag = (cacheL2.Result[2] >> 8) & 0xF;
+            int size = (cacheL2.Result[2] >> 16) & 0xFFFF;
+            Topology.CacheTopology.Add(new CacheTopoCpu(2, CacheType.Unified, ways, lineSize * linesPerTag, size));
+        }
+
+        private void GetLegacyCacheL3Unified(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheL3 = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
+            if (cacheL3 == null) return;
+
+            int ways = GetL2Associativity((cacheL3.Result[3] >> 12) & 0xF);
+            if (ways < 0) return;
+            int lineSize = cacheL3.Result[3] & 0xFF;
+            int linesPerTag = (cacheL3.Result[3] >> 8) & 0xF;
+            int size = (cacheL3.Result[3] >> 16) & 0xFFFF;
+            Topology.CacheTopology.Add(new CacheTopoCpu(2, CacheType.Unified, ways, lineSize * linesPerTag, size * 512));
+        }
+
+        private void GetLegacyCacheL1DataTlb(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
+            if (cacheTlb == null) return;
+
+            int ways2m = (cacheTlb.Result[0] >> 24) & 0xFF;
+            if (ways2m != 0) {
+                if (ways2m == 255) ways2m = 0;
+                int entries2m = (cacheTlb.Result[0] >> 16) & 0xFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.DataTlb2M4M, ways2m, entries2m));
+            }
+
+            int ways4k = (cacheTlb.Result[1] >> 24) & 0xFF;
+            if (ways4k != 0) {
+                if (ways4k == 255) ways4k = 0;
+                int entries4k = (cacheTlb.Result[1] >> 16) & 0xFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.DataTlb4k, ways4k, entries4k));
+            }
+
+            if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
+            if (cacheTlb1g == null) return;
+
+            int ways1g = GetL2Associativity((cacheTlb1g.Result[0] >> 28) & 0xF);
+            if (ways1g >= 0) {
+                int entries1g = (cacheTlb1g.Result[0] >> 16) & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.DataTlb1G, ways1g, entries1g));
+            }
+        }
+
+        private void GetLegacyCacheL1InstructionTlb(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
+            if (cacheTlb == null) return;
+
+            int ways2m = (cacheTlb.Result[0] >> 8) & 0xFF;
+            if (ways2m != 0) {
+                if (ways2m == 255) ways2m = 0;
+                int entries2m = cacheTlb.Result[0] & 0xFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, ways2m, entries2m));
+            }
+
+            int ways4k = (cacheTlb.Result[1] >> 8) & 0xFF;
+            if (ways4k != 0) {
+                if (ways4k == 255) ways4k = 0;
+                int entries4k = cacheTlb.Result[1] & 0xFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.InstructionTlb4k, ways4k, entries4k));
+            }
+
+            if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
+            if (cacheTlb1g == null) return;
+
+            int ways1g = GetL2Associativity((cacheTlb1g.Result[0] >> 12) & 0xF);
+            if (ways1g >= 0) {
+                int entries1g = cacheTlb1g.Result[0] & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(1, CacheType.InstructionTlb1G, ways1g, entries1g));
+            }
+        }
+
+        private void GetLegacyCacheL2DataTlb(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheL2Tlb = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
+            if (cacheL2Tlb == null) return;
+
+            int ways2m = GetL2Associativity((cacheL2Tlb.Result[0] >> 28) & 0xF);
+            if (ways2m >= 0) {
+                int entries2m = (cacheL2Tlb.Result[0] >> 16) & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.DataTlb2M4M, ways2m, entries2m));
+            }
+
+            int ways4k = GetL2Associativity((cacheL2Tlb.Result[1] >> 28) & 0xF);
+            if (ways4k >= 0) {
+                int entries4k = (cacheL2Tlb.Result[1] >> 16) & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.DataTlb4k, ways4k, entries4k));
+            }
+
+            if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
+            if (cacheTlb1g == null) return;
+
+            int ways1g = GetL2Associativity((cacheTlb1g.Result[1] >> 28) & 0xF);
+            if (ways1g >= 0) {
+                int entries1g = (cacheTlb1g.Result[1] >> 16) & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.DataTlb1G, ways1g, entries1g));
+            }
+        }
+
+        private void GetLegacyCacheL2InstructionTlb(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
+            CpuIdRegister cacheL2Tlb = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
+            if (cacheL2Tlb == null) return;
+
+            int ways2m = GetL2Associativity((cacheL2Tlb.Result[0] >> 12) & 0xF);
+            if (ways2m >= 0) {
+                int entries2m = cacheL2Tlb.Result[0] & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.InstructionTlb2M4M, ways2m, entries2m));
+            }
+
+            int ways4k = GetL2Associativity((cacheL2Tlb.Result[1] >> 12) & 0xF);
+            if (ways4k >= 0) {
+                int entries4k = cacheL2Tlb.Result[1] & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.InstructionTlb4k, ways4k, entries4k));
+            }
+
+            if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
+            CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
+            if (cacheTlb1g == null) return;
+
+            int ways1g = GetL2Associativity((cacheTlb1g.Result[1] >> 12) & 0xF);
+            if (ways1g >= 0) {
+                int entries1g = cacheTlb1g.Result[0] & 0xFFF;
+                Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.InstructionTlb1G, ways1g, entries1g));
+            }
         }
     }
 }
