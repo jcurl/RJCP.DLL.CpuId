@@ -5,6 +5,9 @@
     /// </summary>
     public class AuthenticAmdCpu : GenericIntelCpuBase
     {
+        internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
+        internal const int ProcessorTopo = unchecked((int)0x8000001E);
+
         private int m_ProcessorSignature;
         private int m_ExtendedFamily;
         private int m_ExtendedModel;
@@ -39,6 +42,7 @@
             BrandString = AmdBrandIdentifier.GetType(this);
             Description = GetDescription();
             FindFeatures(cpu);
+            GetCpuTopology(cpu);
         }
 
         private void GetProcessorSignature(BasicCpu cpu)
@@ -178,7 +182,7 @@
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
             if (extfeat != null) {
                 TestFeature("AHF64", extfeat, 2, 0);
-                TestFeature("CMP", extfeat, 2, 1);
+                TestFeature("CMP", extfeat, 2, 1);                   // CmpLegacy
                 TestFeature("SVM", extfeat, 2, 2);
                 TestFeature("ExtApicSpace", extfeat, 2, 3);
                 TestFeature("AM", extfeat, 2, 4);
@@ -196,7 +200,7 @@
                 TestFeature("TCE", extfeat, 2, 17);                  // AMD Doc #42300_15h_Mod_10h-1Fh_BKDF.pdf
                 TestFeature("NODEID", extfeat, 2, 19);               // AMD Doc #42300_15h_Mod_10h-1Fh_BKDF.pdf
                 TestFeature("TBM", extfeat, 2, 21);
-                TestFeature("TOPX", extfeat, 2, 22);
+                TestFeature("TOPX", extfeat, 2, 22);                 // TopologyExtensions
                 TestFeature("PerfCtrExtCore", extfeat, 2, 23);
                 TestFeature("PerfCtrExtNB", extfeat, 2, 24);
                 TestFeature("DBE", extfeat, 2, 26);
@@ -268,6 +272,58 @@
         public override CpuVendor CpuVendor
         {
             get { return CpuVendor.AuthenticAmd; }
+        }
+
+        private void GetCpuTopology(BasicCpu cpu)
+        {
+            CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            if (!Features["HTT"] || !Features["CMP"] || cpu.ExtendedFunctionCount < 8) {
+                Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
+                Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, 0));
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package, -1));
+                return;
+            }
+
+            CpuIdRegister extFeatureIds = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
+            int apicIdSize = (extFeatureIds.Result[2] >> 12) & 0xF;
+            int coreBits;
+            if (apicIdSize == 0) {
+                // There are two possible places to get this:
+                // - from LogicalProcessorCount = CPUID(01h).EBX[23:16] (Intel); or
+                // - from NC = CPUID(80000008h).ECX[7:0] (from AMD).
+                int mnlp = (extFeatureIds.Result[2] >> 16) & 0xF + 1;
+                coreBits = Log2Pof2(mnlp);
+            } else {
+                coreBits = apicIdSize;
+            }
+            long coreMask = ~(-1 << coreBits);
+            long pkgMask = ~coreMask;
+
+            if (!Features["TOPX"] || cpu.ExtendedFunctionCount < 30) {
+                Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId & coreMask, CpuTopoType.Core, coreMask));
+                Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> coreBits, CpuTopoType.Package, pkgMask));
+                return;
+            }
+
+            // Topology Extensions
+            CpuIdRegister topoCpu = cpu.CpuRegisters.GetCpuId(ProcessorTopo, 0);
+            Topology.ApicId = topoCpu.Result[0];
+            int smt = ((topoCpu.Result[1] >> 8) & 0xFF) + 1;
+            int smtBits = Log2Pof2(smt);
+            int smtMask = ~(-1 << smtBits);
+
+            int core = topoCpu.Result[1] & 0xFF;
+
+            // AND 24594 Rev 3.31 describes NodesPerProcessor, but doesn't describe how to calculate the actual socket
+            // number, which this software provides as the "Package". So the Package for now may not reflect the number
+            // of sockets if NodesPerProcessor is non-zero (1 node per processor).
+
+            int die = topoCpu.Result[2] & 0xFF;  // AMD calls this the NodeId.
+            Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId & smtMask, CpuTopoType.Smt, smtMask));
+            Topology.CoreTopology.Add(new CpuTopo(core, CpuTopoType.Core, coreMask));
+            Topology.CoreTopology.Add(new CpuTopo(die, CpuTopoType.Node, coreMask));
+            Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> coreBits, CpuTopoType.Package, pkgMask));
         }
     }
 }

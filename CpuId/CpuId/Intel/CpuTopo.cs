@@ -33,6 +33,28 @@
         /// in the APIC identifier, but a value more than zero doesn't mean that the processor has such a level, only
         /// that there are bits reserved in the APIC identifier, or otherwise known, as the maximum number of possible
         /// cores. The mask also includes lower level cores.
+        /// <para>By using the mask, one can build the topology of the CPU compute nodes.</para>
+        /// <para>The currently defined hierarchy is:</para>
+        /// <list type="bullet">
+        /// <item>
+        /// <see cref="CpuTopoType.Smt"/>: <c>Key = ApicId &amp; ~Mask;</c>. Logical processors sharing <c>Key</c> are
+        /// part of the same <see cref="CpuTopoType.Core"/>.
+        /// </item>
+        /// <item>
+        /// <see cref="CpuTopoType.Core"/>: <c>Key = ApicId &amp; ~Mask;</c>. Logical processors sharing <c>Key</c> are
+        /// part of the same <see cref="CpuTopoType.Package"/>.
+        /// </item>
+        /// <item>
+        /// <see cref="CpuTopoType.Node"/>: <c>Key = ApicId &amp; ~Mask;</c>. Logical processors sharing <c>Key</c> are
+        /// part of the same <see cref="CpuTopoType.Package"/>. All logical processors within the same package having
+        /// the same Id (the same Die, or as AMD calls it, the same NodeId) are on the same Die.
+        /// </item>
+        /// <item>
+        /// <see cref="CpuTopoType.Package"/>: <c>Key = ApicId &amp; Mask;</c>. Contains <see cref="CpuTopoType.Die"/>
+        /// and <see cref="CpuTopoType.Core"/>. This is the top level and indicates a physical socket in a
+        /// multiprocessor system.
+        /// </item>
+        /// </list>
         /// </remarks>
         public long Mask { get; private set; }
 
