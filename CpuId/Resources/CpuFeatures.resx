@@ -135,6 +135,9 @@
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
   </data>
+  <data name="ADMSK" xml:space="preserve">
+    <value>Address mask extension support for instruction breakpoint</value>
+  </data>
   <data name="ADX" xml:space="preserve">
     <value>Multi-Precision Add-Carry Instruction Extensions</value>
   </data>
@@ -369,6 +372,9 @@
   <data name="IBRS_PREF" xml:space="preserve">
     <value>IBRS preferred</value>
   </data>
+  <data name="IBRS_SMP" xml:space="preserve">
+    <value>IBRS provides Same Mode Protection</value>
+  </data>
   <data name="IBS" xml:space="preserve">
     <value>Instruction based sampling</value>
   </data>
@@ -401,6 +407,9 @@
   </data>
   <data name="LWP" xml:space="preserve">
     <value>Lightweight profiling support</value>
+  </data>
+  <data name="MBE" xml:space="preserve">
+    <value>Memory Bandwidth Enforcement</value>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
@@ -513,6 +522,15 @@
   <data name="POPCNT" xml:space="preserve">
     <value>POPCNT, population count, instruction</value>
   </data>
+  <data name="PPIN" xml:space="preserve">
+    <value>Protected Processor Inventory Number. can be enabled for privileged system inventory agent to Read PPIN</value>
+  </data>
+  <data name="PQE" xml:space="preserve">
+    <value>Cache Allocation Strategy</value>
+  </data>
+  <data name="PQM" xml:space="preserve">
+    <value>Platform QoS Monitoring</value>
+  </data>
   <data name="PREFETCHW" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write</value>
   </data>
@@ -539,12 +557,6 @@
   </data>
   <data name="RDSEED" xml:space="preserve">
     <value>RDSEED (read random seed) instruction</value>
-  </data>
-  <data name="RDT-A" xml:space="preserve">
-    <value>Intel(R) Resource Director Technology Allocation</value>
-  </data>
-  <data name="RDT-M" xml:space="preserve">
-    <value>Intel(R) Resource Director Technology Monitoring</value>
   </data>
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
@@ -627,6 +639,10 @@
   <data name="STIBP_ALL" xml:space="preserve">
     <value>STIBP always on mode</value>
   </data>
+  <data name="STREAMPERFMON" xml:space="preserve">
+    <value>Streaming performance monitor architecture. Indicates support for
+MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
+  </data>
   <data name="SVM" xml:space="preserve">
     <value>Secure Virtual Machine</value>
   </data>
@@ -677,6 +693,9 @@
   </data>
   <data name="VPCLMULQDQ" xml:space="preserve">
     <value>Vectored VPCLMULQDQ Instruction</value>
+  </data>
+  <data name="VTE" xml:space="preserve">
+    <value>Virtual Transparent Encryption for SEV. The Virtual Transparent Encryption feature can be enabled to force all memory accesses within an SEV guest to be encrypted with the guest's key</value>
   </data>
   <data name="WAITPKG" xml:space="preserve">
     <value>User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>

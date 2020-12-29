@@ -229,10 +229,10 @@
                 TestFeature("ERMS", features7, 1, 9);
                 TestFeature("INVPCID", features7, 1, 10);
                 TestFeature("RTM", features7, 1, 11);
-                TestFeature("RDT-M", features7, 1, 12);
+                TestFeature("PQM", features7, 1, 12);
                 TestFeature("FPU-CS Dep", features7, 1, 13);
                 TestFeature("MPX", features7, 1, 14);
-                TestFeature("RDT-A", features7, 1, 15);
+                TestFeature("PQE", features7, 1, 15);
                 TestFeature("AVX512F", features7, 1, 16);
                 TestFeature("AVX512DQ", features7, 1, 17);
                 TestFeature("RDSEED", features7, 1, 18);

@@ -173,11 +173,15 @@
             // All features in the test case should have a description. An error here indicates a problem in the test
             // case.
             HashSet<string> missing = new HashSet<string>();
+            HashSet<string> knownFeatures = new HashSet<string>();
             foreach (List<FeatureSet> group in m_FeatureSet.Values) {
                 foreach (FeatureSet featureSet in group) {
                     foreach (string feature in featureSet.Set) {
-                        if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
-                            missing.Add(feature);
+                        if (!string.IsNullOrEmpty(feature)) {
+                            knownFeatures.Add(feature);
+                            if (string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
+                                missing.Add(feature);
+                            }
                         }
                     }
                 }
@@ -197,6 +201,23 @@
                     missingText.Append(entry);
                 }
                 Assert.Fail("Missing descriptions for: {0}", missingText);
+            }
+
+            // Now check if we're missing a feature in our feature set in the test case. Indicates a feature was added
+            // but the feature set for the test case wasn't added.
+            foreach (string feature in Cpu.Features) {
+                if (!string.IsNullOrEmpty(feature) && !knownFeatures.Contains(feature)) {
+                    missing.Add(feature);
+                }
+            }
+
+            if (missing.Count > 0) {
+                StringBuilder missingText = new StringBuilder();
+                foreach (string entry in missing) {
+                    if (missingText.Length != 0) missingText.Append(", ");
+                    missingText.Append(entry);
+                }
+                Assert.Fail("Missing feature in test case for: {0}", missingText);
             }
         }
 

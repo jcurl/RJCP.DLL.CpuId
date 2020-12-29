@@ -12,7 +12,7 @@
         private static readonly string[] CpuId01Ecx = new[] {
             "SSE3", "PCLMULQDQ", "", "MONITOR", "", "", "", "",
             "", "SSSE3", "", "", "FMA", "CMPXCHG16B", "", "",
-            "", "PCID", "", "SSE4.1", "SSE4.2", "", "MOVBE", "POPCNT",
+            "", "PCID", "", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
             "", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
 
@@ -25,7 +25,7 @@
 
         private static readonly string[] CpuId07Ebx = new[] {
             "FSGSBASE", "", "", "BMI1", "", "AVX2", "", "SMEP",
-            "BMI2", "", "INVPCID", "", "", "", "", "",
+            "BMI2", "", "INVPCID", "", "PQM", "", "", "PQE",
             "", "", "RDSEED", "ADX", "SMAP", "", "", "CLFLUSHOPT",
             "CLWB", "", "", "", "", "SHA", "", ""
         };
@@ -55,7 +55,7 @@
             "AHF64", "CMP", "SVM", "ExtApicSpace", "AM", "ABM", "SSE4A", "MisAlignSSE",
             "PREFETCHW", "OSVW", "IBS", "XOP", "SKINIT", "WDT", "", "LWP",
             "FMA4", "TCE", "", "NODEID", "", "TBM", "TOPX", "PerfCtrExtCore",
-            "PerfCtrExtNB", "", "DBE", "PerfTSC", "PerfL2I", "MONITORX", "", ""
+            "PerfCtrExtNB", "StreamPerfMon", "DBE", "PerfTSC", "PerfL2I", "MONITORX", "ADMSK", ""
         };
 
         private static readonly string[] CpuId81Edx = new[] {
@@ -66,10 +66,10 @@
         };
 
         private static readonly string[] CpuId88Ebx = new[] {
-            "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", "", "", "",
+            "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", "", "MBE", "",
             "MCOMMIT", "WBNOINVD", "", "", "IBPB", "INT_WBINVD", "IBRS", "STIBP",
-            "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "", "EFER.LMSLE", "INVLPGB_NESTED", "", "",
-            "", "", "", "", "", "", "", ""
+            "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "IBRS_SMP", "EFER.LMSLE", "INVLPGB_NESTED", "", "PPIN",
+            "SSBD", "", "", "", "", "", "", ""
         };
 
         private static readonly string[] CpuId81FEbx = new[] {

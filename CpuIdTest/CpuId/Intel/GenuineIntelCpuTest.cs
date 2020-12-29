@@ -32,7 +32,7 @@
 
         private static readonly string[] CpuId07Ebx = new[] {
             "FSGSBASE", "IA32_TSC_ADJUST", "SGX", "BMI1", "HLE", "AVX2", "FDP_EXCPTN_ONLY", "SMEP",
-            "BMI2", "ERMS", "INVPCID", "RTM", "RDT-M", "FPU-CS Dep", "MPX", "RDT-A",
+            "BMI2", "ERMS", "INVPCID", "RTM", "PQM", "FPU-CS Dep", "MPX", "PQE",
             "AVX512F", "AVX512DQ", "RDSEED", "ADX", "SMAP", "AVX512_IFMA", "", "CLFLUSHOPT",
             "CLWB", "INTEL_PT", "AVX512PF", "AVX512ER", "AVX512CD", "SHA", "AVX512BW", "AVX512VL"
         };

@@ -7,6 +7,13 @@
     /// </summary>
     public class AuthenticAmdCpu : GenericIntelCpuBase
     {
+        // Reference Documents
+        //  [6]  AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.31, October 2020
+        //  [6a] AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.20, May 2013
+        //  [8]  AMD, "Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors", Document #55570-B1 Rev 3.15, Jul 9, 2020
+        //  [9]  AMD, "BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models 10h-1Fh Processors", Document #42300 Rev 3.12, July 14, 2015
+        //  [10]  AMD, "Processor Programming Reference for AMD Family 17h Model 60h, Revision A1 Processors", Document #55922 Rev 3.06, September 28, 2020
+
         internal const int CacheTlb = unchecked((int)0x80000005);
         internal const int CacheL2Tlb = unchecked((int)0x80000006);
         internal const int CacheTlb1G = unchecked((int)0x80000019);
@@ -116,6 +123,7 @@
                 TestFeature("PCID", features, 2, 17);
                 TestFeature("SSE4.1", features, 2, 19);
                 TestFeature("SSE4.2", features, 2, 20);
+                TestFeature("x2APIC", features, 2, 21);                         // [8]
                 TestFeature("MOVBE", features, 2, 22);
                 TestFeature("POPCNT", features, 2, 23);
                 TestFeature("AESNI", features, 2, 25);
@@ -125,7 +133,7 @@
                 TestFeature("F16C", features, 2, 29);
                 TestFeature("RDRAND", features, 2, 30);
                 TestFeature("HYPERVISOR", features, 2, 31);
-                ReservedFeature(features, 2, 0x0125CDF4);
+                ReservedFeature(features, 2, 0x0105CDF4);
             }
 
             FindExtendedFeatures(cpu);
@@ -139,14 +147,16 @@
                 TestFeature("SMEP", features7, 1, 7);
                 TestFeature("BMI2", features7, 1, 8);
                 TestFeature("INVPCID", features7, 1, 10);
+                TestFeature("PQM", features7, 1, 12);
+                TestFeature("PQE", features7, 1, 15);
                 TestFeature("RDSEED", features7, 1, 18);
                 TestFeature("ADX", features7, 1, 19);
                 TestFeature("SMAP", features7, 1, 20);
-                // bit 22 is not RDPID as given in Document #24594 r3.31 p606
+                // [6] has an error, bit 22 is not RDPID as given on p606
                 TestFeature("CLFLUSHOPT", features7, 1, 23);
                 TestFeature("CLWB", features7, 1, 24);
                 TestFeature("SHA", features7, 1, 29);
-                ReservedFeature(features7, 1, unchecked((int)0xDE63FA56));
+                ReservedFeature(features7, 1, unchecked((int)0xDE636A56));
 
                 TestFeature("UMIP", features7, 2, 2);
                 TestFeature("PKU", features7, 2, 3);
@@ -204,17 +214,19 @@
                 TestFeature("WDT", extfeat, 2, 13);
                 TestFeature("LWP", extfeat, 2, 15);
                 TestFeature("FMA4", extfeat, 2, 16);
-                TestFeature("TCE", extfeat, 2, 17);                  // AMD Doc #42300_15h_Mod_10h-1Fh_BKDF.pdf
-                TestFeature("NODEID", extfeat, 2, 19);               // AMD Doc #42300_15h_Mod_10h-1Fh_BKDF.pdf
-                TestFeature("TBM", extfeat, 2, 21);
+                TestFeature("TCE", extfeat, 2, 17);                  // [9]
+                TestFeature("NODEID", extfeat, 2, 19);               // [9]
+                TestFeature("TBM", extfeat, 2, 21);                  // [9]
                 TestFeature("TOPX", extfeat, 2, 22);                 // TopologyExtensions
                 TestFeature("PerfCtrExtCore", extfeat, 2, 23);
                 TestFeature("PerfCtrExtNB", extfeat, 2, 24);
+                TestFeature("StreamPerfMon", extfeat, 2, 25);        // [6a]
                 TestFeature("DBE", extfeat, 2, 26);
                 TestFeature("PerfTSC", extfeat, 2, 27);
                 TestFeature("PerfL2I", extfeat, 2, 28);              // Sandpile.org
                 TestFeature("MONITORX", extfeat, 2, 29);
-                ReservedFeature(extfeat, 2, unchecked((int)0xC2144000));
+                TestFeature("ADMSK", extfeat, 2, 30);                // [10]
+                ReservedFeature(extfeat, 2, unchecked((int)0x80144000));
 
                 TestFeature("SYSCALL", extfeat, 3, 11);
                 TestFeature("MP", extfeat, 3, 19);                   // Sandpile.org
@@ -248,18 +260,22 @@
                 TestFeature("ASRFPEP", extfeat8, 1, 2);           // Error Pointer Zero/Restore
                 TestFeature("INVLPGB", extfeat8, 1, 3);
                 TestFeature("RDPRU", extfeat8, 1, 4);
+                TestFeature("MBE", extfeat8, 1, 6);               // [10]
                 TestFeature("MCOMMIT", extfeat8, 1, 8);
                 TestFeature("WBNOINVD", extfeat8, 1, 9);
-                TestFeature("IBPB", extfeat8, 1, 12);             // Sandpile.org
-                TestFeature("INT_WBINVD", extfeat8, 1, 13);
-                TestFeature("IBRS", extfeat8, 1, 14);             // Sandpile.org
-                TestFeature("STIBP", extfeat8, 1, 15);            // Sandpile.org
+                TestFeature("IBPB", extfeat8, 1, 12);             // [10]
+                TestFeature("INT_WBINVD", extfeat8, 1, 13);       // [10]
+                TestFeature("IBRS", extfeat8, 1, 14);             // [10]
+                TestFeature("STIBP", extfeat8, 1, 15);            // [10]
                 TestFeature("IBRS_ALL", extfeat8, 1, 16);         // Sandpile.org
-                TestFeature("STIBP_ALL", extfeat8, 1, 17);        // Sandpile.org
-                TestFeature("IBRS_PREF", extfeat8, 1, 18);        // Sandpile.org
+                TestFeature("STIBP_ALL", extfeat8, 1, 17);        // [10]
+                TestFeature("IBRS_PREF", extfeat8, 1, 18);        // [10]
+                TestFeature("IBRS_SMP", extfeat8, 1, 19);         // [10]
                 TestFeature("EFER.LMSLE", extfeat8, 1, 20);
                 TestFeature("INVLPGB_NESTED", extfeat8, 1, 21);
-                ReservedFeature(extfeat8, 1, unchecked((int)0xFFC80CE0));
+                TestFeature("PPIN", extfeat8, 1, 23);             // [10]
+                TestFeature("SSBD", extfeat8, 1, 24);             // [10]
+                ReservedFeature(extfeat8, 1, unchecked((int)0xFE400CA0));
             }
 
             if (cpu.ExtendedFunctionCount < ExtendedEncMem - MaxExtendedFunction) return;
@@ -271,7 +287,8 @@
                 TestFeature("ES", extfeat1f, 0, 3);
                 TestFeature("SNP", extfeat1f, 0, 4);
                 TestFeature("VMPL", extfeat1f, 0, 5);
-                ReservedFeature(extfeat1f, 0, unchecked((int)0xFFFFFFC0));
+                TestFeature("VTE", extfeat1f, 0, 16);
+                ReservedFeature(extfeat1f, 0, unchecked((int)0xFFFEFFC0));
             }
         }
 
@@ -322,9 +339,9 @@
 
             int core = topoCpu.Result[1] & 0xFF;
 
-            // AND 24594 Rev 3.31 describes NodesPerProcessor, but doesn't describe how to calculate the actual socket
-            // number, which this software provides as the "Package". So the Package for now may not reflect the number
-            // of sockets if NodesPerProcessor is non-zero (1 node per processor).
+            // [6] describes NodesPerProcessor, but doesn't describe how to calculate the actual socket number, which
+            // this software provides as the "Package". So the Package for now may not reflect the number of sockets if
+            // NodesPerProcessor is non-zero (1 node per processor).
 
             int die = topoCpu.Result[2] & 0xFF;  // AMD calls this the NodeId.
             Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId & smtMask, CpuTopoType.Smt, smtMask));

@@ -115,6 +115,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address mask extension support for instruction breakpoint.
+        /// </summary>
+        internal static string ADMSK {
+            get {
+                return ResourceManager.GetString("ADMSK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multi-Precision Add-Carry Instruction Extensions.
         /// </summary>
         internal static string ADX {
@@ -817,6 +826,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IBRS provides Same Mode Protection.
+        /// </summary>
+        internal static string IBRS_SMP {
+            get {
+                return ResourceManager.GetString("IBRS_SMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instruction based sampling.
         /// </summary>
         internal static string IBS {
@@ -912,6 +930,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string LWP {
             get {
                 return ResourceManager.GetString("LWP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory Bandwidth Enforcement.
+        /// </summary>
+        internal static string MBE {
+            get {
+                return ResourceManager.GetString("MBE", resourceCulture);
             }
         }
         
@@ -1249,6 +1276,33 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Protected Processor Inventory Number. can be enabled for privileged system inventory agent to Read PPIN.
+        /// </summary>
+        internal static string PPIN {
+            get {
+                return ResourceManager.GetString("PPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache Allocation Strategy.
+        /// </summary>
+        internal static string PQE {
+            get {
+                return ResourceManager.GetString("PQE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform QoS Monitoring.
+        /// </summary>
+        internal static string PQM {
+            get {
+                return ResourceManager.GetString("PQM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prefetch data into caches in anticipation of a write.
         /// </summary>
         internal static string PREFETCHW {
@@ -1326,24 +1380,6 @@ namespace RJCP.Diagnostics.Resources {
         internal static string RDSEED {
             get {
                 return ResourceManager.GetString("RDSEED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Intel(R) Resource Director Technology Allocation.
-        /// </summary>
-        internal static string RDT_A {
-            get {
-                return ResourceManager.GetString("RDT-A", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Intel(R) Resource Director Technology Monitoring.
-        /// </summary>
-        internal static string RDT_M {
-            get {
-                return ResourceManager.GetString("RDT-M", resourceCulture);
             }
         }
         
@@ -1591,6 +1627,16 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Streaming performance monitor architecture. Indicates support for
+        ///MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013.
+        /// </summary>
+        internal static string STREAMPERFMON {
+            get {
+                return ResourceManager.GetString("STREAMPERFMON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secure Virtual Machine.
         /// </summary>
         internal static string SVM {
@@ -1740,6 +1786,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string VPCLMULQDQ {
             get {
                 return ResourceManager.GetString("VPCLMULQDQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Transparent Encryption for SEV. The Virtual Transparent Encryption feature can be enabled to force all memory accesses within an SEV guest to be encrypted with the guest&apos;s key.
+        /// </summary>
+        internal static string VTE {
+            get {
+                return ResourceManager.GetString("VTE", resourceCulture);
             }
         }
         

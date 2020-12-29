@@ -66,9 +66,10 @@ based on [1] and [2].
   - Stepping
   - Processor Type
 - Function 80000002-4h
-  - Brand String partial
-- Function 07h
-  - Extra features obtained from [3], which is also reflected in [4].
+  - Brand String partial, defined from [1]
+- Features from Function 01h, 07h, defined in [3], [4].
+- Cache Topology in 04h, defined in [3].
+- CPU Topology, defined in [3].
 
 #### 3.1.2. AMD
 
@@ -84,12 +85,11 @@ Functionality supported, based on [6].
   - Stepping
 - Function 80000002-4h
   - Brand strings for Family Fh, 10h, 11h, 12h, 14h
-- Function 07h
-  - Features as defined in [6]
-- Function 80000001h as defined in [6] and [7]
-  - Additional feature flags from [7].
-- Function 80000008h as defined in [6] and [7]
-  - Additional feature flags from [7].
+- Features from function 01h, 07h, 80000001h, 80000008h, 8000001Fh, defined in
+  [6], [6a], [7], [8], [9], [10].
+- Cache Topology in function 80000005h, 80000006h, 80000019h, 8000001Dh, defined
+  in [6].
+- CPU Topology in function 8000001Eh, defined in [6].
 
 ## 4. References
 
@@ -111,5 +111,14 @@ information.
   September 2010
 - [6] AMD, _AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and
   System Instructions_, Publication Number: 24594, Revision 3.31, October 2020
+- [6a] AMD, _AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and
+  System Instructions_, Publication Number: 24594, Revision 3.20, May 2013
 - [7] Christian Ludloff, Sandpile.org. Available at:
   https://www.sandpile.org/x86/cpuid.htm. Accessed November 29, 2020, 16:54 UTC
+- [8] AMD, _Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors_,
+  Publication Number: 55570-B1, Revision 3.15, July 9th, 2020
+- [9] AMD, _BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models
+  10h-1Fh Processors_, Publication Number: 42300, Revision 3.12, July 14th, 2015
+- [10] AMD, _Processor Programming Reference for AMD Family 17h Model 60h,
+  Revision A1 Processors_, Publication Number: 55922, Revision 3.06, September
+  28th, 2020
