@@ -11,7 +11,7 @@
 
                 int bti, nn;
                 if ((brand & 0xFF) == 0) {
-                    bti = (brand & 0x01C000) >> 14;
+                    bti = (brand & 0x0FC000) >> 14;
                     nn = (brand & 0x3F00) >> 8;
                 } else {
                     bti = (brand & 0xE0) >> 3;
@@ -69,7 +69,7 @@
                 case 0x3D: return string.Format("Dual Core AMD Opteron(tm) Processor 8{0:D02}", 45 + 5 * nn);
                 case 0x36: return string.Format("Dual Core AMD Opteron(tm) Processor 8{0:D02} HE", 45 + 5 * nn);
                 case 0x37: return string.Format("Dual Core AMD Opteron(tm) Processor 8{0:D02} EE", 45 + 5 * nn);
-                default: return "AMD Athlon 64 / Opteron";
+                default: return "AMD Processor model unknown";
                 }
             }
 
