@@ -1193,6 +1193,9 @@
     <Content Include="TestResources\contrib\other\GenuineIntel00106CA %28Intel%28R%29 Atom%28TM%29 CPU N570 %40 1.66GHz, asus1015pe%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\AuthenticAMD0100FA0 %28AMD Phenom%28tm%29 II X6 1055T Processor%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\GenuineIntel00306D4 %28Intel%28R%29 Core%28TM%29 i7-5500U CPU %40 2.40GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
