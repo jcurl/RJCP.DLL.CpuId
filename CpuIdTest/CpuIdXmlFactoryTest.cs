@@ -95,6 +95,7 @@
             CreateAll("contrib", "instlatx64", "AuthenticAMD");
             CreateAll("contrib", "instlatx64", "GenuineIntel");
             CreateAll("contrib", "other");
+            CreateAll("contrib", "users");
             CreateAll("AuthenticAmd");
             CreateAll("GenuineIntel");
             CreateAll("GenericIntel");
