@@ -76,7 +76,7 @@
             public static string GetNptType(AuthenticAmdCpu cpu)
             {
                 int brand = GetBrand(cpu);
-                int pwrLim = ((brand & 0x1C000) >> 13) | ((brand & 0x4000000) >> 22);
+                int pwrLim = ((brand & 0x1C000) >> 13) | ((brand & 0x400000) >> 22);
                 int bti = (brand & 0x3E0000) >> 17;
                 int nn = ((brand & 0x800000) >> 17) | ((brand & 0x3F00) >> 8);
 
@@ -98,27 +98,29 @@
             {
                 if (cmpCap == 0) {
                     switch (bti) {
-                    case 0x01: return string.Format("AMD Opteron(tm) Processor 22{0:D02} EE", 1 + nn);
+                    case 0x01:
+                        if (pwrLim == 2) return string.Format("AMD Opteron(tm) Processor 22{0:D02} EE", nn - 1);
+                        break;
                     }
                     return "AMD Processor model unknown";
                 }
 
                 switch (bti) {
                 case 0x00:
-                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} EE", 1 + nn);
-                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} HE", 1 + nn);
+                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} EE", nn - 1);
+                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} HE", nn - 1);
                     break;
                 case 0x01:
-                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} EE", 1 + nn);
-                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} HE", 1 + nn);
-                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02}", 1 + nn);
-                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} SE", 1 + nn);
+                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} EE", nn - 1);
+                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} HE", nn - 1);
+                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02}", nn - 1);
+                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 22{0:D02} SE", nn - 1);
                     break;
                 case 0x04:
-                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} EE", 1 + nn);
-                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} HE", 1 + nn);
-                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02}", 1 + nn);
-                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} SE", 1 + nn);
+                    if (pwrLim == 2) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} EE", nn - 1);
+                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} HE", nn - 1);
+                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02}", nn - 1);
+                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 82{0:D02} SE", nn - 1);
                     break;
                 case 0x06:
                     if (pwrLim == 14) return string.Format("AMD Athlon(tm) 64 FX-{0:D02} Processor", 57 + nn);
@@ -132,13 +134,13 @@
                 if (cmpCap == 0) {
                     switch (bti) {
                     case 0x01:
-                        if (pwrLim == 5) return string.Format("AMD Sempron(tm) Processor LE-1{0:D02}0", 1 + nn);
+                        if (pwrLim == 5) return string.Format("AMD Sempron(tm) Processor LE-1{0:D02}0", nn - 1);
                         break;
                     case 0x02:
-                        if (pwrLim == 6) return string.Format("AMD Sempron(tm) Processor LE-1{0:D02}0", 57 + nn);
+                        if (pwrLim == 6) return string.Format("AMD Athlon(tm) Processor LE-1{0:D02}0", 57 + nn);
                         break;
                     case 0x03:
-                        if (pwrLim == 6) return string.Format("AMD Sempron(tm) Processor 1{0:D02}0B", 57 + nn);
+                        if (pwrLim == 6) return string.Format("AMD Athlon(tm) Processor 1{0:D02}0B", 57 + nn);
                         break;
                     case 0x04:
                         switch (pwrLim) {
@@ -151,7 +153,7 @@
                         }
                         break;
                     case 0x05:
-                        if (pwrLim == 6) return string.Format("AMD Sempron(tm) Processor {0:D02}50p", 1 + nn);
+                        if (pwrLim == 2) return string.Format("AMD Sempron(tm) Processor {0:D02}50p", nn - 1);
                         break;
                     case 0x06:
                         switch (pwrLim) {
@@ -175,7 +177,7 @@
                         if (pwrLim == 2) return string.Format("AMD Athlon(tm) Neo Processor MV-{0:D02}", 15 + nn);
                         break;
                     case 0x0C:
-                        if (pwrLim == 2) return string.Format("AMD Sempron(tm) Processor 2{0:D02}U", 1 + nn);
+                        if (pwrLim == 2) return string.Format("AMD Sempron(tm) Processor 2{0:D02}U", nn - 1);
                         break;
                     }
                     return "AMD Processor model unknown";
@@ -183,9 +185,9 @@
 
                 switch (bti) {
                 case 0x01:
-                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} HE", 1 + nn);
-                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02}", 1 + nn);
-                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} SE", 1 + nn);
+                    if (pwrLim == 6) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} HE", nn - 1);
+                    if (pwrLim == 10) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02}", nn - 1);
+                    if (pwrLim == 12) return string.Format("Dual-Core AMD Opteron(tm) Processor 12{0:D02} SE", nn - 1);
                     break;
                 case 0x03:
                     if (pwrLim == 3) return string.Format("AMD Athlon(tm) X2 Dual Core Processor BE-2{0:D02}0", 25 + nn);
@@ -203,7 +205,7 @@
                     if (pwrLim == 12) return string.Format("AMD Athlon(tm) 64 FX-{0:D02} Dual Core Processor", 57 + nn);
                     break;
                 case 0x06:
-                    if (pwrLim == 6) return string.Format("AMD Sempron(tm) Dual Core Processor {0:D02}00", 1 + nn);
+                    if (pwrLim == 6) return string.Format("AMD Sempron(tm) Dual Core Processor {0:D02}00", nn - 1);
                     break;
                 case 0x07:
                     switch (pwrLim) {
@@ -225,10 +227,10 @@
                     }
                     break;
                 case 0x0B:
-                    if (pwrLim == 0) return string.Format("AMD Turion(tm) Neo X2 Dual Core Processor L6{0:D02}", 1 + nn);
+                    if (pwrLim == 0) return string.Format("AMD Turion(tm) Neo X2 Dual Core Processor L6{0:D02}", nn - 1);
                     break;
                 case 0x0C:
-                    if (pwrLim == 0) return string.Format("AMD Turion(tm) Neo X2 Dual Core Processor L3{0:D02}", 1 + nn);
+                    if (pwrLim == 0) return string.Format("AMD Turion(tm) Neo X2 Dual Core Processor L3{0:D02}", nn - 1);
                     break;
                 }
                 return "AMD Processor model unknown";
@@ -262,7 +264,7 @@
                         }
                         break;
                     case 0x07:
-                        if (pwrLim == 3) return string.Format("AMD Athlon(tm) Processor L1{0:D02}", 1 + nn);
+                        if (pwrLim == 3) return string.Format("AMD Athlon(tm) Processor L1{0:D02}", nn - 1);
                         break;
                     }
                     return "AMD Processor model unknown";
@@ -285,10 +287,10 @@
                     if (pwrLim == 4) return string.Format("AMD Athlon(tm) 64 X2 Dual Core Processor {0:D02}00+", 25 + nn);
                     break;
                 case 0x06:
-                    if (pwrLim == 2) return string.Format("AMD Athlon(tm) X2 Dual Core Processor L3{0:D02}", 1 + nn);
+                    if (pwrLim == 2) return string.Format("AMD Athlon(tm) X2 Dual Core Processor L3{0:D02}", nn - 1);
                     break;
                 case 0x07:
-                    if (pwrLim == 4) return string.Format("AMD Turion(tm) X2 Dual Core Processor L5{0:D02}", 1 + nn);
+                    if (pwrLim == 4) return string.Format("AMD Turion(tm) X2 Dual Core Processor L5{0:D02}", nn - 1);
                     break;
                 }
                 return "AMD Processor model unknown";
