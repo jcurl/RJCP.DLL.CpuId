@@ -158,3 +158,5 @@ information.
   44739, Revision 3.10, March 2012
 - [16] AMD, _Revision Guide for AMD Family 14h Model 00h-0Fh Processors_,
   Publication Number: 47534, Revision 3.18, February 2013
+- [17] AMD, _AMD Processor Recognition Application Note_, Publication Number:
+  20734, Revision P, December 1999

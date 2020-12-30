@@ -12,7 +12,8 @@
         //  [6a] AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.20, May 2013
         //  [8]  AMD, "Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors", Document #55570-B1 Rev 3.15, Jul 9, 2020
         //  [9]  AMD, "BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models 10h-1Fh Processors", Document #42300 Rev 3.12, July 14, 2015
-        //  [10]  AMD, "Processor Programming Reference for AMD Family 17h Model 60h, Revision A1 Processors", Document #55922 Rev 3.06, September 28, 2020
+        //  [10] AMD, "Processor Programming Reference for AMD Family 17h Model 60h, Revision A1 Processors", Document #55922 Rev 3.06, September 28, 2020
+        //  [17] AMD, "Processor Recognition Application Note", Document #20734 Rev P, December 1999
 
         internal const int CacheTlb = unchecked((int)0x80000005);
         internal const int CacheL2Tlb = unchecked((int)0x80000006);
@@ -98,10 +99,8 @@
                 TestFeature("PAE", features, 3, 6);
                 TestFeature("MCE", features, 3, 7);
                 TestFeature("CX8", features, 3, 8);
-                TestFeature("APIC", features, 3, 9);
                 TestFeature("SEP", features, 3, 11);
                 TestFeature("MTRR", features, 3, 12);
-                TestFeature("PGE", features, 3, 13);
                 TestFeature("MCA", features, 3, 14);
                 TestFeature("CMOV", features, 3, 15);
                 TestFeature("PAT", features, 3, 16);
@@ -112,6 +111,13 @@
                 TestFeature("SSE", features, 3, 25);
                 TestFeature("SSE2", features, 3, 26);
                 TestFeature("HTT", features, 3, 28);
+                if (Family == 5 && Model == 0) {
+                    // [17] says AMD K5 Model 0, bit 9 is for PGE, where bit 13 is reserved.
+                    TestFeature("PGE", features, 3, 9);
+                } else {
+                    TestFeature("APIC", features, 3, 9);
+                    TestFeature("PGE", features, 3, 13);
+                }
                 ReservedFeature(features, 3, unchecked((int)0xE8740400));
 
                 TestFeature("SSE3", features, 2, 0);
