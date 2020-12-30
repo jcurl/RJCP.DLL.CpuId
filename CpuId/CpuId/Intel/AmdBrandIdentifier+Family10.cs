@@ -72,32 +72,32 @@
                                 new Node(3, "AMD Athlon(tm) II 1")
                             },
                             new Node(1) {
-                                new Node(1, "AMD Athlon(tm)"),
+                                new Node(1, "AMD Athlon(tm) "),
                                 new Node(3, "AMD Athlon(tm) II X2 2"),
                                 new Node(4, "AMD Athlon(tm) II X2 B"),
-                                new Node(5, "AMD Athlon(tm) II X2"),
+                                new Node(5, "AMD Athlon(tm) II X2 "),
                                 new Node(7, "AMD Phenom(tm) II X2 5"),
-                                new Node(10, "AMD Phenom(tm) II X2"),
+                                new Node(10, "AMD Phenom(tm) II X2 "),
                                 new Node(11, "AMD Phenom(tm) II X2 B"),
                                 new Node(12, "AMD Sempron(tm) X2 1")
                             },
                             new Node(2) {
-                                new Node(0, "AMD Phenom(tm)"),
+                                new Node(0, "AMD Phenom(tm) "),
                                 new Node(3, "AMD Phenom(tm) II X3 B"),
-                                new Node(4, "AMD Phenom(tm) II X3"),
-                                new Node(7, "AMD Athlon(tm) II X2 4"),
+                                new Node(4, "AMD Phenom(tm) II X3 "),
+                                new Node(7, "AMD Athlon(tm) II X3 4"),
                                 new Node(8, "AMD Phenom(tm) II X3 7"),
-                                new Node(10, "AMD Athlon(tm) II X3")
+                                new Node(10, "AMD Athlon(tm) II X3 ")
                             },
                             new Node(3) {
                                 new Node(0, "Quad-Core AMD Opteron(tm) Processor 13"),
-                                new Node(2, "AMD Phenom(tm)"),
+                                new Node(2, "AMD Phenom(tm) "),
                                 new Node(3, "AMD Phenom(tm) II X4 9"),
                                 new Node(4, "AMD Phenom(tm) II X4 8"),
                                 new Node(7, "AMD Phenom(tm) II X4 B"),
-                                new Node(8, "AMD Phenom(tm) II X4"),
+                                new Node(8, "AMD Phenom(tm) II X4 "),
                                 new Node(10, "AMD Athlon(tm) II X4 6"),
-                                new Node(15, "AMD Athlon(tm) II X4")
+                                new Node(15, "AMD Athlon(tm) II X4 ")
                             },
                             new Node(5) {
                                 new Node(0, "AMD Phenom(tm) II X6 1")
@@ -346,9 +346,11 @@
             public static string GetType(AuthenticAmdCpu cpu)
             {
                 int brand = GetBrand(cpu);
+                if (brand == 0) return "AMD Engineering Sample";
+
                 int str1 = (brand & 0x780000) >> 19;
                 int str2 = (brand & 0xF00) >> 8;
-                int pm = (brand & 0x3F000) >> 12;
+                int pm = (brand & 0x7F000) >> 12;
                 int pg = (brand & 0x800000) >> 23;
 
                 CpuIdRegister pkgReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);

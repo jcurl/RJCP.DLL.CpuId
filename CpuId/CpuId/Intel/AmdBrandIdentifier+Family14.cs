@@ -67,9 +67,11 @@
             public static string GetType(AuthenticAmdCpu cpu)
             {
                 int brand = GetBrand(cpu);
+                if (brand == 0) return "AMD Engineering Sample";
+
                 int str1 = (brand & 0x780000) >> 19;
                 int str2 = (brand & 0xF00) >> 8;
-                int pm = (brand & 0x3F000) >> 12;
+                int pm = ((brand & 0x7F000) >> 12) - 1;
                 int pg = (brand & 0x800000) >> 23;
 
                 CpuIdRegister ext81Reg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
@@ -78,7 +80,6 @@
                 CpuIdRegister ext88Reg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedLmApicId, 0);
                 int nc = ext88Reg.Result[2] & 0xFF;
 
-                if (pkgType >= 2) pm -= 1;
                 string pma = string.Format("{0:D02}", pm);
                 string s1 = Family11hTree[pkgType][1][pg][nc][str1].Value;
                 if (!string.IsNullOrEmpty(s1)) {
