@@ -8,12 +8,13 @@
     public class AuthenticAmdCpu : GenericIntelCpuBase
     {
         // Reference Documents
-        //  [6]  AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.31, October 2020
-        //  [6a] AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.20, May 2013
-        //  [8]  AMD, "Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors", Document #55570-B1 Rev 3.15, Jul 9, 2020
-        //  [9]  AMD, "BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models 10h-1Fh Processors", Document #42300 Rev 3.12, July 14, 2015
-        //  [10] AMD, "Processor Programming Reference for AMD Family 17h Model 60h, Revision A1 Processors", Document #55922 Rev 3.06, September 28, 2020
-        //  [17] AMD, "Processor Recognition Application Note", Document #20734 Rev P, December 1999
+        //  [6]   AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.31, October 2020
+        //  [6a]  AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.20, May 2013
+        //  [8]   AMD, "Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors", Document #55570-B1 Rev 3.15, Jul 9, 2020
+        //  [9]   AMD, "BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models 10h-1Fh Processors", Document #42300 Rev 3.12, July 14, 2015
+        //  [10]  AMD, "Processor Programming Reference for AMD Family 17h Model 60h, Revision A1 Processors", Document #55922 Rev 3.06, September 28, 2020
+        //  [17]  AMD, "Processor Recognition Application Note", Document #20734 Rev P, December 1999
+        //  [17a] AMD, "Processor Recognition Application Note", Document #20734 Rev 3.00, April 2003
 
         internal const int CacheTlb = unchecked((int)0x80000005);
         internal const int CacheL2Tlb = unchecked((int)0x80000006);
@@ -226,7 +227,7 @@
                 TestFeature("TOPX", extfeat, 2, 22);                 // TopologyExtensions
                 TestFeature("PerfCtrExtCore", extfeat, 2, 23);
                 TestFeature("PerfCtrExtNB", extfeat, 2, 24);
-                TestFeature("StreamPerfMon", extfeat, 2, 25);        // [6a]
+                TestFeature("StreamPerfMon", extfeat, 2, 25);        // [6a], now reserved
                 TestFeature("DBE", extfeat, 2, 26);
                 TestFeature("PerfTSC", extfeat, 2, 27);
                 TestFeature("PerfL2I", extfeat, 2, 28);              // Sandpile.org
@@ -235,7 +236,7 @@
                 ReservedFeature(extfeat, 2, unchecked((int)0x80144000));
 
                 TestFeature("SYSCALL", extfeat, 3, 11);
-                TestFeature("MP", extfeat, 3, 19);                   // Sandpile.org
+                TestFeature("MP", extfeat, 3, 19);                   // [17a], now reserved
                 TestFeature("XD", extfeat, 3, 20);
                 TestFeature("MMXEXT", extfeat, 3, 22);
                 TestFeature("FFXSR", extfeat, 3, 25);

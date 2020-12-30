@@ -160,3 +160,5 @@ information.
   Publication Number: 47534, Revision 3.18, February 2013
 - [17] AMD, _AMD Processor Recognition Application Note_, Publication Number:
   20734, Revision P, December 1999
+- [17a] AMD, _AMD Processor Recognition Application Note_, Publication Number:
+  20734, Revision 3.00, April 2003
