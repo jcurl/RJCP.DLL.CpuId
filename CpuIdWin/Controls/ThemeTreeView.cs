@@ -13,10 +13,6 @@
         private const int TVS_EX_AUTOHSCROLL = 0x20;
         private const int TVS_EX_FADEINOUTEXPANDOS = 0x40;
 
-        public ThemeTreeView()
-        {
-        }
-
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);

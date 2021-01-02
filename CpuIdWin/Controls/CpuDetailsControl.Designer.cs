@@ -34,9 +34,7 @@
             this.lbltxtVendorId = new System.Windows.Forms.Label();
             this.lblBrand = new System.Windows.Forms.Label();
             this.lbltxtBrand = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
             this.lbltxtDescription = new System.Windows.Forms.Label();
-            this.lblProcessorSignature = new System.Windows.Forms.Label();
             this.lbltxtProcessorSignature = new System.Windows.Forms.Label();
             this.lblFamily = new System.Windows.Forms.Label();
             this.lbltxtFamily = new System.Windows.Forms.Label();
@@ -46,6 +44,8 @@
             this.lbltxtStepping = new System.Windows.Forms.Label();
             this.lblProcessorType = new System.Windows.Forms.Label();
             this.lbltxtProcessorType = new System.Windows.Forms.Label();
+            this.lblDescription = new System.Windows.Forms.TextBox();
+            this.lblProcessorSignature = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbltxtCpuVendor
@@ -96,7 +96,7 @@
             this.lblBrand.Location = new System.Drawing.Point(141, 70);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(310, 14);
-            this.lblBrand.TabIndex = 5;
+            this.lblBrand.TabIndex = 7;
             this.lblBrand.Text = "-";
             // 
             // lbltxtBrand
@@ -104,39 +104,18 @@
             this.lbltxtBrand.Location = new System.Drawing.Point(3, 70);
             this.lbltxtBrand.Name = "lbltxtBrand";
             this.lbltxtBrand.Size = new System.Drawing.Size(132, 14);
-            this.lbltxtBrand.TabIndex = 4;
+            this.lbltxtBrand.TabIndex = 6;
             this.lbltxtBrand.Text = "Brand Id:";
             this.lbltxtBrand.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblDescription
-            // 
-            this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDescription.AutoEllipsis = true;
-            this.lblDescription.Location = new System.Drawing.Point(141, 54);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(310, 14);
-            this.lblDescription.TabIndex = 7;
-            this.lblDescription.Text = "-";
             // 
             // lbltxtDescription
             // 
             this.lbltxtDescription.Location = new System.Drawing.Point(3, 54);
             this.lbltxtDescription.Name = "lbltxtDescription";
             this.lbltxtDescription.Size = new System.Drawing.Size(132, 14);
-            this.lbltxtDescription.TabIndex = 6;
+            this.lbltxtDescription.TabIndex = 4;
             this.lbltxtDescription.Text = "Brand String:";
             this.lbltxtDescription.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblProcessorSignature
-            // 
-            this.lblProcessorSignature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblProcessorSignature.Location = new System.Drawing.Point(141, 94);
-            this.lblProcessorSignature.Name = "lblProcessorSignature";
-            this.lblProcessorSignature.Size = new System.Drawing.Size(310, 14);
-            this.lblProcessorSignature.TabIndex = 9;
-            this.lblProcessorSignature.Text = "-";
             // 
             // lbltxtProcessorSignature
             // 
@@ -223,10 +202,38 @@
             this.lbltxtProcessorType.Text = "Processor Type:";
             this.lbltxtProcessorType.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // lblDescription
+            // 
+            this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDescription.BackColor = System.Drawing.SystemColors.Control;
+            this.lblDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblDescription.Location = new System.Drawing.Point(144, 54);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.ReadOnly = true;
+            this.lblDescription.Size = new System.Drawing.Size(307, 13);
+            this.lblDescription.TabIndex = 5;
+            this.lblDescription.Text = "-";
+            // 
+            // lblProcessorSignature
+            // 
+            this.lblProcessorSignature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblProcessorSignature.BackColor = System.Drawing.SystemColors.Control;
+            this.lblProcessorSignature.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblProcessorSignature.Location = new System.Drawing.Point(144, 95);
+            this.lblProcessorSignature.Name = "lblProcessorSignature";
+            this.lblProcessorSignature.ReadOnly = true;
+            this.lblProcessorSignature.Size = new System.Drawing.Size(307, 13);
+            this.lblProcessorSignature.TabIndex = 9;
+            this.lblProcessorSignature.Text = "-";
+            // 
             // CpuDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblProcessorSignature);
+            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblProcessorType);
             this.Controls.Add(this.lbltxtProcessorType);
             this.Controls.Add(this.lblStepping);
@@ -235,9 +242,7 @@
             this.Controls.Add(this.lbltxtModel);
             this.Controls.Add(this.lblFamily);
             this.Controls.Add(this.lbltxtFamily);
-            this.Controls.Add(this.lblProcessorSignature);
             this.Controls.Add(this.lbltxtProcessorSignature);
-            this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lbltxtDescription);
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.lbltxtBrand);
@@ -248,6 +253,7 @@
             this.Name = "CpuDetailsControl";
             this.Size = new System.Drawing.Size(480, 320);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -259,9 +265,7 @@
         private System.Windows.Forms.Label lbltxtVendorId;
         private System.Windows.Forms.Label lblBrand;
         private System.Windows.Forms.Label lbltxtBrand;
-        private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lbltxtDescription;
-        private System.Windows.Forms.Label lblProcessorSignature;
         private System.Windows.Forms.Label lbltxtProcessorSignature;
         private System.Windows.Forms.Label lblFamily;
         private System.Windows.Forms.Label lbltxtFamily;
@@ -271,5 +275,7 @@
         private System.Windows.Forms.Label lbltxtStepping;
         private System.Windows.Forms.Label lblProcessorType;
         private System.Windows.Forms.Label lbltxtProcessorType;
+        private System.Windows.Forms.TextBox lblDescription;
+        private System.Windows.Forms.TextBox lblProcessorSignature;
     }
 }
