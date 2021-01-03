@@ -1193,10 +1193,73 @@
     <Content Include="TestResources\contrib\other\GenuineIntel00106CA %28Intel%28R%29 Atom%28TM%29 CPU N570 %40 1.66GHz, asus1015pe%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\AuthenticAMD00005A2 %28Geode%28TM%29 Integrated Processor by AMD PCS%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\AuthenticAMD0100FA0 %28AMD Phenom%28tm%29 II X6 1055T Processor%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00006D8 %28Intel%28R%29 Pentium%28R%29 M processor 2.00GHz, Dell M70%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00006D8 %28Intel%28R%29 Pentium%28R%29 M processor 2.13GHz, HP NC6230%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00006EC %28Intel%28R%29 Core%28TM%29 Duo CPU T2700 %40 2.33GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00006FB %28Intel%28R%29 Core%28TM%292 Duo CPU     T7700  %40 2.40GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel0000F24 %28Intel%28R%29 Pentium%28R%29 4 Mobile CPU 1.80GHz, Dell C840%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel0000F27 %28Intel%28R%29 Pentium%28R%29 4 CPU 2.53GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel0010677 %28Intel%28R%29 Core%28TM%292 Quad CPU Q9450 %40 2.66GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00106A5 %28Intel%28R%29 Core%28TM%29 i7 CPU 920 %40 2.67GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00106A5 %28Intel%28R%29 Xeon%28R%29 CPU W3540 %40 2.93GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00206A7 %28Intel%28R%29 Core%28TM%29 i7-2630QM CPU %40 2.00GHz, hyperv%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00306A9 %28Intel%28R%29 Core%28TM%29 i5-3317U CPU %40 1.70GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\GenuineIntel00306D4 %28Intel%28R%29 Core%28TM%29 i7-5500U CPU %40 2.40GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00306E4 %28Intel%28R%29 Core%28TM%29 i7-4930K CPU %40 3.40GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel0040651 %28Intel%28R%29 Core%28TM%29 i5-4210U CPU %40 1.70GHz, lenovo g50%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00406E3 %28Intel%28R%29 Core%28TM%29 i7-6600U CPU %40 2.60GHz, surfacebook 2019, hyperv%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i5-6500 CPU %40 3.20GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i7-6700K CPU %40 4.00GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i7-6820HQ CPU %40 2.70GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00806EA %28Intel%28R%29 Core%28TM%29 i7-8550U CPU %40 1.80GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00906E9 %28Intel%28R%29 Core%28TM%29 i7-7700K CPU %40 4.20GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00906ED %28Intel%28R%29 Core%28TM%29 i7-9700 CPU %40 3.00GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestResources\FakeIntel\i486dx4.xml">
