@@ -1256,6 +1256,9 @@
     <Content Include="TestResources\contrib\users\GenuineIntel00806EA %28Intel%28R%29 Core%28TM%29 i7-8550U CPU %40 1.80GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00806EC %28Intel%28R%29 Core%28TM%29 i7-8565U CPU %40 1.80GHz%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\GenuineIntel00906E9 %28Intel%28R%29 Core%28TM%29 i7-7700K CPU %40 4.20GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
