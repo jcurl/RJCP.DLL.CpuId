@@ -214,8 +214,15 @@
                 }
                 data.Control.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             }
+
+            // Adding the control at runtime after everything is scaled requires scaling of the panel to the same
+            // dimensions of the user control at the time it was designed.
+            float wScale = AutoScaleDimensions.Width / data.Control.AutoScaleDimensions.Width;
+            float hScale = AutoScaleDimensions.Height / data.Control.AutoScaleDimensions.Height;
+            int width = (int)((pnlInfo.ClientSize.Width - 6) / wScale);
+            int height = (int)((pnlInfo.ClientSize.Height - 6) / hScale);
             data.Control.Location = new Point(3, 3);
-            data.Control.Size = new Size(pnlInfo.Width - 6, pnlInfo.Height - 6);
+            data.Control.Size = new Size(width, height);
 
             pnlInfo.SuspendLayout();
             pnlInfo.Controls.Clear();

@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Windows.Forms;
+    using Microsoft.Win32;
     using CpuId;
 
     public partial class Main : Form
@@ -10,7 +12,16 @@
         public Main()
         {
             InitializeComponent();
+            Font = SystemFonts.IconTitleFont;
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             GetLocal();
+        }
+
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.Window) {
+                Font = SystemFonts.IconTitleFont;
+            }
         }
 
         private void mnuFileNew_Click(object sender, EventArgs e)

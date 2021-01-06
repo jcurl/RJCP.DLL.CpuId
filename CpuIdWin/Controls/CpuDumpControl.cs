@@ -51,9 +51,15 @@
             lvwRegisters.Items.Add(lvw);
         }
 
-        private void lvwRegisters_SizeChanged(object sender, System.EventArgs e)
+        private int m_LvwRegistersWidth;
+
+        private void lvwRegisters_SizeChanged(object sender, EventArgs e)
         {
-            int lvwWidth = (lvwRegisters.Width) / 6 - 3;
+            int cw = lvwRegisters.Parent.ClientSize.Width;
+            if (m_LvwRegistersWidth == cw) return;
+            m_LvwRegistersWidth = cw;
+
+            int lvwWidth = (lvwRegisters.Width - SystemInformation.VerticalScrollBarWidth) / lvwRegisters.Columns.Count ;
             SuspendLayout();
             foreach (ColumnHeader hdr in lvwRegisters.Columns) {
                 hdr.Width = lvwWidth;
