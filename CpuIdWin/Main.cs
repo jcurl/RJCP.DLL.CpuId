@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using Microsoft.Win32;
     using CpuId;
+    using Microsoft.Win32;
 
     public partial class Main : Form
     {

@@ -59,7 +59,7 @@
             if (m_LvwRegistersWidth == cw) return;
             m_LvwRegistersWidth = cw;
 
-            int lvwWidth = (lvwRegisters.Width - SystemInformation.VerticalScrollBarWidth) / lvwRegisters.Columns.Count ;
+            int lvwWidth = (lvwRegisters.Width - SystemInformation.VerticalScrollBarWidth) / lvwRegisters.Columns.Count;
             SuspendLayout();
             foreach (ColumnHeader hdr in lvwRegisters.Columns) {
                 hdr.Width = lvwWidth;

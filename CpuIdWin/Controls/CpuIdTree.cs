@@ -217,10 +217,9 @@
 
             // Adding the control at runtime after everything is scaled requires scaling of the panel to the same
             // dimensions of the user control at the time it was designed.
-            float wScale = AutoScaleDimensions.Width / data.Control.AutoScaleDimensions.Width;
-            float hScale = AutoScaleDimensions.Height / data.Control.AutoScaleDimensions.Height;
-            int width = (int)((pnlInfo.ClientSize.Width - 6) / wScale);
-            int height = (int)((pnlInfo.ClientSize.Height - 6) / hScale);
+            SizeF scale = GetRuntimeScaleFactor(data.Control);
+            int width = (int)((pnlInfo.ClientSize.Width - 6) / scale.Width);
+            int height = (int)((pnlInfo.ClientSize.Height - 6) / scale.Height);
             data.Control.Location = new Point(3, 3);
             data.Control.Size = new Size(width, height);
 
@@ -228,6 +227,41 @@
             pnlInfo.Controls.Clear();
             pnlInfo.Controls.Add(data.Control);
             pnlInfo.ResumeLayout();
+        }
+
+        private SizeF GetRuntimeScaleFactor(ContainerControl subControl)
+        {
+            // Controls that are added to a form at design time, must have AutoScaleMode.Inherit for it to scale
+            // properly for high resolution DPI screens (specifically, where the designer is a different resolution than
+            // the screen resolution that the software will run). Otherwise the UserControl is created and scaled
+            // properly, but when the Form.InitializeComponent() is run, the components within the user control are not
+            // scaled properly.
+            //
+            // But the ContainerControl does not have it's own AutoScaleDimensions set, where we need to look through
+            // the parents looking on how to do the scaling.
+            //
+            // But here, we're given a subControl that isn't initialized in the InitializeComponent(), but added at
+            // runtime, where we do the scaling manually before adding it.
+
+            Control control = this;
+            while (control != null) {
+                if (control is ContainerControl containerControl) {
+                    switch (containerControl.AutoScaleMode) {
+                    case AutoScaleMode.Inherit:
+                        control = control.Parent;
+                        break;
+                    case AutoScaleMode.Font:
+                        return new SizeF(
+                            containerControl.AutoScaleDimensions.Width / subControl.AutoScaleDimensions.Width,
+                            containerControl.AutoScaleDimensions.Height / subControl.AutoScaleDimensions.Height);
+                    default:
+                        return new SizeF(1F, 1F);
+                    }
+                } else {
+                    control = control.Parent;
+                }
+            }
+            return new SizeF(1F, 1F);
         }
     }
 }
