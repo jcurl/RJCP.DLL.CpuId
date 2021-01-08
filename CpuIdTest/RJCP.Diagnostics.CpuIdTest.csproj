@@ -45,6 +45,7 @@
     <Compile Include="CpuIdTest.cs" />
     <Compile Include="CpuIdXmlFactoryTest.cs" />
     <Compile Include="CpuId\Intel\AuthenticAmdCpuTest.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoComparer.cs" />
     <Compile Include="CpuId\Intel\FeatureCheck.cs" />
     <Compile Include="CpuId\Intel\GenericIntelCpuTest.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelCpuTest.cs" />

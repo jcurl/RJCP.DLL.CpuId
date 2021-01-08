@@ -375,14 +375,14 @@
                 GetLegacyCacheL2Unified(cpu);
             }
 
-            if (!HasCacheType(2, CacheType.Unified)) {
+            if (!HasCacheType(3, CacheType.Unified)) {
                 GetLegacyCacheL3Unified(cpu);
             }
 
-            GetLegacyCacheL1DataTlb(cpu);
             GetLegacyCacheL1InstructionTlb(cpu);
-            GetLegacyCacheL2DataTlb(cpu);
+            GetLegacyCacheL1DataTlb(cpu);
             GetLegacyCacheL2InstructionTlb(cpu);
+            GetLegacyCacheL2DataTlb(cpu);
         }
 
         private bool HasCacheType(int level, CacheType cacheType)
@@ -471,8 +471,8 @@
             if (ways < 0) return;
             int lineSize = cacheL3.Result[3] & 0xFF;
             int linesPerTag = (cacheL3.Result[3] >> 8) & 0xF;
-            int size = (cacheL3.Result[3] >> 16) & 0xFFFF;
-            Topology.CacheTopology.Add(new CacheTopoCpu(2, CacheType.Unified, ways, lineSize * linesPerTag, size * 512));
+            int size = (cacheL3.Result[3] >> 18) & 0x3FFF;
+            Topology.CacheTopology.Add(new CacheTopoCpu(3, CacheType.Unified, ways, lineSize * linesPerTag, size * 512));
         }
 
         private void GetLegacyCacheL1DataTlb(BasicCpu cpu)

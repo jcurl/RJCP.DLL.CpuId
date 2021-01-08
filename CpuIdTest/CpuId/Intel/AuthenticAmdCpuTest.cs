@@ -138,6 +138,25 @@
             FeatureCheck.Check("standard", 0x3698320B, 0x178BFBFF, 0x00000008, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x01EBBFFF, 0x2FD3FBFF, 0x00000000);
             Assert.That(cpu.Description, Is.EqualTo("AMD A8-5500 APU with Radeon(tm) HD Graphics"));
+
+            CacheTopoList expectedCache = new CacheTopoList() {
+                new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
+                new CacheTopoCpu(1, CacheType.Data, 4, 64, 16),
+                new CacheTopoCpu(2, CacheType.Unified, 16, 64, 2048),
+                new CacheTopoTlb(1, CacheType.InstructionTlb4k, 0, 48),
+                new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 0, 24),
+                new CacheTopoTlb(1, CacheType.InstructionTlb1G, 0, 24),
+                new CacheTopoTlb(1, CacheType.DataTlb4k, 0, 64),
+                new CacheTopoTlb(1, CacheType.DataTlb2M4M, 0, 64),
+                new CacheTopoTlb(1, CacheType.DataTlb1G, 0, 64),
+                new CacheTopoTlb(2, CacheType.InstructionTlb4k, 4, 512),
+                new CacheTopoTlb(2, CacheType.InstructionTlb2M4M, 8, 1024),
+                new CacheTopoTlb(2, CacheType.InstructionTlb1G, 8, 24),
+                new CacheTopoTlb(2, CacheType.DataTlb4k, 8, 1024),
+                new CacheTopoTlb(2, CacheType.DataTlb2M4M, 8, 1024),
+                new CacheTopoTlb(2, CacheType.DataTlb1G, 8, 1024)
+            };
+            Assert.That(cpu.Topology.CacheTopology, Is.EquivalentTo(expectedCache).Using(new CacheTopoComparer()));
         }
 
         [Test]
@@ -159,6 +178,22 @@
             FeatureCheck.Check("extended", 0x000007FF, 0xEFD3FBFF, 0x00003030);
             Assert.That(cpu.Description, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
             Assert.That(cpu.BrandString, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
+
+            CacheTopoList expectedCache = new CacheTopoList() {
+                new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
+                new CacheTopoCpu(1, CacheType.Data, 2, 64, 64),
+                new CacheTopoCpu(2, CacheType.Unified, 16, 64, 512),
+                new CacheTopoCpu(3, CacheType.Unified, 32, 64, 2 * 1024),
+                new CacheTopoTlb(1, CacheType.InstructionTlb4k, 0, 32),
+                new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 0, 16),
+                new CacheTopoTlb(1, CacheType.DataTlb4k, 0, 48),
+                new CacheTopoTlb(1, CacheType.DataTlb2M4M, 0, 48),
+                new CacheTopoTlb(1, CacheType.DataTlb1G, 0, 48),
+                new CacheTopoTlb(2, CacheType.InstructionTlb4k, 4, 512),
+                new CacheTopoTlb(2, CacheType.DataTlb4k, 4, 512),
+                new CacheTopoTlb(2, CacheType.DataTlb2M4M, 2, 128),
+            };
+            Assert.That(cpu.Topology.CacheTopology, Is.EquivalentTo(expectedCache).Using(new CacheTopoComparer()));
         }
 
         [Test]
@@ -170,6 +205,23 @@
             FeatureCheck.Check("extended", 0x000037FF, 0xEFD3FBFF, 0x00002001);
             Assert.That(cpu.Description, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
             Assert.That(cpu.BrandString, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
+
+            CacheTopoList expectedCache = new CacheTopoList() {
+                new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
+                new CacheTopoCpu(1, CacheType.Data, 2, 64, 64),
+                new CacheTopoCpu(2, CacheType.Unified, 16, 64, 512),
+                new CacheTopoCpu(3, CacheType.Unified, 48, 64, 6 * 1024),
+                new CacheTopoTlb(1, CacheType.InstructionTlb4k, 0, 32),
+                new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 0, 16),
+                new CacheTopoTlb(1, CacheType.DataTlb4k, 0, 48),
+                new CacheTopoTlb(1, CacheType.DataTlb2M4M, 0, 48),
+                new CacheTopoTlb(1, CacheType.DataTlb1G, 0, 48),
+                new CacheTopoTlb(2, CacheType.InstructionTlb4k, 4, 512),
+                new CacheTopoTlb(2, CacheType.DataTlb4k, 4, 512),
+                new CacheTopoTlb(2, CacheType.DataTlb2M4M, 2, 128),
+                new CacheTopoTlb(2, CacheType.DataTlb1G, 8, 16)
+            };
+            Assert.That(cpu.Topology.CacheTopology, Is.EquivalentTo(expectedCache).Using(new CacheTopoComparer()));
         }
     }
 }

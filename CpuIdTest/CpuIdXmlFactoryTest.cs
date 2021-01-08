@@ -127,7 +127,7 @@
 
                 CpuId.Intel.ICpuIdX86 x86cpu = cpu as CpuId.Intel.ICpuIdX86;
 
-                switch(cpu.CpuVendor) {
+                switch (cpu.CpuVendor) {
                 case CpuVendor.AuthenticAmd:
                     Assert.That(x86cpu, Is.Not.Null);
                     if (!string.IsNullOrEmpty(x86cpu.BrandString) && !x86cpu.BrandString.Equals(x86cpu.Description))
