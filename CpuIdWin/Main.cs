@@ -9,6 +9,8 @@
 
     public partial class Main : Form
     {
+        private bool m_IsLocal;
+
         public Main()
         {
             InitializeComponent();
@@ -54,6 +56,7 @@
                 return;
             }
 
+            m_IsLocal = false;
             cpuIdTree1.Cores.Clear();
             foreach (ICpuId cpu in cpus) {
                 cpuIdTree1.Cores.Add(cpu);
@@ -77,7 +80,7 @@
                 DefaultExt = "xml",
                 OverwritePrompt = true,
                 Title = "Save CPUID information",
-                FileName = Environment.MachineName.ToLowerInvariant(),
+                FileName = GetDefaultFileName(),
                 ValidateNames = true
             };
             DialogResult result = dlg.ShowDialog();
@@ -92,6 +95,30 @@
             }
         }
 
+        private string GetDefaultFileName()
+        {
+            string machine = Environment.MachineName.ToLowerInvariant();
+            ICpuId firstCpu = cpuIdTree1.Cores[0];
+            if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
+                if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
+                    if (m_IsLocal)
+                        return string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, machine);
+                    return string.Format("{0}{1:X07}.xml", firstCpu.VendorId, x86cpu.ProcessorSignature);
+                }
+                if (m_IsLocal)
+                    return string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, machine);
+                return string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description);
+            }
+            if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
+                if (m_IsLocal)
+                    return string.Format("{0} ({1}).xml", firstCpu.VendorId, machine);
+                return string.Format("{0}.xml", firstCpu.VendorId);
+            }
+            if (m_IsLocal)
+                return string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, machine);
+            return string.Format("{0} ({1}).xml", firstCpu.VendorId, firstCpu.Description);
+        }
+
         private void mnuFileExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -99,12 +126,14 @@
 
         private void GetLocal()
         {
+            m_IsLocal = false;
             cpuIdTree1.Cores.Clear();
             try {
                 IEnumerable<ICpuId> cpus = Global.CpuFactory.CreateAll();
                 foreach (ICpuId cpu in cpus) {
                     cpuIdTree1.Cores.Add(cpu);
                 }
+                m_IsLocal = true;
             } catch (Exception ex) {
                 string message = string.Format("An error occurred getting CPU information:\n{0}", ex.Message);
                 MessageBox.Show(message, "CpuIdWin", MessageBoxButtons.OK);
