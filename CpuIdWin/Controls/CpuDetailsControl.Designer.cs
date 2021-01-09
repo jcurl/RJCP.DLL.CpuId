@@ -46,6 +46,8 @@
             this.lbltxtProcessorType = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.TextBox();
             this.lblProcessorSignature = new System.Windows.Forms.TextBox();
+            this.lblHypervisor = new System.Windows.Forms.TextBox();
+            this.lbltxtHypervisor = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbltxtCpuVendor
@@ -228,10 +230,34 @@
             this.lblProcessorSignature.TabIndex = 9;
             this.lblProcessorSignature.Text = "-";
             // 
+            // lblHypervisor
+            // 
+            this.lblHypervisor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHypervisor.BackColor = System.Drawing.SystemColors.Control;
+            this.lblHypervisor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblHypervisor.Location = new System.Drawing.Point(144, 183);
+            this.lblHypervisor.Name = "lblHypervisor";
+            this.lblHypervisor.ReadOnly = true;
+            this.lblHypervisor.Size = new System.Drawing.Size(307, 13);
+            this.lblHypervisor.TabIndex = 19;
+            this.lblHypervisor.Text = "-";
+            // 
+            // lbltxtHypervisor
+            // 
+            this.lbltxtHypervisor.Location = new System.Drawing.Point(3, 182);
+            this.lbltxtHypervisor.Name = "lbltxtHypervisor";
+            this.lbltxtHypervisor.Size = new System.Drawing.Size(132, 14);
+            this.lbltxtHypervisor.TabIndex = 18;
+            this.lbltxtHypervisor.Text = "Hypervisor:";
+            this.lbltxtHypervisor.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // CpuDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblHypervisor);
+            this.Controls.Add(this.lbltxtHypervisor);
             this.Controls.Add(this.lblProcessorSignature);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblProcessorType);
@@ -277,5 +303,7 @@
         private System.Windows.Forms.Label lbltxtProcessorType;
         private System.Windows.Forms.TextBox lblDescription;
         private System.Windows.Forms.TextBox lblProcessorSignature;
+        private System.Windows.Forms.TextBox lblHypervisor;
+        private System.Windows.Forms.Label lbltxtHypervisor;
     }
 }
