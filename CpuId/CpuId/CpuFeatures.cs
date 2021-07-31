@@ -8,6 +8,7 @@
     /// <summary>
     /// A collection of CPU features.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Public API")]
     public class CpuFeatures : IEnumerable<string>
     {
         private readonly Dictionary<string, bool> m_Features =

@@ -153,14 +153,14 @@
                 if (featureMissing.Length > 0) featureMissing.Append(", ");
                 featureMissing.Append(feature);
             }
-            if (featureMissing.Length == 0) featureMissing.Append("-");
+            if (featureMissing.Length == 0) featureMissing.Append('-');
 
             StringBuilder featurePresent = new StringBuilder();
             foreach (string feature in Additional) {
                 if (featurePresent.Length > 0) featurePresent.Append(", ");
                 featurePresent.Append(feature);
             }
-            if (featurePresent.Length == 0) featurePresent.Append("-");
+            if (featurePresent.Length == 0) featurePresent.Append('-');
 
             string message = string.Format("Missing Features: CPU has {0}; missing {1}", featurePresent, featureMissing);
             Assert.Fail(message);

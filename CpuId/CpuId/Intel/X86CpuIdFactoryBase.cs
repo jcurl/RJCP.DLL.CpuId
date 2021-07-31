@@ -8,6 +8,7 @@
 
         public abstract IEnumerable<ICpuId> CreateAll();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory Method")]
         protected ICpuIdX86 Create(BasicCpu cpu)
         {
             ICpuIdX86 x86cpu;

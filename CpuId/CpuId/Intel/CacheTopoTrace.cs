@@ -31,7 +31,7 @@
             Size = size;
         }
 
-        private void CheckCacheType(CacheType cacheType)
+        private static void CheckCacheType(CacheType cacheType)
         {
             if (((int)cacheType & (int)CacheType.TypeMaskKind) != (int)CacheType.Trace) {
                 throw new ArgumentException("CacheType not valid for this structure", nameof(cacheType));

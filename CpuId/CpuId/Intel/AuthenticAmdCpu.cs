@@ -425,7 +425,7 @@
             Topology.CacheTopology.Add(new CacheTopoCpu(1, CacheType.Instruction, ways, lineSize * linesPerTag, size));
         }
 
-        private int GetL2Associativity(int associativity)
+        private static int GetL2Associativity(int associativity)
         {
             switch (associativity) {
             case 0: return -1;    // Disabled.

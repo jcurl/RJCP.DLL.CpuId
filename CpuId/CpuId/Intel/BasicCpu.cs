@@ -60,7 +60,7 @@
                 ExtendedFunctionCount = extendedFunction.Result[0] & 0x7FFFFFFF;
         }
 
-        private string GetVendorId(CpuIdRegister register)
+        private static string GetVendorId(CpuIdRegister register)
         {
             char[] vendorId = new char[12];
             int ebx = register.Result[1];

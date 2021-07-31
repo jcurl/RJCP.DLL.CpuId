@@ -32,7 +32,7 @@
             }
         }
 
-        private string GetHypervisor(ICpuIdX86 x86Cpu)
+        private static string GetHypervisor(ICpuIdX86 x86Cpu)
         {
             if (!x86Cpu.Features["HYPERVISOR"]) return null;
 
@@ -40,7 +40,7 @@
             return GetHypervisor(hyper);
         }
 
-        private string GetHypervisor(CpuIdRegister register)
+        private static string GetHypervisor(CpuIdRegister register)
         {
             if (register == null) return null;
 
@@ -64,7 +64,7 @@
             return description.ToString();
         }
 
-        private void Append(StringBuilder brand, int value)
+        private static void Append(StringBuilder brand, int value)
         {
             if (value == 0) return;
             brand.Append((char)value);

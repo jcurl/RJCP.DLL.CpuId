@@ -21,8 +21,10 @@
                 const int styleMask = TVS_EX_DOUBLEBUFFER + TVS_EX_AUTOHSCROLL + TVS_EX_FADEINOUTEXPANDOS;
                 const int style = TVS_EX_DOUBLEBUFFER + TVS_EX_AUTOHSCROLL;
 
-                SetWindowTheme(Handle, "explorer", null);
-                SendMessage(Handle, TVM_SETEXTENDEDSTYLE, styleMask, style);
+                int hResult = SetWindowTheme(Handle, "explorer", null);
+                if (hResult == 0) {
+                    _ = SendMessage(Handle, TVM_SETEXTENDEDSTYLE, styleMask, style);
+                }
             }
         }
     }

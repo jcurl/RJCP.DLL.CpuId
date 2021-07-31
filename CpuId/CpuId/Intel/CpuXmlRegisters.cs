@@ -33,7 +33,7 @@
             AddRegister(result);
         }
 
-        private bool TryGetHexValue(string value, out int result)
+        private static bool TryGetHexValue(string value, out int result)
         {
             return int.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result);
         }

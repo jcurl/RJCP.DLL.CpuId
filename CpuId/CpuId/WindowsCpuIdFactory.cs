@@ -49,7 +49,7 @@
             }
         }
 
-        private void LoadLibrary()
+        private static void LoadLibrary()
         {
             SafeLibraryHandle handle = Win32.LoadLibrary<WindowsCpuIdFactory>("cpuid.dll");
             if (handle.IsInvalid)

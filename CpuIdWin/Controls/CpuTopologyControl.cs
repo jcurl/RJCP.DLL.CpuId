@@ -46,7 +46,7 @@
             hdrMask.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
-        private int GetBitSize(long value)
+        private static int GetBitSize(long value)
         {
             if (value < 0x100) return 8;
             if (value < 0x1000) return 12;

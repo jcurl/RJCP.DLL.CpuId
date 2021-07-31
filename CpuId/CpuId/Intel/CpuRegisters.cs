@@ -42,7 +42,7 @@
             if (result == null) {
                 // It's not cached, so query the CPU for it. Note, we assume that each EAX/ECX pair always returns the
                 // same result for the same CPU core/thread.
-                CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);
+                _ = CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);
                 result = new CpuIdRegister(function, subfunction, new int[] { eax, ebx, ecx, edx });
                 AddRegister(result);
             }

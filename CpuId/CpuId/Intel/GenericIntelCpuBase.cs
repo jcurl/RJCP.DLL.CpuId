@@ -95,7 +95,7 @@
             return null;
         }
 
-        private void WriteDescription(StringBuilder brand, CpuIdRegister register)
+        private static void WriteDescription(StringBuilder brand, CpuIdRegister register)
         {
             if (register == null) return;
 
@@ -122,7 +122,7 @@
             Append(brand, (edx >> 24) & 0xFF);
         }
 
-        private void Append(StringBuilder brand, int value)
+        private static void Append(StringBuilder brand, int value)
         {
             if (value == 0) return;
             brand.Append((char)value);
@@ -261,7 +261,7 @@
         }
 #endif
 
-        private string GetReservedFeatureName(CpuIdRegister register, int result, int bit)
+        private static string GetReservedFeatureName(CpuIdRegister register, int result, int bit)
         {
             if (register.SubFunction == 0) {
                 return string.Format("CPUID({0:X2}h).{1}[{2}]",
@@ -271,7 +271,7 @@
                 register.Function, register.SubFunction, GetRegisterName(result), bit);
         }
 
-        private string GetRegisterName(int result)
+        private static string GetRegisterName(int result)
         {
             switch (result) {
             case 0: return "EAX";
@@ -298,7 +298,7 @@
         /// + 2, the result is x + 1 = 2 + 1 = 3.
         /// </para>
         /// </remarks>
-        protected int Log2Pof2(int value)
+        protected static int Log2Pof2(int value)
         {
             if (value == 0) return -1;
 

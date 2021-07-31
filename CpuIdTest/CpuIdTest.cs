@@ -41,7 +41,7 @@
             }
         }
 
-        private void DumpCpu(ICpuId cpu)
+        private static void DumpCpu(ICpuId cpu)
         {
             Console.WriteLine("CPU Vendor: {0}", cpu.CpuVendor);
             Console.WriteLine("CPU Vendor Id: {0}", cpu.VendorId);

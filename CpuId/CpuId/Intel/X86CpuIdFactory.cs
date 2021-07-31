@@ -25,7 +25,7 @@
             return ids;
         }
 
-        private BasicCpu GetLocalCpuNode()
+        private static BasicCpu GetLocalCpuNode()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");
@@ -35,7 +35,7 @@
             return new BasicCpu(data, 0, r);
         }
 
-        private IEnumerable<BasicCpu> GetLocalCpuNodes()
+        private static IEnumerable<BasicCpu> GetLocalCpuNodes()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");

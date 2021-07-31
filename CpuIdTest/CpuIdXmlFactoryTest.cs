@@ -100,7 +100,7 @@
             CreateAll("GenericIntel");
         }
 
-        private void CreateAll(params string[] path)
+        private static void CreateAll(params string[] path)
         {
             string directory = Path.Combine(path);
             string fullPath;
@@ -117,7 +117,7 @@
             }
         }
 
-        private void CreateAll(CpuIdXmlFactory factory, string fileName)
+        private static void CreateAll(CpuIdXmlFactory factory, string fileName)
         {
             Console.WriteLine("Instantiating: {0}", fileName);
             IEnumerable<ICpuId> cpus = factory.CreateAll(fileName);

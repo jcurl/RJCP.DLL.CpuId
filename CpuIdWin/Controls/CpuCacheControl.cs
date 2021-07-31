@@ -41,7 +41,7 @@
             }
         }
 
-        private int GetBitSize(long value)
+        private static int GetBitSize(long value)
         {
             if (value < 0x100) return 8;
             if (value < 0x1000) return 12;
@@ -67,7 +67,7 @@
             return node;
         }
 
-        private TreeNode CacheTlbNode(CacheTopoTlb cacheTopoTlb)
+        private static TreeNode CacheTlbNode(CacheTopoTlb cacheTopoTlb)
         {
             TreeNode node = new TreeNode(cacheTopoTlb.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoTlb.Level));
@@ -77,7 +77,7 @@
             return node;
         }
 
-        private TreeNode CachePrefetchNode(CacheTopoPrefetch cacheTopoPrefetch)
+        private static TreeNode CachePrefetchNode(CacheTopoPrefetch cacheTopoPrefetch)
         {
             TreeNode node = new TreeNode(cacheTopoPrefetch.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoPrefetch.Level));
@@ -85,7 +85,7 @@
             return node;
         }
 
-        private TreeNode CacheTraceNode(CacheTopoTrace cacheTopoTrace)
+        private static TreeNode CacheTraceNode(CacheTopoTrace cacheTopoTrace)
         {
             TreeNode node = new TreeNode(cacheTopoTrace.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoTrace.Level));
@@ -94,7 +94,7 @@
             return node;
         }
 
-        private string GetAssociativity(int associativity, int sets)
+        private static string GetAssociativity(int associativity, int sets)
         {
             return sets == 1 ? "Full" : string.Format("{0}-way", associativity);
         }

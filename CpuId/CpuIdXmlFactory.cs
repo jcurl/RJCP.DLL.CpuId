@@ -84,6 +84,7 @@
         /// <paramref name="fileName"/> may not be <see langword="null"/>.
         /// </exception>
         /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory Method")]
         public ICpuId Create(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
@@ -101,7 +102,7 @@
             }
         }
 
-        private XmlNode GetCpuIdNode(string fileName)
+        private static XmlNode GetCpuIdNode(string fileName)
         {
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name is empty", nameof(fileName));
@@ -131,15 +132,22 @@
             return CreateAll(FileName);
         }
 
+
         /// <summary>
         /// Retrieves information about CPUs using the file name given as the parameter.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>An enumerable collection of all CPUs.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory method")]
         public IEnumerable<ICpuId> CreateAll(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
-            if (cpuIdNode == null) return new ICpuId[0];
+            if (cpuIdNode == null)
+#if NET40
+                return new ICpuId[0];
+#else
+                return Array.Empty<ICpuId>();
+#endif
             string processor = cpuIdNode.Attributes["type"]?.Value;
             if (processor == null) processor = "x86";
 
@@ -149,7 +157,11 @@
                 return x86Factory.CreateAll();
             default:
                 // This processor type is unknown.
+#if NET40
                 return new ICpuId[0];
+#else
+                return Array.Empty<ICpuId>();
+#endif
             }
         }
 

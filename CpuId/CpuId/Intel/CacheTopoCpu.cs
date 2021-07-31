@@ -141,7 +141,7 @@
             Mask = mask;
         }
 
-        private void CheckCacheType(CacheType cacheType)
+        private static void CheckCacheType(CacheType cacheType)
         {
             if (((int)cacheType & (int)CacheType.TypeMaskKind) != 0) {
                 throw new ArgumentException("CacheType not valid for this structure", nameof(cacheType));

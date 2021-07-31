@@ -82,7 +82,7 @@
             return string.Format("L{0} {1} ({2} page size)", Level, cacheType, pageSize.ToString());
         }
 
-        private void StringBuilderAppendOr(StringBuilder sb, string text)
+        private static void StringBuilderAppendOr(StringBuilder sb, string text)
         {
             if (sb.Length != 0) sb.Append(" or ");
             sb.Append(text);

@@ -19,8 +19,10 @@
                 const int styleMask = LVS_EX_DOUBLEBUFFER;
                 const int style = LVS_EX_DOUBLEBUFFER;
 
-                SetWindowTheme(Handle, "explorer", null);
-                SendMessage(Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, styleMask, style);
+                int hResult = SetWindowTheme(Handle, "explorer", null);
+                if (hResult == 0) {
+                    _ = SendMessage(Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, styleMask, style);
+                }
             }
         }
     }

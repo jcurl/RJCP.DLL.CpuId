@@ -47,7 +47,7 @@
             return ids;
         }
 
-        private IEnumerable<BasicCpu> GetCpuNodes(XmlNodeList xmlNodes)
+        private static IEnumerable<BasicCpu> GetCpuNodes(XmlNodeList xmlNodes)
         {
             List<BasicCpu> cpus = new List<BasicCpu>();
             foreach (XmlNode cpuNode in xmlNodes) {

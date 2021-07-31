@@ -148,12 +148,12 @@
             return node;
         }
 
-        private bool IsIntelOrAmd(ICpuId cpuId)
+        private static bool IsIntelOrAmd(ICpuId cpuId)
         {
             return cpuId is GenuineIntelCpu || cpuId is AuthenticAmdCpu;
         }
 
-        private bool IsX86Cpu(ICpuId cpuId)
+        private static bool IsX86Cpu(ICpuId cpuId)
         {
             return cpuId is ICpuIdX86;
         }
