@@ -18,10 +18,10 @@
         public static extern bool FreeLibrary(IntPtr hModule);
 
         [DllImport("kernel32.dll")]
-        public static extern void GetSystemInfo([MarshalAs(UnmanagedType.Struct)] ref SYSTEM_INFO lpSystemInfo);
+        public static extern void GetSystemInfo(ref SYSTEM_INFO lpSystemInfo);
 
         [DllImport("kernel32.dll")]
-        public static extern void GetNativeSystemInfo([MarshalAs(UnmanagedType.Struct)] ref SYSTEM_INFO lpSystemInfo);
+        public static extern void GetNativeSystemInfo(ref SYSTEM_INFO lpSystemInfo);
 
         [DllImport("kernel32.dll")]
         public static extern bool IsWow64Process(IntPtr hProcess, ref bool wow64);

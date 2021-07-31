@@ -25,7 +25,6 @@
 
         private readonly BasicCpu m_Cpu;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3442:\"abstract\" classes should not have \"public\" constructors", Justification = "User code shouldn't instantiate this")]
         internal GenericIntelCpuBase(BasicCpu cpu)
         {
             m_Cpu = cpu;

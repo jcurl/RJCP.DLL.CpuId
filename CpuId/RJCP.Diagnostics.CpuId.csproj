@@ -1,44 +1,63 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="..\build\SignOutput.targets" />
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8806B71D-BE80-4C2E-995D-7202C57E4FFD}</ProjectGuid>
+    <TargetFrameworks>net40;netstandard2.1</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RJCP.Diagnostics</RootNamespace>
+    <Configurations>Debug;Release</Configurations>
+    <NeutralLanguage>en-US</NeutralLanguage>
+
     <AssemblyName>RJCP.Diagnostics.CpuId</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <AssemblyTitle>RJCP.Diagnostics.CpuId</AssemblyTitle>
+    <Product>RJCP.Diagnostics.CpuId</Product>
+    <RootNamespace>RJCP.Diagnostics</RootNamespace>
+
+    <Authors>Jason Curl</Authors>
+    <Copyright>(C) 2012-2021, Jason Curl</Copyright>
+    <Company></Company>
+    <PackageId>RJCP.Diagnostics.CpuId</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/jcurl</PackageProjectUrl>
+    
+    <Description>A library to query CPU Identification information.</Description>
+    <Version>0.8.0</Version>
+
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>Default</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- Suppress the warning that the native DLLs won't be applied as a reference in the project.
+
+         NuGet.Build.Tasks.Pack.targets(221,5): warning NU5100: The assembly 'content\x64\cpuid.dll' is not inside the
+         'lib' folder and hence it won't be added as a reference when the package is installed into a project. Move it
+         into the 'lib' folder if it needs to be referenced.
+    -->
+    <NoWarn>NU5100</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetsTriggeredByCompilation>SignOutput</TargetsTriggeredByCompilation>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\RJCP.Diagnostics.CpuId.xml</DocumentationFile>
-    <TargetsTriggeredByCompilation>SignOutput</TargetsTriggeredByCompilation>
   </PropertyGroup>
-  <ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="CpuIdFactory.cs" />
     <Compile Include="CpuIdXmlFactory.cs" />
@@ -53,6 +72,13 @@
     <Compile Include="CpuId\Intel\AmdBrandIdentifier+FamilyF.cs" />
     <Compile Include="CpuId\Intel\AuthenticAmdCpu.cs" />
     <Compile Include="CpuId\Intel\BasicCpu.cs" />
+    <Compile Include="CpuId\Intel\CacheTopo.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoCpu.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoList.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoPrefetch.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoTlb.cs" />
+    <Compile Include="CpuId\Intel\CacheTopoTrace.cs" />
+    <Compile Include="CpuId\Intel\CacheType.cs" />
     <Compile Include="CpuId\Intel\CpuIdRegister.cs" />
     <Compile Include="CpuId\Intel\CpuTopo.cs" />
     <Compile Include="CpuId\Intel\CpuTopoList.cs" />
@@ -75,20 +101,7 @@
     <Compile Include="CpuId\Intel\X86CpuIdFactory.cs" />
     <Compile Include="CpuId\WindowsCpuIdFactory.cs" />
     <Compile Include="CpuVendor.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICpuIdFactory.cs" />
-    <Compile Include="CpuId\Intel\CacheTopo.cs" />
-    <Compile Include="CpuId\Intel\CacheTopoCpu.cs" />
-    <Compile Include="CpuId\Intel\CacheTopoList.cs" />
-    <Compile Include="CpuId\Intel\CacheTopoPrefetch.cs" />
-    <Compile Include="CpuId\Intel\CacheTopoTlb.cs" />
-    <Compile Include="CpuId\Intel\CacheTopoTrace.cs" />
-    <Compile Include="CpuId\Intel\CacheType.cs" />
-    <Compile Include="Resources\CpuFeatures.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CpuFeatures.resx</DependentUpon>
-    </Compile>
     <Compile Include="Native\CpuIdLib+CpuIdInfo.cs" />
     <Compile Include="Native\CpuIdLib.cs" />
     <Compile Include="Native\Kernel32+LoadLibraryFlags.cs" />
@@ -99,20 +112,32 @@
     <Compile Include="Native\SafeLibraryHandle.cs" />
     <Compile Include="Native\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\CpuFeatures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CpuFeatures.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="x64\cpuid.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\cpuid.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\CpuFeatures.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CpuFeatures.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <Content Include="x64\cpuid.dll" PackageCopyToOutput="true">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\cpuid.dll" PackageCopyToOutput="true">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
 </Project>

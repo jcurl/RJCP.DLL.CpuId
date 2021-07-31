@@ -6,8 +6,6 @@
     /// The type of cache being described.
     /// </summary>
     [Flags]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S2346:Flags enumerations zero-value members should be named \"None\"",
-        Justification = "Invalid name is better descriptive than None")]
     public enum CacheType
     {
         /// <summary>

@@ -20,7 +20,6 @@
             return LoadLibraryEx(libraryPath, IntPtr.Zero, LoadLibraryFlags.None);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S2589:Boolean expressions should not be gratuitous", Justification = "False Positive")]
         public static OSArchitecture GetArchitecture()
         {
             OSArchitecture architecture;

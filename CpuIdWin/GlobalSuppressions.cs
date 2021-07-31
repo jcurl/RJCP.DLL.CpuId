@@ -5,4 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "WinForms Nameing Conventions")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "WinForms Naming Style", Scope = "type", Target = "~T:RJCP.Diagnostics.CpuIdWin.Main")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "WinForms Naming Style", Scope = "namespaceanddescendants", Target = "~N:RJCP.Diagnostics.CpuIdWin.Controls")]

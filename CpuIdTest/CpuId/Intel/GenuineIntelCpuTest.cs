@@ -327,7 +327,6 @@
         }
 
         [Test]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_6600U_2p1c()
         {
             // This has a width of zero bits for the SMT portion, even if the CPU is listed in leaf 4.
@@ -365,7 +364,6 @@
         }
 
         [Test]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_6700K()
         {
             GetCpu("i7-6700K.xml");
@@ -409,7 +407,6 @@
         }
 
         [Test]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_6700K_vmware()
         {
             // This has a width of zero bits for the SMT portion, even if the CPU is listed in leaf 4.
@@ -455,7 +452,6 @@
         }
 
         [Test]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Assert in private method")]
         public void Corei7_9700()
         {
             GetCpu("i7-9700.xml");

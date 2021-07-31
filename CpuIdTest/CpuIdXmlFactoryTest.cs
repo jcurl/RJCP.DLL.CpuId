@@ -87,7 +87,6 @@
         }
 
         [Test]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Code Smell", "S2699:Tests should include assertions", Justification = "Asserts in subfunctions")]
         public void CreateAll()
         {
             // The main purpose of this test is to ensure that we can load as man XML dumps as possible, and that
