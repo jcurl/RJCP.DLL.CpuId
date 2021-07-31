@@ -7,11 +7,11 @@
     [SuppressUnmanagedCodeSecurity]
     internal static partial class Kernel32
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern SafeLibraryHandle LoadLibraryEx(string lpFileName, IntPtr hReservedNull, LoadLibraryFlags dwFlags);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern SafeLibraryHandle LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFileName);
+        public static extern SafeLibraryHandle LoadLibrary([MarshalAs(UnmanagedType.LPWStr)] string lpFileName);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
