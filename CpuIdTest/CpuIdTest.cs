@@ -9,6 +9,7 @@
     public class CpuIdTest
     {
         [Test]
+        [Platform("Win")]
         public void CurrentCpuId()
         {
             ICpuIdFactory factory = new CpuIdFactory();
@@ -22,6 +23,7 @@
         }
 
         [Test]
+        [Platform("Win")]
         public void AllCpuId()
         {
             ICpuIdFactory factory = new CpuIdFactory();
