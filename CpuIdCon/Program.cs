@@ -8,10 +8,17 @@
     {
         public static int Main()
         {
-            ICpuIdFactory cpuFactory = new CpuIdFactory();
-            ICpuId firstCpu = cpuFactory.Create();
-
-            IEnumerable<ICpuId> cpus = cpuFactory.CreateAll();
+            ICpuIdFactory cpuFactory;
+            ICpuId firstCpu;
+            IEnumerable<ICpuId> cpus;
+            try {
+                cpuFactory = new CpuIdFactory();
+                firstCpu = cpuFactory.Create();
+                cpus = cpuFactory.CreateAll();
+            } catch (PlatformNotSupportedException) {
+                Console.WriteLine("This platform is not supported");
+                return 1;
+            }
 
             string fileName;
             if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
