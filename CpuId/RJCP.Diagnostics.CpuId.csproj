@@ -51,6 +51,10 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="RJCP.MSBuildTasks" Version="0.1.0" />
+  </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System" />
