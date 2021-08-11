@@ -1244,6 +1244,9 @@
     <Content Include="TestResources\contrib\users\GenuineIntel00306F2 %28Intel%28R%29 Xeon%28R%29 CPU E5-2670 v3 %40 2.30GHz, vmware%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00306F2 %28Intel%28R%29 Xeon%28R%29 CPU E5-2676 v3 %40 2.40GHz, amazon%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\GenuineIntel0040651 %28Intel%28R%29 Core%28TM%29 i5-4210U CPU %40 1.70GHz, lenovo g50%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
