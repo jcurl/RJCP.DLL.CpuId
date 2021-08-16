@@ -45,7 +45,9 @@
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <PackageReference Include="System.Resources.Extensions" version="4.6.0" />
-    <PackageReference Include="RJCP.MSBuildTasks" Version="0.1.0" />
+    <PackageReference Include="RJCP.MSBuildTasks" Version="0.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   
   <ItemGroup>
