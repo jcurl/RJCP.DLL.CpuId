@@ -40,6 +40,9 @@
          into the 'lib' folder if it needs to be referenced.
     -->
     <NoWarn>NU5100</NoWarn>
+
+    <RevisionControl>git</RevisionControl>
+    <RevisionControlLabel>release/v$(Version)</RevisionControlLabel>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug'">
@@ -50,10 +53,11 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
+    <RevisionControlStrict>true</RevisionControlStrict>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="RJCP.MSBuildTasks" Version="0.1.0">
+    <PackageReference Include="RJCP.MSBuildTasks" Version="0.2.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
