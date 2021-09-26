@@ -17,7 +17,7 @@
     <Authors>Jason Curl</Authors>
     <Copyright>(C) 2012-2021, Jason Curl</Copyright>
     <Company></Company>
-    
+
     <Description>Dump CPUID properties to the console.</Description>
     <Version>1.0.0</Version>
 
@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RJCP.MSBuildTasks" Version="0.2.1">
+    <PackageReference Include="RJCP.MSBuildTasks" Version="0.2.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
