@@ -19,8 +19,8 @@
     <PackageId>RJCP.Diagnostics.CpuId</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/jcurl</PackageProjectUrl>
-    
+    <PackageProjectUrl>https://github.com/jcurl/RJCP.DLL.CpuId</PackageProjectUrl>
+
     <Description>A library to query CPU Identification information.</Description>
     <Version>0.8.0</Version>
 
