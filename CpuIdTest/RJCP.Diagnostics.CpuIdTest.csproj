@@ -200,6 +200,7 @@
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F42_K10_Callisto_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F42_K10_Callisto_CPUID2.xml" />
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F42_K10_DenebTWKR_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -209,9 +210,11 @@
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F42_K10_Shanghai_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F43_K10_Callisto_CPUID03.xml" />
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F52_K10_Propus_CPUID_C3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F52_K10_Rana_CPUID1.xml" />
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0100F62_K10_Regor_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -506,6 +509,7 @@
     <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0A50F00_K19_Cezanne_CPUID7.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\AuthenticAMD\AuthenticAMD0A50F00_K19_Cezanne_CPUID9.xml" />
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel0000480_486_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1043,6 +1047,7 @@
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00606A6_ICX_CPUID2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00606A6_ICX_CPUID3.xml" />
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel007065A_Spreadtrum_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1052,6 +1057,7 @@
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00706A8_GoldmontPlus_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00706A8_GoldmontPlus_CPUID2.xml" />
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00706E5_IceLakeY_CPUID.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1109,6 +1115,9 @@
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00806EC_CometLake_CPUID3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel0090661_ElkhartLake_CPUID01.xml" />
+    <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel0090672_AlderLake_CPUID01.xml" />
+    <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel0090672_AlderLake_CPUID2.xml" />
     <Content Include="TestResources\contrib\instlatx64\GenuineIntel\GenuineIntel00906C0_JasperLake_CPUID01.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

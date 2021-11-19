@@ -4,7 +4,6 @@
     using CodeQuality.NUnitExtensions;
     using NUnit.Framework;
 
-
     class GenuineIntelFakeCpuTest
     {
         private readonly static string TestResources = Path.Combine(Deploy.TestDirectory, "TestResources", "FakeIntel");

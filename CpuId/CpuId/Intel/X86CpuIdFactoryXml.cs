@@ -58,7 +58,6 @@
             return cpus;
         }
 
-
         /// <summary>
         /// Writes the cached CPUID registers (those found in <see cref="ICpuIdX86.Registers" /> to an XML file.
         /// </summary>

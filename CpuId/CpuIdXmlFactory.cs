@@ -132,7 +132,6 @@
             return CreateAll(FileName);
         }
 
-
         /// <summary>
         /// Retrieves information about CPUs using the file name given as the parameter.
         /// </summary>
