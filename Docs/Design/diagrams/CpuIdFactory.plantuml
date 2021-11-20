@@ -1,0 +1,54 @@
+@startuml
+allowmixing
+hide empty members
+
+enum CpuVendor
+hide CpuVendor
+
+'interface ICpuIdFactory { }
+interface ICpuId { }
+'hide ICpuIdFactory
+'hide ICpuId
+
+'ICpuIdFactory .. ICpuId : <<returns>>
+
+class CpuIdXmlFactory { }
+class CpuIdFactory { }
+
+component [x86\\cpuid.dll] as x86cpuidwin
+component [x64\\cpuid.dll] as x64cpuidwin
+
+ICpuIdFactory ()-- CpuIdXmlFactory
+ICpuIdFactory ()-- CpuIdFactory
+
+namespace CpuId {
+    class WindowsCpuIdFactory { }
+
+    namespace CpuId.Intel {
+        class X86CpuIdFactoryBase { }
+        class X86CpuIdFactory { }
+        class X86CpuIdFactoryXml { }
+
+        class GenuineIntelCpu <<ICpuId>> { }
+        class GenericIntelCpu <<ICpuId>> { }
+        class AuthenticAmdCpu <<ICpuId>> { }
+    }
+}
+
+CpuId.Intel.X86CpuIdFactoryBase <|-- CpuId.Intel.X86CpuIdFactory
+
+CpuIdFactory --> CpuId.WindowsCpuIdFactory : <<creates>>
+CpuIdFactory .> ICpuId : <<returns>>
+
+CpuId.WindowsCpuIdFactory --> CpuId.Intel.X86CpuIdFactory : <<creates>>
+CpuId.WindowsCpuIdFactory -- x86cpuidwin
+CpuId.WindowsCpuIdFactory -- x64cpuidwin
+
+CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.GenuineIntelCpu : <<returns>>
+CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.GenericIntelCpu : <<returns>>
+CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.AuthenticAmdCpu : <<returns>>
+
+CpuIdXmlFactory --> CpuId.Intel.X86CpuIdFactoryXml : <<creates>>
+CpuIdXmlFactory .> ICpuId : <<returns>>
+CpuId.Intel.X86CpuIdFactoryBase <|-- CpuId.Intel.X86CpuIdFactoryXml
+@enduml
