@@ -26,7 +26,7 @@
         public void AddFeatureSet(string group, string name, string[] featureSet)
         {
             if (group == null) throw new ArgumentNullException(nameof(group));
-            if (name == null) throw new ArgumentNullException(nameof(group));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             if (featureSet == null) throw new ArgumentNullException(nameof(featureSet));
             if (string.IsNullOrEmpty(group)) throw new ArgumentException("Group is empty", nameof(group));
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("Name is empty", nameof(name));

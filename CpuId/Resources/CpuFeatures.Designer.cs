@@ -214,6 +214,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AVX Vector Neural Network Instructions.
+        /// </summary>
+        internal static string AVX_VNNI {
+            get {
+                return ResourceManager.GetString("AVX_VNNI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced Vector Extensions 2.
         /// </summary>
         internal static string AVX2 {
@@ -255,6 +264,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string AVX512_BITALG {
             get {
                 return ResourceManager.GetString("AVX512_BITALG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AVX512 float16 instructions.
+        /// </summary>
+        internal static string AVX512_FP16 {
+            get {
+                return ResourceManager.GetString("AVX512_FP16", resourceCulture);
             }
         }
         
@@ -673,6 +691,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fast Short CMPSB, SCASB.
+        /// </summary>
+        internal static string FSCMPSB {
+            get {
+                return ResourceManager.GetString("FSCMPSB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read/Write register FS/GS instructions.
         /// </summary>
         internal static string FSGSBASE {
@@ -691,11 +718,29 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fast Short STOSB.
+        /// </summary>
+        internal static string FSSTOSB {
+            get {
+                return ResourceManager.GetString("FSSTOSB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FXSAVE and FXSTOR instructions.
         /// </summary>
         internal static string FXSR {
             get {
                 return ResourceManager.GetString("FXSR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast Zero-Length MOVSB.
+        /// </summary>
+        internal static string FZMOVSB {
+            get {
+                return ResourceManager.GetString("FZMOVSB", resourceCulture);
             }
         }
         
@@ -714,6 +759,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string HLE {
             get {
                 return ResourceManager.GetString("HLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports IA32_HRESET_ENABLE MSR (Processor Reset History).
+        /// </summary>
+        internal static string HRESET {
+            get {
+                return ResourceManager.GetString("HRESET", resourceCulture);
             }
         }
         
@@ -898,11 +952,38 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key Locker.
+        /// </summary>
+        internal static string KL {
+            get {
+                return ResourceManager.GetString("KL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IA32_FLUSH_CMD MSR supported.
         /// </summary>
         internal static string L1D_FLUSH {
             get {
                 return ResourceManager.GetString("L1D_FLUSH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linear Addressing 57-bit.
+        /// </summary>
+        internal static string LA57 {
+            get {
+                return ResourceManager.GetString("LA57", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linear Address Masking.
+        /// </summary>
+        internal static string LAM {
+            get {
+                return ResourceManager.GetString("LAM", resourceCulture);
             }
         }
         
@@ -1691,6 +1772,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IA32_TME MSR capabilities are supported.
+        /// </summary>
+        internal static string TME_EN {
+            get {
+                return ResourceManager.GetString("TME_EN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Topology extensions support.
         /// </summary>
         internal static string TOPX {
@@ -1732,6 +1822,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string TSXLDTRK {
             get {
                 return ResourceManager.GetString("TSXLDTRK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Space Interrupts.
+        /// </summary>
+        internal static string UINTR {
+            get {
+                return ResourceManager.GetString("UINTR", resourceCulture);
             }
         }
         

@@ -204,6 +204,9 @@
   <data name="AVX512_BITALG" xml:space="preserve">
     <value>AVX512 bit counting instructions</value>
   </data>
+  <data name="AVX512_FP16" xml:space="preserve">
+    <value>AVX512 float16 instructions</value>
+  </data>
   <data name="AVX512_IFMA" xml:space="preserve">
     <value>AVX512 Integer Fuse Multiply Add instructions</value>
   </data>
@@ -221,6 +224,9 @@
   </data>
   <data name="AVX512_VPOPCNTDQ" xml:space="preserve">
     <value>AVX512 population count double/quad word instructions</value>
+  </data>
+  <data name="AVX_VNNI" xml:space="preserve">
+    <value>AVX Vector Neural Network Instructions</value>
   </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
@@ -321,20 +327,32 @@
   <data name="FPU-CS DEP" xml:space="preserve">
     <value>Deprecates FPU CS and FPU DS values</value>
   </data>
+  <data name="FSCMPSB" xml:space="preserve">
+    <value>Fast Short CMPSB, SCASB</value>
+  </data>
   <data name="FSGSBASE" xml:space="preserve">
     <value>Read/Write register FS/GS instructions</value>
   </data>
   <data name="FSRM" xml:space="preserve">
     <value>Fast short REP MOV</value>
   </data>
+  <data name="FSSTOSB" xml:space="preserve">
+    <value>Fast Short STOSB</value>
+  </data>
   <data name="FXSR" xml:space="preserve">
     <value>FXSAVE and FXSTOR instructions</value>
+  </data>
+  <data name="FZMOVSB" xml:space="preserve">
+    <value>Fast Zero-Length MOVSB</value>
   </data>
   <data name="GFNI" xml:space="preserve">
     <value>AVX Galois Field instructions</value>
   </data>
   <data name="HLE" xml:space="preserve">
     <value>TSX Hardware lock elision instructions</value>
+  </data>
+  <data name="HRESET" xml:space="preserve">
+    <value>Supports IA32_HRESET_ENABLE MSR (Processor Reset History)</value>
   </data>
   <data name="HTT" xml:space="preserve">
     <value>Multi-Threading</value>
@@ -396,8 +414,17 @@
   <data name="IRPERF" xml:space="preserve">
     <value>Instruction Retired Counter MSR available</value>
   </data>
+  <data name="KL" xml:space="preserve">
+    <value>Key Locker</value>
+  </data>
   <data name="L1D_FLUSH" xml:space="preserve">
     <value>IA32_FLUSH_CMD MSR supported</value>
+  </data>
+  <data name="LA57" xml:space="preserve">
+    <value>Linear Addressing 57-bit</value>
+  </data>
+  <data name="LAM" xml:space="preserve">
+    <value>Linear Address Masking</value>
   </data>
   <data name="LBR" xml:space="preserve">
     <value>Architectural Last Branch Records</value>
@@ -661,6 +688,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TM2" xml:space="preserve">
     <value>Thermal Monitor 2</value>
   </data>
+  <data name="TME_EN" xml:space="preserve">
+    <value>IA32_TME MSR capabilities are supported</value>
+  </data>
   <data name="TOPX" xml:space="preserve">
     <value>Topology extensions support</value>
   </data>
@@ -675,6 +705,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   </data>
   <data name="TSX_FORCE_ABORT" xml:space="preserve">
     <value>-</value>
+  </data>
+  <data name="UINTR" xml:space="preserve">
+    <value>User Space Interrupts</value>
   </data>
   <data name="UMIP" xml:space="preserve">
     <value>User-mode Instruction Prevention</value>

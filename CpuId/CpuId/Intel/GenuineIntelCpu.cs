@@ -263,46 +263,57 @@
                 TestFeature("VPCLMULQDQ", features7, 2, 10);
                 TestFeature("AVX512_VNNI", features7, 2, 11);
                 TestFeature("AVX512_BITALG", features7, 2, 12);
+                TestFeature("TME_EN", features7, 2, 13);
                 TestFeature("AVX512_VPOPCNTDQ", features7, 2, 14);
                 TestFeature("5L_PAGE", features7, 2, 15);              // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("LA57", features7, 2, 16);
                 TestFeature("RDPID", features7, 2, 22);
+                TestFeature("KL", features7, 2, 23);
                 TestFeature("CLDEMOTE", features7, 2, 25);
                 TestFeature("MOVDIRI", features7, 2, 27);
                 TestFeature("MOVDIR64B", features7, 2, 28);
                 TestFeature("ENQCMD", features7, 2, 29);               // Wikipedia https://en.wikipedia.org/wiki/CPUID
                 TestFeature("SGX_LC", features7, 2, 30);
                 TestFeature("PKS", features7, 2, 31);
-                ReservedFeature(features7, 2, 0x05BF2000);
+                ReservedFeature(features7, 2, 0x053E0000);
 
                 TestFeature("AVX512_4VNNIW", features7, 3, 2);
                 TestFeature("AVX512_4FMAPS", features7, 3, 3);
                 TestFeature("FSRM", features7, 3, 4);
-                TestFeature("AVX512_VP2INTERSECT", features7, 3, 8);   // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("UINTR", features7, 3, 5);
+                TestFeature("AVX512_VP2INTERSECT", features7, 3, 8);
                 TestFeature("SRBDS_CTRL", features7, 3, 9);            // Wikipedia https://en.wikipedia.org/wiki/CPUID
                 TestFeature("MD_CLEAR", features7, 3, 10);
                 TestFeature("TSX_FORCE_ABORT", features7, 3, 13);      // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                TestFeature("SERIALIZE", features7, 3, 14);            // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("SERIALIZE", features7, 3, 14);
                 TestFeature("Hybrid", features7, 3, 15);
-                TestFeature("TSXLDTRK", features7, 3, 16);             // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                TestFeature("PCONFIG", features7, 3, 18);              // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("TSXLDTRK", features7, 3, 16);
+                TestFeature("PCONFIG", features7, 3, 18);
                 TestFeature("LBR", features7, 3, 19);                  // Wikipedia https://en.wikipedia.org/wiki/CPUID
                 TestFeature("CET_IBT", features7, 3, 20);
-                TestFeature("AMX_BF16", features7, 3, 22);             // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                TestFeature("AMX_TILE", features7, 3, 24);             // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                TestFeature("AMX_INT8", features7, 3, 25);             // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("AMX_BF16", features7, 3, 22);
+                TestFeature("AVX512_FP16", features7, 3, 23);
+                TestFeature("AMX_TILE", features7, 3, 24);
+                TestFeature("AMX_INT8", features7, 3, 25);
                 TestFeature("IBRS_IBPB", features7, 3, 26);
                 TestFeature("STIBP", features7, 3, 27);
                 TestFeature("L1D_FLUSH", features7, 3, 28);
                 TestFeature("IA32_ARCH_CAPABILITIES", features7, 3, 29);
                 TestFeature("IA32_CORE_CAPABILITIES", features7, 3, 30);
                 TestFeature("SSBD", features7, 3, 31);
-                ReservedFeature(features7, 3, 0x00A218E3);
+                ReservedFeature(features7, 3, 0x002218C3);
 
                 if (features7.Result[0] > 0) {
                     CpuIdRegister features7s1 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 1);
                     if (features7s1 != null) {
-                        TestFeature("AVX_BF16", features7s1, 0, 5);         // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                        ReservedFeature(features7s1, 0, unchecked((int)0xFFFFFFDF));
+                        TestFeature("AVX_VNNI", features7s1, 0, 4);
+                        TestFeature("AVX512_BF16", features7s1, 0, 5);
+                        TestFeature("FZMOVSB", features7s1, 0, 10);
+                        TestFeature("FSSTOSB", features7s1, 0, 11);
+                        TestFeature("FSCMPSB", features7s1, 0, 12);
+                        TestFeature("HRESET", features7s1, 0, 22);
+                        TestFeature("LAM", features7s1, 0, 26);
+                        ReservedFeature(features7s1, 0, unchecked((int)0xFBBFE3CF));
 
                         ReservedFeature(features7s1, 1, unchecked((int)0xFFFFFFFF));
                         ReservedFeature(features7s1, 2, unchecked((int)0xFFFFFFFF));
