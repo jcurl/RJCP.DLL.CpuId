@@ -5,7 +5,7 @@
 
     internal class SafeLibraryHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
-        private SafeLibraryHandle() : base(true) { }
+        protected SafeLibraryHandle() : base(true) { }
 
         protected override bool ReleaseHandle()
         {

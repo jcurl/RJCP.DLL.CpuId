@@ -25,7 +25,7 @@
 
         private readonly BasicCpu m_Cpu;
 
-        internal GenericIntelCpuBase(BasicCpu cpu)
+        private protected GenericIntelCpuBase(BasicCpu cpu)
         {
             m_Cpu = cpu;
             Features = new CpuFeatures();
@@ -132,7 +132,7 @@
         // This section adds debug checks, to ensure that a feidl is not defined more than once. If it is, DEBUG mode
         // will cause an exception, indicating a programmatic error.
 
-        private class BitMask
+        private sealed class BitMask
         {
             private readonly Dictionary<int, int> m_RegisterMask = new Dictionary<int, int>();
 
@@ -148,7 +148,7 @@
             }
         }
 
-        private class SubFunction
+        private sealed class SubFunction
         {
             private readonly Dictionary<int, BitMask> m_SubFunction = new Dictionary<int, BitMask>();
 
@@ -162,7 +162,7 @@
             }
         }
 
-        private class MainFunction
+        private sealed class MainFunction
         {
             private readonly Dictionary<int, SubFunction> m_Function = new Dictionary<int, SubFunction>();
 
