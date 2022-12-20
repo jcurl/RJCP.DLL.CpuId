@@ -93,6 +93,15 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 				}
 				break;
 			}
+			case 0x80000026: {
+				DWORD subleaf = 0;
+				do {
+					result = get_cpuid(&iter, &iterb, leaf, subleaf);
+					if (!result) break;
+					subleaf++;
+				} while(result->pecx & 0x0000FF00);
+				break;
+			}
 			default:
 				result = get_cpuid(&iter, &iterb, leaf, 0);
 				if (!result) break;
