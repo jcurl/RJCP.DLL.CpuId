@@ -153,7 +153,8 @@ int iddump_intel(struct cpuidinfo *info, size_t bytes)
 		}
 		case 20:
 		case 23:
-		case 24: {
+		case 24:
+		case 32: {
 			result = get_cpuid(&iter, &iterb, leaf, 0);
 			if (!result) break;
 
