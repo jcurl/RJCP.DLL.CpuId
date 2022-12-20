@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// (C) 2012-2020, Jason Curl
+// (C) 2012-2022, Jason Curl
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -16,6 +16,7 @@
 
 #include "cpuiddll.h"
 #include "cpuid.h"
+#include "cpuid_iter.h"
 
 /// <summary>
 /// Dump registers according to the AMD specifications.
@@ -32,89 +33,73 @@
 /// <returns>Number of elements put into <paramref name="info"/>.</returns>
 int iddump_amd(struct cpuidinfo *info, size_t bytes)
 {
-	int i = 2;
-	int p = 1;
-	int q = 0;
-	int c = 0;
+	DWORD leafs = info[0].peax & 0x0FFFFFFF;
+	DWORD leaf = 1;
 
-	while (p <= (int)(info[0].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
-		switch (p) {
-		case 7:
+	struct cpuidinfo *iter = info + 2;
+	size_t iterb = bytes - sizeof(struct cpuidinfo) * 2;
+	struct cpuidinfo *result;
+
+	while (leaf <= leafs && iterb >= sizeof(struct cpuidinfo)) {
+		switch(leaf) {
+		case 7: {
 			// Structured Extended Feature Flags. 
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
 
-			// EAX contains the number of subleaves when ECX == 0.
-			// EAX == 0 as return means no subleaves.
-			if (q == 0) {
-				c = info[i].peax;
+			DWORD subleafs = result->peax;
+			for (DWORD subleaf = 1; subleaf <= subleafs; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
 			}
-			if (q < c) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 13:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			switch(q) {
-			case 0:
-			case 1:
-			case 11:
-				q++;
-				break;
-			case 2:
-				q = 11;
-				break;
-			case 12:
-				q = 62;
-				break;
-			case 62:
-				q = 0; p++;
-				break;
-			}
-			break;
-		default:
-			info[i].veax = p;
-			info[i].vecx = 0;
-			cpuidget(info + i);
-			p++;
 			break;
 		}
-		i++;
+		case 13: {
+			// Processor Extended State
+			for (DWORD subleaf = 0; subleaf < 64; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+				if (subleaf >= 2 && !(result->peax || result->pebx || result->pecx || result->pedx)) {
+					// We don't want to store this entry, as it's not interesting.
+					rev_cpuid(&iter, &iterb);
+				}
+			}
+			break;
+		}
+		default:
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+			break;
+		}
+
+		leaf++;
 	}
 
 	if (info[1].peax & 0x80000000) {
-		p = 1;
-		q = 0;
-		while (p <= (int)(info[1].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
-			switch (p) {
-			case 29:
-				info[i].veax = 0x80000000 + p;
-				info[i].vecx = q;
-				cpuidget(info + i);
+		leafs = info[1].peax;
+		leaf = info[1].veax;
 
-				// Enumerate ECX=0, 1, 2, and only 3 or higher if SGX is set and the Type is not invalid
-				if (info[i].peax & 0xF) {
-					q++;
-				} else {
-					q = 0; p++;
+		while (leaf <= leafs && iterb >= sizeof(struct cpuidinfo)) {
+			switch(leaf) {
+			case 0x8000001D: {
+				result = get_cpuid(&iter, &iterb, leaf, 0);
+				if (!result) break;
+
+				DWORD subleaf = 1;
+				while (result->peax & 0xF) {
+					result = get_cpuid(&iter, &iterb, leaf, subleaf);
+					if (!result) break;
+					subleaf++;
 				}
 				break;
+			}
 			default:
-				info[i].veax = 0x80000000 + p;
-				info[i].vecx = 0;
-				cpuidget(info + i);
-				p++;
+				result = get_cpuid(&iter, &iterb, leaf, 0);
+				if (!result) break;
 				break;
 			}
-			i++;
 		}
 	}
 
-	return i;
+	return (int)(iter - info);
 }

@@ -167,6 +167,7 @@
     <ClInclude Include="inc\private\cpuid.h" />
     <ClInclude Include="inc\private\cpuidtypes.h" />
     <ClInclude Include="inc\private\cpuidx.h" />
+    <ClInclude Include="inc\private\cpuid_iter.h" />
     <ClInclude Include="inc\private\kernelfunc.h" />
     <ClInclude Include="inc\private\stdafx.h" />
     <ClInclude Include="inc\private\targetver.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="src\cpuiddump_default.cpp" />
     <ClCompile Include="src\cpuiddump_intel.cpp" />
     <ClCompile Include="src\cpuiddump_main.cpp" />
+    <ClCompile Include="src\cpuid_iter.cpp" />
     <ClCompile Include="src\dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// (C) 2012-2020, Jason Curl
+// (C) 2012-2022, Jason Curl
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -16,6 +16,7 @@
 
 #include "cpuiddll.h"
 #include "cpuid.h"
+#include "cpuid_iter.h"
 
 /// <summary>
 /// Dump registers according to the Intel specifications.
@@ -32,172 +33,147 @@
 /// <returns>Number of elements put into <paramref name="info"/>.</returns>
 int iddump_intel(struct cpuidinfo *info, size_t bytes)
 {
-	int i = 2;
-	int p = 1;
-	int q = 0;
-	int c = 0;
+	DWORD leafs = info[0].peax & 0x0FFFFFFF;
+	DWORD leaf = 1;
+
+	struct cpuidinfo *iter = info + 2;
+	size_t iterb = bytes - sizeof(struct cpuidinfo) * 2;
+	struct cpuidinfo *result;
 
 	int sgx;
 
-	while (p <= (int)(info[0].peax & 0x0FFFFFFF) && bytes >= (i + 1) * sizeof(struct cpuidinfo)) {
-		switch (p) {
-		case 2:
+	while (leaf <= leafs && iterb >= sizeof(struct cpuidinfo)) {
+		switch(leaf) {
+		case 2: {
 			// Cache Descriptors
-			info[i].veax = p;
-			info[i].vecx = 0;
-			cpuidget(info + i);
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
 
 			// Intel documentation AP485, May 2012, says that we should check the lower
 			// 8 bits of EAX to know how often to call this function.
 			//
 			// Newer documentation in Volume 2, May 2020 says that the first byte is
 			// always 0x01 and should be ignored. Both documents are correct.
-			if (q == 0) c = info[i].peax & 0xFF;
-			if (c != 0 && q < c - 1) {
-				q++;
-			} else {
-				q = 0; p++;
+			DWORD subleafs = result->peax & 0xFF;
+			for (DWORD subleaf = 1; subleaf < subleafs; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
 			}
-			break;
-		case 4:
-			// Deterministic Cache Parameters
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (info[i].peax & 0x1F) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 7:
-			// Structured Extended Feature Flags. 
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			// EAX contains the number of subleaves when ECX == 0.
-			// EAX == 0 as return means no subleaves. We get as necessary
-			// some flags on further decoding.
-			if (q == 0) {
-				c = info[i].peax;
-				sgx = info[i].pebx & 0x4;
-			}
-			if (q < c) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 11:
-		case 31:
-			// x2APIC features
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (info[i].pebx & 0xFFFF) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 13:
-			// Processor Extended State
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q < 2 || (info[i].peax || info[i].pebx || info[i].pecx || info[i].pedx)) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 15:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q < 1) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 16:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q == 0) c = info[i].pebx >> 1;
-			if (c) {
-				c >>= 1;
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 18:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			// Enumerate ECX=0, 1, 2, and only 3 or higher if SGX is set and the Type is not invalid
-			if (q < 2 || (sgx && (info[i].peax & 0xF))) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 20:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q == 0) c = info[i].peax;
-			if (q < 1 || q < c) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 23:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q == 0) c = info[i].peax;
-			if (q < c) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		case 24:
-			info[i].veax = p;
-			info[i].vecx = q;
-			cpuidget(info + i);
-
-			if (q == 0) c = info[i].peax;
-			if (q < c) {
-				q++;
-			} else {
-				q = 0; p++;
-			}
-			break;
-		default:
-			info[i].veax = p;
-			info[i].vecx = 0;
-			cpuidget(info + i);
-
-			p++;
 			break;
 		}
-		i++;
+		case 4: {
+			// Deterministic Cache Parameters
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			DWORD subleaf = 1;
+			while(result->peax & 0x0000001F) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				subleaf++;
+			}
+			break;
+		}
+		case 7: {
+			// Structured Extended Feature Flags. 
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			DWORD subleafs = result->peax;
+			sgx = result->pebx & 0x04;
+			for (DWORD subleaf = 1; subleaf <= subleafs; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+			}
+			break;
+		}
+		case 11:
+		case 31: {
+			// x2APIC features
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			DWORD subleaf = 1;
+			while (result->pebx & 0xFFFF) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+				subleaf++;
+			}
+			break;
+		}
+		case 13: {
+			// Processor Extended State
+			for (DWORD subleaf = 0; subleaf < 64; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+				if (subleaf >= 2 && !(result->peax || result->pebx || result->pecx || result->pedx)) {
+					// We don't want to store this entry, as it's not interesting.
+					rev_cpuid(&iter, &iterb);
+				}
+			}
+			break;
+		}
+		case 15: {
+			for (DWORD subleaf = 0; subleaf < 2; subleaf ++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+			}
+			break;
+		}
+		case 16: {
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			DWORD subleaf = 1;
+			DWORD residbit = result->pebx >> 1;
+			while (residbit) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				residbit >>= 1;
+				subleaf++;
+			}
+			break;
+		}
+		case 18: {
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			result = get_cpuid(&iter, &iterb, leaf, 1);
+			if (!result) break;
+
+			if (sgx) {
+				DWORD subleaf = 2;
+				do {
+					result = get_cpuid(&iter, &iterb, leaf, subleaf);
+					if (!result) break;
+					subleaf++;
+					if (subleaf > 0xFF || (result->peax & 0x0000000F) == 0)
+						subleaf = 0;
+				} while (subleaf > 0);
+			}
+			break;
+		}
+		case 20:
+		case 23:
+		case 24: {
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+
+			DWORD subleafs = result->peax;
+			for (DWORD subleaf = 1; subleaf <= subleafs; subleaf++) {
+				result = get_cpuid(&iter, &iterb, leaf, subleaf);
+				if (!result) break;
+			}
+			break;
+		}
+		default:
+			result = get_cpuid(&iter, &iterb, leaf, 0);
+			if (!result) break;
+			break;
+		}
+
+		leaf++;
 	}
 
+	int i = (int)(iter - info);
 	i += iddump_region(0x80000000, info + 1, info + i, bytes - i * sizeof(struct cpuidinfo));
 	i += iddump_region(0x20000000, NULL,     info + i, bytes - i * sizeof(struct cpuidinfo));
 	return i;

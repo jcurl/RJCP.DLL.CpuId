@@ -129,7 +129,7 @@
         }
 
 #if DEBUG
-        // This section adds debug checks, to ensure that a feidl is not defined more than once. If it is, DEBUG mode
+        // This section adds debug checks, to ensure that a field is not defined more than once. If it is, DEBUG mode
         // will cause an exception, indicating a programmatic error.
 
         private sealed class BitMask

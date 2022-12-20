@@ -7,47 +7,87 @@ if not exist ..\CpuId\x64 mkdir ..\CpuId\x64
 copy Release\x64\cpuid.dll ..\CpuId\x64\cpuid.dll > NUL
 copy Release\x64\cpuid.pdb ..\CpuId\x64\cpuid.pdb > NUL
 
-:cpuidwin32debug
-if not exist ..\CpuIdWin\bin\Debug\x86 goto cpuidwin64debug
-echo Copying... CpuIdWin Debug\x86
-copy Debug\x86\cpuid.dll ..\CpuIdWin\bin\Debug\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdWin\bin\Debug\x86\cpuid.pdb > NUL
-:cpuidwin64debug
-if not exist ..\CpuIdWin\bin\Debug\x64 goto cpuidwin32release
-echo Copying... CpuIdWin Debug\x64
-copy Debug\x64\cpuid.dll ..\CpuIdWin\bin\Debug\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdWin\bin\Debug\x64\cpuid.pdb > NUL
-:cpuidwin32release
-if not exist ..\CpuIdWin\bin\Release\x86 goto cpuidwin64release
-echo Copying... CpuIdWin Release\x86
-copy Release\x86\cpuid.dll ..\CpuIdWin\bin\Release\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdWin\bin\Release\x86\cpuid.pdb > NUL
-:cpuidwin64release
-if not exist ..\CpuIdWin\bin\Release\x64 goto cpuidcon32debug
-echo Copying... CpuIdWin Release\x64
-copy Release\x64\cpuid.dll ..\CpuIdWin\bin\Release\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdWin\bin\Release\x64\cpuid.pdb > NUL
+:cpuidwin32debug_net48
+if not exist ..\CpuIdWin\bin\Debug\net48\x86 goto cpuidwin32debug_core31
+echo Copying... CpuIdWin Debug\net48\x86
+copy Debug\x86\cpuid.dll ..\CpuIdWin\bin\Debug\net48\x86\cpuid.dll > NUL
+copy Debug\x86\cpuid.pdb ..\CpuIdWin\bin\Debug\net48\x86\cpuid.pdb > NUL
+:cpuidwin32debug_core31
+if not exist ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86 goto cpuidwin64debug_net48
+echo Copying... CpuIdWin Debug\netcoreapp3.1\x86
+copy Debug\x86\cpuid.dll ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86\cpuid.dll > NUL
+copy Debug\x86\cpuid.pdb ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86\cpuid.pdb > NUL
+:cpuidwin64debug_net48
+if not exist ..\CpuIdWin\bin\Debug\net48\x64 goto cpuidwin64debug_core31
+echo Copying... CpuIdWin Debug\net48\x64
+copy Debug\x64\cpuid.dll ..\CpuIdWin\bin\Debug\net48\x64\cpuid.dll > NUL
+copy Debug\x64\cpuid.pdb ..\CpuIdWin\bin\Debug\net48\x64\cpuid.pdb > NUL
+:cpuidwin64debug_core31
+if not exist ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64 goto cpuidwin32release_net48
+echo Copying... CpuIdWin Debug\netcoreapp3.1\x64
+copy Debug\x64\cpuid.dll ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64\cpuid.dll > NUL
+copy Debug\x64\cpuid.pdb ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64\cpuid.pdb > NUL
+:cpuidwin32release_net48
+if not exist ..\CpuIdWin\bin\Release\net48\x86 goto cpuidwin32release_core31
+echo Copying... CpuIdWin Release\net48\x86
+copy Release\x86\cpuid.dll ..\CpuIdWin\bin\Release\net48\x86\cpuid.dll > NUL
+copy Release\x86\cpuid.pdb ..\CpuIdWin\bin\Release\net48\x86\cpuid.pdb > NUL
+:cpuidwin32release_core31
+if not exist ..\CpuIdWin\bin\Release\netcoreapp3.1\x86 goto cpuidwin64release_net48
+echo Copying... CpuIdWin Release\netcoreapp3.1\x86
+copy Release\x86\cpuid.dll ..\CpuIdWin\bin\Release\netcoreapp3.1\x86\cpuid.dll > NUL
+copy Release\x86\cpuid.pdb ..\CpuIdWin\bin\Release\netcoreapp3.1\x86\cpuid.pdb > NUL
+:cpuidwin64release_net48
+if not exist ..\CpuIdWin\bin\Release\net48\x64 goto cpuidwin64release_core31
+echo Copying... CpuIdWin Release\net48\x64
+copy Release\x64\cpuid.dll ..\CpuIdWin\bin\Release\net48\x64\cpuid.dll > NUL
+copy Release\x64\cpuid.pdb ..\CpuIdWin\bin\Release\net48\x64\cpuid.pdb > NUL
+:cpuidwin64release_core31
+if not exist ..\CpuIdWin\bin\Release\netcoreapp3.1\x64 goto cpuidcon32debug_net40
+echo Copying... CpuIdWin Release\netcoreapp3.1\x64
+copy Release\x64\cpuid.dll ..\CpuIdWin\bin\Release\netcoreapp3.1\x64\cpuid.dll > NUL
+copy Release\x64\cpuid.pdb ..\CpuIdWin\bin\Release\netcoreapp3.1\x64\cpuid.pdb > NUL
 
-:cpuidcon32debug
-if not exist ..\CpuIdCon\bin\Debug\x86 goto cpuidcon64debug
-echo Copying... CpuIdCon Debug\x86
-copy Debug\x86\cpuid.dll ..\CpuIdCon\bin\Debug\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdCon\bin\Debug\x86\cpuid.pdb > NUL
-:cpuidcon64debug
-if not exist ..\CpuIdCon\bin\Debug\x64 goto cpuidcon32release
-echo Copying... CpuIdCon Debug\x64
-copy Debug\x64\cpuid.dll ..\CpuIdCon\bin\Debug\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdCon\bin\Debug\x64\cpuid.pdb > NUL
-:cpuidcon32release
-if not exist ..\CpuIdCon\bin\Release\x86 goto cpuidcon64release
-echo Copying... CpuIdCon Release\x86
-copy Release\x86\cpuid.dll ..\CpuIdCon\bin\Release\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdCon\bin\Release\x86\cpuid.pdb > NUL
-:cpuidcon64release
-if not exist ..\CpuIdCon\bin\Release\x64 goto done
-echo Copying... CpuIdCon Release\x64
-copy Release\x64\cpuid.dll ..\CpuIdCOn\bin\Release\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdCOn\bin\Release\x64\cpuid.pdb > NUL
+:cpuidcon32debug_net40
+if not exist ..\CpuIdCon\bin\Debug\net40\x86 goto cpuidcon32debug_core31
+echo Copying... CpuIdCon Debug\net40\x86
+copy Debug\x86\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x86\cpuid.dll > NUL
+copy Debug\x86\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x86\cpuid.pdb > NUL
+:cpuidcon32debug_core31
+if not exist ..\CpuIdCon\bin\Debug\net40\x86 goto cpuidcon64debug_net40
+echo Copying... CpuIdCon Debug\netcoreapp3.1\x86
+copy Debug\x86\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x86\cpuid.dll > NUL
+copy Debug\x86\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x86\cpuid.pdb > NUL
+:cpuidcon64debug_net40
+if not exist ..\CpuIdCon\bin\Debug\net40\x64 goto cpuidcon64debug_core31
+echo Copying... CpuIdCon Debug\net40\x64
+copy Debug\x64\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x64\cpuid.dll > NUL
+copy Debug\x64\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x64\cpuid.pdb > NUL
+:cpuidcon64debug_core31
+if not exist ..\CpuIdCon\bin\Debug\net40\x64 goto cpuidcon32release_net40
+echo Copying... CpuIdCon Debug\netcoreapp3.1\x64
+copy Debug\x64\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x64\cpuid.dll > NUL
+copy Debug\x64\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x64\cpuid.pdb > NUL
+:cpuidcon32release_net40
+if not exist ..\CpuIdCon\bin\Release\net40\x86 goto cpuidcon32release_core31
+echo Copying... CpuIdCon Release\net40\x86
+copy Release\x86\cpuid.dll ..\CpuIdCon\bin\Release\net40\x86\cpuid.dll > NUL
+copy Release\x86\cpuid.pdb ..\CpuIdCon\bin\Release\net40\x86\cpuid.pdb > NUL
+:cpuidcon32release_core31
+if not exist ..\CpuIdCon\bin\Release\net40\x86 goto cpuidcon64release_net40
+echo Copying... CpuIdCon Release\netcoreapp3.1\x86
+copy Release\x86\cpuid.dll ..\CpuIdCon\bin\Release\net40\x86\cpuid.dll > NUL
+copy Release\x86\cpuid.pdb ..\CpuIdCon\bin\Release\net40\x86\cpuid.pdb > NUL
+:cpuidcon64release_net40
+if not exist ..\CpuIdCon\bin\Release\net40\x64 goto cpuidcon64release_core31
+echo Copying... CpuIdCon Release\net40\x64
+copy Release\x64\cpuid.dll ..\CpuIdCOn\bin\Release\net40\x64\cpuid.dll > NUL
+copy Release\x64\cpuid.pdb ..\CpuIdCOn\bin\Release\net40\x64\cpuid.pdb > NUL
+:cpuidcon64release_core31
+if not exist ..\CpuIdCon\bin\Release\net40\x64 goto done
+echo Copying... CpuIdCon Release\netcoreapp3.1\x64
+copy Release\x64\cpuid.dll ..\CpuIdCOn\bin\Release\net40\x64\cpuid.dll > NUL
+copy Release\x64\cpuid.pdb ..\CpuIdCOn\bin\Release\net40\x64\cpuid.pdb > NUL
 
 :done
 pause
