@@ -1403,6 +1403,9 @@
     <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i7-6700K CPU %40 4.00GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i7-6700T CPU %40 2.80GHz, QNX, KVM%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\contrib\users\GenuineIntel00506E3 %28Intel%28R%29 Core%28TM%29 i7-6820HQ CPU %40 2.70GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
