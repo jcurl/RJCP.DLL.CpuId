@@ -49,10 +49,14 @@
             }
         }
 
+        private static SafeLibraryHandle m_CpuIdHandle;
+
         private static void LoadLibrary()
         {
-            SafeLibraryHandle handle = Win32.LoadLibrary<WindowsCpuIdFactory>("cpuid.dll");
-            if (handle.IsInvalid)
+            if (m_CpuIdHandle == null)
+                m_CpuIdHandle = Win32.LoadLibrary<WindowsCpuIdFactory>("cpuid.dll");
+            
+            if (m_CpuIdHandle.IsInvalid)
                 throw new PlatformNotSupportedException("Cannot load platform specific libraries");
         }
     }
