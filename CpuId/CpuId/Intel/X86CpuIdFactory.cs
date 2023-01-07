@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using Native;
 
@@ -25,23 +26,29 @@
             return ids;
         }
 
-        private static BasicCpu GetLocalCpuNode()
+        private static unsafe BasicCpu GetLocalCpuNode()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");
 
             CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[MaxCpuLeaves];
-            int r = CpuIdLib.iddump(data, Marshal.SizeOf(data[0]) * data.Length);
+            int r;
+            fixed (CpuIdLib.CpuIdInfo* cpuidptr = &data[0]) {
+                r = CpuIdLib.iddump(cpuidptr, Marshal.SizeOf(data[0]) * data.Length);
+            }
             return new BasicCpu(data, 0, r);
         }
 
-        private static IEnumerable<BasicCpu> GetLocalCpuNodes()
+        private static unsafe IEnumerable<BasicCpu> GetLocalCpuNodes()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");
 
             CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[MaxCpuLeaves * MaxCpus];
-            int r = CpuIdLib.iddumpall(data, Marshal.SizeOf(data[0]) * data.Length);
+            int r;
+            fixed (CpuIdLib.CpuIdInfo* cpuidptr = &data[0]) {
+                r = CpuIdLib.iddumpall(cpuidptr, Marshal.SizeOf(data[0]) * data.Length);
+            }
 
             // Each CPU has the first element with EAX=0xFFFFFFFF and the CPU number as ECX. This isn't captured by the
             // CPUID instruction, but a part of the library to allow separating the CPU information

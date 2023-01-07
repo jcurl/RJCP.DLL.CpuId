@@ -6,7 +6,7 @@
     /// <remarks>
     /// This value is obtained from <c>SYSTEM_INFO.uProcessorInfo.wProcessorArchitecture</c>.
     /// </remarks>
-    internal enum OSArchitecture
+    internal enum OSArchitecture : short
     {
         /// <summary>
         /// Unknown.

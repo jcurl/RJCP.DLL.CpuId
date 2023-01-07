@@ -10,7 +10,7 @@
             [FieldOffset(0)]
             internal uint dwOemId;
             [FieldOffset(0)]
-            internal ushort wProcessorArchitecture;
+            internal OSArchitecture wProcessorArchitecture;
             [FieldOffset(2)]
             internal ushort wReserved;
         }

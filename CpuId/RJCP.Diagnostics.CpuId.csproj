@@ -24,7 +24,7 @@
     <Description>A library to query CPU Identification information.</Description>
     <Version>0.8.0</Version>
 
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>Default</AnalysisMode>

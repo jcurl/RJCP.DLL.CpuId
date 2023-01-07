@@ -55,7 +55,7 @@
         {
             if (m_CpuIdHandle == null)
                 m_CpuIdHandle = Win32.LoadLibrary<WindowsCpuIdFactory>("cpuid.dll");
-            
+
             if (m_CpuIdHandle.IsInvalid)
                 throw new PlatformNotSupportedException("Cannot load platform specific libraries");
         }

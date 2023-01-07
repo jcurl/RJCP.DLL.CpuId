@@ -24,13 +24,12 @@
         {
             OSArchitecture architecture;
             bool nativeSystemInfo;
-
-            SYSTEM_INFO lpSystemInfo = new SYSTEM_INFO();
+            SYSTEM_INFO lpSystemInfo;
 
             // GetNativeSystemInfo is independent if we're 64-bit or not But it needs _WIN32_WINNT 0x0501
             try {
-                GetNativeSystemInfo(ref lpSystemInfo);
-                architecture = (OSArchitecture)lpSystemInfo.uProcessorInfo.wProcessorArchitecture;
+                GetNativeSystemInfo(out lpSystemInfo);
+                architecture = lpSystemInfo.uProcessorInfo.wProcessorArchitecture;
                 nativeSystemInfo = true;
             } catch {
                 architecture = OSArchitecture.Unknown;
@@ -39,8 +38,8 @@
 
             if (architecture == OSArchitecture.Unknown || !nativeSystemInfo) {
                 try {
-                    GetSystemInfo(ref lpSystemInfo);
-                    architecture = (OSArchitecture)lpSystemInfo.uProcessorInfo.wProcessorArchitecture;
+                    GetSystemInfo(out lpSystemInfo);
+                    architecture = lpSystemInfo.uProcessorInfo.wProcessorArchitecture;
                 } catch {
                     architecture = OSArchitecture.Unknown;
                 }
@@ -63,8 +62,7 @@
         private static bool IsWow64()
         {
             try {
-                bool wow64 = false;
-                if (IsWow64Process(GetCurrentProcess(), ref wow64))
+                if (IsWow64Process(GetCurrentProcess(), out bool wow64))
                     return wow64;
                 return false;
             } catch (EntryPointNotFoundException) {
