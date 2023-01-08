@@ -11,7 +11,7 @@
             Uri assemblyLocation = new Uri(typeof(T).Assembly.Location);
             string libraryPath = Path.GetDirectoryName(assemblyLocation.LocalPath);
 
-            if (IntPtr.Size == 4) {
+            if (!Environment.Is64BitProcess) {
                 libraryPath = Path.Combine(libraryPath, "x86", fileName);
             } else {
                 libraryPath = Path.Combine(libraryPath, "x64", fileName);
