@@ -87,7 +87,7 @@
             // 
             // hdrECX
             // 
-            this.hdrECX.Text = "EXC";
+            this.hdrECX.Text = "ECX";
             // 
             // hdrPEAX
             // 
