@@ -89,8 +89,7 @@
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
             if (cpuIdNode == null) return null;
-            string processor = cpuIdNode.Attributes["type"]?.Value;
-            if (processor == null) processor = "x86";
+            string processor = cpuIdNode.Attributes["type"]?.Value ?? "x86";
 
             switch (processor) {
             case "x86":
@@ -147,8 +146,7 @@
 #else
                 return Array.Empty<ICpuId>();
 #endif
-            string processor = cpuIdNode.Attributes["type"]?.Value;
-            if (processor == null) processor = "x86";
+            string processor = cpuIdNode.Attributes["type"]?.Value ?? "x86";
 
             switch (processor) {
             case "x86":
