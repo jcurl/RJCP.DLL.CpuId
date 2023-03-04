@@ -14,7 +14,7 @@
     <RootNamespace>RJCP.Diagnostics</RootNamespace>
 
     <Authors>Jason Curl</Authors>
-    <Copyright>(C) 2012-2021, Jason Curl</Copyright>
+    <Copyright>(C) 2012-2023, Jason Curl</Copyright>
     <Company></Company>
     <PackageId>RJCP.Diagnostics.CpuId</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -60,6 +60,7 @@
     <PackageReference Include="RJCP.MSBuildTasks" Version="0.2.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <ProjectReference Include="..\..\environment\Environment\RJCP.Environment.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">

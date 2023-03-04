@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using CpuId;
+    using RJCP.Core.Environment;
 
     /// <summary>
     /// Factory for getting a class with information about the CPU on the current thread.
@@ -27,13 +28,12 @@
         /// </remarks>
         public ICpuId Create()
         {
-            switch (Environment.OSVersion.Platform) {
-            case PlatformID.Win32NT:
+            if (Platform.IsWinNT()) {
                 WindowsCpuIdFactory factory = new WindowsCpuIdFactory();
                 return factory.Create();
-            default:
-                throw new PlatformNotSupportedException("OS Platform is not supported");
             }
+
+            throw new PlatformNotSupportedException("OS Platform is not supported");
         }
 
         /// <summary>
@@ -54,13 +54,12 @@
         /// </remarks>
         public IEnumerable<ICpuId> CreateAll()
         {
-            switch (Environment.OSVersion.Platform) {
-            case PlatformID.Win32NT:
+            if (Platform.IsWinNT()) {
                 WindowsCpuIdFactory factory = new WindowsCpuIdFactory();
                 return factory.CreateAll();
-            default:
-                throw new PlatformNotSupportedException("OS Platform is not supported");
             }
+
+            throw new PlatformNotSupportedException("OS Platform is not supported");
         }
     }
 }
