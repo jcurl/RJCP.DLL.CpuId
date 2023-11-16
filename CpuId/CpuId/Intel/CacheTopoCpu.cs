@@ -90,7 +90,7 @@
             Associativity = ways;
             LineSize = lineSize;
             Sets = sets;
-            Partitions = 1;
+            Partitions = partitions;
             Size = LineSize * ways * sets * partitions;
 
             // This mask is undefined.
@@ -135,7 +135,7 @@
             Associativity = ways;
             LineSize = lineSize;
             Sets = sets;
-            Partitions = 1;
+            Partitions = partitions;
             Size = LineSize * ways * sets * partitions;
 
             Mask = mask;
