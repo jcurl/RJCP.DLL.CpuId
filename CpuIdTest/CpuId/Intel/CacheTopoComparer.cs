@@ -17,6 +17,7 @@
                 return
                     xc.Associativity == yc.Associativity &&
                     xc.LineSize == yc.LineSize &&
+                    xc.Partitions == yc.Partitions &&
                     xc.Sets == yc.Sets &&
                     xc.Size == yc.Size;
             } else if (x is CacheTopoTlb xt) {
@@ -25,6 +26,14 @@
                     xt.Associativity == yt.Associativity &&
                     xt.Sets == yt.Sets &&
                     xt.Entries == yt.Entries;
+            } else if (x is CacheTopoPrefetch xp) {
+                CacheTopoPrefetch yp = (CacheTopoPrefetch)y;
+                return xp.LineSize == yp.LineSize;
+            } else if (x is CacheTopoTrace xd) {
+                CacheTopoTrace yd = (CacheTopoTrace)y;
+                return
+                    xd.Associativity == yd.Associativity &&
+                    xd.Size == yd.Size;
             }
             return false;
         }

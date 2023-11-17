@@ -524,6 +524,28 @@
             FeatureCheck.Check("extended", 0x00000121, 0x2C100000);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("12th Gen Intel(R) Core(TM) i9-12900K"));
+
+            Assert.That(cpu.Topology.CoreTopology, Has.Count.EqualTo(3));
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Smt, 0, 1);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 63);
+            FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 7);
+
+            CacheTopoList expectedCache = new CacheTopoList() {
+                new CacheTopoPrefetch(CacheType.Prefetch, 64),
+                new CacheTopoCpu(1, CacheType.Data, 12, 64, 64, 1),
+                new CacheTopoCpu(1, CacheType.Instruction, 8, 64, 64, 1),
+                new CacheTopoCpu(2, CacheType.Unified, 10, 64, 0x800, 1),
+                new CacheTopoCpu(3, CacheType.Unified, 12, 64, 0xa000, 1),
+                new CacheTopoTlb(1, CacheType.InstructionTlb4k, 8, 32 * 8),
+                new CacheTopoTlb(1, CacheType.InstructionTlb2M4M, 8, 4 * 8),
+                new CacheTopoTlb(1, CacheType.StoreOnlyTlb | CacheType.Page4k | CacheType.Page2M | CacheType.Page4M | CacheType.Page1G, 16, 16),
+                new CacheTopoTlb(1, CacheType.LoadOnlyTlb | CacheType.Page4k, 4, 4 * 16),
+                new CacheTopoTlb(1, CacheType.LoadOnlyTlb | CacheType.Page2M | CacheType.Page4M, 4, 4 * 8),
+                new CacheTopoTlb(1, CacheType.LoadOnlyTlb | CacheType.Page1G, 8, 8),
+                new CacheTopoTlb(2, CacheType.UnifiedTlb4k | CacheType.Page2M | CacheType.Page4M, 8, 8 * 128),
+                new CacheTopoTlb(2, CacheType.UnifiedTlb4k | CacheType.Page1G, 8, 8 * 128)
+            };
+            Assert.That(cpu.Topology.CacheTopology, Is.EquivalentTo(expectedCache).Using(new CacheTopoComparer()));
         }
     }
 }

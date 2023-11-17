@@ -369,6 +369,64 @@
         }
 
         /// <summary>
+        /// Gets the translation lookaside buffer cache topology leaf.
+        /// </summary>
+        /// <param name="leaf">The leaf number to use.</param>
+        protected void GetCacheTlbTopologyLeaf(int leaf)
+        {
+            int subleaf = 0;
+            CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+            int subleaves = cache.Result[0];
+
+            while (cache != null && subleaf <= subleaves) {
+                int ttype = cache.Result[3] & 0x1F;
+                if (ttype != 0) {
+                    CacheType ctype;
+                    switch (ttype) {
+                    case 1:
+                        ctype = CacheType.Data | CacheType.Tlb;
+                        break;
+                    case 2:
+                        ctype = CacheType.Instruction | CacheType.Tlb;
+                        break;
+                    case 3:
+                        ctype = CacheType.Unified | CacheType.Tlb;
+                        break;
+                    case 4:
+                        ctype = CacheType.LoadOnlyTlb;
+                        break;
+                    case 5:
+                        ctype = CacheType.StoreOnlyTlb;
+                        break;
+                    default:
+                        ctype = CacheType.Tlb;
+                        break;
+                    }
+
+                    if ((cache.Result[1] & 0x01) != 0) ctype |= CacheType.Page4k;
+                    if ((cache.Result[1] & 0x02) != 0) ctype |= CacheType.Page2M;
+                    if ((cache.Result[1] & 0x04) != 0) ctype |= CacheType.Page4M;
+                    if ((cache.Result[1] & 0x08) != 0) ctype |= CacheType.Page1G;
+
+                    int level = (cache.Result[3] & 0xE0) >> 5;
+                    int ways = cache.Result[1] >> 16;
+                    int sets = cache.Result[2];
+                    CacheTopoTlb cacheTopoTlb = new CacheTopoTlb(level, ctype, ways, ways * sets);
+                    // TODO: cacheTopoTlb.Mask = ...
+
+                    Topology.CacheTopology.Add(cacheTopoTlb);
+                }
+
+                if (subleaf < subleaves) {
+                    subleaf++;
+                    cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+                } else {
+                    cache = null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Writes the cached CPUID registers (those found in <see cref="Registers"/> to an XML writer.
         /// </summary>
         /// <param name="xmlWriter">The XML writer to write to.</param>

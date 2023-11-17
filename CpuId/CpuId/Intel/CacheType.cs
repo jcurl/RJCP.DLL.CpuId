@@ -27,17 +27,27 @@
         /// <summary>
         /// Instruction cache.
         /// </summary>
-        Instruction = 0x00000001,
+        Instruction = 0x01,
 
         /// <summary>
         /// Data cache.
         /// </summary>
-        Data = 0x00000002,
+        Data = 0x02,
 
         /// <summary>
-        /// Unified Cache
+        /// Unified Cache.
         /// </summary>
         Unified = Instruction | Data,
+
+        /// <summary>
+        /// Load Only Cache.
+        /// </summary>
+        LoadOnly = 0x04,
+
+        /// <summary>
+        /// Store Only Cache.
+        /// </summary>
+        StoreOnly = 0x05,
 
         /// <summary>
         /// Translation Look-aside Buffer cache.
@@ -163,7 +173,17 @@
         /// <summary>
         /// A combination describing TLB unified / shared instruction/data cache for 1Gb pages.
         /// </summary>
-        unifiedTlb1G = Unified | Tlb | Page1G
+        unifiedTlb1G = Unified | Tlb | Page1G,
+
+        /// <summary>
+        /// Store only TLB.
+        /// </summary>
+        StoreOnlyTlb = StoreOnly | Tlb,
+
+        /// <summary>
+        /// Load only TLB.
+        /// </summary>
+        LoadOnlyTlb = LoadOnly | Tlb
         #endregion
     }
 }

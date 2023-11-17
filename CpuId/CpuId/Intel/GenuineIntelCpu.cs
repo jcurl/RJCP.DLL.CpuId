@@ -11,6 +11,7 @@
         internal const int LegacyCache = 0x02;
         internal const int LegacyTopology = 0x04;
         internal const int ExtendedTopology = 0x0B;
+        internal const int AddressTranslation = 0x18;
         internal const int ExtendedTopology2 = 0x1F;
 
         private int m_ProcessorSignature;
@@ -488,6 +489,7 @@
                 FixLegacyCacheMask(noExtraCache);
 
                 if (leafCpu && cpu.FunctionCount > LegacyTopology) GetCacheTopologyLeaf(LegacyTopology);
+                if (leafTlb && cpu.FunctionCount > AddressTranslation) GetCacheTlbTopologyLeaf(AddressTranslation);
             }
         }
 

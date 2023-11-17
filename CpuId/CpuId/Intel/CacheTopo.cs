@@ -65,6 +65,12 @@
             case CacheType.Prefetch:
                 cacheType = "Prefetch";
                 break;
+            case CacheType.StoreOnlyTlb:
+                cacheType = "Store Only TLB";
+                break;
+            case CacheType.LoadOnlyTlb:
+                cacheType = "Load Only TLB";
+                break;
             default:
                 cacheType = "Unknown Cache Type";
                 break;
