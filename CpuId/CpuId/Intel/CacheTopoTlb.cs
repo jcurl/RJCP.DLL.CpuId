@@ -24,6 +24,26 @@
         /// entries.
         /// </remarks>
         public CacheTopoTlb(int level, CacheType cacheType, int ways, int entries)
+            : this(level, cacheType, ways, entries, -1) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheTopoTlb"/> class.
+        /// </summary>
+        /// <param name="level">The cache level.</param>
+        /// <param name="cacheType">Type of the cache.</param>
+        /// <param name="ways">The associativity. Zero means fully associative.</param>
+        /// <param name="entries">The total number of entries in the cache.</param>
+        /// <param name="mask">The share mask against the APIC identifier. -1 indicates undefined.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// The <paramref name="ways"/> of associativity ways must fully associative (0) or be positive.
+        /// <para>- or -</para>
+        /// <paramref name="entries"/> in the cache must be positive.
+        /// </exception>
+        /// <remarks>
+        /// The constructor calculates the number of sets in the cache through the associativity and the number of
+        /// entries.
+        /// </remarks>
+        public CacheTopoTlb(int level, CacheType cacheType, int ways, int entries, long mask)
             : base(level, cacheType)
         {
             CheckCacheType(cacheType);
@@ -40,6 +60,7 @@
                 Associativity = ways;
                 Sets = Entries / ways;
             }
+            Mask = mask;
         }
 
         private static void CheckCacheType(CacheType cacheType)
@@ -70,5 +91,21 @@
         /// </summary>
         /// <value>The number of sets. If there is only one set, the cache is fully associative.</value>
         public int Sets { get; private set; }
+
+        /// <summary>
+        /// Defines the APIC mask for which cores share this cache.
+        /// </summary>
+        /// <value>The share mask against the APIC identifier.</value>
+        /// <remarks>
+        /// A value of 0, indicates that this is not shared with any other core. A value of -1, indicates that this is
+        /// undefined. The value returned is a bitmask, where the bits that are set indicate the bits in the APIC Id
+        /// that share this mask. To find all the cores that share this cache, take the inverse and mask with a bit-wise
+        /// AND of the APIC identifier. Those with the same value after the mask share this cache.
+        /// <para>
+        /// This method is protected to allow other implementations to set the value after instantiation if required.
+        /// But user code should not be able to change this value after it is set.
+        /// </para>
+        /// </remarks>
+        public long Mask { get; private set; }
     }
 }

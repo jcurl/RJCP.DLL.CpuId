@@ -411,8 +411,16 @@
                     int level = (cache.Result[3] & 0xE0) >> 5;
                     int ways = cache.Result[1] >> 16;
                     int sets = cache.Result[2];
-                    CacheTopoTlb cacheTopoTlb = new CacheTopoTlb(level, ctype, ways, ways * sets);
-                    // TODO: cacheTopoTlb.Mask = ...
+                    bool fullAssociative = (cache.Result[3] & 0x100) != 0;
+
+                    int numSharingCache = Log2Pof2(((cache.Result[3] >> 14) & 0xFFF) + 1);
+                    long mask = ~(-1 << numSharingCache);
+                    CacheTopoTlb cacheTopoTlb;
+                    if (fullAssociative) {
+                        cacheTopoTlb = new CacheTopoTlb(level, ctype, 0, ways, mask);
+                    } else {
+                        cacheTopoTlb = new CacheTopoTlb(level, ctype, ways, ways * sets, mask);
+                    }
 
                     Topology.CacheTopology.Add(cacheTopoTlb);
                 }

@@ -67,13 +67,16 @@
             return node;
         }
 
-        private static TreeNode CacheTlbNode(CacheTopoTlb cacheTopoTlb)
+        private TreeNode CacheTlbNode(CacheTopoTlb cacheTopoTlb)
         {
             TreeNode node = new TreeNode(cacheTopoTlb.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoTlb.Level));
             node.Nodes.Add(string.Format("Entries: {0}", cacheTopoTlb.Entries));
             node.Nodes.Add(string.Format("Associativity: {0}", GetAssociativity(cacheTopoTlb.Associativity, cacheTopoTlb.Sets)));
             if (cacheTopoTlb.Sets != 1) node.Nodes.Add(string.Format("Sets: {0}", cacheTopoTlb.Sets));
+            if (cacheTopoTlb.Mask != -1)
+                node.Nodes.Add(string.Format("Mask: {0}",
+                    Infrastructure.Text.ConvertToBitString(cacheTopoTlb.Mask, m_CoreMask)));
             return node;
         }
 
