@@ -1424,6 +1424,9 @@
     <Content Include="TestResources\contrib\users\GenuineIntel00906ED %28Intel%28R%29 Core%28TM%29 i7-9700 CPU %40 3.00GHz%29.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources\contrib\users\GenuineIntel00B0671 %2813th Gen Intel%28R%29 Core%28TM%29 i9-13980HX%29.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestResources\FakeIntel\i486dx4.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
