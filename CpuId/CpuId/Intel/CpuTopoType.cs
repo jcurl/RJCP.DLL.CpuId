@@ -32,26 +32,22 @@
         /// <summary>
         /// A Module.
         /// </summary>
-        /// <remarks>
-        /// This is currently not used by Intel as of i9-10XXX series.
-        /// </remarks>
         Module = 3,
 
         /// <summary>
         /// A Tile.
         /// </summary>
-        /// <remarks>
-        /// This is currently not used by Intel as of i9-10XXX series.
-        /// </remarks>
         Tile = 4,
 
         /// <summary>
         /// A Die on silicon.
         /// </summary>
-        /// <remarks>
-        /// This is currently not used by Intel as of i9-10XXX series. This is the Node as given in AMD documentation.
-        /// </remarks>
         Die = 5,
+
+        /// <summary>
+        /// A Die group on silicon.
+        /// </summary>
+        DieGroup = 6,
 
         /// <summary>
         /// A Die on Silicon, describing a NodeId on AMD.
