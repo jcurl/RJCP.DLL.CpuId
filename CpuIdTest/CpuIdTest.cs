@@ -12,7 +12,7 @@
         [Platform("Win")]
         public void CurrentCpuId()
         {
-            ICpuIdFactory factory = new CpuIdFactory();
+            var factory = new CpuIdFactory();
             ICpuId cpu = factory.Create();
             Assert.That(cpu, Is.Not.Null);
             DumpCpu(cpu);
@@ -26,7 +26,7 @@
         [Platform("Win")]
         public void AllCpuId()
         {
-            ICpuIdFactory factory = new CpuIdFactory();
+            var factory = new CpuIdFactory();
             IEnumerable<ICpuId> cpus = factory.CreateAll();
 
             Assert.That(cpus, Is.Not.Null);
