@@ -19,7 +19,7 @@ namespace RJCP.Diagnostics.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class CpuFeatures {
@@ -84,15 +84,6 @@ namespace RJCP.Diagnostics.Resources {
         internal static string _3DNOWEXT {
             get {
                 return ResourceManager.GetString("3DNOWEXT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 5 Level Paging.
-        /// </summary>
-        internal static string _5L_PAGE {
-            get {
-                return ResourceManager.GetString("5L_PAGE", resourceCulture);
             }
         }
         
@@ -394,6 +385,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour.
+        /// </summary>
+        internal static string BHI_CTRL {
+            get {
+                return ResourceManager.GetString("BHI_CTRL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT).
         /// </summary>
         internal static string BMI1 {
@@ -412,6 +412,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support for OS bus-lock detection.
+        /// </summary>
+        internal static string BUS_LOCK_DETECT {
+            get {
+                return ResourceManager.GetString("BUS_LOCK_DETECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CET indirect branch tracking.
         /// </summary>
         internal static string CET_IBT {
@@ -426,6 +435,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string CET_SS {
             get {
                 return ResourceManager.GetString("CET_SS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control flow enforcement (CET) supervisor shadow stack features.
+        /// </summary>
+        internal static string CET_SSS {
+            get {
+                return ResourceManager.GetString("CET_SSS", resourceCulture);
             }
         }
         
@@ -534,6 +552,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string DCA {
             get {
                 return ResourceManager.GetString("DCA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows disable of Data Dependent Prefetcher.
+        /// </summary>
+        internal static string DDPD_U {
+            get {
+                return ResourceManager.GetString("DDPD_U", resourceCulture);
             }
         }
         
@@ -817,6 +844,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enumerates the presence of the IA32_PPIN and IA32_PPIN_CTL MSRs.
+        /// </summary>
+        internal static string IA32_PPIN {
+            get {
+                return ResourceManager.GetString("IA32_PPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IA32_TSC_ADJUST MSR.
         /// </summary>
         internal static string IA32_TSC_ADJUST {
@@ -943,6 +979,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows control of IPRED_DIS control.
+        /// </summary>
+        internal static string IPRED_CTRL {
+            get {
+                return ResourceManager.GetString("IPRED_CTRL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instruction Retired Counter MSR available.
         /// </summary>
         internal static string IRPERF {
@@ -970,7 +1015,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linear Addressing 57-bit.
+        ///   Looks up a localized string similar to Linear Addressing 57-bit and 5-Level Paging.
         /// </summary>
         internal static string LA57 {
             get {
@@ -1029,6 +1074,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string MCA {
             get {
                 return ResourceManager.GetString("MCA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary.
+        /// </summary>
+        internal static string MCDT_NO {
+            get {
+                return ResourceManager.GetString("MCDT_NO", resourceCulture);
             }
         }
         
@@ -1366,24 +1420,6 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cache Allocation Strategy.
-        /// </summary>
-        internal static string PQE {
-            get {
-                return ResourceManager.GetString("PQE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Platform QoS Monitoring.
-        /// </summary>
-        internal static string PQM {
-            get {
-                return ResourceManager.GetString("PQM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Prefetch data into caches in anticipation of a write.
         /// </summary>
         internal static string PREFETCHW {
@@ -1416,6 +1452,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string PSE_36 {
             get {
                 return ResourceManager.GetString("PSE-36", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows disable of Fast Store Forwarding Predictor without disabling Speculative Store Bypass.
+        /// </summary>
+        internal static string PSFD {
+            get {
+                return ResourceManager.GetString("PSFD", resourceCulture);
             }
         }
         
@@ -1465,6 +1510,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intel Resource Director Technology - Allocation Capability.
+        /// </summary>
+        internal static string RDT_A {
+            get {
+                return ResourceManager.GetString("RDT-A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel Resource Director Technology - Monitoring Capability.
+        /// </summary>
+        internal static string RDT_M {
+            get {
+                return ResourceManager.GetString("RDT-M", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RDTSCP and IA32_TSX_AUX supported.
         /// </summary>
         internal static string RDTSCP {
@@ -1474,11 +1537,30 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour.
+        /// </summary>
+        internal static string RRSBA_CTRL {
+            get {
+                return ResourceManager.GetString("RRSBA_CTRL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TSX restricted transactional memory.
         /// </summary>
         internal static string RTM {
             get {
                 return ResourceManager.GetString("RTM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set, any execution of XBEGIN immediately aborts and transitions to the
+        ///specified fallback address..
+        /// </summary>
+        internal static string RTM_ALWAYS_ABORT {
+            get {
+                return ResourceManager.GetString("RTM_ALWAYS_ABORT", resourceCulture);
             }
         }
         
@@ -1524,6 +1606,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string SGX {
             get {
                 return ResourceManager.GetString("SGX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attestation Services for Intel SGX is supported.
+        /// </summary>
+        internal static string SGX_KEYS {
+            get {
+                return ResourceManager.GetString("SGX-KEYS", resourceCulture);
             }
         }
         
@@ -1600,7 +1691,8 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Special register buffer data sampling mitigations.
+        ///   Looks up a localized string similar to Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
+        ///(RNGDS_MITG_DIS) is also supported.
         /// </summary>
         internal static string SRBDS_CTRL {
             get {
@@ -1808,7 +1900,9 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -.
+        ///   Looks up a localized string similar to RTM_FORCE_ABORT supported. Processors that set this bit support the
+        ///IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
+        ///(RTM_FORCE_ABORT).
         /// </summary>
         internal static string TSX_FORCE_ABORT {
             get {

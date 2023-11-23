@@ -230,10 +230,10 @@
                 TestFeature("ERMS", features7, 1, 9);
                 TestFeature("INVPCID", features7, 1, 10);
                 TestFeature("RTM", features7, 1, 11);
-                TestFeature("PQM", features7, 1, 12);
+                TestFeature("RDT-M", features7, 1, 12);
                 TestFeature("FPU-CS Dep", features7, 1, 13);
                 TestFeature("MPX", features7, 1, 14);
-                TestFeature("PQE", features7, 1, 15);
+                TestFeature("RDT-A", features7, 1, 15);
                 TestFeature("AVX512F", features7, 1, 16);
                 TestFeature("AVX512DQ", features7, 1, 17);
                 TestFeature("RDSEED", features7, 1, 18);
@@ -266,31 +266,33 @@
                 TestFeature("AVX512_BITALG", features7, 2, 12);
                 TestFeature("TME_EN", features7, 2, 13);
                 TestFeature("AVX512_VPOPCNTDQ", features7, 2, 14);
-                TestFeature("5L_PAGE", features7, 2, 15);              // Wikipedia https://en.wikipedia.org/wiki/CPUID
                 TestFeature("LA57", features7, 2, 16);
                 TestFeature("RDPID", features7, 2, 22);
                 TestFeature("KL", features7, 2, 23);
+                TestFeature("BUS_LOCK_DETECT", features7, 2, 24);
                 TestFeature("CLDEMOTE", features7, 2, 25);
                 TestFeature("MOVDIRI", features7, 2, 27);
                 TestFeature("MOVDIR64B", features7, 2, 28);
-                TestFeature("ENQCMD", features7, 2, 29);               // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("ENQCMD", features7, 2, 29);
                 TestFeature("SGX_LC", features7, 2, 30);
                 TestFeature("PKS", features7, 2, 31);
-                ReservedFeature(features7, 2, 0x053E0000);
+                ReservedFeature(features7, 2, 0x043E8000);
 
+                TestFeature("SGX-KEYS", features7, 3, 1);
                 TestFeature("AVX512_4VNNIW", features7, 3, 2);
                 TestFeature("AVX512_4FMAPS", features7, 3, 3);
                 TestFeature("FSRM", features7, 3, 4);
                 TestFeature("UINTR", features7, 3, 5);
                 TestFeature("AVX512_VP2INTERSECT", features7, 3, 8);
-                TestFeature("SRBDS_CTRL", features7, 3, 9);            // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("SRBDS_CTRL", features7, 3, 9);
                 TestFeature("MD_CLEAR", features7, 3, 10);
-                TestFeature("TSX_FORCE_ABORT", features7, 3, 13);      // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("RTM_ALWAYS_ABORT", features7, 3, 11);
+                TestFeature("TSX_FORCE_ABORT", features7, 3, 13);
                 TestFeature("SERIALIZE", features7, 3, 14);
                 TestFeature("Hybrid", features7, 3, 15);
                 TestFeature("TSXLDTRK", features7, 3, 16);
                 TestFeature("PCONFIG", features7, 3, 18);
-                TestFeature("LBR", features7, 3, 19);                  // Wikipedia https://en.wikipedia.org/wiki/CPUID
+                TestFeature("LBR", features7, 3, 19);
                 TestFeature("CET_IBT", features7, 3, 20);
                 TestFeature("AMX_BF16", features7, 3, 22);
                 TestFeature("AVX512_FP16", features7, 3, 23);
@@ -302,7 +304,7 @@
                 TestFeature("IA32_ARCH_CAPABILITIES", features7, 3, 29);
                 TestFeature("IA32_CORE_CAPABILITIES", features7, 3, 30);
                 TestFeature("SSBD", features7, 3, 31);
-                ReservedFeature(features7, 3, 0x002218C3);
+                ReservedFeature(features7, 3, 0x002210C1);
 
                 if (features7.Result[0] > 0) {
                     CpuIdRegister features7s1 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 1);
@@ -316,12 +318,33 @@
                         TestFeature("LAM", features7s1, 0, 26);
                         ReservedFeature(features7s1, 0, unchecked((int)0xFBBFE3CF));
 
-                        ReservedFeature(features7s1, 1, unchecked((int)0xFFFFFFFF));
+                        TestFeature("IA32_PPIN", features7s1, 1, 1);
+                        ReservedFeature(features7s1, 1, unchecked((int)0xFFFFFFFD));
+
                         ReservedFeature(features7s1, 2, unchecked((int)0xFFFFFFFF));
-                        ReservedFeature(features7s1, 3, unchecked((int)0xFFFFFFFF));
+
+                        TestFeature("CET_SSS", features7s1, 3, 18);
+                        ReservedFeature(features7s1, 3, unchecked((int)0xFFFBFFFF));
+                    }
+               }
+
+                if (features7.Result[0] > 1) {
+                    CpuIdRegister features7s2 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 2);
+                    if (features7s2 != null) {
+                        ReservedFeature(features7s2, 0, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(features7s2, 1, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(features7s2, 2, unchecked((int)0xFFFFFFFF));
+
+                        TestFeature("PSFD", features7s2, 3, 0);
+                        TestFeature("IPRED_CTRL", features7s2, 3, 1);
+                        TestFeature("RRSBA_CTRL", features7s2, 3, 2);
+                        TestFeature("DDPD_U", features7s2, 3, 3);
+                        TestFeature("BHI_CTRL", features7s2, 3, 4);
+                        TestFeature("MCDT_NO", features7s2, 3, 5);
+                        ReservedFeature(features7s2, 3, unchecked((int)0xFFFFFFC0));
                     }
 
-                    for (int subfunction = 2; subfunction < features7.Result[0]; subfunction++) {
+                    for (int subfunction = 3; subfunction <= features7.Result[0]; subfunction++) {
                         CpuIdRegister features7sX = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, subfunction);
                         if (features7sX != null) {
                             ReservedFeature(features7sX, 0, unchecked((int)0xFFFFFFFF));

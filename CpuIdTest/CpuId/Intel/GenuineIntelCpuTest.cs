@@ -32,7 +32,7 @@
 
         private static readonly string[] CpuId07Ebx = new[] {
             "FSGSBASE", "IA32_TSC_ADJUST", "SGX", "BMI1", "HLE", "AVX2", "FDP_EXCPTN_ONLY", "SMEP",
-            "BMI2", "ERMS", "INVPCID", "RTM", "PQM", "FPU-CS Dep", "MPX", "PQE",
+            "BMI2", "ERMS", "INVPCID", "RTM", "RDT-M", "FPU-CS Dep", "MPX", "RDT-A",
             "AVX512F", "AVX512DQ", "RDSEED", "ADX", "SMAP", "AVX512_IFMA", "", "CLFLUSHOPT",
             "CLWB", "INTEL_PT", "AVX512PF", "AVX512ER", "AVX512CD", "SHA", "AVX512BW", "AVX512VL"
         };
@@ -40,14 +40,14 @@
         // Note, AMD Doc #24594, r3.31 says RDPID is EBX[22], Intel spec says RDPID is ECX[22].
         private static readonly string[] CpuId07Ecx = new[] {
             "PREFETCHWT1", "AVX512_VBMI", "UMIP", "PKU", "OSPKE", "WAITPKG", "AVX512_VBMI2", "CET_SS",
-            "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "TME_EN", "AVX512_VPOPCNTDQ", "5L_PAGE",
+            "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "TME_EN", "AVX512_VPOPCNTDQ", "",
             "LA57", null, null, null, null, null, "RDPID", "KL",
-            "", "CLDEMOTE", "", "MOVDIRI", "MOVDIR64B", "ENQCMD", "SGX_LC", "PKS"
+            "BUS_LOCK_DETECT", "CLDEMOTE", "", "MOVDIRI", "MOVDIR64B", "ENQCMD", "SGX_LC", "PKS"
         };
 
         private static readonly string[] CpuId07Edx = new[] {
-            "", "", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", "", "",
-            "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "", "", "TSX_FORCE_ABORT", "SERIALIZE", "Hybrid",
+            "SGX-KEYS", "", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", "", "",
+            "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "RTM_ALWAYS_ABORT", "", "TSX_FORCE_ABORT", "SERIALIZE", "Hybrid",
             "TSXLDTRK", "", "PCONFIG", "LBR", "CET_IBT", "", "AMX_BF16", "AVX512_FP16",
             "AMX_TILE", "AMX_INT8", "IBRS_IBPB", "STIBP", "L1D_FLUSH", "IA32_ARCH_CAPABILITIES", "IA32_CORE_CAPABILITIES", "SSBD"
         };
@@ -57,6 +57,55 @@
             "", "", "FZMOVSB", "FSSTOSB", "FSCMPSB", "", "", "",
             "", "", "", "", "", "", "HRESET", "",
             "", "", "LAM", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_01Ebx = new[] {
+            "IA32_PPIN", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_01Ecx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_01Edx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "CET_SSS", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_02Eax = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_02Ebx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_02Ecx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId07_02Edx = new[] {
+            "PSFD", "IPRED_CTRL", "RRSBA_CTRL", "DDPD_U", "BHI_CTRL", "MCDT_NO", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
         };
 
         private static readonly string[] CpuId13Eax = new[] {
@@ -91,6 +140,13 @@
             FeatureCheck.AddFeatureSet("standard", "CPUID[07h].ECX", CpuId07Ecx);
             FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EDX", CpuId07Edx);
             FeatureCheck.AddFeatureSet("standard", "CPUID[07h,01h].EAX", CpuId07_01Eax);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].EBX", CpuId07_01Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].ECX", CpuId07_01Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].EDX", CpuId07_01Edx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h,02h].EAX", CpuId07_02Eax);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].EBX", CpuId07_02Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].ECX", CpuId07_02Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].EDX", CpuId07_02Edx);
             FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].EAX", CpuId13Eax);
             FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].ECX", CpuId81Ecx);
             FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].EDX", CpuId81Edx);
@@ -127,7 +183,7 @@
         public void CheckDescription()
         {
             // We should load a file that has the most features
-            GetCpu("i7-9700.xml");
+            GetCpu("i9-12900k.xml");
             FeatureCheck.AssertOnMissingDescription();
         }
 

@@ -126,9 +126,6 @@
   <data name="3DNOWEXT" xml:space="preserve">
     <value>AMD extensions to 3DNow! instructions</value>
   </data>
-  <data name="5L_PAGE" xml:space="preserve">
-    <value>5 Level Paging</value>
-  </data>
   <data name="ABM" xml:space="preserve">
     <value>LZCNT (count leading zero bits) instruction</value>
   </data>
@@ -228,17 +225,26 @@
   <data name="AVX_VNNI" xml:space="preserve">
     <value>AVX Vector Neural Network Instructions</value>
   </data>
+  <data name="BHI_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
+  </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
   </data>
   <data name="BMI2" xml:space="preserve">
     <value>Bit manipulation instructions (BZHI, MULX, PDEP, PEXT, RORX, SARX/SHLX/SHRX</value>
   </data>
+  <data name="BUS_LOCK_DETECT" xml:space="preserve">
+    <value>Support for OS bus-lock detection</value>
+  </data>
   <data name="CET_IBT" xml:space="preserve">
     <value>CET indirect branch tracking</value>
   </data>
   <data name="CET_SS" xml:space="preserve">
     <value>Control flow enforcement (CET) shadow stack features</value>
+  </data>
+  <data name="CET_SSS" xml:space="preserve">
+    <value>Control flow enforcement (CET) supervisor shadow stack features</value>
   </data>
   <data name="CLDEMOTE" xml:space="preserve">
     <value>Cache line demote</value>
@@ -275,6 +281,9 @@
   </data>
   <data name="DCA" xml:space="preserve">
     <value>Direct Cache Access for DMA writes</value>
+  </data>
+  <data name="DDPD_U" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows disable of Data Dependent Prefetcher</value>
   </data>
   <data name="DE" xml:space="preserve">
     <value>Debugging Extensions</value>
@@ -369,6 +378,9 @@
   <data name="IA32_CORE_CAPABILITIES" xml:space="preserve">
     <value>Support for a MSR listing model-specific core capabilities, IA32_CORE_CAPABILITIES MSR supported, CPU specific</value>
   </data>
+  <data name="IA32_PPIN" xml:space="preserve">
+    <value>Enumerates the presence of the IA32_PPIN and IA32_PPIN_CTL MSRs</value>
+  </data>
   <data name="IA32_TSC_ADJUST" xml:space="preserve">
     <value>IA32_TSC_ADJUST MSR</value>
   </data>
@@ -411,6 +423,9 @@
   <data name="INVPCID" xml:space="preserve">
     <value>INVPCID instruction for system software that manages process-context identifiers</value>
   </data>
+  <data name="IPRED_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
+  </data>
   <data name="IRPERF" xml:space="preserve">
     <value>Instruction Retired Counter MSR available</value>
   </data>
@@ -421,7 +436,7 @@
     <value>IA32_FLUSH_CMD MSR supported</value>
   </data>
   <data name="LA57" xml:space="preserve">
-    <value>Linear Addressing 57-bit</value>
+    <value>Linear Addressing 57-bit and 5-Level Paging</value>
   </data>
   <data name="LAM" xml:space="preserve">
     <value>Linear Address Masking</value>
@@ -440,6 +455,9 @@
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
+  </data>
+  <data name="MCDT_NO" xml:space="preserve">
+    <value>Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary</value>
   </data>
   <data name="MCE" xml:space="preserve">
     <value>Machine-Check Exception</value>
@@ -570,6 +588,9 @@
   <data name="PSE-36" xml:space="preserve">
     <value>36-bit Page Size Extension</value>
   </data>
+  <data name="PSFD" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows disable of Fast Store Forwarding Predictor without disabling Speculative Store Bypass</value>
+  </data>
   <data name="PSN" xml:space="preserve">
     <value>Processor Serial Number is present and enabled</value>
   </data>
@@ -585,11 +606,24 @@
   <data name="RDSEED" xml:space="preserve">
     <value>RDSEED (read random seed) instruction</value>
   </data>
+  <data name="RDT-A" xml:space="preserve">
+    <value>Intel Resource Director Technology - Allocation Capability</value>
+  </data>
+  <data name="RDT-M" xml:space="preserve">
+    <value>Intel Resource Director Technology - Monitoring Capability</value>
+  </data>
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
   </data>
+  <data name="RRSBA_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
+  </data>
   <data name="RTM" xml:space="preserve">
     <value>TSX restricted transactional memory</value>
+  </data>
+  <data name="RTM_ALWAYS_ABORT" xml:space="preserve">
+    <value>If set, any execution of XBEGIN immediately aborts and transitions to the
+specified fallback address.</value>
   </data>
   <data name="SDBG" xml:space="preserve">
     <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
@@ -605,6 +639,9 @@
   </data>
   <data name="SGX" xml:space="preserve">
     <value>Intel(R) Software Guard Extensions</value>
+  </data>
+  <data name="SGX-KEYS" xml:space="preserve">
+    <value>Attestation Services for Intel SGX is supported</value>
   </data>
   <data name="SGX_LC" xml:space="preserve">
     <value>SGX Launch Configuration</value>
@@ -631,7 +668,8 @@
     <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
   </data>
   <data name="SRBDS_CTRL" xml:space="preserve">
-    <value>Special register buffer data sampling mitigations</value>
+    <value>Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
+(RNGDS_MITG_DIS) is also supported</value>
   </data>
   <data name="SS" xml:space="preserve">
     <value>CPU Cache implements Self Snoop</value>
@@ -704,7 +742,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
     <value>TSX suspend load address tracking</value>
   </data>
   <data name="TSX_FORCE_ABORT" xml:space="preserve">
-    <value>-</value>
+    <value>RTM_FORCE_ABORT supported. Processors that set this bit support the
+IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
+(RTM_FORCE_ABORT)</value>
   </data>
   <data name="UINTR" xml:space="preserve">
     <value>User Space Interrupts</value>
