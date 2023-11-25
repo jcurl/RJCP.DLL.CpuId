@@ -33,8 +33,8 @@
         private static readonly string[] CpuId07Ecx = new[] {
             "", "", "UMIP", "PKU", "OSPKE", "", "", "CET_SS",
             "", "VAES", "VPCLMULQDQ", "", "", "", "", "",
-            "", "", "", "", "", "", "RDPID", "",
-            "", "", "", "", "", "", "", ""
+            "LA57", "", "", "", "", "", "RDPID", "",
+            "BUS_LOCK_DETECT", "", "", "", "", "", "", ""
         };
 
         private static readonly string[] CpuId07Edx = new[] {
@@ -69,14 +69,21 @@
             "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", "", "MBE", "",
             "MCOMMIT", "WBNOINVD", "", "", "IBPB", "INT_WBINVD", "IBRS", "STIBP",
             "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "IBRS_SMP", "EFER.LMSLE", "INVLPGB_NESTED", "", "PPIN",
-            "SSBD", "", "", "", "", "", "", ""
+            "SSBD", "SSBD_VirtSpecCtrl", "SSBD_NotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", ""
         };
 
-        private static readonly string[] CpuId81FEbx = new[] {
-            "SME", "SEV", "PageFlushMsr", "ES", "SNP", "", "", "",
+        private static readonly string[] CpuId81AEax = new[] {
+            "FP128", "MOVU", "FP256", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId81FEbx = new[] {
+            "SME", "SEV", "PageFlushMsr", "SEV-ES", "SEV-SNP", "VMPL", "RMPQUERY", "VmplSSS",
+            "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "SEV-64", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
+            "VTE", "VmgexitParameter", "VirtualTomMsr", "IbsVirtGuestCtl", "", "", "", "",
+            "VmsaRegProt", "SmtProtection", "SvsmCommPageMSR", "NestedVirtSnpMsr", "", "", "", ""
         };
 
         private FeatureCheck FeatureCheck { get; set; }
@@ -93,6 +100,7 @@
             FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].ECX", CpuId81Ecx);
             FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].EDX", CpuId81Edx);
             FeatureCheck.AddFeatureSet("extended", "CPUID[80000008h].EBX", CpuId88Ebx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID[8000001Ah].EAX", CpuId81AEax);
             FeatureCheck.AddFeatureSet("extended", "CPUID[8000001Fh].EBX", CpuId81FEbx);
         }
         private AuthenticAmdCpu GetCpu(string fileName)

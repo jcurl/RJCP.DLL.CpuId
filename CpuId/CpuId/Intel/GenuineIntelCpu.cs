@@ -326,7 +326,7 @@
                         TestFeature("CET_SSS", features7s1, 3, 18);
                         ReservedFeature(features7s1, 3, unchecked((int)0xFFFBFFFF));
                     }
-               }
+                }
 
                 if (features7.Result[0] > 1) {
                     CpuIdRegister features7s2 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 2);

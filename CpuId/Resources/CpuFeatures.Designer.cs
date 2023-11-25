@@ -142,6 +142,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternate Injection supported.
+        /// </summary>
+        internal static string ALTERNATEINJECTION {
+            get {
+                return ResourceManager.GetString("ALTERNATEINJECTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOCK MOV CR0 means MOV CR8.
         /// </summary>
         internal static string AM {
@@ -412,6 +421,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The processor is not affected by branch type confusion..
+        /// </summary>
+        internal static string BTC_NO {
+            get {
+                return ResourceManager.GetString("BTC_NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Support for OS bus-lock detection.
         /// </summary>
         internal static string BUS_LOCK_DETECT {
@@ -529,6 +547,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collaborative Processor Performance Control.
+        /// </summary>
+        internal static string CPPC {
+            get {
+                return ResourceManager.GetString("CPPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CMPXCHG8 instruction.
         /// </summary>
         internal static string CX8 {
@@ -570,6 +597,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string DE {
             get {
                 return ResourceManager.GetString("DE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full debug state swap supported for SEV-ES guests.
+        /// </summary>
+        internal static string DEBUGSWAP {
+            get {
+                return ResourceManager.GetString("DEBUGSWAP", resourceCulture);
             }
         }
         
@@ -637,15 +673,6 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Encrypted State supported.
-        /// </summary>
-        internal static string ES {
-            get {
-                return ResourceManager.GetString("ES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Extended APIC space. Presence of extended APIC register.
         /// </summary>
         internal static string EXTAPICSPACE {
@@ -696,6 +723,24 @@ namespace RJCP.Diagnostics.Resources {
         internal static string FMA4 {
             get {
                 return ResourceManager.GetString("FMA4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The internal FP/SIMD execution data path is 128 bits wide..
+        /// </summary>
+        internal static string FP128 {
+            get {
+                return ResourceManager.GetString("FP128", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The internal FP/SIMD execution data path is 256 bits wide.
+        /// </summary>
+        internal static string FP256 {
+            get {
+                return ResourceManager.GetString("FP256", resourceCulture);
             }
         }
         
@@ -808,6 +853,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hardware cache coherency across encryption domains enforced.
+        /// </summary>
+        internal static string HWENVCACHECOH {
+            get {
+                return ResourceManager.GetString("HWENVCACHECOH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processor identified as a hybrid part.
         /// </summary>
         internal static string HYBRID {
@@ -916,7 +970,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IBRS provides Same Mode Protection.
+        ///   Looks up a localized string similar to IBRS provides Same Mode Protection speculation limits.
         /// </summary>
         internal static string IBRS_SMP {
             get {
@@ -930,6 +984,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string IBS {
             get {
                 return ResourceManager.GetString("IBS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBS Virtualization supported for SEV-ES guests.
+        /// </summary>
+        internal static string IBSVIRTGUESTCTL {
+            get {
+                return ResourceManager.GetString("IBSVIRTGUESTCTL", resourceCulture);
             }
         }
         
@@ -975,6 +1038,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INVPCID {
             get {
                 return ResourceManager.GetString("INVPCID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The processor clears the return address predictor when MSR PRED_CMD.IBPB is written to 1..
+        /// </summary>
+        internal static string IPBP_RET {
+            get {
+                return ResourceManager.GetString("IPBP_RET", resourceCulture);
             }
         }
         
@@ -1060,7 +1132,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Memory Bandwidth Enforcement.
+        ///   Looks up a localized string similar to Memory Bandwidth Enforcement (or sometimes BE).
         /// </summary>
         internal static string MBE {
             get {
@@ -1186,6 +1258,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MOVU SSE instructions are more efficient and should be preferred to SSE MOVL/MOVH. MOVUPS is more efficient than MOVLPS/MOVHPS. MOVUPD is more efficient than MOVLPD/MOVHPD.
+        /// </summary>
+        internal static string MOVU {
+            get {
+                return ResourceManager.GetString("MOVU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multi-Processor capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable..
         /// </summary>
         internal static string MP {
@@ -1218,6 +1299,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string MTRR {
             get {
                 return ResourceManager.GetString("MTRR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIRT_RMPUPDATE MSR (C001_F001h) and VIRT_PSMASH MSR (C001_F002h) supported.
+        /// </summary>
+        internal static string NESTEDVIRTSNPMSR {
+            get {
+                return ResourceManager.GetString("NESTEDVIRTSNPMSR", resourceCulture);
             }
         }
         
@@ -1420,6 +1510,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache Allocation Strategy.
+        /// </summary>
+        internal static string PQE {
+            get {
+                return ResourceManager.GetString("PQE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform QoS Monitoring.
+        /// </summary>
+        internal static string PQM {
+            get {
+                return ResourceManager.GetString("PQM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prefetch data into caches in anticipation of a write.
         /// </summary>
         internal static string PREFETCHW {
@@ -1434,6 +1542,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string PREFETCHWT1 {
             get {
                 return ResourceManager.GetString("PREFETCHWT1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disallowing IBS use by the host supported.
+        /// </summary>
+        internal static string PREVENTHOSTIBS {
+            get {
+                return ResourceManager.GetString("PREVENTHOSTIBS", resourceCulture);
             }
         }
         
@@ -1537,6 +1654,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restricted Injection supported.
+        /// </summary>
+        internal static string RESTRICTEDINJECTION {
+            get {
+                return ResourceManager.GetString("RESTRICTEDINJECTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RMPQUERY Instruction supported.
+        /// </summary>
+        internal static string RMPQUERY {
+            get {
+                return ResourceManager.GetString("RMPQUERY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour.
         /// </summary>
         internal static string RRSBA_CTRL {
@@ -1574,6 +1709,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Secure TSC supported.
+        /// </summary>
+        internal static string SECURETSC {
+            get {
+                return ResourceManager.GetString("SECURETSC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fast System Call, SYSENTER and SYSEXIT instructions.
         /// </summary>
         internal static string SEP {
@@ -1597,6 +1741,33 @@ namespace RJCP.Diagnostics.Resources {
         internal static string SEV {
             get {
                 return ResourceManager.GetString("SEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEV guest execution only allowed from a 64-bit host.
+        /// </summary>
+        internal static string SEV_64 {
+            get {
+                return ResourceManager.GetString("SEV-64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Encrypted State supported.
+        /// </summary>
+        internal static string SEV_ES {
+            get {
+                return ResourceManager.GetString("SEV-ES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Secure Nested Paging supported.
+        /// </summary>
+        internal static string SEV_SNP {
+            get {
+                return ResourceManager.GetString("SEV-SNP", resourceCulture);
             }
         }
         
@@ -1673,6 +1844,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SMT Protection supported.
+        /// </summary>
+        internal static string SMTPROTECTION {
+            get {
+                return ResourceManager.GetString("SMTPROTECTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Safer Mode Extensions.
         /// </summary>
         internal static string SMX {
@@ -1682,16 +1862,7 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEV (Secure Encrypted Virtualization) Secure Nested Paging supported.
-        /// </summary>
-        internal static string SNP {
-            get {
-                return ResourceManager.GetString("SNP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
+        ///   Looks up a localized string similar to Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
         ///(RNGDS_MITG_DIS) is also supported.
         /// </summary>
         internal static string SRBDS_CTRL {
@@ -1715,6 +1886,24 @@ namespace RJCP.Diagnostics.Resources {
         internal static string SSBD {
             get {
                 return ResourceManager.GetString("SSBD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSBD not needed on this processor.
+        /// </summary>
+        internal static string SSBD_NOTREQUIRED {
+            get {
+                return ResourceManager.GetString("SSBD_NOTREQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use VIRT_SPEC_CTRL for SSBD.
+        /// </summary>
+        internal static string SSBD_VIRTSPECCTRL {
+            get {
+                return ResourceManager.GetString("SSBD_VIRTSPECCTRL", resourceCulture);
             }
         }
         
@@ -1819,6 +2008,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SVSM Communication Page MSR (C001_F000h) is supported.
+        /// </summary>
+        internal static string SVSMCOMMPAGEMSR {
+            get {
+                return ResourceManager.GetString("SVSMCOMMPAGEMSR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SYSCALL and SYSRET instructions are supported.
         /// </summary>
         internal static string SYSCALL {
@@ -1900,6 +2098,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TSC AUX Virtualisation supported.
+        /// </summary>
+        internal static string TSCAUXVIRTUALIZATION {
+            get {
+                return ResourceManager.GetString("TSCAUXVIRTUALIZATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RTM_FORCE_ABORT supported. Processors that set this bit support the
         ///IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
         ///(RTM_FORCE_ABORT).
@@ -1947,6 +2154,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual TOM MSR supported.
+        /// </summary>
+        internal static string VIRTUALTOMMSR {
+            get {
+                return ResourceManager.GetString("VIRTUALTOMMSR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Virtual 8086 Mode Extensions.
         /// </summary>
         internal static string VME {
@@ -1956,11 +2172,38 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VMGEXIT Parameter supported.
+        /// </summary>
+        internal static string VMGEXITPARAMETER {
+            get {
+                return ResourceManager.GetString("VMGEXITPARAMETER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VM Permission Levels supported.
         /// </summary>
         internal static string VMPL {
             get {
                 return ResourceManager.GetString("VMPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VMPL Supervisor Shadow Stack supported.
+        /// </summary>
+        internal static string VMPLSSS {
+            get {
+                return ResourceManager.GetString("VMPLSSS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VMSA Register Protection supported.
+        /// </summary>
+        internal static string VMSAREGPROT {
+            get {
+                return ResourceManager.GetString("VMSAREGPROT", resourceCulture);
             }
         }
         

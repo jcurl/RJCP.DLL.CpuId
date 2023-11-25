@@ -8,7 +8,7 @@
     public class AuthenticAmdCpu : GenericIntelCpuBase
     {
         // Reference Documents
-        //  [6]   AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.31, October 2020
+        //  [6]   AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.35, June 2023
         //  [6a]  AMD, "AMD64 Architecture Programmers Manual, Volume 3: General-Purpose and System Instructions", Document #24594 Rev 3.20, May 2013
         //  [8]   AMD, "Reference PPR for AMD Family 17h Model 18h, Rev B1 Processors", Document #55570-B1 Rev 3.15, Jul 9, 2020
         //  [9]   AMD, "BIOS and Kernel Developer's Guide (BKDG) for AMD Family 15h Models 10h-1Fh Processors", Document #42300 Rev 3.12, July 14, 2015
@@ -19,7 +19,7 @@
         internal const int CacheTlb = unchecked((int)0x80000005);
         internal const int CacheL2Tlb = unchecked((int)0x80000006);
         internal const int CacheTlb1G = unchecked((int)0x80000019);
-        internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
+        internal const int PerfOptIdent = unchecked((int)0x8000001A);
         internal const int CacheTopo = unchecked((int)0x8000001D);
         internal const int ProcessorTopo = unchecked((int)0x8000001E);
 
@@ -115,11 +115,12 @@
                 if (Family == 5 && Model == 0) {
                     // [17] says AMD K5 Model 0, bit 9 is for PGE, where bit 13 is reserved.
                     TestFeature("PGE", features, 3, 9);
+                    ReservedFeature(features, 3, unchecked((int)0xE8742400));
                 } else {
                     TestFeature("APIC", features, 3, 9);
                     TestFeature("PGE", features, 3, 13);
+                    ReservedFeature(features, 3, unchecked((int)0xE8740400));
                 }
-                ReservedFeature(features, 3, unchecked((int)0xE8740400));
 
                 TestFeature("SSE3", features, 2, 0);
                 TestFeature("PCLMULQDQ", features, 2, 1);
@@ -159,7 +160,6 @@
                 TestFeature("RDSEED", features7, 1, 18);
                 TestFeature("ADX", features7, 1, 19);
                 TestFeature("SMAP", features7, 1, 20);
-                // [6] has an error, bit 22 is not RDPID as given on p606
                 TestFeature("CLFLUSHOPT", features7, 1, 23);
                 TestFeature("CLWB", features7, 1, 24);
                 TestFeature("SHA", features7, 1, 29);
@@ -171,10 +171,14 @@
                 TestFeature("CET_SS", features7, 2, 7);
                 TestFeature("VAES", features7, 2, 9);
                 TestFeature("VPCLMULQDQ", features7, 2, 10);
-                ReservedFeature(features7, 2, unchecked((int)0xFFBFF963));
+                TestFeature("LA57", features7, 2, 16);
+                TestFeature("BUS_LOCK_DETECT", features7, 2, 24);
+                // [6] has an error in the table CPUID Fn0000_0007_EBX_x0, CPUID EAX=07h, ECX=0, EBX[22] is not RDPID.
+                // The instruction RPID, and table D-1, correctly specifies this register, itself specifies ECX[22].
+                TestFeature("RDPID", features7, 2, 22);
+                ReservedFeature(features7, 2, unchecked((int)0xFEBEF963));
 
-                TestFeature("RDPID", features7, 3, 22);
-                ReservedFeature(features7, 3, unchecked((int)0xFFBFFFFF));
+                ReservedFeature(features7, 3, unchecked((int)0xFFFFFFFF));
 
                 if (features7.Result[0] > 0) {
                     for (int subfunction = 1; subfunction < features7.Result[0]; subfunction++) {
@@ -221,18 +225,18 @@
                 TestFeature("WDT", extfeat, 2, 13);
                 TestFeature("LWP", extfeat, 2, 15);
                 TestFeature("FMA4", extfeat, 2, 16);
-                TestFeature("TCE", extfeat, 2, 17);                  // [9]
+                TestFeature("TCE", extfeat, 2, 17);
                 TestFeature("NODEID", extfeat, 2, 19);               // [9]
-                TestFeature("TBM", extfeat, 2, 21);                  // [9]
+                TestFeature("TBM", extfeat, 2, 21);
                 TestFeature("TOPX", extfeat, 2, 22);                 // TopologyExtensions
                 TestFeature("PerfCtrExtCore", extfeat, 2, 23);
                 TestFeature("PerfCtrExtNB", extfeat, 2, 24);
                 TestFeature("StreamPerfMon", extfeat, 2, 25);        // [6a], now reserved
                 TestFeature("DBE", extfeat, 2, 26);
                 TestFeature("PerfTSC", extfeat, 2, 27);
-                TestFeature("PerfL2I", extfeat, 2, 28);              // Sandpile.org
+                TestFeature("PerfL2I", extfeat, 2, 28);
                 TestFeature("MONITORX", extfeat, 2, 29);
-                TestFeature("ADMSK", extfeat, 2, 30);                // [10]
+                TestFeature("ADMSK", extfeat, 2, 30);
                 ReservedFeature(extfeat, 2, unchecked((int)0x80144000));
 
                 TestFeature("SYSCALL", extfeat, 3, 11);
@@ -247,42 +251,68 @@
                 TestFeature("3DNow", extfeat, 3, 31);
                 // 3DNowPrefetch ECX[8] || EDX[29] || EDX[31]
                 Features["PREFETCHW"] |= Features["LM"] || Features["3DNow"];
-                // The following are duplicated from 0000_0001h.EDX
-                //  0: FPU       8: CX8      16: PAT      24: FXSR
-                //  1: VME       9: APIC     17: PSE-36   25:
-                //  2: DE       10: (RSVD)   18: (RSVD)   26:
-                //  3: PSE      11: SEP      19:          27:
-                //  4: TSC      12: MTRR     20:          28: (RSVD)
-                //  5: MSR      13: PGE      21: (RSVD)   29:
-                //  6: PAE      14: MCA      22:          30:
-                //  7: MCE      15: CMOV     23: MMX      31:
+
+                TestFeature("FPU", extfeat, 3, 0);      // Duplicated from 0000_0001h.EDX
+                TestFeature("VME", extfeat, 3, 1);      // Duplicated from 0000_0001h.EDX
+                TestFeature("DE", extfeat, 3, 2);       // Duplicated from 0000_0001h.EDX
+                TestFeature("PSE", extfeat, 3, 3);      // Duplicated from 0000_0001h.EDX
+                TestFeature("TSC", extfeat, 3, 4);      // Duplicated from 0000_0001h.EDX
+                TestFeature("MSR", extfeat, 3, 5);      // Duplicated from 0000_0001h.EDX
+                TestFeature("PAE", extfeat, 3, 6);      // Duplicated from 0000_0001h.EDX
+                TestFeature("MCE", extfeat, 3, 7);      // Duplicated from 0000_0001h.EDX
+                TestFeature("CX8", extfeat, 3, 8);      // Duplicated from 0000_0001h.EDX
+                TestFeature("APIC", extfeat, 3, 9);     // Duplicated from 0000_0001h.EDX
+                TestFeature("SEP", extfeat, 3, 11);     // Duplicated from 0000_0001h.EDX
+                TestFeature("MTRR", extfeat, 3, 12);    // Duplicated from 0000_0001h.EDX
+                TestFeature("PGE", extfeat, 3, 13);     // Duplicated from 0000_0001h.EDX
+                TestFeature("MCA", extfeat, 3, 14);     // Duplicated from 0000_0001h.EDX
+                TestFeature("CMOV", extfeat, 3, 15);    // Duplicated from 0000_0001h.EDX
+                TestFeature("PAT", extfeat, 3, 16);     // Duplicated from 0000_0001h.EDX
+                TestFeature("PSE-36", extfeat, 3, 17);  // Duplicated from 0000_0001h.EDX
+                TestFeature("MMX", extfeat, 3, 23);     // Duplicated from 0000_0001h.EDX
+                TestFeature("FXSR", extfeat, 3, 24);    // Duplicated from 0000_0001h.EDX
                 ReservedFeature(extfeat, 3, 0x10240400);
             }
 
-            if (cpu.ExtendedFunctionCount < ExtendedLmApicId - MaxExtendedFunction) return;
-            CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedLmApicId, 0);
+            if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
+            CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
             if (extfeat8 != null) {
                 TestFeature("CLZERO", extfeat8, 1, 0);
                 TestFeature("IRPERF", extfeat8, 1, 1);            // Instruction Retired Counter
                 TestFeature("ASRFPEP", extfeat8, 1, 2);           // Error Pointer Zero/Restore
                 TestFeature("INVLPGB", extfeat8, 1, 3);
                 TestFeature("RDPRU", extfeat8, 1, 4);
-                TestFeature("MBE", extfeat8, 1, 6);               // [10]
+                TestFeature("MBE", extfeat8, 1, 6);
                 TestFeature("MCOMMIT", extfeat8, 1, 8);
                 TestFeature("WBNOINVD", extfeat8, 1, 9);
-                TestFeature("IBPB", extfeat8, 1, 12);             // [10]
-                TestFeature("INT_WBINVD", extfeat8, 1, 13);       // [10]
-                TestFeature("IBRS", extfeat8, 1, 14);             // [10]
-                TestFeature("STIBP", extfeat8, 1, 15);            // [10]
-                TestFeature("IBRS_ALL", extfeat8, 1, 16);         // Sandpile.org
-                TestFeature("STIBP_ALL", extfeat8, 1, 17);        // [10]
-                TestFeature("IBRS_PREF", extfeat8, 1, 18);        // [10]
-                TestFeature("IBRS_SMP", extfeat8, 1, 19);         // [10]
+                TestFeature("IBPB", extfeat8, 1, 12);
+                TestFeature("INT_WBINVD", extfeat8, 1, 13);
+                TestFeature("IBRS", extfeat8, 1, 14);
+                TestFeature("STIBP", extfeat8, 1, 15);
+                TestFeature("IBRS_ALL", extfeat8, 1, 16);
+                TestFeature("STIBP_ALL", extfeat8, 1, 17);
+                TestFeature("IBRS_PREF", extfeat8, 1, 18);
+                TestFeature("IBRS_SMP", extfeat8, 1, 19);
                 TestFeature("EFER.LMSLE", extfeat8, 1, 20);
                 TestFeature("INVLPGB_NESTED", extfeat8, 1, 21);
                 TestFeature("PPIN", extfeat8, 1, 23);             // [10]
-                TestFeature("SSBD", extfeat8, 1, 24);             // [10]
-                ReservedFeature(extfeat8, 1, unchecked((int)0xFE400CA0));
+                TestFeature("SSBD", extfeat8, 1, 24);
+                TestFeature("SSBD_VirtSpecCtrl", extfeat8, 1, 25);
+                TestFeature("SSBD_NotRequired", extfeat8, 1, 26);
+                TestFeature("CPPC", extfeat8, 1, 27);
+                TestFeature("PSFD", extfeat8, 1, 28);
+                TestFeature("BTC_NO", extfeat8, 1, 29);
+                TestFeature("IPBP_RET", extfeat8, 1, 30);
+                ReservedFeature(extfeat8, 1, unchecked((int)0x80400CA0));
+            }
+
+            if (cpu.ExtendedFunctionCount < PerfOptIdent - MaxExtendedFunction) return;
+            CpuIdRegister extfeat1a = cpu.CpuRegisters.GetCpuId(PerfOptIdent, 0);
+            if (extfeat1a != null) {
+                TestFeature("FP128", extfeat1a, 0, 0);
+                TestFeature("MOVU", extfeat1a, 0, 1);
+                TestFeature("FP256", extfeat1a, 0, 2);
+                ReservedFeature(extfeat1a, 0, unchecked((int)0xFFFFFFF8));
             }
 
             if (cpu.ExtendedFunctionCount < ExtendedEncMem - MaxExtendedFunction) return;
@@ -291,11 +321,29 @@
                 TestFeature("SME", extfeat1f, 0, 0);
                 TestFeature("SEV", extfeat1f, 0, 1);
                 TestFeature("PageFlushMsr", extfeat1f, 0, 2);
-                TestFeature("ES", extfeat1f, 0, 3);
-                TestFeature("SNP", extfeat1f, 0, 4);
+                TestFeature("SEV-ES", extfeat1f, 0, 3);
+                TestFeature("SEV-SNP", extfeat1f, 0, 4);
                 TestFeature("VMPL", extfeat1f, 0, 5);
+                TestFeature("RMPQUERY", extfeat1f, 0, 6);
+                TestFeature("VmplSSS", extfeat1f, 0, 7);
+                TestFeature("SecureTsc", extfeat1f, 0, 8);
+                TestFeature("TscAuxVirtualization", extfeat1f, 0, 9);
+                TestFeature("HwEnvCacheCoh", extfeat1f, 0, 10);
+                TestFeature("SEV-64", extfeat1f, 0, 11);
+                TestFeature("RestrictedInjection", extfeat1f, 0, 12);
+                TestFeature("AlternateInjection", extfeat1f, 0, 13);
+                TestFeature("DebugSwap", extfeat1f, 0, 14);
+                TestFeature("PreventHostIbs", extfeat1f, 0, 15);
                 TestFeature("VTE", extfeat1f, 0, 16);
-                ReservedFeature(extfeat1f, 0, unchecked((int)0xFFFEFFC0));
+                TestFeature("VmgexitParameter", extfeat1f, 0, 17);
+                TestFeature("VirtualTomMsr", extfeat1f, 0, 18);
+                TestFeature("IbsVirtGuestCtl", extfeat1f, 0, 19);
+                TestFeature("VmsaRegProt", extfeat1f, 0, 24);
+                TestFeature("SmtProtection", extfeat1f, 0, 25);
+                TestFeature("SvsmCommPageMSR", extfeat1f, 0, 28);
+                TestFeature("NestedVirtSnpMsr", extfeat1f, 0, 29);
+
+                ReservedFeature(extfeat1f, 0, unchecked((int)0xCCF00000));
             }
         }
 

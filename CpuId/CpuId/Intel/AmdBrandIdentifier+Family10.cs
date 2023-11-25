@@ -356,7 +356,7 @@
                 CpuIdRegister pkgReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
                 int pkgType = (pkgReg.Result[1] >> 28) & 0xF;
 
-                CpuIdRegister ncReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedLmApicId, 0);
+                CpuIdRegister ncReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedFeatureIds, 0);
                 int nc = ncReg.Result[2] & 0xFF;
 
                 if (pkgType >= 2) pm -= 1;

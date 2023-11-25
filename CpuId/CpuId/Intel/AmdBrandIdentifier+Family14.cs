@@ -77,7 +77,7 @@
                 CpuIdRegister ext81Reg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
                 int pkgType = (ext81Reg.Result[1] >> 28) & 0xF;
 
-                CpuIdRegister ext88Reg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedLmApicId, 0);
+                CpuIdRegister ext88Reg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedFeatureIds, 0);
                 int nc = ext88Reg.Result[2] & 0xFF;
 
                 string pma = string.Format("{0:D02}", pm);

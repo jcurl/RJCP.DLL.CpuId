@@ -20,7 +20,7 @@
         internal const int ProcessorBrand1Function = unchecked((int)0x80000002);
         internal const int ProcessorBrand2Function = unchecked((int)0x80000003);
         internal const int ProcessorBrand3Function = unchecked((int)0x80000004);
-        internal const int ExtendedLmApicId = unchecked((int)0x80000008);
+        internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
         internal const int ExtendedEncMem = unchecked((int)0x8000001F);
 
         private readonly BasicCpu m_Cpu;
@@ -202,12 +202,10 @@
         protected void TestFeature(string feature, CpuIdRegister register, int result, int bit, bool invert)
         {
             bool value = (register.Result[result] & (1 << bit)) != 0;
-            if (invert) value = !value;
-            Features[feature] = value;
+            Features[feature] = invert ? !value : value;
 
 #if DEBUG
-            if (!m_MainFunction.Set(register.Function, register.SubFunction, result, 1 << bit))
-                throw new InvalidOperationException("Bit was already set");
+            m_MainFunction.Set(register.Function, register.SubFunction, result, 1 << bit);
 #endif
         }
 

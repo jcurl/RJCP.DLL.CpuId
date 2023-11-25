@@ -144,6 +144,9 @@
   <data name="AHF64" xml:space="preserve">
     <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
   </data>
+  <data name="ALTERNATEINJECTION" xml:space="preserve">
+    <value>Alternate Injection supported</value>
+  </data>
   <data name="AM" xml:space="preserve">
     <value>LOCK MOV CR0 means MOV CR8</value>
   </data>
@@ -234,6 +237,9 @@
   <data name="BMI2" xml:space="preserve">
     <value>Bit manipulation instructions (BZHI, MULX, PDEP, PEXT, RORX, SARX/SHLX/SHRX</value>
   </data>
+  <data name="BTC_NO" xml:space="preserve">
+    <value>The processor is not affected by branch type confusion.</value>
+  </data>
   <data name="BUS_LOCK_DETECT" xml:space="preserve">
     <value>Support for OS bus-lock detection</value>
   </data>
@@ -273,6 +279,9 @@
   <data name="CNXT-ID" xml:space="preserve">
     <value>L1 Context ID</value>
   </data>
+  <data name="CPPC" xml:space="preserve">
+    <value>Collaborative Processor Performance Control</value>
+  </data>
   <data name="CX8" xml:space="preserve">
     <value>CMPXCHG8 instruction</value>
   </data>
@@ -287,6 +296,9 @@
   </data>
   <data name="DE" xml:space="preserve">
     <value>Debugging Extensions</value>
+  </data>
+  <data name="DEBUGSWAP" xml:space="preserve">
+    <value>Full debug state swap supported for SEV-ES guests</value>
   </data>
   <data name="DS" xml:space="preserve">
     <value>Debug Store, trace of executed jumps</value>
@@ -309,9 +321,6 @@
   <data name="ERMS" xml:space="preserve">
     <value>Enhanced REP MOVSB/STOSB</value>
   </data>
-  <data name="ES" xml:space="preserve">
-    <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
-  </data>
   <data name="EXTAPICSPACE" xml:space="preserve">
     <value>Extended APIC space. Presence of extended APIC register</value>
   </data>
@@ -329,6 +338,12 @@
   </data>
   <data name="FMA4" xml:space="preserve">
     <value>Four-operand FMA instruction support</value>
+  </data>
+  <data name="FP128" xml:space="preserve">
+    <value>The internal FP/SIMD execution data path is 128 bits wide.</value>
+  </data>
+  <data name="FP256" xml:space="preserve">
+    <value>The internal FP/SIMD execution data path is 256 bits wide</value>
   </data>
   <data name="FPU" xml:space="preserve">
     <value>Floating-point Unit On-Chip</value>
@@ -365,6 +380,9 @@
   </data>
   <data name="HTT" xml:space="preserve">
     <value>Multi-Threading</value>
+  </data>
+  <data name="HWENVCACHECOH" xml:space="preserve">
+    <value>Hardware cache coherency across encryption domains enforced</value>
   </data>
   <data name="HYBRID" xml:space="preserve">
     <value>Processor identified as a hybrid part</value>
@@ -403,10 +421,13 @@
     <value>IBRS preferred</value>
   </data>
   <data name="IBRS_SMP" xml:space="preserve">
-    <value>IBRS provides Same Mode Protection</value>
+    <value>IBRS provides Same Mode Protection speculation limits</value>
   </data>
   <data name="IBS" xml:space="preserve">
     <value>Instruction based sampling</value>
+  </data>
+  <data name="IBSVIRTGUESTCTL" xml:space="preserve">
+    <value>IBS Virtualization supported for SEV-ES guests</value>
   </data>
   <data name="INTEL_PT" xml:space="preserve">
     <value>Intel Processor Trace</value>
@@ -422,6 +443,9 @@
   </data>
   <data name="INVPCID" xml:space="preserve">
     <value>INVPCID instruction for system software that manages process-context identifiers</value>
+  </data>
+  <data name="IPBP_RET" xml:space="preserve">
+    <value>The processor clears the return address predictor when MSR PRED_CMD.IBPB is written to 1.</value>
   </data>
   <data name="IPRED_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
@@ -451,7 +475,7 @@
     <value>Lightweight profiling support</value>
   </data>
   <data name="MBE" xml:space="preserve">
-    <value>Memory Bandwidth Enforcement</value>
+    <value>Memory Bandwidth Enforcement (or sometimes BE)</value>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
@@ -492,6 +516,9 @@
   <data name="MOVDIRI" xml:space="preserve">
     <value>MOVDIRI instruction</value>
   </data>
+  <data name="MOVU" xml:space="preserve">
+    <value>MOVU SSE instructions are more efficient and should be preferred to SSE MOVL/MOVH. MOVUPS is more efficient than MOVLPS/MOVHPS. MOVUPD is more efficient than MOVLPD/MOVHPD</value>
+  </data>
   <data name="MP" xml:space="preserve">
     <value>Multi-Processor capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable.</value>
   </data>
@@ -503,6 +530,9 @@
   </data>
   <data name="MTRR" xml:space="preserve">
     <value>Memory Type Range Registers</value>
+  </data>
+  <data name="NESTEDVIRTSNPMSR" xml:space="preserve">
+    <value>VIRT_RMPUPDATE MSR (C001_F001h) and VIRT_PSMASH MSR (C001_F002h) supported</value>
   </data>
   <data name="NODEID" xml:space="preserve">
     <value>Node ID: MSR C001_100Ch</value>
@@ -582,6 +612,9 @@
   <data name="PREFETCHWT1" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write, with T1 hint. Intel(R) Xeon Phi(TM) only</value>
   </data>
+  <data name="PREVENTHOSTIBS" xml:space="preserve">
+    <value>Disallowing IBS use by the host supported</value>
+  </data>
   <data name="PSE" xml:space="preserve">
     <value>Page Size Extension</value>
   </data>
@@ -615,6 +648,12 @@
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
   </data>
+  <data name="RESTRICTEDINJECTION" xml:space="preserve">
+    <value>Restricted Injection supported</value>
+  </data>
+  <data name="RMPQUERY" xml:space="preserve">
+    <value>RMPQUERY Instruction supported</value>
+  </data>
   <data name="RRSBA_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
   </data>
@@ -628,6 +667,9 @@ specified fallback address.</value>
   <data name="SDBG" xml:space="preserve">
     <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
   </data>
+  <data name="SECURETSC" xml:space="preserve">
+    <value>Secure TSC supported</value>
+  </data>
   <data name="SEP" xml:space="preserve">
     <value>Fast System Call, SYSENTER and SYSEXIT instructions</value>
   </data>
@@ -636,6 +678,15 @@ specified fallback address.</value>
   </data>
   <data name="SEV" xml:space="preserve">
     <value>Secure Encrypted Virtualization supported</value>
+  </data>
+  <data name="SEV-64" xml:space="preserve">
+    <value>SEV guest execution only allowed from a 64-bit host</value>
+  </data>
+  <data name="SEV-ES" xml:space="preserve">
+    <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
+  </data>
+  <data name="SEV-SNP" xml:space="preserve">
+    <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
   </data>
   <data name="SGX" xml:space="preserve">
     <value>Intel(R) Software Guard Extensions</value>
@@ -661,11 +712,11 @@ specified fallback address.</value>
   <data name="SMEP" xml:space="preserve">
     <value>Supervisor Mode Execution Prevention</value>
   </data>
+  <data name="SMTPROTECTION" xml:space="preserve">
+    <value>SMT Protection supported</value>
+  </data>
   <data name="SMX" xml:space="preserve">
     <value>Safer Mode Extensions</value>
-  </data>
-  <data name="SNP" xml:space="preserve">
-    <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
   </data>
   <data name="SRBDS_CTRL" xml:space="preserve">
     <value>Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
@@ -676,6 +727,12 @@ specified fallback address.</value>
   </data>
   <data name="SSBD" xml:space="preserve">
     <value>Speculative Store Bypass Disable (SSBD)</value>
+  </data>
+  <data name="SSBD_NOTREQUIRED" xml:space="preserve">
+    <value>SSBD not needed on this processor</value>
+  </data>
+  <data name="SSBD_VIRTSPECCTRL" xml:space="preserve">
+    <value>Use VIRT_SPEC_CTRL for SSBD</value>
   </data>
   <data name="SSE" xml:space="preserve">
     <value>Streaming SIMD Extensions</value>
@@ -711,6 +768,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="SVM" xml:space="preserve">
     <value>Secure Virtual Machine</value>
   </data>
+  <data name="SVSMCOMMPAGEMSR" xml:space="preserve">
+    <value>SVSM Communication Page MSR (C001_F000h) is supported</value>
+  </data>
   <data name="SYSCALL" xml:space="preserve">
     <value>SYSCALL and SYSRET instructions are supported</value>
   </data>
@@ -738,6 +798,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TSC-DEADLINE" xml:space="preserve">
     <value>Time Stamp Counter Deadline supported by APIC</value>
   </data>
+  <data name="TSCAUXVIRTUALIZATION" xml:space="preserve">
+    <value>TSC AUX Virtualisation supported</value>
+  </data>
   <data name="TSXLDTRK" xml:space="preserve">
     <value>TSX suspend load address tracking</value>
   </data>
@@ -755,11 +818,23 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="VAES" xml:space="preserve">
     <value>Vectored AES 128-bit on vectored data 256bit registers</value>
   </data>
+  <data name="VIRTUALTOMMSR" xml:space="preserve">
+    <value>Virtual TOM MSR supported</value>
+  </data>
   <data name="VME" xml:space="preserve">
     <value>Virtual 8086 Mode Extensions</value>
   </data>
+  <data name="VMGEXITPARAMETER" xml:space="preserve">
+    <value>VMGEXIT Parameter supported</value>
+  </data>
   <data name="VMPL" xml:space="preserve">
     <value>VM Permission Levels supported</value>
+  </data>
+  <data name="VMPLSSS" xml:space="preserve">
+    <value>VMPL Supervisor Shadow Stack supported</value>
+  </data>
+  <data name="VMSAREGPROT" xml:space="preserve">
+    <value>VMSA Register Protection supported</value>
   </data>
   <data name="VMX" xml:space="preserve">
     <value>Virtual Machine Extensions</value>

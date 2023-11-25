@@ -83,7 +83,7 @@
                 CpuIdRegister pkgReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
                 int pkgType = (pkgReg.Result[0] & 0x30) >> 4;
 
-                CpuIdRegister cmpReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedLmApicId, 0);
+                CpuIdRegister cmpReg = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedFeatureIds, 0);
                 int cmpCap = (cmpReg.Result[2] & 0xFF) == 0 ? 0 : 1;
 
                 switch (pkgType) {

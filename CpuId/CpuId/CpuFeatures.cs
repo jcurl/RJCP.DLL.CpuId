@@ -30,7 +30,11 @@
                 if (m_Features.TryGetValue(key, out bool value)) return value;
                 return false;
             }
-            internal set { m_Features[key] = value; }
+            internal set
+            {
+                if (m_Features.ContainsKey(key)) return;
+                m_Features[key] = value;
+            }
         }
 
         /// <summary>
