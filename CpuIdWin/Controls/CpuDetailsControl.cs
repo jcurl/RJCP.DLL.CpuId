@@ -34,7 +34,7 @@
 
         private static string GetHypervisor(ICpuIdX86 x86Cpu)
         {
-            if (!x86Cpu.Features["HYPERVISOR"]) return null;
+            if (!x86Cpu.Features["HYPERVISOR"].Value) return null;
 
             CpuIdRegister hyper = x86Cpu.Registers.GetCpuId(HypervisorFunction, 0);
             return GetHypervisor(hyper);

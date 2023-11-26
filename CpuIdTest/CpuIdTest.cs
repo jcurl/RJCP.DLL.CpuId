@@ -65,7 +65,7 @@
 
             foreach (string feature in cpu.Features) {
                 Console.WriteLine("Feature: [{0}] {1} ({2})",
-                    cpu.Features[feature] ? "X" : "-", feature, cpu.Features.Description(feature));
+                    cpu.Features[feature].Value ? "X" : "-", feature, cpu.Features[feature].Description);
             }
         }
     }

@@ -114,6 +114,11 @@
     <Compile Include="Native\User32.cs" />
     <Compile Include="Native\UxTheme.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Resources\UserInterface.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserInterface.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controls\CpuCacheControl.resx">
       <DependentUpon>CpuCacheControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,17 +140,15 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources\UserInterface.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>UserInterface.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

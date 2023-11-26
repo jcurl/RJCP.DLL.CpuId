@@ -30,6 +30,7 @@
         {
             this.lvwFeatures = new RJCP.Diagnostics.CpuIdWin.Controls.ThemeListView();
             this.hdrFeature = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.hdrBits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
@@ -42,14 +43,16 @@
             this.lvwFeatures.CheckBoxes = true;
             this.lvwFeatures.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.hdrFeature,
+            this.hdrBits,
             this.hdrDescription});
             this.lvwFeatures.FullRowSelect = true;
+            this.lvwFeatures.GridLines = true;
             this.lvwFeatures.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwFeatures.HideSelection = false;
+            this.lvwFeatures.LabelWrap = false;
             this.lvwFeatures.Location = new System.Drawing.Point(3, 3);
             this.lvwFeatures.MultiSelect = false;
             this.lvwFeatures.Name = "lvwFeatures";
-            this.lvwFeatures.ShowGroups = false;
             this.lvwFeatures.Size = new System.Drawing.Size(474, 314);
             this.lvwFeatures.TabIndex = 0;
             this.lvwFeatures.UseCompatibleStateImageBehavior = false;
@@ -60,6 +63,10 @@
             // 
             this.hdrFeature.Text = "Feature";
             this.hdrFeature.Width = 105;
+            // 
+            // hdrBits
+            // 
+            this.hdrBits.Text = "Bit";
             // 
             // hdrDescription
             // 
@@ -82,5 +89,6 @@
         private ThemeListView lvwFeatures;
         private System.Windows.Forms.ColumnHeader hdrFeature;
         private System.Windows.Forms.ColumnHeader hdrDescription;
+        private System.Windows.Forms.ColumnHeader hdrBits;
     }
 }

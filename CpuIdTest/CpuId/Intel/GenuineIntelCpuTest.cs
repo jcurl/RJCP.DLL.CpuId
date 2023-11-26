@@ -37,7 +37,6 @@
             "CLWB", "INTEL_PT", "AVX512PF", "AVX512ER", "AVX512CD", "SHA", "AVX512BW", "AVX512VL"
         };
 
-        // Note, AMD Doc #24594, r3.31 says RDPID is EBX[22], Intel spec says RDPID is ECX[22].
         private static readonly string[] CpuId07Ecx = new[] {
             "PREFETCHWT1", "AVX512_VBMI", "UMIP", "PKU", "OSPKE", "WAITPKG", "AVX512_VBMI2", "CET_SS",
             "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "TME_EN", "AVX512_VPOPCNTDQ", "",
@@ -46,8 +45,8 @@
         };
 
         private static readonly string[] CpuId07Edx = new[] {
-            "SGX-KEYS", "", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", "", "",
-            "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "RTM_ALWAYS_ABORT", "", "TSX_FORCE_ABORT", "SERIALIZE", "Hybrid",
+            "", "SGX-KEYS", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", "", "",
+            "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "RTM_ALWAYS_ABORT", "", "RTM_FORCE_ABORT", "SERIALIZE", "Hybrid",
             "TSXLDTRK", "", "PCONFIG", "LBR", "CET_IBT", "", "AMX_BF16", "AVX512_FP16",
             "AMX_TILE", "AMX_INT8", "IBRS_IBPB", "STIBP", "L1D_FLUSH", "IA32_ARCH_CAPABILITIES", "IA32_CORE_CAPABILITIES", "SSBD"
         };
@@ -109,7 +108,7 @@
         };
 
         private static readonly string[] CpuId13Eax = new[] {
-            "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "", "", "", "",
+            "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "XFD", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
@@ -195,8 +194,8 @@
             FeatureCheck.Check("standard", 0x00004400, 0xBFEBFBFF);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Pentium(R) 4 CPU 2.53GHz"));
-            Assert.That(cpu.Features["HTT"], Is.True);
-            Assert.That(cpu.Features["APIC"], Is.True);
+            Assert.That(cpu.Features["HTT"].Value, Is.True);
+            Assert.That(cpu.Features["APIC"].Value, Is.True);
 
             Assert.That(cpu.Topology.CoreTopology, Has.Count.EqualTo(2));
             FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 0);

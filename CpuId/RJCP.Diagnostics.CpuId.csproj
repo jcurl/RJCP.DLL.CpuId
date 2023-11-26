@@ -71,7 +71,9 @@
   <ItemGroup>
     <Compile Include="CpuIdFactory.cs" />
     <Compile Include="CpuIdXmlFactory.cs" />
+    <Compile Include="CpuId\CpuFeature.cs" />
     <Compile Include="CpuId\CpuFeatures.cs" />
+    <Compile Include="CpuId\FeatureGroup.cs" />
     <Compile Include="CpuId\ICpuId.cs" />
     <Compile Include="CpuId\Intel\AmdBrandIdentifier.cs" />
     <Compile Include="CpuId\Intel\AmdBrandIdentifier+Default.cs" />
@@ -105,6 +107,10 @@
     <Compile Include="CpuId\Intel\ICpuIdX86.cs" />
     <Compile Include="CpuId\Intel\ICpuRegisters.cs" />
     <Compile Include="CpuId\Intel\IntelLegacySignatures.cs" />
+    <Compile Include="CpuId\Intel\InternalCheck\BitMask.cs" />
+    <Compile Include="CpuId\Intel\InternalCheck\FeatureCheck.cs" />
+    <Compile Include="CpuId\Intel\InternalCheck\MainFunction.cs" />
+    <Compile Include="CpuId\Intel\InternalCheck\SubFunction.cs" />
     <Compile Include="CpuId\Intel\Topology.cs" />
     <Compile Include="CpuId\Intel\X86CpuIdFactoryXml.cs" />
     <Compile Include="CpuId\Intel\X86CpuIdFactoryBase.cs" />

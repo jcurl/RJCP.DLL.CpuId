@@ -1700,6 +1700,17 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RTM_FORCE_ABORT supported. Processors that set this bit support the
+        ///IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
+        ///(RTM_FORCE_ABORT).
+        /// </summary>
+        internal static string RTM_FORCE_ABORT {
+            get {
+                return ResourceManager.GetString("RTM_FORCE_ABORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Silicon Debug (IA32_DEBUG_INTERFACE MSR).
         /// </summary>
         internal static string SDBG {
@@ -2107,17 +2118,6 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RTM_FORCE_ABORT supported. Processors that set this bit support the
-        ///IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
-        ///(RTM_FORCE_ABORT).
-        /// </summary>
-        internal static string TSX_FORCE_ABORT {
-            get {
-                return ResourceManager.GetString("TSX_FORCE_ABORT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to TSX suspend load address tracking.
         /// </summary>
         internal static string TSXLDTRK {
@@ -2277,6 +2277,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string XD {
             get {
                 return ResourceManager.GetString("XD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports extended feature disable (XFD).
+        /// </summary>
+        internal static string XFD {
+            get {
+                return ResourceManager.GetString("XFD", resourceCulture);
             }
         }
         

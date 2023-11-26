@@ -664,6 +664,11 @@
     <value>If set, any execution of XBEGIN immediately aborts and transitions to the
 specified fallback address.</value>
   </data>
+  <data name="RTM_FORCE_ABORT" xml:space="preserve">
+    <value>RTM_FORCE_ABORT supported. Processors that set this bit support the
+IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
+(RTM_FORCE_ABORT)</value>
+  </data>
   <data name="SDBG" xml:space="preserve">
     <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
   </data>
@@ -804,11 +809,6 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TSXLDTRK" xml:space="preserve">
     <value>TSX suspend load address tracking</value>
   </data>
-  <data name="TSX_FORCE_ABORT" xml:space="preserve">
-    <value>RTM_FORCE_ABORT supported. Processors that set this bit support the
-IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
-(RTM_FORCE_ABORT)</value>
-  </data>
   <data name="UINTR" xml:space="preserve">
     <value>User Space Interrupts</value>
   </data>
@@ -860,6 +860,9 @@ MSRC001_0074</value>
   </data>
   <data name="XD" xml:space="preserve">
     <value>Execution Disable bit</value>
+  </data>
+  <data name="XFD" xml:space="preserve">
+    <value>Supports extended feature disable (XFD)</value>
   </data>
   <data name="XGETBV" xml:space="preserve">
     <value>XGETBV with ECX = 1 supported</value>

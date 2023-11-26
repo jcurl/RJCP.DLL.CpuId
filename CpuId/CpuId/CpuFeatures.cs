@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Globalization;
 
     /// <summary>
     /// A collection of CPU features.
@@ -11,24 +10,35 @@
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Public API")]
     public class CpuFeatures : IEnumerable<string>
     {
-        private readonly Dictionary<string, bool> m_Features =
-            new Dictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly Dictionary<string, CpuFeature> m_Features =
+            new Dictionary<string, CpuFeature>(StringComparer.InvariantCultureIgnoreCase);
+
+        private readonly Dictionary<string, CpuFeature> m_NoFeature =
+            new Dictionary<string, CpuFeature>(StringComparer.InvariantCultureIgnoreCase);
+
+        private CpuFeature GetNoFeature(string key)
+        {
+            if (m_NoFeature.TryGetValue(key, out CpuFeature value)) return value;
+            value = new CpuFeature(key, false);
+            m_NoFeature.Add(key, value);
+            return value;
+        }
 
         /// <summary>
         /// Determines the presence of a feature.
         /// </summary>
         /// <param name="key">The feature identifier as a string.</param>
         /// <returns>
-        /// Returns <see langword="true"/> if the feature is present and active, <see langword="false"/> if the feature
-        /// is not available.
+        /// Returns a <see cref="CpuFeature"/> that provides information about the feature and if it is set. If the
+        /// feature is unknown, a default feature in an unknown function group is returned and the value is <see
+        /// langword="false"/>.
         /// </returns>
-        /// <exception cref="InvalidOperationException">CPU Features is Read Only, you may only read it.</exception>
-        public bool this[string key]
+        public CpuFeature this[string key]
         {
             get
             {
-                if (m_Features.TryGetValue(key, out bool value)) return value;
-                return false;
+                if (m_Features.TryGetValue(key, out CpuFeature value)) return value;
+                return GetNoFeature(key);
             }
             internal set
             {
@@ -55,7 +65,7 @@
             get { return true; }
         }
 
-        internal void Add(string key, bool value)
+        internal void Add(string key, CpuFeature value)
         {
             m_Features.Add(key, value);
         }
@@ -68,16 +78,6 @@
         internal bool Remove(string key)
         {
             return m_Features.Remove(key);
-        }
-
-        /// <summary>
-        /// DProvides a more detailed description of the given feature.
-        /// </summary>
-        /// <param name="key">The name of the feature.</param>
-        /// <returns>The name of the feature.</returns>
-        public string Description(string key)
-        {
-            return Resources.CpuFeatures.ResourceManager.GetString(key.ToUpper(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

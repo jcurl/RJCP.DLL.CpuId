@@ -127,7 +127,7 @@
 
             foreach (string feature in Cpu.Features) {
                 bool expected = Expected.Contains(feature);
-                bool present = Cpu.Features[feature];
+                bool present = Cpu.Features[feature].Value;
                 if (expected && !present) {
                     Missing.Add(feature);
                 } else if (!expected && present) {
@@ -136,7 +136,7 @@
             }
 
             foreach (string feature in Expected) {
-                if (!Cpu.Features[feature]) {
+                if (!Cpu.Features[feature].Value) {
                     Missing.Add(feature);
                 }
             }
@@ -179,7 +179,7 @@
                     foreach (string feature in featureSet.Set) {
                         if (!string.IsNullOrEmpty(feature)) {
                             knownFeatures.Add(feature);
-                            if (string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
+                            if (string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
                                 missing.Add(feature);
                             }
                         }
@@ -189,7 +189,7 @@
 
             // All features should have a description.
             foreach (string feature in Cpu.Features) {
-                if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features.Description(feature))) {
+                if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
                     missing.Add(feature);
                 }
             }

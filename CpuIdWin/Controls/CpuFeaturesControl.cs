@@ -1,6 +1,7 @@
 ﻿namespace RJCP.Diagnostics.CpuIdWin.Controls
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
     using CpuId;
 
@@ -12,17 +13,38 @@
 
             InitializeComponent();
 
+            lvwFeatures.SuspendLayout();
+            Dictionary<FeatureGroup, ListViewGroup> groups = new Dictionary<FeatureGroup, ListViewGroup>();
             foreach (string feature in cpuId.Features) {
-                string desc = cpuId.Features.Description(feature);
+                CpuFeature cpuFeature = cpuId.Features[feature];
+                if (!groups.TryGetValue(cpuFeature.Group, out ListViewGroup lvg)) {
+                    string groupName = Resources.UserInterface.ResourceManager.GetString($"fg{cpuFeature.Group}")
+                        ?? $"fg{cpuFeature.Group}";
+
+                    lvg = new ListViewGroup($"fg{cpuFeature.Group}", HorizontalAlignment.Left) {
+                        Header = groupName,
+                        Name = $"lvg{cpuFeature.Group}"
+                    };
+                    groups.Add(cpuFeature.Group, lvg);
+                    lvwFeatures.Groups.Add(lvg);
+                }
 
                 ListViewItem lvi = new ListViewItem() {
-                    Checked = cpuId.Features[feature],
+                    Checked = cpuId.Features[feature].Value,
                     Text = feature,
+                    Group = lvg
                 };
-                if (desc != null) lvi.SubItems.Add(desc);
+
+                string bitGrp = cpuFeature.BitGroup;
+                string desc = cpuFeature.Description;
+                lvi.SubItems.Add(bitGrp ?? string.Empty);
+                lvi.SubItems.Add(desc ?? string.Empty);
                 lvwFeatures.Items.Add(lvi);
             }
+            lvwFeatures.ResumeLayout();
+
             hdrFeature.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            hdrBits.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             hdrDescription.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 

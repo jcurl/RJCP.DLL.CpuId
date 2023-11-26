@@ -30,7 +30,7 @@
             Assert.That(cpu.Family, Is.EqualTo(0));
             Assert.That(cpu.ProcessorType, Is.EqualTo(0));
             Assert.That(cpu.Stepping, Is.EqualTo(0));
-            Assert.That(cpu.Features["FPU"], Is.False);
+            Assert.That(cpu.Features["FPU"].Value, Is.False);
         }
 
         [Test]
@@ -45,7 +45,7 @@
             Assert.That(cpu.Family, Is.EqualTo(0));
             Assert.That(cpu.ProcessorType, Is.EqualTo(0));
             Assert.That(cpu.Stepping, Is.EqualTo(0));
-            Assert.That(cpu.Features["FPU"], Is.False);
+            Assert.That(cpu.Features["FPU"].Value, Is.False);
         }
 
         [Test]
@@ -60,7 +60,7 @@
             Assert.That(cpu.Family, Is.EqualTo(4));
             Assert.That(cpu.ProcessorType, Is.EqualTo(0));
             Assert.That(cpu.Stepping, Is.EqualTo(2));
-            Assert.That(cpu.Features["FPU"], Is.True);
+            Assert.That(cpu.Features["FPU"].Value, Is.True);
 
             GenuineIntelCpu intelCpu = cpu as GenuineIntelCpu;
             Assert.That(intelCpu, Is.Not.Null, "Expected Intel CPU");

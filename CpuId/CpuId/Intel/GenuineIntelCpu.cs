@@ -139,78 +139,105 @@
             return BrandString;
         }
 
+        private readonly static string[] FeaturesCpuId01Ecx = new string[] {
+            "SSE3", "PCLMULQDQ", "DTES64", "MONITOR", "DS-CPL", "VMX", "SMX", "EIST",
+            "TM2", "SSSE3", "CNXT-ID", "SDBG", "FMA", "CMPXCHG16B", "xTPR", "PDCM",
+            null, "PCID", "DCA", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
+            // HYPERVISOR = Wikipedia https://en.wikipedia.org/wiki/CPUID
+            "TSC-DEADLINE", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
+        };
+
+        private readonly static string[] FeaturesCpuId01Edx = new string[] {
+            "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
+            "CX8", "APIC", null, "SEP", "MTRR", "PGE", "MCA", "CMOV",
+            "PAT", "PSE-36", "PSN", "CLFSH", null, "DS", "ACPI", "MMX",
+            // IA64 = Wikipedia https://en.wikipedia.org/wiki/CPUID
+            "FXSR", "SSE", "SSE2", "SS", "HTT", "TM", "IA64", "PBE"
+        };
+
+        private readonly static string[] FeaturesCpuId07Ebx = new string[] {
+            "FSGSBASE", "IA32_TSC_ADJUST", "SGX", "BMI1", "HLE", "AVX2", "FDP_EXCPTN_ONLY", "SMEP",
+            "BMI2", "ERMS", "INVPCID", "RTM", "RDT-M", "FPU-CS Dep", "MPX", "RDT-A",
+            "AVX512F", "AVX512DQ", "RDSEED", "ADX", "SMAP", "AVX512_IFMA", null, "CLFLUSHOPT",
+            "CLWB", "INTEL_PT", "AVX512PF", "AVX512ER", "AVX512CD", "SHA", "AVX512BW", "AVX512VL"
+        };
+
+        private readonly static string[] FeaturesCpuId07Ecx = new string[] {
+            "PREFETCHWT1", "AVX512_VBMI", "UMIP", "PKU", "OSPKE", "WAITPKG", "AVX512_VBMI2", "CET_SS",
+            "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "TME_EN", "AVX512_VPOPCNTDQ", null,
+            "LA57", null, null, null, null, null, "RDPID", "KL",
+            "BUS_LOCK_DETECT", "CLDEMOTE", null, "MOVDIRI", "MOVDIR64B", "ENQCMD", "SGX_LC", "PKS"
+        };
+
+        private readonly static string[] FeaturesCpuId07Edx = new string[] {
+            null, "SGX-KEYS", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", null, null,
+            "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "RTM_ALWAYS_ABORT", null, "RTM_FORCE_ABORT", "SERIALIZE", "Hybrid",
+            "TSXLDTRK", null, "PCONFIG", "LBR", "CET_IBT", null, "AMX_BF16", "AVX512_FP16",
+            "AMX_TILE", "AMX_INT8", "IBRS_IBPB", "STIBP", "L1D_FLUSH", "IA32_ARCH_CAPABILITIES", "IA32_CORE_CAPABILITIES", "SSBD"
+        };
+
+        private readonly static string[] FeaturesCpuId0701Eax = new string[] {
+            null, null, null, null, "AVX_VNNI", "AVX512_BF16", null, null,
+            null, null, "FZMOVSB", "FSSTOSB", "FSCMPSB", null, null, null,
+            null, null, null, null, null, null, "HRESET", null,
+            null, null, "LAM", null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0701Ebx = new string[] {
+            "IA32_PPIN", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0701Edx = new string[] {
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, "CET_SSS", null,null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0702Edx = new string[] {
+            "PSFD", "IPRED_CTRL", "RRSBA_CTRL", "DDPD_U", "BHI_CTRL", "MCDT_NO", null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0D01Eax = new string[] {
+            "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "XFD", null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId800000001Ecx = new string[] {
+            "AHF64", null, null, null, null, "ABM", null, null,
+            "PREFETCHW", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId800000001Edx = new string[] {
+            null, null, null, null, null, null, null, null,
+            null, null, null, "SYSCALL", null, null, null, null,
+            null, null, null, null, "XD", null, null, null,
+            null, null, "1GB_PAGE", "RDTSCP", null, "LM", null, null
+        };
+
         private void FindFeatures(BasicCpu cpu)
         {
             if (cpu.FunctionCount < FeatureInformationFunction) return;
 
             CpuIdRegister features = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
             if (features != null) {
-                TestFeature("FPU", features, 3, 0);
-                TestFeature("VME", features, 3, 1);
-                TestFeature("DE", features, 3, 2);
-                TestFeature("PSE", features, 3, 3);
-                TestFeature("TSC", features, 3, 4);
-                TestFeature("MSR", features, 3, 5);
-                TestFeature("PAE", features, 3, 6);
-                TestFeature("MCE", features, 3, 7);
-                TestFeature("CX8", features, 3, 8);
-                TestFeature("APIC", features, 3, 9);
-                TestFeature("SEP", features, 3, 11);
-                TestFeature("MTRR", features, 3, 12);
-                TestFeature("PGE", features, 3, 13);
-                TestFeature("MCA", features, 3, 14);
-                TestFeature("CMOV", features, 3, 15);
-                TestFeature("PAT", features, 3, 16);
-                TestFeature("PSE-36", features, 3, 17);
-                TestFeature("PSN", features, 3, 18);
-                TestFeature("CLFSH", features, 3, 19);
-                TestFeature("DS", features, 3, 21);
-                TestFeature("ACPI", features, 3, 22);
-                TestFeature("MMX", features, 3, 23);
-                TestFeature("FXSR", features, 3, 24);
-                TestFeature("SSE", features, 3, 25);
-                TestFeature("SSE2", features, 3, 26);
-                TestFeature("SS", features, 3, 27);
-                TestFeature("HTT", features, 3, 28);
-                TestFeature("TM", features, 3, 29);
-                TestFeature("IA64", features, 3, 30);                // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                TestFeature("PBE", features, 3, 31);
-                if (Features["SEP"] && ProcessorSignature < 0x633)
-                    Features["SEP"] = false;
-                ReservedFeature(features, 3, 0x00100400);
+                TestFeatures(FeaturesCpuId01Edx, FeatureGroup.StandardFeatures, features, 3);
+                if (Features["SEP"].Value && ProcessorSignature < 0x633)
+                    Features["SEP"].Value = false;
+                ReservedFeature(FeatureGroup.StandardFeatures, features, 3, 0x00100400);
 
-                TestFeature("SSE3", features, 2, 0);
-                TestFeature("PCLMULQDQ", features, 2, 1);
-                TestFeature("DTES64", features, 2, 2);
-                TestFeature("MONITOR", features, 2, 3);
-                TestFeature("DS-CPL", features, 2, 4);
-                TestFeature("VMX", features, 2, 5);
-                TestFeature("SMX", features, 2, 6);
-                TestFeature("EIST", features, 2, 7);
-                TestFeature("TM2", features, 2, 8);
-                TestFeature("SSSE3", features, 2, 9);
-                TestFeature("CNXT-ID", features, 2, 10);
-                TestFeature("SDBG", features, 2, 11);
-                TestFeature("FMA", features, 2, 12);
-                TestFeature("CMPXCHG16B", features, 2, 13);
-                TestFeature("xTPR", features, 2, 14);
-                TestFeature("PDCM", features, 2, 15);
-                TestFeature("PCID", features, 2, 17);
-                TestFeature("DCA", features, 2, 18);
-                TestFeature("SSE4.1", features, 2, 19);
-                TestFeature("SSE4.2", features, 2, 20);
-                TestFeature("x2APIC", features, 2, 21);
-                TestFeature("MOVBE", features, 2, 22);
-                TestFeature("POPCNT", features, 2, 23);
-                TestFeature("TSC-DEADLINE", features, 2, 24);
-                TestFeature("AESNI", features, 2, 25);
-                TestFeature("XSAVE", features, 2, 26);
-                TestFeature("OSXSAVE", features, 2, 27);
-                TestFeature("AVX", features, 2, 28);
-                TestFeature("F16C", features, 2, 29);
-                TestFeature("RDRAND", features, 2, 30);
-                TestFeature("HYPERVISOR", features, 2, 31);          // Wikipedia https://en.wikipedia.org/wiki/CPUID
-                ReservedFeature(features, 2, 0x00010000);
+                TestFeatures(FeaturesCpuId01Ecx, FeatureGroup.StandardFeatures, features, 2);
+                ReservedFeature(FeatureGroup.StandardFeatures, features, 2, 0x00010000);
             }
 
             FindExtendedFeatures(cpu);
@@ -218,139 +245,49 @@
             if (cpu.FunctionCount < ExtendedFeatureFunction) return;
             CpuIdRegister features7 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 0);
             if (features7 != null) {
-                TestFeature("FSGSBASE", features7, 1, 0);
-                TestFeature("IA32_TSC_ADJUST", features7, 1, 1);
-                TestFeature("SGX", features7, 1, 2);
-                TestFeature("BMI1", features7, 1, 3);
-                TestFeature("HLE", features7, 1, 4);
-                TestFeature("AVX2", features7, 1, 5);
-                TestFeature("FDP_EXCPTN_ONLY", features7, 1, 6);
-                TestFeature("SMEP", features7, 1, 7);
-                TestFeature("BMI2", features7, 1, 8);
-                TestFeature("ERMS", features7, 1, 9);
-                TestFeature("INVPCID", features7, 1, 10);
-                TestFeature("RTM", features7, 1, 11);
-                TestFeature("RDT-M", features7, 1, 12);
-                TestFeature("FPU-CS Dep", features7, 1, 13);
-                TestFeature("MPX", features7, 1, 14);
-                TestFeature("RDT-A", features7, 1, 15);
-                TestFeature("AVX512F", features7, 1, 16);
-                TestFeature("AVX512DQ", features7, 1, 17);
-                TestFeature("RDSEED", features7, 1, 18);
-                TestFeature("ADX", features7, 1, 19);
-                TestFeature("SMAP", features7, 1, 20);
-                TestFeature("AVX512_IFMA", features7, 1, 21);
-                TestFeature("CLFLUSHOPT", features7, 1, 23);
-                TestFeature("CLWB", features7, 1, 24);
-                TestFeature("INTEL_PT", features7, 1, 25);
-                TestFeature("AVX512PF", features7, 1, 26);
-                TestFeature("AVX512ER", features7, 1, 27);
-                TestFeature("AVX512CD", features7, 1, 28);
-                TestFeature("SHA", features7, 1, 29);
-                TestFeature("AVX512BW", features7, 1, 30);
-                TestFeature("AVX512VL", features7, 1, 31);
-                ReservedFeature(features7, 1, 0x00400000);
+                TestFeatures(FeaturesCpuId07Ebx, FeatureGroup.StructuredExtendedFeatures, features7, 1);
+                ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 1, 0x00400000);
 
-                TestFeature("PREFETCHWT1", features7, 2, 0);
-                TestFeature("AVX512_VBMI", features7, 2, 1);
-                TestFeature("UMIP", features7, 2, 2);
-                TestFeature("PKU", features7, 2, 3);
-                TestFeature("OSPKE", features7, 2, 4);
-                TestFeature("WAITPKG", features7, 2, 5);
-                TestFeature("AVX512_VBMI2", features7, 2, 6);
-                TestFeature("CET_SS", features7, 2, 7);
-                TestFeature("GFNI", features7, 2, 8);
-                TestFeature("VAES", features7, 2, 9);
-                TestFeature("VPCLMULQDQ", features7, 2, 10);
-                TestFeature("AVX512_VNNI", features7, 2, 11);
-                TestFeature("AVX512_BITALG", features7, 2, 12);
-                TestFeature("TME_EN", features7, 2, 13);
-                TestFeature("AVX512_VPOPCNTDQ", features7, 2, 14);
-                TestFeature("LA57", features7, 2, 16);
-                TestFeature("RDPID", features7, 2, 22);
-                TestFeature("KL", features7, 2, 23);
-                TestFeature("BUS_LOCK_DETECT", features7, 2, 24);
-                TestFeature("CLDEMOTE", features7, 2, 25);
-                TestFeature("MOVDIRI", features7, 2, 27);
-                TestFeature("MOVDIR64B", features7, 2, 28);
-                TestFeature("ENQCMD", features7, 2, 29);
-                TestFeature("SGX_LC", features7, 2, 30);
-                TestFeature("PKS", features7, 2, 31);
-                ReservedFeature(features7, 2, 0x043E8000);
+                TestFeatures(FeaturesCpuId07Ecx, FeatureGroup.StructuredExtendedFeatures, features7, 2);
+                ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 2, 0x043E8000);
 
-                TestFeature("SGX-KEYS", features7, 3, 1);
-                TestFeature("AVX512_4VNNIW", features7, 3, 2);
-                TestFeature("AVX512_4FMAPS", features7, 3, 3);
-                TestFeature("FSRM", features7, 3, 4);
-                TestFeature("UINTR", features7, 3, 5);
-                TestFeature("AVX512_VP2INTERSECT", features7, 3, 8);
-                TestFeature("SRBDS_CTRL", features7, 3, 9);
-                TestFeature("MD_CLEAR", features7, 3, 10);
-                TestFeature("RTM_ALWAYS_ABORT", features7, 3, 11);
-                TestFeature("TSX_FORCE_ABORT", features7, 3, 13);
-                TestFeature("SERIALIZE", features7, 3, 14);
-                TestFeature("Hybrid", features7, 3, 15);
-                TestFeature("TSXLDTRK", features7, 3, 16);
-                TestFeature("PCONFIG", features7, 3, 18);
-                TestFeature("LBR", features7, 3, 19);
-                TestFeature("CET_IBT", features7, 3, 20);
-                TestFeature("AMX_BF16", features7, 3, 22);
-                TestFeature("AVX512_FP16", features7, 3, 23);
-                TestFeature("AMX_TILE", features7, 3, 24);
-                TestFeature("AMX_INT8", features7, 3, 25);
-                TestFeature("IBRS_IBPB", features7, 3, 26);
-                TestFeature("STIBP", features7, 3, 27);
-                TestFeature("L1D_FLUSH", features7, 3, 28);
-                TestFeature("IA32_ARCH_CAPABILITIES", features7, 3, 29);
-                TestFeature("IA32_CORE_CAPABILITIES", features7, 3, 30);
-                TestFeature("SSBD", features7, 3, 31);
-                ReservedFeature(features7, 3, 0x002210C1);
+                TestFeatures(FeaturesCpuId07Edx, FeatureGroup.StructuredExtendedFeatures, features7, 3);
+                ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 3, 0x002210C1);
 
                 if (features7.Result[0] > 0) {
                     CpuIdRegister features7s1 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 1);
                     if (features7s1 != null) {
-                        TestFeature("AVX_VNNI", features7s1, 0, 4);
-                        TestFeature("AVX512_BF16", features7s1, 0, 5);
-                        TestFeature("FZMOVSB", features7s1, 0, 10);
-                        TestFeature("FSSTOSB", features7s1, 0, 11);
-                        TestFeature("FSCMPSB", features7s1, 0, 12);
-                        TestFeature("HRESET", features7s1, 0, 22);
-                        TestFeature("LAM", features7s1, 0, 26);
-                        ReservedFeature(features7s1, 0, unchecked((int)0xFBBFE3CF));
+                        TestFeatures(FeaturesCpuId0701Eax, FeatureGroup.StructuredExtendedFeatures, features7s1, 0);
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 0, unchecked((int)0xFBBFE3CF));
 
-                        TestFeature("IA32_PPIN", features7s1, 1, 1);
-                        ReservedFeature(features7s1, 1, unchecked((int)0xFFFFFFFD));
+                        TestFeatures(FeaturesCpuId0701Ebx, FeatureGroup.StructuredExtendedFeatures, features7s1, 1);
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 1, unchecked((int)0xFFFFFFFE));
 
-                        ReservedFeature(features7s1, 2, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 2, unchecked((int)0xFFFFFFFF));
 
-                        TestFeature("CET_SSS", features7s1, 3, 18);
-                        ReservedFeature(features7s1, 3, unchecked((int)0xFFFBFFFF));
+                        TestFeatures(FeaturesCpuId0701Edx, FeatureGroup.StructuredExtendedFeatures, features7s1, 3);
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 3, unchecked((int)0xFFFBFFFF));
                     }
                 }
 
                 if (features7.Result[0] > 1) {
                     CpuIdRegister features7s2 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 2);
                     if (features7s2 != null) {
-                        ReservedFeature(features7s2, 0, unchecked((int)0xFFFFFFFF));
-                        ReservedFeature(features7s2, 1, unchecked((int)0xFFFFFFFF));
-                        ReservedFeature(features7s2, 2, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 0, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 1, unchecked((int)0xFFFFFFFF));
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 2, unchecked((int)0xFFFFFFFF));
 
-                        TestFeature("PSFD", features7s2, 3, 0);
-                        TestFeature("IPRED_CTRL", features7s2, 3, 1);
-                        TestFeature("RRSBA_CTRL", features7s2, 3, 2);
-                        TestFeature("DDPD_U", features7s2, 3, 3);
-                        TestFeature("BHI_CTRL", features7s2, 3, 4);
-                        TestFeature("MCDT_NO", features7s2, 3, 5);
-                        ReservedFeature(features7s2, 3, unchecked((int)0xFFFFFFC0));
+                        TestFeatures(FeaturesCpuId0702Edx, FeatureGroup.StructuredExtendedFeatures, features7s2, 3);
+                        ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 3, unchecked((int)0xFFFFFFC0));
                     }
 
                     for (int subfunction = 3; subfunction <= features7.Result[0]; subfunction++) {
                         CpuIdRegister features7sX = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, subfunction);
                         if (features7sX != null) {
-                            ReservedFeature(features7sX, 0, unchecked((int)0xFFFFFFFF));
-                            ReservedFeature(features7sX, 1, unchecked((int)0xFFFFFFFF));
-                            ReservedFeature(features7sX, 2, unchecked((int)0xFFFFFFFF));
-                            ReservedFeature(features7sX, 3, unchecked((int)0xFFFFFFFF));
+                            ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 0, unchecked((int)0xFFFFFFFF));
+                            ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 1, unchecked((int)0xFFFFFFFF));
+                            ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 2, unchecked((int)0xFFFFFFFF));
+                            ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 3, unchecked((int)0xFFFFFFFF));
                         }
                     }
                 }
@@ -359,10 +296,8 @@
             if (cpu.FunctionCount < ExtendedProcessorState) return;
             CpuIdRegister features13 = cpu.CpuRegisters.GetCpuId(ExtendedProcessorState, 1);
             if (features13 != null) {
-                TestFeature("XSAVEOPT", features13, 0, 0);
-                TestFeature("XSAVEC", features13, 0, 1);
-                TestFeature("XGETBV", features13, 0, 2);
-                TestFeature("XSAVES", features13, 0, 3);
+                TestFeatures(FeaturesCpuId0D01Eax, FeatureGroup.ExtendedState, features13, 0);
+                ReservedFeature(FeatureGroup.ExtendedState, features13, 0, unchecked((int)0xFFFFFFE0));
             }
         }
 
@@ -371,17 +306,11 @@
             if (cpu.ExtendedFunctionCount < 1) return;
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
             if (extfeat != null) {
-                TestFeature("AHF64", extfeat, 2, 0);
-                TestFeature("ABM", extfeat, 2, 5);
-                TestFeature("PREFETCHW", extfeat, 2, 8);
-                ReservedFeature(extfeat, 2, unchecked((int)0xFFFFFEDE));
+                TestFeatures(FeaturesCpuId800000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);
+                ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 2, unchecked((int)0xFFFFFEDE));
 
-                TestFeature("SYSCALL", extfeat, 3, 11);
-                TestFeature("XD", extfeat, 3, 20);
-                TestFeature("1GB_PAGE", extfeat, 3, 26);
-                TestFeature("RDTSCP", extfeat, 3, 27);
-                TestFeature("LM", extfeat, 3, 29);
-                ReservedFeature(extfeat, 3, unchecked((int)0xD3EFF7FF));
+                TestFeatures(FeaturesCpuId800000001Edx, FeatureGroup.ExtendedFeatures, extfeat, 3);
+                ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 3, unchecked((int)0xD3EFF7FF));
             }
         }
 
@@ -393,8 +322,8 @@
 
         private void GetCpuTopology(BasicCpu cpu)
         {
-            if (!Features["HTT"] || !Features["APIC"]) {
-                if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology) {
+            if (!Features["HTT"].Value || !Features["APIC"].Value) {
+                if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology) {
                     CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
                     Topology.ApicId = x2apic.Result[3];
                 } else if (cpu.FunctionCount >= FeatureInformationFunction) {
@@ -411,11 +340,11 @@
                 return;
             }
 
-            if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology2) {
+            if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology2) {
                 CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
                 Topology.ApicId = x2apic.Result[3];
                 GetExtendedTopology(cpu, ExtendedTopology2);
-            } else if (Features["x2APIC"] && cpu.FunctionCount >= ExtendedTopology) {
+            } else if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology) {
                 CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
                 Topology.ApicId = x2apic.Result[3];
                 GetExtendedTopology(cpu, ExtendedTopology);
@@ -426,7 +355,7 @@
                 GetLegacyTopology(apic, topo);
             } else {
                 CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-                if (Features["APIC"]) {
+                if (Features["APIC"].Value) {
                     Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 } else {
                     Topology.ApicId = 0;
@@ -440,7 +369,7 @@
 
         private int GetMaxNumberOfLogicalProcessors(BasicCpu cpu)
         {
-            if (Features["HTT"]) {
+            if (Features["HTT"].Value) {
                 CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
                 return (apic.Result[1] >> 16) & 0xFF;
             }
