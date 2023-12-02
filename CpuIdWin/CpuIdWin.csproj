@@ -147,8 +147,4 @@
     <None Include="app.manifest" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>

@@ -20,7 +20,6 @@
         internal const int ProcessorBrand2Function = unchecked((int)0x80000003);
         internal const int ProcessorBrand3Function = unchecked((int)0x80000004);
         internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
-        internal const int ExtendedEncMem = unchecked((int)0x8000001F);
 
         private readonly BasicCpu m_Cpu;
 
@@ -240,7 +239,9 @@
             while (checkMask != 0) {
                 if ((checkMask & 0x01) != 0) {
                     string feature = GetReservedFeatureName(register, outRegister, bit);
-                    CpuFeature cpuFeature = new CpuFeature(feature, true, group, BitGroup(register, outRegister, bit));
+                    CpuFeature cpuFeature = new CpuFeature(feature, true, group, BitGroup(register, outRegister, bit)) {
+                        IsReserved = true
+                    };
                     Features[feature] = cpuFeature;
                 }
                 checkMask >>= 1;     // Unsigned means zero is rolled into MSB, so we don't need to clear the MSB.

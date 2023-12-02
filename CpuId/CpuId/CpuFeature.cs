@@ -57,6 +57,12 @@
         public string BitGroup { get; }
 
         /// <summary>
+        /// Tests if this feature is part of a reserved bit.
+        /// </summary>
+        /// <value><see langword="true"/> if this feature is reserved; otherwise, <see langword="false"/>.</value>
+        public bool IsReserved { get; internal set; }
+
+        /// <summary>
         /// DProvides a more detailed description of the given feature.
         /// </summary>
         /// <returns>The name of the feature.</returns>

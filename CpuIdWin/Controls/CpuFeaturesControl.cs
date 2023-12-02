@@ -41,11 +41,12 @@
                 lvi.SubItems.Add(desc ?? string.Empty);
                 lvwFeatures.Items.Add(lvi);
             }
-            lvwFeatures.ResumeLayout();
 
             hdrFeature.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             hdrBits.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            hdrBits.Width += 4;          // Seems that resizing is not enough.
             hdrDescription.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lvwFeatures.ResumeLayout();
         }
 
         private void lvwFeatures_ItemCheck(object sender, ItemCheckEventArgs e)

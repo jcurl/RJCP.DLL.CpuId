@@ -21,6 +21,8 @@
             public string[] Set { get; private set; }
         }
 
+        // Key is the group (e.g. "standard", or "extended")
+        // Value is list of [RegisterGroup, Features]
         private readonly Dictionary<string, List<FeatureSet>> m_FeatureSet = new Dictionary<string, List<FeatureSet>>();
 
         public void AddFeatureSet(string group, string name, string[] featureSet)
@@ -178,6 +180,8 @@
                 foreach (FeatureSet featureSet in group) {
                     foreach (string feature in featureSet.Set) {
                         if (!string.IsNullOrEmpty(feature)) {
+                            // The feature will be marked as Reserved if it isn't loaded already (because it wasn't
+                            // tested), but the description is still valid.
                             knownFeatures.Add(feature);
                             if (string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
                                 missing.Add(feature);
@@ -187,9 +191,11 @@
                 }
             }
 
-            // All features should have a description.
+            // All features (that are not in the unknown group, which are reserved) should have a description.
             foreach (string feature in Cpu.Features) {
-                if (!string.IsNullOrEmpty(feature) && string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
+                // Only check if the feature is not marked as reserved (as it's expected there will be no description)
+                if (!string.IsNullOrEmpty(feature) && !Cpu.Features[feature].IsReserved &&
+                    string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
                     missing.Add(feature);
                 }
             }
@@ -206,7 +212,9 @@
             // Now check if we're missing a feature in our feature set in the test case. Indicates a feature was added
             // but the feature set for the test case wasn't added.
             foreach (string feature in Cpu.Features) {
-                if (!string.IsNullOrEmpty(feature) && !knownFeatures.Contains(feature)) {
+                // Only check if the feature is not marked as reserved (as it's expected there test case doesn't know
+                // about it)
+                if (!string.IsNullOrEmpty(feature) && !knownFeatures.Contains(feature) && !Cpu.Features[feature].IsReserved) {
                     missing.Add(feature);
                 }
             }
@@ -217,7 +225,7 @@
                     if (missingText.Length != 0) missingText.Append(", ");
                     missingText.Append(entry);
                 }
-                Assert.Fail("Missing feature in test case for: {0}", missingText);
+                Assert.Fail("Test case doesn't know about feature: {0}", missingText);
             }
         }
 

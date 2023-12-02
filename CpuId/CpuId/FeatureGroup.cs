@@ -31,6 +31,11 @@
         ExtendedFeatures,
 
         /// <summary>
+        /// Processor power management, described by CPUID.80000007h.
+        /// </summary>
+        PowerManagement,
+
+        /// <summary>
         /// Processor extended function states, described by CPUID.80000008h.
         /// </summary>
         ExtendedFeaturesIdentifiers,
@@ -58,6 +63,16 @@
         /// <summary>
         /// AMD Encrypted Memory capabilities, described by CPUID.8000001Fh.
         /// </summary>
-        EncryptedMemory
+        EncryptedMemory,
+
+        /// <summary>
+        /// AMD PQOS Extended features, described by CPUID.8000_0020h.
+        /// </summary>
+        PqosExtended,
+
+        /// <summary>
+        /// AMD Performance Monitoring and Debug, described by CPUID.8000_0022h.
+        /// </summary>
+        PerfMonDebug,
     }
 }

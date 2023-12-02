@@ -99,9 +99,18 @@ namespace RJCP.Diagnostics.CpuIdWin.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Lightweight Profiling Features.
         /// </summary>
-        internal static string fgLightWeightProfiling {
+        internal static string fgLightweightProfiling {
             get {
-                return ResourceManager.GetString("fgLightWeightProfiling", resourceCulture);
+                return ResourceManager.GetString("fgLightweightProfiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extended Performance Monitoring and Debug.
+        /// </summary>
+        internal static string fgPerfMonDebug {
+            get {
+                return ResourceManager.GetString("fgPerfMonDebug", resourceCulture);
             }
         }
         
@@ -120,6 +129,24 @@ namespace RJCP.Diagnostics.CpuIdWin.Resources {
         internal static string fgPerformanceSampling {
             get {
                 return ResourceManager.GetString("fgPerformanceSampling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power Management Features.
+        /// </summary>
+        internal static string fgPowerManagement {
+            get {
+                return ResourceManager.GetString("fgPowerManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PQOS Extended Features.
+        /// </summary>
+        internal static string fgPqosExtended {
+            get {
+                return ResourceManager.GetString("fgPqosExtended", resourceCulture);
             }
         }
         

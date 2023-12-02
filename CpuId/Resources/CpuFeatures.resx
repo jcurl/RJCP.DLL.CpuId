@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="100MHZ" xml:space="preserve">
+    <value>100 MHz multiplier Control</value>
+  </data>
   <data name="1GB_PAGE" xml:space="preserve">
     <value>1GB pages supported</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="ABM" xml:space="preserve">
     <value>LZCNT (count leading zero bits) instruction</value>
+  </data>
+  <data name="ABMC" xml:space="preserve">
+    <value>Assignable Bandwidth Monitoring Counters</value>
   </data>
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
@@ -164,6 +170,12 @@
   </data>
   <data name="ASRFPEP" xml:space="preserve">
     <value>FP Error Pointers Restored by XRSTOR</value>
+  </data>
+  <data name="AUTOMATICIBRS" xml:space="preserve">
+    <value>Automatic IBRS</value>
+  </data>
+  <data name="AVIC" xml:space="preserve">
+    <value>AMD advanced virtual interrupt controller</value>
   </data>
   <data name="AVX" xml:space="preserve">
     <value>Advanced Vector Extensions</value>
@@ -231,14 +243,23 @@
   <data name="BHI_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
   </data>
+  <data name="BMEC" xml:space="preserve">
+    <value>Bandwidth Monitoring Event Configuration</value>
+  </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
   </data>
   <data name="BMI2" xml:space="preserve">
     <value>Bit manipulation instructions (BZHI, MULX, PDEP, PEXT, RORX, SARX/SHLX/SHRX</value>
   </data>
+  <data name="BRNTRGT" xml:space="preserve">
+    <value>Branch target address reporting supported</value>
+  </data>
   <data name="BTC_NO" xml:space="preserve">
     <value>The processor is not affected by branch type confusion.</value>
+  </data>
+  <data name="BUSLOCKTHRESHOLD" xml:space="preserve">
+    <value>Bus Lock Threshold</value>
   </data>
   <data name="BUS_LOCK_DETECT" xml:space="preserve">
     <value>Support for OS bus-lock detection</value>
@@ -246,11 +267,17 @@
   <data name="CET_IBT" xml:space="preserve">
     <value>CET indirect branch tracking</value>
   </data>
+  <data name="CET_S" xml:space="preserve">
+    <value>CET supervisor enabled for XSS MSR</value>
+  </data>
   <data name="CET_SS" xml:space="preserve">
     <value>Control flow enforcement (CET) shadow stack features</value>
   </data>
   <data name="CET_SSS" xml:space="preserve">
     <value>Control flow enforcement (CET) supervisor shadow stack features</value>
+  </data>
+  <data name="CET_U" xml:space="preserve">
+    <value>CET user state enabled for XSS MSR</value>
   </data>
   <data name="CLDEMOTE" xml:space="preserve">
     <value>Cache line demote</value>
@@ -279,8 +306,14 @@
   <data name="CNXT-ID" xml:space="preserve">
     <value>L1 Context ID</value>
   </data>
+  <data name="CPB" xml:space="preserve">
+    <value>Core Performance Boost</value>
+  </data>
   <data name="CPPC" xml:space="preserve">
     <value>Collaborative Processor Performance Control</value>
+  </data>
+  <data name="CPUIDUSERDIS" xml:space="preserve">
+    <value>CPUID disable for non-privileged software</value>
   </data>
   <data name="CX8" xml:space="preserve">
     <value>CMPXCHG8 instruction</value>
@@ -300,6 +333,9 @@
   <data name="DEBUGSWAP" xml:space="preserve">
     <value>Full debug state swap supported for SEV-ES guests</value>
   </data>
+  <data name="DECODEASSISTS" xml:space="preserve">
+    <value>Decode assists</value>
+  </data>
   <data name="DS" xml:space="preserve">
     <value>Debug Store, trace of executed jumps</value>
   </data>
@@ -311,6 +347,9 @@
   </data>
   <data name="EFER.LMSLE" xml:space="preserve">
     <value>EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported</value>
+  </data>
+  <data name="EFFFREQRO" xml:space="preserve">
+    <value>Read-only effective frequency interface. Presence of MSRC000_00E7 [Read-Only Max Performance Frequency Clock Count (MPerfReadOnly)] and MSRC000_00E8 [Read-Only Actual Performance Frequency Clock Count (APerfReadOnly)].</value>
   </data>
   <data name="EIST" xml:space="preserve">
     <value>Enhanced Intel SpeedStep(R) Technology</value>
@@ -324,14 +363,26 @@
   <data name="EXTAPICSPACE" xml:space="preserve">
     <value>Extended APIC space. Presence of extended APIC register</value>
   </data>
+  <data name="EXTLVTAVICACCESSCHG" xml:space="preserve">
+    <value>Extended Interrupt Local Vector Table Register AVIC Access changes</value>
+  </data>
   <data name="F16C" xml:space="preserve">
     <value>16-bit floating-point conversion (half precision) instructions</value>
   </data>
   <data name="FDP_EXCPTN_ONLY" xml:space="preserve">
     <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
   </data>
+  <data name="FETCHSAM" xml:space="preserve">
+    <value>IBS fetch sampling supported</value>
+  </data>
   <data name="FFXSR" xml:space="preserve">
     <value>FXSAVE and FXRSTOR instruction optimizations</value>
+  </data>
+  <data name="FID" xml:space="preserve">
+    <value>Frequency ID control. Function replaced by HwPstate.</value>
+  </data>
+  <data name="FLUSHBYASID" xml:space="preserve">
+    <value>TLB flush events, including CR3 writes and CR4.PGE toggles, flush only the current ASID's TLB entries. Support for the extended VMCB TLB_Control</value>
   </data>
   <data name="FMA" xml:space="preserve">
     <value>Fused Multiply Add (FMA3) 3-operand</value>
@@ -372,8 +423,14 @@
   <data name="GFNI" xml:space="preserve">
     <value>AVX Galois Field instructions</value>
   </data>
+  <data name="GMET" xml:space="preserve">
+    <value>Guest Mode Execution Trap</value>
+  </data>
   <data name="HLE" xml:space="preserve">
     <value>TSX Hardware lock elision instructions</value>
+  </data>
+  <data name="HOST_MCE_OVERRIDE" xml:space="preserve">
+    <value>When host CR4.MCE=1 and guest CR4.MCE=0, machine check exceptions (#MC) in a guest do not cause shutdown and are always intercepted</value>
   </data>
   <data name="HRESET" xml:space="preserve">
     <value>Supports IA32_HRESET_ENABLE MSR (Processor Reset History)</value>
@@ -381,8 +438,14 @@
   <data name="HTT" xml:space="preserve">
     <value>Multi-Threading</value>
   </data>
+  <data name="HWA" xml:space="preserve">
+    <value>Hardware assert support. Indicates support for MSRC001_10[DF:C0]</value>
+  </data>
   <data name="HWENVCACHECOH" xml:space="preserve">
     <value>Hardware cache coherency across encryption domains enforced</value>
+  </data>
+  <data name="HWPSTATE" xml:space="preserve">
+    <value>Hardware P-state control. MSRC001_0061 [P-state Current Limit], MSRC001_0062 [P-state Control] and MSRC001_0063 [P-state Status] exist</value>
   </data>
   <data name="HYBRID" xml:space="preserve">
     <value>Processor identified as a hybrid part</value>
@@ -426,6 +489,15 @@
   <data name="IBS" xml:space="preserve">
     <value>Instruction based sampling</value>
   </data>
+  <data name="IBSFFV" xml:space="preserve">
+    <value>IBS feature flags valid</value>
+  </data>
+  <data name="IBSL3MISSFILTERING" xml:space="preserve">
+    <value>3 Miss Filtering for IBS supported</value>
+  </data>
+  <data name="IBSVIRT" xml:space="preserve">
+    <value>IBS Virtualization</value>
+  </data>
   <data name="IBSVIRTGUESTCTL" xml:space="preserve">
     <value>IBS Virtualization supported for SEV-ES guests</value>
   </data>
@@ -459,6 +531,36 @@
   <data name="L1D_FLUSH" xml:space="preserve">
     <value>IA32_FLUSH_CMD MSR supported</value>
   </data>
+  <data name="L3CACHELCLBWFILLMON" xml:space="preserve">
+    <value>Reads to local DRAM memory</value>
+  </data>
+  <data name="L3CACHELCLBWNTWRMON" xml:space="preserve">
+    <value>Non-temporal writes to local memory</value>
+  </data>
+  <data name="L3CACHELCLSLOWBWFILLMON" xml:space="preserve">
+    <value>Reads to local memory identified as “Slow Memory”</value>
+  </data>
+  <data name="L3CACHERMTBWFILLMON" xml:space="preserve">
+    <value>Reads to remote DRAM memory.</value>
+  </data>
+  <data name="L3CACHERMTBWNTWRMON" xml:space="preserve">
+    <value>Non-temporal writes to remote memory</value>
+  </data>
+  <data name="L3CACHERMTSLOWBWFILLMON" xml:space="preserve">
+    <value>Reads to remote memory identified as “Slow Memory”</value>
+  </data>
+  <data name="L3CACHEVICMON" xml:space="preserve">
+    <value>Dirty victim writes to all types of memory</value>
+  </data>
+  <data name="L3MBE" xml:space="preserve">
+    <value>Memory Bandwidth Enforcement</value>
+  </data>
+  <data name="L3RR" xml:space="preserve">
+    <value>L3 Range Reservations</value>
+  </data>
+  <data name="L3SMBE" xml:space="preserve">
+    <value>Slow Memory Bandwidth Enforcement</value>
+  </data>
   <data name="LA57" xml:space="preserve">
     <value>Linear Addressing 57-bit and 5-Level Paging</value>
   </data>
@@ -468,17 +570,74 @@
   <data name="LBR" xml:space="preserve">
     <value>Architectural Last Branch Records</value>
   </data>
+  <data name="LBRANDPMCFREEZE" xml:space="preserve">
+    <value>Freezing Core Performance Counters and LBR Stack on Core Performance Counter overflow supported</value>
+  </data>
+  <data name="LBRSTACK" xml:space="preserve">
+    <value>Last Branch Record Stack supported</value>
+  </data>
+  <data name="LBRVIRT" xml:space="preserve">
+    <value>LBR virtualization</value>
+  </data>
+  <data name="LFENCEALWAYSSERIALIZING" xml:space="preserve">
+    <value>LFENCE is always dispatch serializing</value>
+  </data>
   <data name="LM" xml:space="preserve">
     <value>Long Mode. Access to 64-bit instructions and registers, also known as x86_64 or x64</value>
   </data>
   <data name="LWP" xml:space="preserve">
     <value>Lightweight profiling support</value>
   </data>
+  <data name="LWPAVAIL" xml:space="preserve">
+    <value>The LWP feature is available</value>
+  </data>
+  <data name="LWPBRANCHPREDICTION" xml:space="preserve">
+    <value>Branch prediction filtering supported. Branches Retired events can be filtered based on whether the branch was predicted properly</value>
+  </data>
+  <data name="LWPBRE" xml:space="preserve">
+    <value>Branch retired event available</value>
+  </data>
+  <data name="LWPCACHELATENCY" xml:space="preserve">
+    <value>Cache latency filtering supported. Cache-related events can be filtered by latency</value>
+  </data>
+  <data name="LWPCACHELEVELS" xml:space="preserve">
+    <value>Cache level filtering supported. Cache-related events can be filtered by the cache level that returned the data</value>
+  </data>
+  <data name="LWPCNH" xml:space="preserve">
+    <value>Core clocks not halted event available</value>
+  </data>
+  <data name="LWPCONT" xml:space="preserve">
+    <value>Sampling in continuous mode is available</value>
+  </data>
+  <data name="LWPDME" xml:space="preserve">
+    <value>DC miss event available</value>
+  </data>
+  <data name="LWPINT" xml:space="preserve">
+    <value>Interrupt on threshold overflow available</value>
+  </data>
+  <data name="LWPIPFILTERING" xml:space="preserve">
+    <value>IP filtering supported</value>
+  </data>
+  <data name="LWPIRE" xml:space="preserve">
+    <value>Instructions retired event available</value>
+  </data>
+  <data name="LWPPTSC" xml:space="preserve">
+    <value>Performance time stamp counter in event record is available</value>
+  </data>
+  <data name="LWPRNH" xml:space="preserve">
+    <value>Core reference clocks not halted event available</value>
+  </data>
+  <data name="LWPVAL" xml:space="preserve">
+    <value>LWPVAL instruction available</value>
+  </data>
   <data name="MBE" xml:space="preserve">
     <value>Memory Bandwidth Enforcement (or sometimes BE)</value>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
+  </data>
+  <data name="MCAOVERFLOWRECOV" xml:space="preserve">
+    <value>MCA overflow recovery support. If set, indicates that MCA overflow conditions (MCi_STATUS[Overflow]=1) are not fatal; software may safely ignore such conditions. If clear, MCA overflow conditions require software to shut down the system.</value>
   </data>
   <data name="MCDT_NO" xml:space="preserve">
     <value>Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary</value>
@@ -491,6 +650,9 @@
   </data>
   <data name="MD_CLEAR" xml:space="preserve">
     <value>MD_CLEAR supported</value>
+  </data>
+  <data name="MEMHMK" xml:space="preserve">
+    <value>Secure Host Multi-Key Memory (MEM-HMK) Encryption Mode Supported</value>
   </data>
   <data name="MISALIGNSSE" xml:space="preserve">
     <value>Misaligned SSE mode</value>
@@ -534,8 +696,38 @@
   <data name="NESTEDVIRTSNPMSR" xml:space="preserve">
     <value>VIRT_RMPUPDATE MSR (C001_F001h) and VIRT_PSMASH MSR (C001_F002h) supported</value>
   </data>
+  <data name="NESTEDVIRTVMCBADDRCHK" xml:space="preserve">
+    <value>Guest VMCB address check</value>
+  </data>
   <data name="NODEID" xml:space="preserve">
     <value>Node ID: MSR C001_100Ch</value>
+  </data>
+  <data name="NONESTEDDATABP" xml:space="preserve">
+    <value>Processor ignores nested data breakpoints</value>
+  </data>
+  <data name="NOSMMCTLMSR" xml:space="preserve">
+    <value>SMM_CTL MSR (C001_0116h) is not supported</value>
+  </data>
+  <data name="NP" xml:space="preserve">
+    <value>Nested Paging</value>
+  </data>
+  <data name="NRIPS" xml:space="preserve">
+    <value>Support for NRIP save on #VMEXIT</value>
+  </data>
+  <data name="NULLSELECTCLEARSBASE" xml:space="preserve">
+    <value>Null segment selector loads also clear the destination segment register base and limit</value>
+  </data>
+  <data name="OPBRNFUSE" xml:space="preserve">
+    <value>Fused branch micro-op indication supported</value>
+  </data>
+  <data name="OPCNT" xml:space="preserve">
+    <value>Op counting mode supported</value>
+  </data>
+  <data name="OPCNTEXT" xml:space="preserve">
+    <value>IbsOpCurCnt and IbsOpMaxCnt extend by 7 bits</value>
+  </data>
+  <data name="OPSAM" xml:space="preserve">
+    <value>IBS execution sampling supported</value>
   </data>
   <data name="OSPKE" xml:space="preserve">
     <value>OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions)</value>
@@ -554,6 +746,12 @@
   </data>
   <data name="PAT" xml:space="preserve">
     <value>Page Attribute Table</value>
+  </data>
+  <data name="PAUSEFILTER" xml:space="preserve">
+    <value>Pause intercept filter</value>
+  </data>
+  <data name="PAUSEFILTERTHRESHOLD" xml:space="preserve">
+    <value>Support for the PAUSE filter cycle count threshold</value>
   </data>
   <data name="PBE" xml:space="preserve">
     <value>Pending Break Enable</value>
@@ -582,6 +780,9 @@
   <data name="PERFL2I" xml:space="preserve">
     <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
   </data>
+  <data name="PERFMONV2" xml:space="preserve">
+    <value>Performance Monitoring Version 2 supported</value>
+  </data>
   <data name="PERFTSC" xml:space="preserve">
     <value>Performance time-stamp counter</value>
   </data>
@@ -606,6 +807,9 @@
   <data name="PQM" xml:space="preserve">
     <value>Platform QoS Monitoring</value>
   </data>
+  <data name="PREFETCHCTLMSR" xml:space="preserve">
+    <value>Prefetch control MSR supported</value>
+  </data>
   <data name="PREFETCHW" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write</value>
   </data>
@@ -614,6 +818,12 @@
   </data>
   <data name="PREVENTHOSTIBS" xml:space="preserve">
     <value>Disallowing IBS use by the host supported</value>
+  </data>
+  <data name="PROCFEEDBACKINTERFACE" xml:space="preserve">
+    <value>Processor feedback interface.</value>
+  </data>
+  <data name="PROCPOWERREPORTING" xml:space="preserve">
+    <value>Processor power reporting interface supported</value>
   </data>
   <data name="PSE" xml:space="preserve">
     <value>Page Size Extension</value>
@@ -648,11 +858,20 @@
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
   </data>
+  <data name="RDWROPCNT" xml:space="preserve">
+    <value>Read write of op counter supported</value>
+  </data>
   <data name="RESTRICTEDINJECTION" xml:space="preserve">
     <value>Restricted Injection supported</value>
   </data>
+  <data name="RIPINVALIDCHK" xml:space="preserve">
+    <value>Invalid RIP indication supported</value>
+  </data>
   <data name="RMPQUERY" xml:space="preserve">
     <value>RMPQUERY Instruction supported</value>
+  </data>
+  <data name="ROGPT" xml:space="preserve">
+    <value>Read-Only Guest Page Table feature support</value>
   </data>
   <data name="RRSBA_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
@@ -669,8 +888,14 @@ specified fallback address.</value>
 IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
 (RTM_FORCE_ABORT)</value>
   </data>
+  <data name="SCALABLEMCA" xml:space="preserve">
+    <value>MCA Extension (MCAX) support</value>
+  </data>
   <data name="SDBG" xml:space="preserve">
     <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
+  </data>
+  <data name="SDCIAE" xml:space="preserve">
+    <value>Smart Data Cache Injection (SDCI) Allocation Enforcement</value>
   </data>
   <data name="SECURETSC" xml:space="preserve">
     <value>Secure TSC supported</value>
@@ -717,11 +942,17 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="SMEP" xml:space="preserve">
     <value>Supervisor Mode Execution Prevention</value>
   </data>
+  <data name="SMMPGCFGLOCK" xml:space="preserve">
+    <value>SMM paging configuration lock supported</value>
+  </data>
   <data name="SMTPROTECTION" xml:space="preserve">
     <value>SMT Protection supported</value>
   </data>
   <data name="SMX" xml:space="preserve">
     <value>Safer Mode Extensions</value>
+  </data>
+  <data name="SPECCTRL" xml:space="preserve">
+    <value>SPEC_CTRL virtualization</value>
   </data>
   <data name="SRBDS_CTRL" xml:space="preserve">
     <value>Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
@@ -757,6 +988,9 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="SSE4A" xml:space="preserve">
     <value>EXTRQ, INSERTQ, MOVNTSS, and MOVNTSD instruction support</value>
   </data>
+  <data name="SSSCHECK" xml:space="preserve">
+    <value>SVM supervisor shadow stack restrictions</value>
+  </data>
   <data name="SSSE3" xml:space="preserve">
     <value>Supplemental Streaming SIMD Extensions 3</value>
   </data>
@@ -770,8 +1004,14 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
     <value>Streaming performance monitor architecture. Indicates support for
 MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   </data>
+  <data name="SUCCOR" xml:space="preserve">
+    <value>Software uncorrectable error containment and recovery capability</value>
+  </data>
   <data name="SVM" xml:space="preserve">
     <value>Secure Virtual Machine</value>
+  </data>
+  <data name="SVML" xml:space="preserve">
+    <value>SVM lock</value>
   </data>
   <data name="SVSMCOMMPAGEMSR" xml:space="preserve">
     <value>SVSM Communication Page MSR (C001_F000h) is supported</value>
@@ -785,6 +1025,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TCE" xml:space="preserve">
     <value>Translation cache extension, EFER.TCE</value>
   </data>
+  <data name="TLBICTL" xml:space="preserve">
+    <value>INVLPGB/TLBSYNC hypervisor enable in VMCB and TLBSYNC intercept support</value>
+  </data>
   <data name="TM" xml:space="preserve">
     <value>Thermal Monitor</value>
   </data>
@@ -797,6 +1040,9 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TOPX" xml:space="preserve">
     <value>Topology extensions support</value>
   </data>
+  <data name="TS" xml:space="preserve">
+    <value>AMD Temperature sensor</value>
+  </data>
   <data name="TSC" xml:space="preserve">
     <value>Time Stamp Counter</value>
   </data>
@@ -806,8 +1052,17 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TSCAUXVIRTUALIZATION" xml:space="preserve">
     <value>TSC AUX Virtualisation supported</value>
   </data>
+  <data name="TSCINVARIANT" xml:space="preserve">
+    <value>TSC invariant. The TSC rate is ensured to be invariant across all P-States, C-States, and stop grant transitions (such as STPCLK Throttling); therefore the TSC is suitable for use as a source of time.</value>
+  </data>
+  <data name="TSCRATEMSR" xml:space="preserve">
+    <value>MSR based TSC rate control. Indicates support for MSR TSC ratio MSRC000_0104</value>
+  </data>
   <data name="TSXLDTRK" xml:space="preserve">
     <value>TSX suspend load address tracking</value>
+  </data>
+  <data name="TTP" xml:space="preserve">
+    <value>Thermal Trip</value>
   </data>
   <data name="UINTR" xml:space="preserve">
     <value>User Space Interrupts</value>
@@ -815,11 +1070,23 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="UMIP" xml:space="preserve">
     <value>User-mode Instruction Prevention</value>
   </data>
+  <data name="UPPERADDRESSIGNORE" xml:space="preserve">
+    <value>Upper Address Ignore is supported</value>
+  </data>
   <data name="VAES" xml:space="preserve">
     <value>Vectored AES 128-bit on vectored data 256bit registers</value>
   </data>
+  <data name="VGIF" xml:space="preserve">
+    <value>Virtualize the Global Interrupt Flag</value>
+  </data>
+  <data name="VID" xml:space="preserve">
+    <value>Voltage ID control. Function replaced by HwPstate.</value>
+  </data>
   <data name="VIRTUALTOMMSR" xml:space="preserve">
     <value>Virtual TOM MSR supported</value>
+  </data>
+  <data name="VMCBCLEAN" xml:space="preserve">
+    <value>Indicates support for VMCB clean bits</value>
   </data>
   <data name="VME" xml:space="preserve">
     <value>Virtual 8086 Mode Extensions</value>
@@ -836,8 +1103,14 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="VMSAREGPROT" xml:space="preserve">
     <value>VMSA Register Protection supported</value>
   </data>
+  <data name="VMSAVEVIRT" xml:space="preserve">
+    <value>VMSAVE and VMLOAD virtualization (nested virtualization)</value>
+  </data>
   <data name="VMX" xml:space="preserve">
     <value>Virtual Machine Extensions</value>
+  </data>
+  <data name="VNMI" xml:space="preserve">
+    <value>NMI Virtualization</value>
   </data>
   <data name="VPCLMULQDQ" xml:space="preserve">
     <value>Vectored VPCLMULQDQ Instruction</value>
@@ -857,6 +1130,9 @@ MSRC001_0074</value>
   </data>
   <data name="X2APIC" xml:space="preserve">
     <value>Extended APIC support</value>
+  </data>
+  <data name="X2AVIC" xml:space="preserve">
+    <value>AMD advanced virtual interrupt controller for x2APIC mode</value>
   </data>
   <data name="XD" xml:space="preserve">
     <value>Execution Disable bit</value>

@@ -7,7 +7,6 @@
     /// <summary>
     /// A collection of CPU features.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Public API")]
     public class CpuFeatures : IEnumerable<string>
     {
         private readonly Dictionary<string, CpuFeature> m_Features =
@@ -19,7 +18,10 @@
         private CpuFeature GetNoFeature(string key)
         {
             if (m_NoFeature.TryGetValue(key, out CpuFeature value)) return value;
-            value = new CpuFeature(key, false);
+            value = new CpuFeature(key, false) {
+                // Because this feature is unknown, consider it reserved.
+                IsReserved = true
+            };
             m_NoFeature.Add(key, value);
             return value;
         }
@@ -54,15 +56,6 @@
         public int Count
         {
             get { return m_Features.Count; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this collection is read only.
-        /// </summary>
-        /// <value>This property always returns <see langword="true"/> indicating the collection is read only.</value>
-        public bool IsReadOnly
-        {
-            get { return true; }
         }
 
         internal void Add(string key, CpuFeature value)

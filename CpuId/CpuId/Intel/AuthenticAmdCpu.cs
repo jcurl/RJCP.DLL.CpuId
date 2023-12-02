@@ -18,10 +18,19 @@
 
         internal const int CacheTlb = unchecked((int)0x80000005);
         internal const int CacheL2Tlb = unchecked((int)0x80000006);
+        internal const int PowerFeature = unchecked((int)0x80000007);
+        internal const int SvmFeature = unchecked((int)0x8000000A);
         internal const int CacheTlb1G = unchecked((int)0x80000019);
         internal const int PerfOptIdent = unchecked((int)0x8000001A);
+        internal const int InstrSampling = unchecked((int)0x8000001B);
+        internal const int LwpCaps = unchecked((int)0x8000001C);
         internal const int CacheTopo = unchecked((int)0x8000001D);
         internal const int ProcessorTopo = unchecked((int)0x8000001E);
+        internal const int ExtendedEncMem = unchecked((int)0x8000001F);
+        internal const int PqosExtended = unchecked((int)0x80000020);
+        internal const int Extended2 = unchecked((int)0x80000021);
+        internal const int PerfMonDebug = unchecked((int)0x80000022);
+        internal const int MultiKeyEncMem = unchecked((int)0x80000023);
 
         private int m_ProcessorSignature;
         private int m_ExtendedFamily;
@@ -148,6 +157,20 @@
             "FXSR", "FFXSR", "1GB_PAGE", "RDTSCP", null, "LM", "3DNowExt", "3DNow"
         };
 
+        private readonly static string[] FeaturesCpuId80000007Ebx = new string[] {
+            "McaOverflowRecov", "SUCCOR", "HWA", "ScalableMca", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000007Edx = new string[] {
+            "TS", "FID", "VID", "TTP", "TM", null, "100MHz", "HwPstate",
+            "TscInvariant", "CPB", "EffFreqRO", "ProcFeedbackInterface", "ProcPowerReporting", null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
         private readonly static string[] FeaturesCpuId80000008Ebx = new string[] {
             // IRPERF = Instruction Retired Counter
             // ASRFPEP = Error Pointer Zero/Restore
@@ -158,6 +181,13 @@
             "SSBD", "SSBD_VirtSpecCtrl", "SSBD_NotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", null
         };
 
+        private readonly static string[] FeaturesCpuId8000000AEdx = new string[] {
+            "NP", "LbrVirt", "SVML", "NRIPS", "TscRateMsr", "VmcbClean", "FlushByAsid", "DecodeAssists",
+            null, null, "PauseFilter", null, "PauseFilterThreshold", "AVIC", null, "VMSAVEvirt",
+            "VGIF", "GMET", "x2AVIC", "SSSCheck", "SpecCtrl", "ROGPT", null, "HOST_MCE_OVERRIDE",
+            "TlbiCtl", "VNMI", "IbsVirt", "ExtLvtAvicAccessChg", "NestedVirtVmcbAddrChk", "BusLockThreshold", null, null
+        };
+
         private readonly static string[] FeaturesCpuId8000001AEax = new string[] {
             "FP128", "MOVU", "FP256", null, null, null, null, null,
             null, null, null, null, null, null, null, null,
@@ -165,11 +195,74 @@
             null, null, null, null, null, null, null, null
         };
 
+        private readonly static string[] FeaturesCpuId8000001BEax = new string[] {
+            "IBSFFV", "FetchSam", "OpSam", "RdWrOpCnt", "OpCnt", "BrnTrgt", "OpCntExt", "RipInvalidChk",
+            "OpBrnFuse", null, null, "IbsL3MissFiltering", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId8000001CEax = new string[] {
+            "LwpAvail", "LwpVAL", "LwpIRE", "LwpBRE", "LwpDME", "LwpCNH", "LwpRNH", null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, "LwpCont", "LwpPTSC", "LwpInt"
+        };
+
+        private readonly static string[] FeaturesCpuId8000001CEcx = new string[] {
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, "LwpBranchPrediction", "LwpIpFiltering", "LwpCacheLevels", "LwpCacheLatency"
+        };
+
+        private readonly static string[] FeaturesCpuId8000001CEdx = new string[] {
+            "LwpAvail", "LwpVAL", "LwpIRE", "LwpBRE", "LwpDME", "LwpCNH", "LwpRNH", null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, "LwpCont", "LwpPTSC", "LwpInt"
+        };
+
         private readonly static string[] FeaturesCpuId8000001FEax = new string[] {
             "SME", "SEV", "PageFlushMsr", "SEV-ES", "SEV-SNP", "VMPL", "RMPQUERY", "VmplSSS",
             "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "SEV-64", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
             "VTE", "VmgexitParameter", "VirtualTomMsr", "IbsVirtGuestCtl", null, null, null, null,
             "VmsaRegProt", "SmtProtection", null, null, "SvsmCommPageMSR", "NestedVirtSnpMsr", null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000020Ebx = new string[] {
+            null, "L3MBE", "L3SMBE", "BMEC", "L3RR", "ABMC", "SDCIAE", null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000020s3Ecx = new string[] {
+            "L3CacheLclBwFillMon", "L3CacheRmtBwFillMon", "L3CacheLclBwNtWrMon", "L3CacheRmtBwNtWrMon", "L3CacheLclSlowBwFIllMon", "L3CacheRmtSlowBwFIllMon", "L3CacheVicMon", null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000021Eax = new string[] {
+            "NoNestedDataBp", null, "LFenceAlwaysSerializing", "SmmPgCfgLock", null, null, "NullSelectClearsBase", "UpperAddressIgnore",
+            "AutomaticIBRS", "NoSmmCtlMSR", null, null, null, "PrefetchCtlMsr", null, null,
+            null, "CpuidUserDis", null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000022Eax = new string[] {
+            "PerfMonV2", "LbrStack", "LbrAndPmcFreeze", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId80000023Eax = new string[] {
+            "MemHmk", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
         };
 
         private void FindFeatures(BasicCpu cpu)
@@ -227,7 +320,11 @@
 
                 TestFeatures(FeaturesCpuId0D01Ecx, FeatureGroup.ExtendedState, features13, 2);
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 2, unchecked((int)0xFFFFE7FF));
+
+                ReservedFeature(FeatureGroup.ExtendedState, features13, 3, unchecked((int)0xFFFFFFFF));
             }
+
+            FindAmdFeatures(cpu);
         }
 
         private void FindExtendedFeatures(BasicCpu cpu)
@@ -251,6 +348,26 @@
                 TestFeatures(FeaturesCpuId80000008Ebx, FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1);
                 ReservedFeature(FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1, unchecked((int)0x80400CA0));
             }
+        }
+
+        private void FindAmdFeatures(BasicCpu cpu)
+        {
+            if (cpu.ExtendedFunctionCount < PowerFeature - MaxExtendedFunction) return;
+            CpuIdRegister extfeat7 = cpu.CpuRegisters.GetCpuId(PowerFeature, 0);
+            if (extfeat7 != null) {
+                TestFeatures(FeaturesCpuId80000007Ebx, FeatureGroup.PowerManagement, extfeat7, 1);
+                ReservedFeature(FeatureGroup.PowerManagement, extfeat7, 1, unchecked((int)0xFFFFFFF0));
+
+                TestFeatures(FeaturesCpuId80000007Edx, FeatureGroup.PowerManagement, extfeat7, 3);
+                ReservedFeature(FeatureGroup.PowerManagement, extfeat7, 3, unchecked((int)0xFFFFE020));
+            }
+
+            if (cpu.ExtendedFunctionCount < SvmFeature - MaxExtendedFunction) return;
+            CpuIdRegister extfeata = cpu.CpuRegisters.GetCpuId(SvmFeature, 0);
+            if (extfeata != null) {
+                TestFeatures(FeaturesCpuId8000000AEdx, FeatureGroup.SvmFeatures, extfeata, 3);
+                ReservedFeature(FeatureGroup.SvmFeatures, extfeata, 3, unchecked((int)0xC0404B00));
+            }
 
             if (cpu.ExtendedFunctionCount < PerfOptIdent - MaxExtendedFunction) return;
             CpuIdRegister extfeat1a = cpu.CpuRegisters.GetCpuId(PerfOptIdent, 0);
@@ -259,11 +376,87 @@
                 ReservedFeature(FeatureGroup.PerformanceOptimizations, extfeat1a, 0, unchecked((int)0xFFFFFFF8));
             }
 
+            if (cpu.ExtendedFunctionCount < InstrSampling - MaxExtendedFunction) return;
+            CpuIdRegister extfeat1b = cpu.CpuRegisters.GetCpuId(InstrSampling, 0);
+            if (extfeat1b != null) {
+                TestFeatures(FeaturesCpuId8000001BEax, FeatureGroup.PerformanceSampling, extfeat1b, 0);
+                ReservedFeature(FeatureGroup.PerformanceSampling, extfeat1b, 0, unchecked((int)0xFFFFF600));
+            }
+
+            if (cpu.ExtendedFunctionCount < LwpCaps - MaxExtendedFunction) return;
+            CpuIdRegister extfeat1c = cpu.CpuRegisters.GetCpuId(LwpCaps, 0);
+            if (extfeat1c != null) {
+                TestFeatures(FeaturesCpuId8000001CEax, FeatureGroup.LightweightProfiling, extfeat1c, 0);
+                ReservedFeature(FeatureGroup.LightweightProfiling, extfeat1c, 0, 0x1FFFFF80);
+
+                TestFeatures(FeaturesCpuId8000001CEcx, FeatureGroup.LightweightProfiling, extfeat1c, 2);
+                ReservedFeature(FeatureGroup.LightweightProfiling, extfeat1c, 2, 0x0F000000);
+
+                TestFeatures(FeaturesCpuId8000001CEdx, FeatureGroup.LightweightProfiling, extfeat1c, 3);
+                ReservedFeature(FeatureGroup.LightweightProfiling, extfeat1c, 3, 0x1FFFFF80);
+            }
+
             if (cpu.ExtendedFunctionCount < ExtendedEncMem - MaxExtendedFunction) return;
             CpuIdRegister extfeat1f = cpu.CpuRegisters.GetCpuId(ExtendedEncMem, 0);
             if (extfeat1f != null) {
                 TestFeatures(FeaturesCpuId8000001FEax, FeatureGroup.EncryptedMemory, extfeat1f, 0);
                 ReservedFeature(FeatureGroup.EncryptedMemory, extfeat1f, 0, unchecked((int)0xCCF00000));
+            }
+
+            if (cpu.ExtendedFunctionCount < PqosExtended - MaxExtendedFunction) return;
+            CpuIdRegister extfeat20 = cpu.CpuRegisters.GetCpuId(PqosExtended, 0);
+            if (extfeat20 != null) {
+                ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 0, unchecked((int)0xFFFFFFFF));
+
+                TestFeatures(FeaturesCpuId80000020Ebx, FeatureGroup.PqosExtended, extfeat20, 1);
+                ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 1, unchecked((int)0xFFFFFF81));
+
+                ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 2, unchecked((int)0xFFFFFFFF));
+
+                ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 3, unchecked((int)0xFFFFFFFF));
+            }
+            CpuIdRegister extfeat20s3 = cpu.CpuRegisters.GetCpuId(PqosExtended, 3);
+            if (extfeat20s3 != null) {
+                if (Features["BMEC"].Value) {
+                    TestFeatures(FeaturesCpuId80000020s3Ecx, FeatureGroup.PqosExtended, extfeat20s3, 2);
+                    ReservedFeature(FeatureGroup.PqosExtended, extfeat20s3, 2, unchecked((int)0xFFFFFF80));
+                } else {
+                    ReservedFeature(FeatureGroup.PqosExtended, extfeat20s3, 2, unchecked((int)0xFFFFFFFF));
+                }
+                ReservedFeature(FeatureGroup.PqosExtended, extfeat20s3, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.ExtendedFunctionCount < Extended2 - MaxExtendedFunction) return;
+            CpuIdRegister extfeat21 = cpu.CpuRegisters.GetCpuId(Extended2, 0);
+            if (extfeat21 != null) {
+                TestFeatures(FeaturesCpuId80000021Eax, FeatureGroup.ExtendedFeatures, extfeat21, 0);
+                ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat21, 0, unchecked((int)0xFFFDDC32));
+
+                ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat21, 2, unchecked((int)0xFFFFFFFF));
+
+                ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat21, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.ExtendedFunctionCount < PerfMonDebug - MaxExtendedFunction) return;
+            CpuIdRegister extfeat22 = cpu.CpuRegisters.GetCpuId(PerfMonDebug, 0);
+            if (extfeat22 != null) {
+                TestFeatures(FeaturesCpuId80000022Eax, FeatureGroup.PerfMonDebug, extfeat22, 0);
+                ReservedFeature(FeatureGroup.PerfMonDebug, extfeat22, 0, unchecked((int)0xFFFFFFF8));
+
+                ReservedFeature(FeatureGroup.PerfMonDebug, extfeat22, 2, unchecked((int)0xFFFFFFFF));
+
+                ReservedFeature(FeatureGroup.PerfMonDebug, extfeat22, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.ExtendedFunctionCount < MultiKeyEncMem - MaxExtendedFunction) return;
+            CpuIdRegister extfeat23 = cpu.CpuRegisters.GetCpuId(MultiKeyEncMem, 0);
+            if (extfeat23 != null) {
+                TestFeatures(FeaturesCpuId80000023Eax, FeatureGroup.EncryptedMemory, extfeat22, 0);
+                ReservedFeature(FeatureGroup.EncryptedMemory, extfeat23, 0, unchecked((int)0xFFFFFFFE));
+
+                ReservedFeature(FeatureGroup.EncryptedMemory, extfeat23, 2, unchecked((int)0xFFFFFFFF));
+
+                ReservedFeature(FeatureGroup.EncryptedMemory, extfeat23, 3, unchecked((int)0xFFFFFFFF));
             }
         }
 

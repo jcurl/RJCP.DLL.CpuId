@@ -119,11 +119,11 @@
   </resheader>
   <data name="fgEncryptedMemory" xml:space="preserve">
     <value>Encrypted Memory Features</value>
-    <comment>AMD Fn8000_001F_EAX</comment>
+    <comment>AMD Fn8000_001F_EAX, Fn8000_0023</comment>
   </data>
   <data name="fgExtendedFeatures" xml:space="preserve">
     <value>Extended Features</value>
-    <comment>Fn8000_0001</comment>
+    <comment>Fn8000_0001, AMD Fn8000_0021</comment>
   </data>
   <data name="fgExtendedFeaturesIdentifiers" xml:space="preserve">
     <value>Extended Feature Identifiers</value>
@@ -133,9 +133,13 @@
     <value>Extended State</value>
     <comment>Fn0000_000D_EAX,ECX_x1</comment>
   </data>
-  <data name="fgLightWeightProfiling" xml:space="preserve">
+  <data name="fgLightweightProfiling" xml:space="preserve">
     <value>Lightweight Profiling Features</value>
     <comment>AMD Fn8000_001C</comment>
+  </data>
+  <data name="fgPerfMonDebug" xml:space="preserve">
+    <value>Extended Performance Monitoring and Debug</value>
+    <comment>AMD Fn8000_0021</comment>
   </data>
   <data name="fgPerformanceOptimizations" xml:space="preserve">
     <value>Performance Optimization Features</value>
@@ -144,6 +148,14 @@
   <data name="fgPerformanceSampling" xml:space="preserve">
     <value>Performance Sampling Features</value>
     <comment>AMD Fn8000_001B</comment>
+  </data>
+  <data name="fgPowerManagement" xml:space="preserve">
+    <value>Power Management Features</value>
+    <comment>AMD Fn8000_0007h</comment>
+  </data>
+  <data name="fgPqosExtended" xml:space="preserve">
+    <value>PQOS Extended Features</value>
+    <comment>AMD Fn8000_0020</comment>
   </data>
   <data name="fgStandardFeatures" xml:space="preserve">
     <value>Standard Features</value>
