@@ -142,7 +142,7 @@
         private readonly static string[] FeaturesCpuId01Ecx = new string[] {
             "SSE3", "PCLMULQDQ", "DTES64", "MONITOR", "DS-CPL", "VMX", "SMX", "EIST",
             "TM2", "SSSE3", "CNXT-ID", "SDBG", "FMA", "CMPXCHG16B", "xTPR", "PDCM",
-            null, "PCID", "DCA", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
+            null, "PCID", "DCA", "SSE4_1", "SSE4_2", "x2APIC", "MOVBE", "POPCNT",
             // HYPERVISOR = Wikipedia https://en.wikipedia.org/wiki/CPUID
             "TSC-DEADLINE", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
@@ -212,7 +212,7 @@
         };
 
         private readonly static string[] FeaturesCpuId800000001Ecx = new string[] {
-            "AHF64", null, null, null, null, "ABM", null, null,
+            "AHF64", null, null, null, null, "LZCNT", null, null,
             "PREFETCHW", null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null

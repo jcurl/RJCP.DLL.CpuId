@@ -17,6 +17,11 @@
             Dictionary<FeatureGroup, ListViewGroup> groups = new Dictionary<FeatureGroup, ListViewGroup>();
             foreach (string feature in cpuId.Features) {
                 CpuFeature cpuFeature = cpuId.Features[feature];
+
+                // Ignore aliases. We know it's an alias as the key is different from the feature name.
+                if (!feature.Equals(cpuFeature.Feature, StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
                 if (!groups.TryGetValue(cpuFeature.Group, out ListViewGroup lvg)) {
                     string groupName = Resources.UserInterface.ResourceManager.GetString($"fg{cpuFeature.Group}")
                         ?? $"fg{cpuFeature.Group}";

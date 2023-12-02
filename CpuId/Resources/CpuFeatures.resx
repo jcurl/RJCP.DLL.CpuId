@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="100MHZ" xml:space="preserve">
+  <data name="100MHZSTEPS" xml:space="preserve">
     <value>100 MHz multiplier Control</value>
   </data>
   <data name="1GB_PAGE" xml:space="preserve">
@@ -129,8 +129,8 @@
   <data name="3DNOWEXT" xml:space="preserve">
     <value>AMD extensions to 3DNow! instructions</value>
   </data>
-  <data name="ABM" xml:space="preserve">
-    <value>LZCNT (count leading zero bits) instruction</value>
+  <data name="64BITHOST" xml:space="preserve">
+    <value>SEV guest execution only allowed from a 64-bit host</value>
   </data>
   <data name="ABMC" xml:space="preserve">
     <value>Assignable Bandwidth Monitoring Counters</value>
@@ -138,7 +138,7 @@
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
   </data>
-  <data name="ADMSK" xml:space="preserve">
+  <data name="ADDRMASKEXT" xml:space="preserve">
     <value>Address mask extension support for instruction breakpoint</value>
   </data>
   <data name="ADX" xml:space="preserve">
@@ -153,7 +153,7 @@
   <data name="ALTERNATEINJECTION" xml:space="preserve">
     <value>Alternate Injection supported</value>
   </data>
-  <data name="AM" xml:space="preserve">
+  <data name="ALTMOVCR8" xml:space="preserve">
     <value>LOCK MOV CR0 means MOV CR8</value>
   </data>
   <data name="AMX_BF16" xml:space="preserve">
@@ -167,9 +167,6 @@
   </data>
   <data name="APIC" xml:space="preserve">
     <value>On-chip Advanced Programmable Interrupt Controller hardware</value>
-  </data>
-  <data name="ASRFPEP" xml:space="preserve">
-    <value>FP Error Pointers Restored by XRSTOR</value>
   </data>
   <data name="AUTOMATICIBRS" xml:space="preserve">
     <value>Automatic IBRS</value>
@@ -240,6 +237,9 @@
   <data name="AVX_VNNI" xml:space="preserve">
     <value>AVX Vector Neural Network Instructions</value>
   </data>
+  <data name="BE" xml:space="preserve">
+    <value>Memory Bandwidth Enforcement</value>
+  </data>
   <data name="BHI_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
   </data>
@@ -297,7 +297,7 @@
   <data name="CMOV" xml:space="preserve">
     <value>Conditional Move Instruction</value>
   </data>
-  <data name="CMP" xml:space="preserve">
+  <data name="CMPLEGACY" xml:space="preserve">
     <value>Core Multi-processing Legacy Mode</value>
   </data>
   <data name="CMPXCHG16B" xml:space="preserve">
@@ -318,7 +318,7 @@
   <data name="CX8" xml:space="preserve">
     <value>CMPXCHG8 instruction</value>
   </data>
-  <data name="DBE" xml:space="preserve">
+  <data name="DATABKPTEXT" xml:space="preserve">
     <value>Data access breakpoint extension</value>
   </data>
   <data name="DCA" xml:space="preserve">
@@ -345,7 +345,7 @@
   <data name="DTES64" xml:space="preserve">
     <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
   </data>
-  <data name="EFER.LMSLE" xml:space="preserve">
+  <data name="EFERLMSLEUNSUPPORTED" xml:space="preserve">
     <value>EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported</value>
   </data>
   <data name="EFFFREQRO" xml:space="preserve">
@@ -474,17 +474,17 @@
   <data name="IBRS" xml:space="preserve">
     <value>Indirect branch restricted speculation, Spectre mitigation enabled</value>
   </data>
-  <data name="IBRS_ALL" xml:space="preserve">
+  <data name="IBRSALWAYSON" xml:space="preserve">
     <value>IBRS always on mode</value>
+  </data>
+  <data name="IBRSPREFERRED" xml:space="preserve">
+    <value>IBRS preferred</value>
+  </data>
+  <data name="IBRSSAMEMODE" xml:space="preserve">
+    <value>IBRS provides Same Mode Protection speculation limits</value>
   </data>
   <data name="IBRS_IBPB" xml:space="preserve">
     <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
-  </data>
-  <data name="IBRS_PREF" xml:space="preserve">
-    <value>IBRS preferred</value>
-  </data>
-  <data name="IBRS_SMP" xml:space="preserve">
-    <value>IBRS provides Same Mode Protection speculation limits</value>
   </data>
   <data name="IBS" xml:space="preserve">
     <value>Instruction based sampling</value>
@@ -501,6 +501,9 @@
   <data name="IBSVIRTGUESTCTL" xml:space="preserve">
     <value>IBS Virtualization supported for SEV-ES guests</value>
   </data>
+  <data name="INSTRETCNTMSR" xml:space="preserve">
+    <value>Instruction Retired Counter MSR available</value>
+  </data>
   <data name="INTEL_PT" xml:space="preserve">
     <value>Intel Processor Trace</value>
   </data>
@@ -510,7 +513,7 @@
   <data name="INVLPGB" xml:space="preserve">
     <value>INVLPGB and TLBSYNC instruction supported</value>
   </data>
-  <data name="INVLPGB_NESTED" xml:space="preserve">
+  <data name="INVLPGBNESTEDPAGES" xml:space="preserve">
     <value>INVLPGB support for invalidating guest nested translations</value>
   </data>
   <data name="INVPCID" xml:space="preserve">
@@ -521,9 +524,6 @@
   </data>
   <data name="IPRED_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
-  </data>
-  <data name="IRPERF" xml:space="preserve">
-    <value>Instruction Retired Counter MSR available</value>
   </data>
   <data name="KL" xml:space="preserve">
     <value>Key Locker</value>
@@ -630,8 +630,8 @@
   <data name="LWPVAL" xml:space="preserve">
     <value>LWPVAL instruction available</value>
   </data>
-  <data name="MBE" xml:space="preserve">
-    <value>Memory Bandwidth Enforcement (or sometimes BE)</value>
+  <data name="LZCNT" xml:space="preserve">
+    <value>LZCNT (count leading zero bits) instruction</value>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
@@ -774,11 +774,11 @@
   <data name="PERFCTREXTCORE" xml:space="preserve">
     <value>Processor performance counter extensions support. Indicates support for MSRC001_020[A,8,6,4,2,0] and MSRC001_020[B,9,7,5,3,1]</value>
   </data>
+  <data name="PERFCTREXTLLC" xml:space="preserve">
+    <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
+  </data>
   <data name="PERFCTREXTNB" xml:space="preserve">
     <value>NB performance counter extensions support. Indicates support for MSRC001_024[6,4,2,0] and MSRC001_024[7,5,3,1]</value>
-  </data>
-  <data name="PERFL2I" xml:space="preserve">
-    <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
   </data>
   <data name="PERFMONV2" xml:space="preserve">
     <value>Performance Monitoring Version 2 supported</value>
@@ -876,6 +876,9 @@
   <data name="RRSBA_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
   </data>
+  <data name="RSTRFPERRPTRS" xml:space="preserve">
+    <value>FP Error Pointers Restored by XRSTOR</value>
+  </data>
   <data name="RTM" xml:space="preserve">
     <value>TSX restricted transactional memory</value>
   </data>
@@ -908,9 +911,6 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   </data>
   <data name="SEV" xml:space="preserve">
     <value>Secure Encrypted Virtualization supported</value>
-  </data>
-  <data name="SEV-64" xml:space="preserve">
-    <value>SEV guest execution only allowed from a 64-bit host</value>
   </data>
   <data name="SEV-ES" xml:space="preserve">
     <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
@@ -964,10 +964,10 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="SSBD" xml:space="preserve">
     <value>Speculative Store Bypass Disable (SSBD)</value>
   </data>
-  <data name="SSBD_NOTREQUIRED" xml:space="preserve">
+  <data name="SSBDNOTREQUIRED" xml:space="preserve">
     <value>SSBD not needed on this processor</value>
   </data>
-  <data name="SSBD_VIRTSPECCTRL" xml:space="preserve">
+  <data name="SSBDVIRTSPECCTRL" xml:space="preserve">
     <value>Use VIRT_SPEC_CTRL for SSBD</value>
   </data>
   <data name="SSE" xml:space="preserve">
@@ -979,14 +979,14 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="SSE3" xml:space="preserve">
     <value>Streaming SIMD Extensions 3</value>
   </data>
-  <data name="SSE4.1" xml:space="preserve">
-    <value>Streaming SIMD Extensions 4.1</value>
-  </data>
-  <data name="SSE4.2" xml:space="preserve">
-    <value>Streaming SIMD Extensions 4.2</value>
-  </data>
   <data name="SSE4A" xml:space="preserve">
     <value>EXTRQ, INSERTQ, MOVNTSS, and MOVNTSD instruction support</value>
+  </data>
+  <data name="SSE4_1" xml:space="preserve">
+    <value>Streaming SIMD Extensions 4.1</value>
+  </data>
+  <data name="SSE4_2" xml:space="preserve">
+    <value>Streaming SIMD Extensions 4.2</value>
   </data>
   <data name="SSSCHECK" xml:space="preserve">
     <value>SVM supervisor shadow stack restrictions</value>
@@ -997,7 +997,7 @@ IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
   <data name="STIBP" xml:space="preserve">
     <value>Single thread indirect branch predictors (STIBP)</value>
   </data>
-  <data name="STIBP_ALL" xml:space="preserve">
+  <data name="STIBPALWAYSON" xml:space="preserve">
     <value>STIBP always on mode</value>
   </data>
   <data name="STREAMPERFMON" xml:space="preserve">
@@ -1037,7 +1037,7 @@ MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
   <data name="TME_EN" xml:space="preserve">
     <value>IA32_TME MSR capabilities are supported</value>
   </data>
-  <data name="TOPX" xml:space="preserve">
+  <data name="TOPOLOGYEXTENSIONS" xml:space="preserve">
     <value>Topology extensions support</value>
   </data>
   <data name="TS" xml:space="preserve">

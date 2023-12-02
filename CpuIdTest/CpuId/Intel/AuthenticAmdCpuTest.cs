@@ -19,14 +19,14 @@
         private static readonly string[] CpuId_01_Ecx = new[] {
             "SSE3", "PCLMULQDQ", "", "MONITOR", "", "", "", "",
             "", "SSSE3", "", "", "FMA", "CMPXCHG16B", "", "",
-            "", "PCID", "", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
-            "", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
+            "", "PCID", "", "SSE41", "SSE42", "x2APIC", "MOVBE", "POPCNT",
+            "", "AES", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
 
         private static readonly string[] CpuId_01_Edx = new[] {
             "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
-            "CX8", "APIC", "", "SEP", "MTRR", "PGE", "MCA", "CMOV",
-            "PAT", "PSE-36", "", "CLFSH", "", "", "", "MMX",
+            "CMPXCHG8B", "APIC", "", "SysEnterSysExit", "MTRR", "PGE", "MCA", "CMOV",
+            "PAT", "PSE36", "", "CLFSH", "", "", "", "MMX",
             "FXSR", "SSE", "SSE2", "", "HTT", "", "", ""
         };
 
@@ -39,9 +39,9 @@
 
         private static readonly string[] CpuId_07_Ecx = new[] {
             "", "", "UMIP", "PKU", "OSPKE", "", "", "CET_SS",
-            "", "VAES", "VPCLMULQDQ", "", "", "", "", "",
+            "", "VAES", "VPCMULQDQ", "", "", "", "", "",
             "LA57", "", "", "", "", "", "RDPID", "",
-            "BUS_LOCK_DETECT", "", "", "", "", "", "", ""
+            "BUSLOCKTRAP", "", "", "", "", "", "", ""
         };
 
         private static readonly string[] CpuId_0D_s01_Eax = new[] {
@@ -60,17 +60,17 @@
 
         // TODO DOTNET-887: Use names as in doc
         private static readonly string[] CpuId_80_01_Ecx = new[] {
-            "AHF64", "CMP", "SVM", "ExtApicSpace", "AM", "ABM", "SSE4A", "MisAlignSSE",
-            "PREFETCHW", "OSVW", "IBS", "XOP", "SKINIT", "WDT", "", "LWP",
-            "FMA4", "TCE", "", "NODEID", "", "TBM", "TOPX", "PerfCtrExtCore",
-            "PerfCtrExtNB", "StreamPerfMon", "DBE", "PerfTSC", "PerfL2I", "MONITORX", "ADMSK", ""
+            "LahfSahf", "CmpLegacy", "SVM", "ExtApicSpace", "AltMovCr8", "ABM", "SSE4A", "MisAlignSSE",
+            "3DNowPrefetch", "OSVW", "IBS", "XOP", "SKINIT", "WDT", "", "LWP",
+            "FMA4", "TCE", "", "NODEID", "", "TBM", "TopologyExtensions", "PerfCtrExtCore",
+            "PerfCtrExtNB", "StreamPerfMon", "DataBkptExt", "PerfTSC", "PerfCtrExtLLC", "MONITORX", "AddrMaskExt", ""
         };
 
         private static readonly string[] CpuId_80_01_Edx = new[] {
             "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
-            "CX8", "APIC", "", "SYSCALL", "MTRR", "PGE", "MCA", "CMOV",
-            "PAT", "PSE-36", "", "MP", "XD", "", "MMXEXT", "MMX",
-            "FXSR", "FFXSR", "1GB_PAGE", "RDTSCP", "", "LM", "3DNowExt", "3DNow"
+            "CMPXCHG8B", "APIC", "", "SysCallSysRet", "MTRR", "PGE", "MCA", "CMOV",
+            "PAT", "PSE36", "", "MP", "NX", "", "MmxExt", "MMX",
+            "FXSR", "FFXSR", "Page1GB", "RDTSCP", "", "LM", "3DNowExt", "3DNow"
         };
 
         private static readonly string[] CpuId_80_07_Ebx = new[] {
@@ -81,18 +81,17 @@
         };
 
         private static readonly string[] CpuId_80_07_Edx = new[] {
-            "TS", "FID", "VID", "TTP", "TM", "", "100MHz", "HwPstate",
+            "TS", "FID", "VID", "TTP", "TM", "", "100MHzSteps", "HwPstate",
             "TscInvariant", "CPB", "EffFreqRO", "ProcFeedbackInterface", "ProcPowerReporting", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        // TODO DOTNET-887: Use names as in doc
         private static readonly string[] CpuId_80_08_Ebx = new[] {
-            "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", "", "MBE", "",
+            "CLZERO", "InstRetCntMsr", "RstrFpErrPtrs", "INVLPGB", "RDPRU", "", "BE", "",
             "MCOMMIT", "WBNOINVD", "", "", "IBPB", "INT_WBINVD", "IBRS", "STIBP",
-            "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "IBRS_SMP", "EFER.LMSLE", "INVLPGB_NESTED", "", "PPIN",
-            "SSBD", "SSBD_VirtSpecCtrl", "SSBD_NotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", ""
+            "IbrsAlwaysOn", "StibpAlwaysOn", "IbrsPreferred", "IbrsSameMode", "EferLmsleUnsupported", "INVLPGBnestedPages", "", "PPIN",
+            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", ""
         };
 
         private static readonly string[] CpuId_80_0A_Edx = new[] {
@@ -139,7 +138,7 @@
 
         private static readonly string[] CpuId_80_1F_Eax = new[] {
             "SME", "SEV", "PageFlushMsr", "SEV-ES", "SEV-SNP", "VMPL", "RMPQUERY", "VmplSSS",
-            "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "SEV-64", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
+            "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "64BitHost", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
             "VTE", "VmgexitParameter", "VirtualTomMsr", "IbsVirtGuestCtl", "", "", "", "",
             "VmsaRegProt", "SmtProtection", "SvsmCommPageMSR", "NestedVirtSnpMsr", "", "", "", ""
         };

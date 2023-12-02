@@ -19,7 +19,7 @@
         private static readonly string[] CpuId01Ecx = new[] {
             "SSE3", "PCLMULQDQ", "DTES64", "MONITOR", "DS-CPL", "VMX", "SMX", "EIST",
             "TM2", "SSSE3", "CNXT-ID", "SDBG", "FMA", "CMPXCHG16B", "xTPR", "PDCM",
-            "", "PCID", "DCA", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
+            "", "PCID", "DCA", "SSE4_1", "SSE4_2", "x2APIC", "MOVBE", "POPCNT",
             "TSC-DEADLINE", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
 
@@ -115,7 +115,7 @@
         };
 
         private static readonly string[] CpuId81Ecx = new[] {
-            "AHF64", "", "", "", "", "ABM", "", "",
+            "AHF64", "", "", "", "", "LZCNT", "", "",
             "PREFETCHW", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""

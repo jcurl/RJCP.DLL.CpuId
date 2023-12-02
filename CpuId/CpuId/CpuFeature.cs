@@ -30,6 +30,7 @@
             Value = value;
             Group = featureGroup;
             BitGroup = bitGroup;
+            SetDescriptionKey(Feature);
         }
 
         /// <summary>
@@ -62,6 +63,13 @@
         /// <value><see langword="true"/> if this feature is reserved; otherwise, <see langword="false"/>.</value>
         public bool IsReserved { get; internal set; }
 
+        private string m_DescriptionKey;
+
+        internal void SetDescriptionKey(string name)
+        {
+            m_DescriptionKey = name.ToUpper(CultureInfo.InvariantCulture);
+        }
+
         /// <summary>
         /// DProvides a more detailed description of the given feature.
         /// </summary>
@@ -70,7 +78,7 @@
         {
             get
             {
-                return Resources.CpuFeatures.ResourceManager.GetString(Feature.ToUpper(CultureInfo.InvariantCulture));
+                return Resources.CpuFeatures.ResourceManager.GetString(m_DescriptionKey);
             }
         }
     }

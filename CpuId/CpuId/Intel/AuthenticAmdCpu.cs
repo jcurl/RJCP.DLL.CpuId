@@ -97,33 +97,34 @@
         private readonly static string[] FeaturesCpuId01Ecx = new string[] {
             "SSE3", "PCLMULQDQ", null, "MONITOR", null, null, null, null,
             null, "SSSE3", null, null, "FMA", "CMPXCHG16B", null, null,
-            null, "PCID", null, "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT",
-            // HYPERVISOR = Wikipedia https://en.wikipedia.org/wiki/CPUID
-            null, "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
+            null, "PCID", null, "SSE41", "SSE42", "x2APIC", "MOVBE", "POPCNT",
+            null, "AES", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
 
         private readonly static string[] FeaturesCpuId01Edx = new string[] {
             "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
-            "CX8", "", null, "SEP", "MTRR", "", "MCA", "CMOV",
-            "PAT", "PSE-36", null, "CLFSH", null, null, null, "MMX",
-            // IA64 = Wikipedia https://en.wikipedia.org/wiki/CPUID
+            // PGE and APIC are set depending on CPU model
+            "CMPXCHG8B", null, null, "SysEnterSysExit", "MTRR", null, "MCA", "CMOV",
+            "PAT", "PSE36", null, "CLFSH", null, null, null, "MMX",
             "FXSR", "SSE", "SSE2", null, "HTT", null, null, null
         };
 
         private readonly static string[] FeaturesCpuId07Ebx = new string[] {
             "FSGSBASE", null, null, "BMI1", null, "AVX2", null, "SMEP",
             "BMI2", null, "INVPCID", null, "PQM", null, null, "PQE",
+            // [6] has an error in the table CPUID Fn0000_0007_EBX_x0, CPUID EAX=07h, ECX=0, EBX[22] is not RDPID.
+            // The instruction RPID, and table D-1, correctly specifies this register, itself specifies ECX[22].
             null, null, "RDSEED", "ADX", "SMAP", null, null, "CLFLUSHOPT",
             "CLWB", null, null, null, null, "SHA", null, null
         };
 
         private readonly static string[] FeaturesCpuId07Ecx = new string[] {
             null, null, "UMIP", "PKU", "OSPKE", null, null, "CET_SS",
-            null, "VAES", "VPCLMULQDQ", null, null, null, null, null,
+            null, "VAES", "VPCMULQDQ", null, null, null, null, null,
             // [6] has an error in the table CPUID Fn0000_0007_EBX_x0, CPUID EAX=07h, ECX=0, EBX[22] is not RDPID.
             // The instruction RPID, and table D-1, correctly specifies this register, itself specifies ECX[22].
             "LA57", null, null, null, null, null, "RDPID", null,
-            "BUS_LOCK_DETECT", null, null, null, null, null, null, null
+            "BUSLOCKTRAP", null, null, null, null, null, null, null
         };
 
         private readonly static string[] FeaturesCpuId0D01Eax = new string[] {
@@ -141,20 +142,18 @@
         };
 
         private readonly static string[] FeaturesCpuId80000001Ecx = new string[] {
-            // CMP = CmpLegacy
-            "AHF64", "CMP", "SVM", "ExtApicSpace", "AM", "ABM", "SSE4A", "MisAlignSSE",
-            "PREFETCHW", "OSVW", "IBS", "XOP", "SKINIT", "WDT", null, "LWP",
-            // TOPX = TopologyExtensions
-            "FMA4", "TCE", null, "NODEID" /* [9] */, null, "TBM", "TOPX", "PerfCtrExtCore",
+            "LahfSahf", "CmpLegacy", "SVM", "ExtApicSpace", "AltMovCr8", "ABM", "SSE4A", "MisAlignSSE",
+            "3DNowPrefetch", "OSVW", "IBS", "XOP", "SKINIT", "WDT", null, "LWP",
+            "FMA4", "TCE", null, "NODEID" /* [9] */, null, "TBM", "TopologyExtensions", "PerfCtrExtCore",
             // StreamPerfMon = [6a], now reserved
-            "PerfCtrExtNB", "StreamPerfMon", "DBE", "PerfTSC", "PerfL2I", "MONITORX", "ADMSK", null
+            "PerfCtrExtNB", "StreamPerfMon", "DataBkptExt", "PerfTSC", "PerfCtrExtLLC", "MONITORX", "AddrMaskExt", null
         };
 
         private readonly static string[] FeaturesCpuId80000001Edx = new string[] {
             "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
-            "CX8", "APIC", null, "SYSCALL", "MTRR", "PGE", "MCA", "CMOV",
-            "PAT", "PSE-36", null, "MP", "XD", null, "MMXEXT", "MMX",
-            "FXSR", "FFXSR", "1GB_PAGE", "RDTSCP", null, "LM", "3DNowExt", "3DNow"
+            "CMPXCHG8B", "APIC", null, "SysCallSysRet", "MTRR", "PGE", "MCA", "CMOV",
+            "PAT", "PSE36", null, "MP", "NX", null, "MmxExt", "MMX",
+            "FXSR", "FFXSR", "Page1GB", "RDTSCP", null, "LM", "3DNowExt", "3DNow"
         };
 
         private readonly static string[] FeaturesCpuId80000007Ebx = new string[] {
@@ -165,20 +164,18 @@
         };
 
         private readonly static string[] FeaturesCpuId80000007Edx = new string[] {
-            "TS", "FID", "VID", "TTP", "TM", null, "100MHz", "HwPstate",
+            "TS", "FID", "VID", "TTP", "TM", null, "100MHzSteps", "HwPstate",
             "TscInvariant", "CPB", "EffFreqRO", "ProcFeedbackInterface", "ProcPowerReporting", null, null, null,
             null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null
         };
 
         private readonly static string[] FeaturesCpuId80000008Ebx = new string[] {
-            // IRPERF = Instruction Retired Counter
-            // ASRFPEP = Error Pointer Zero/Restore
-            "CLZERO", "IRPERF", "ASRFPEP", "INVLPGB", "RDPRU", null, "MBE", null,
+            "CLZERO", "InstRetCntMsr", "RstrFpErrPtrs", "INVLPGB", "RDPRU", null, "BE", null,
             "MCOMMIT", "WBNOINVD", null, null, "IBPB", "INT_WBINVD", "IBRS", "STIBP",
             // PPIN = [10]
-            "IBRS_ALL", "STIBP_ALL", "IBRS_PREF", "IBRS_SMP", "EFER.LMSLE", "INVLPGB_NESTED", null, "PPIN",
-            "SSBD", "SSBD_VirtSpecCtrl", "SSBD_NotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", null
+            "IbrsAlwaysOn", "StibpAlwaysOn", "IbrsPreferred", "IbrsSameMode", "EferLmsleUnsupported", "INVLPGBnestedPages", null, "PPIN",
+            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", null
         };
 
         private readonly static string[] FeaturesCpuId8000000AEdx = new string[] {
@@ -225,7 +222,7 @@
 
         private readonly static string[] FeaturesCpuId8000001FEax = new string[] {
             "SME", "SEV", "PageFlushMsr", "SEV-ES", "SEV-SNP", "VMPL", "RMPQUERY", "VmplSSS",
-            "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "SEV-64", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
+            "SecureTsc", "TscAuxVirtualization", "HwEnvCacheCoh", "64BitHost", "RestrictedInjection", "AlternateInjection", "DebugSwap", "PreventHostIbs",
             "VTE", "VmgexitParameter", "VirtualTomMsr", "IbsVirtGuestCtl", null, null, null, null,
             "VmsaRegProt", "SmtProtection", null, null, "SvsmCommPageMSR", "NestedVirtSnpMsr", null, null
         };
@@ -284,6 +281,14 @@
 
                 TestFeatures(FeaturesCpuId01Ecx, FeatureGroup.StandardFeatures, features, 2);
                 ReservedFeature(FeatureGroup.StandardFeatures, features, 2, 0x0105CDF4);
+
+                // Alias AMD features to well known Intel features. Use the description from the Intel feature name.
+                AliasFeature("SSE4_1", Features["SSE41"], true);
+                AliasFeature("SSE4_2", Features["SSE42"], true);
+                AliasFeature("AESNI", Features["AES"], true);
+                AliasFeature("CX8", Features["CMPXCHG8B"], true);
+                AliasFeature("SEP", Features["SysEnterSysExit"], true);
+                AliasFeature("PSE-36", Features["PSE36"], true);
             }
 
             FindExtendedFeatures(cpu);
@@ -310,6 +315,10 @@
                         }
                     }
                 }
+
+                // Alias AMD features to well known Intel features. Use the description from the Intel feature name.
+                AliasFeature("VPCLMULQDQ", Features["VPCMULQDQ"], true);
+                AliasFeature("BUS_LOCK_DETECT", Features["BUSLOCKTRAP"], true);
             }
 
             if (cpu.FunctionCount < ExtendedProcessorState) return;
@@ -338,8 +347,15 @@
 
                 TestFeatures(FeaturesCpuId80000001Edx, FeatureGroup.ExtendedFeatures, extfeat, 3);
                 // 3DNowPrefetch ECX[8] || EDX[29] || EDX[31]
-                Features["PREFETCHW"].Value |= Features["LM"].Value || Features["3DNow"].Value;
+                Features["3DNowPrefetch"].Value |= Features["LM"].Value || Features["3DNow"].Value;
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 3, 0x10240400);
+
+                AliasFeature("AHF64", Features["LahfSahf"], true);
+                AliasFeature("LZCNT", Features["ABM"], true);
+                AliasFeature("PREFETCHW", Features["3DNowPrefetch"], true);
+                AliasFeature("SYSCALL", Features["SysCallSysRet"], true);
+                AliasFeature("XD", Features["NX"], true);
+                AliasFeature("1GB_PAGE", Features["Page1GB"], true);
             }
 
             if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
@@ -469,7 +485,7 @@
         private void GetCpuTopology(BasicCpu cpu)
         {
             CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (!Features["HTT"].Value || !Features["CMP"].Value || cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) {
+            if (!Features["HTT"].Value || !Features["CmpLegacy"].Value || cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) {
                 Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, 0));
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId, CpuTopoType.Package, -1));
@@ -491,7 +507,7 @@
             long coreMask = ~(-1 << coreBits);
             long pkgMask = ~coreMask;
 
-            if (!Features["TOPX"].Value || cpu.ExtendedFunctionCount < ProcessorTopo - MaxExtendedFunction) {
+            if (!Features["TopologyExtensions"].Value || cpu.ExtendedFunctionCount < ProcessorTopo - MaxExtendedFunction) {
                 Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId & coreMask, CpuTopoType.Core, coreMask));
                 Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> coreBits, CpuTopoType.Package, pkgMask));
@@ -520,7 +536,7 @@
 
         private void GetCacheTopology(BasicCpu cpu)
         {
-            if (Features["TOPX"].Value && cpu.ExtendedFunctionCount >= CacheTopo - MaxExtendedFunction) {
+            if (Features["TopologyExtensions"].Value && cpu.ExtendedFunctionCount >= CacheTopo - MaxExtendedFunction) {
                 GetCacheTopologyLeaf(CacheTopo);
             }
 

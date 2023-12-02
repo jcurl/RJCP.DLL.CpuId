@@ -191,12 +191,20 @@
                 }
             }
 
-            // All features (that are not in the unknown group, which are reserved) should have a description.
+            // All features (which are reserved) should have a description.
             foreach (string feature in Cpu.Features) {
-                // Only check if the feature is not marked as reserved (as it's expected there will be no description)
-                if (!string.IsNullOrEmpty(feature) && !Cpu.Features[feature].IsReserved &&
-                    string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
-                    missing.Add(feature);
+                if (!string.IsNullOrEmpty(feature)) {
+                    CpuFeature cpuFeature = Cpu.Features[feature];
+                    if (!feature.Equals(cpuFeature.Feature, StringComparison.InvariantCultureIgnoreCase) &&
+                        knownFeatures.Contains(cpuFeature.Feature)) {
+                        // Add the alias to the already known feature.
+                        knownFeatures.Add(feature);
+                    }
+
+                    // Only check if the feature is not marked as reserved (as it's expected there will be no description)
+                    if (!Cpu.Features[feature].IsReserved && string.IsNullOrWhiteSpace(Cpu.Features[feature].Description)) {
+                        missing.Add(feature);
+                    }
                 }
             }
 
@@ -212,10 +220,14 @@
             // Now check if we're missing a feature in our feature set in the test case. Indicates a feature was added
             // but the feature set for the test case wasn't added.
             foreach (string feature in Cpu.Features) {
-                // Only check if the feature is not marked as reserved (as it's expected there test case doesn't know
-                // about it)
-                if (!string.IsNullOrEmpty(feature) && !knownFeatures.Contains(feature) && !Cpu.Features[feature].IsReserved) {
-                    missing.Add(feature);
+                if (!string.IsNullOrEmpty(feature)) {
+                    CpuFeature cpuFeature = Cpu.Features[feature];
+
+                    // Only check if the feature is not marked as reserved (as it's expected there test case doesn't know
+                    // about it)
+                    if (!knownFeatures.Contains(feature) && !cpuFeature.IsReserved) {
+                        missing.Add(feature);
+                    }
                 }
             }
 
