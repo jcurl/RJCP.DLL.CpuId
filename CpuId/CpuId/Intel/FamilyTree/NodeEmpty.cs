@@ -17,7 +17,7 @@
 
         public INode this[int key]
         {
-            get { return new NodeEmpty(Key); }
+            get { return new NodeEmpty(key); }
         }
 
         public int Key { get; private set; }

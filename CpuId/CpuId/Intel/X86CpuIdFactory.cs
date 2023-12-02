@@ -38,7 +38,7 @@
             return new BasicCpu(data, 0, r);
         }
 
-        private static unsafe IEnumerable<BasicCpu> GetLocalCpuNodes()
+        private static unsafe List<BasicCpu> GetLocalCpuNodes()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");

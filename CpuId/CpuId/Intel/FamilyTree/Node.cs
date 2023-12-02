@@ -36,8 +36,8 @@
         {
             get
             {
-                if (!m_Nodes.ContainsKey(key)) return new NodeEmpty(Key);
-                return m_Nodes[key];
+                if (m_Nodes.TryGetValue(key, out INode value)) return value;
+                return new NodeEmpty(key);
             }
         }
 

@@ -8,11 +8,10 @@
     {
         public static int Main()
         {
-            ICpuIdFactory cpuFactory;
             ICpuId firstCpu;
             IEnumerable<ICpuId> cpus;
             try {
-                cpuFactory = new CpuIdFactory();
+                CpuIdFactory cpuFactory = new CpuIdFactory();
                 firstCpu = cpuFactory.Create();
                 cpus = cpuFactory.CreateAll();
             } catch (PlatformNotSupportedException) {
