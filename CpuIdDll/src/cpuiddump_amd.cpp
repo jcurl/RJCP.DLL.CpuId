@@ -93,6 +93,14 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 				}
 				break;
 			}
+			case 0x80000020: {
+				result = get_cpuid(&iter, &iterb, leaf, 0);
+				result = result ? get_cpuid(&iter, &iterb, leaf, 1) : NULL;
+				result = result ? get_cpuid(&iter, &iterb, leaf, 2) : NULL;
+				result = result ? get_cpuid(&iter, &iterb, leaf, 3) : NULL;
+				result = result ? get_cpuid(&iter, &iterb, leaf, 5) : NULL;
+				break;
+			}
 			case 0x80000026: {
 				DWORD subleaf = 0;
 				do {
@@ -108,6 +116,8 @@ int iddump_amd(struct cpuidinfo *info, size_t bytes)
 				break;
 			}
 		}
+
+		leaf++;
 	}
 
 	return (int)(iter - info);

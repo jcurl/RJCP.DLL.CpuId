@@ -39,22 +39,27 @@ struct cpuidinfo {
 	/// The CPUID leaf called.
 	/// </summary>
 	DWORD veax;
+
 	/// <summary>
 	/// The CPUID sub-leaf called.
 	/// </summary>
 	DWORD vecx;
+
 	/// <summary>
 	/// The result EAX after the CPUID call.
 	/// </summary>
 	DWORD peax;
+
 	/// <summary>
 	/// The result EBX after the CPUID call.
 	/// </summary>
 	DWORD pebx;
+
 	/// <summary>
 	/// The result ECX after the CPUID call.
 	/// </summary>
 	DWORD pecx;
+
 	/// <summary>
 	/// The result EDX after the CPUID call.
 	/// </summary>
@@ -112,8 +117,8 @@ CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int c
 /// The array buffer provided, <paramref name="info"/> is filled for all cores. The first
 /// element is a fake CPUID entry, of veax being 0xFFFFFFFF and vecx being the core number.
 /// </remarks>
-
 CPUIDDLL_API int WINAPI iddumpall(struct cpuidinfo *info, size_t bytes);
+
 #ifdef __cplusplus 
 }
 #endif
