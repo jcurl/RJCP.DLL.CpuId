@@ -39,6 +39,12 @@
     <ClInclude Include="inc\private\cpuid_iter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rsrc\resource64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rsrc\resource32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cpuiddll.cpp">
@@ -81,10 +87,10 @@
     </MASM>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="rsrc\Resource32.rc">
+    <ResourceCompile Include="rsrc\Resource64.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="rsrc\Resource64.rc">
+    <ResourceCompile Include="rsrc\Resource32.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
