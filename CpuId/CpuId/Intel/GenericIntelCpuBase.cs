@@ -155,9 +155,7 @@
         protected void TestFeature(string feature, FeatureGroup group, CpuIdRegister register, int outRegister, int bit)
         {
             bool value = (register.Result[outRegister] & (1 << bit)) != 0;
-
-            CpuFeature cpuFeature = new CpuFeature(feature, value, group, BitGroup(register, outRegister, bit));
-            Features[feature] = cpuFeature;
+            Features.Add(feature, value, group, BitGroup(register, outRegister, bit));
 
 #if DEBUG
             m_MainFunction.Set(register.Function, register.SubFunction, outRegister, 1 << bit);
@@ -239,10 +237,9 @@
             while (checkMask != 0) {
                 if ((checkMask & 0x01) != 0) {
                     string feature = GetReservedFeatureName(register, outRegister, bit);
-                    CpuFeature cpuFeature = new CpuFeature(feature, true, group, BitGroup(register, outRegister, bit)) {
-                        IsReserved = true
-                    };
-                    Features[feature] = cpuFeature;
+                    string bitGroup = BitGroup(register, outRegister, bit);
+                    CpuFeature cpuFeature = Features.Add(feature, true, group, bitGroup);
+                    cpuFeature.IsReserved = true;
                 }
                 checkMask >>= 1;     // Unsigned means zero is rolled into MSB, so we don't need to clear the MSB.
                 bit++;
@@ -267,29 +264,6 @@
                 return BitRegisterName[outRegister];
             }
             return $"R{outRegister}";
-        }
-
-        /// <summary>
-        /// Aliases the new feature name to an existing feature.
-        /// </summary>
-        /// <param name="alias">The new alias.</param>
-        /// <param name="orig">The original feature to alias to.</param>
-        /// <param name="setDescription">
-        /// If <see langword="true"/>, then set the description key to the alias name, otherwise if
-        /// <see langword="false"/>, leave the description key for both to the <paramref name="orig"/> feature.
-        /// </param>
-        /// <remarks>
-        /// Aliasing a feature is useful when a bit test should match. The <paramref name="alias"/> key and the original
-        /// key refer to the same instance of <paramref name="orig"/>. If <paramref name="setDescription"/> is set, then
-        /// the feature <paramref name="orig"/> is updated to point to the resource description for
-        /// <paramref name="alias"/> (which is useful, if the alias should be used for the description). Because both
-        /// the feature and the alias would point to the same <see cref="CpuFeature"/>, both will have the same
-        /// description.
-        /// </remarks>
-        protected void AliasFeature(string alias, CpuFeature orig, bool setDescription)
-        {
-            Features.Add(alias, orig);
-            if (setDescription) orig.SetDescriptionKey(alias);
         }
 
         /// <summary>

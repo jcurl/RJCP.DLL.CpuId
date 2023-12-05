@@ -117,1048 +117,1390 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="100MHZSTEPS" xml:space="preserve">
-    <value>100 MHz multiplier Control</value>
-  </data>
   <data name="1GB_PAGE" xml:space="preserve">
     <value>1GB pages supported</value>
-  </data>
-  <data name="3DNOW" xml:space="preserve">
-    <value>3DNow!™ instructions</value>
-  </data>
-  <data name="3DNOWEXT" xml:space="preserve">
-    <value>AMD extensions to 3DNow! instructions</value>
-  </data>
-  <data name="64BITHOST" xml:space="preserve">
-    <value>SEV guest execution only allowed from a 64-bit host</value>
-  </data>
-  <data name="ABMC" xml:space="preserve">
-    <value>Assignable Bandwidth Monitoring Counters</value>
+    <comment>CPUID[80000001h].EDX[26]</comment>
   </data>
   <data name="ACPI" xml:space="preserve">
     <value>Thermal Monitoring and Software Controlled Clock Facilities</value>
-  </data>
-  <data name="ADDRMASKEXT" xml:space="preserve">
-    <value>Address mask extension support for instruction breakpoint</value>
+    <comment>CPUID[01h].EDX[22]</comment>
   </data>
   <data name="ADX" xml:space="preserve">
     <value>Multi-Precision Add-Carry Instruction Extensions</value>
+    <comment>CPUID[07h].EBX[19]</comment>
   </data>
   <data name="AESNI" xml:space="preserve">
     <value>AES 128bit instruction Extensions</value>
+    <comment>CPUID[01h].ECX[25]</comment>
   </data>
   <data name="AHF64" xml:space="preserve">
     <value>LAHF and SAHF instructions available when IA-32e mode is enabled and in 64-bit submode</value>
+    <comment>CPUID[80000001h].ECX[00]</comment>
   </data>
-  <data name="ALTERNATEINJECTION" xml:space="preserve">
+  <data name="AMD_100MHZSTEPS" xml:space="preserve">
+    <value>100 MHz multiplier Control</value>
+    <comment>CPUID[80000007h].EDX[06]</comment>
+  </data>
+  <data name="AMD_3DNOW" xml:space="preserve">
+    <value>3DNow!™ instructions</value>
+    <comment>CPUID[80000001h].EDX[31]</comment>
+  </data>
+  <data name="AMD_3DNOWEXT" xml:space="preserve">
+    <value>AMD extensions to 3DNow! instructions</value>
+    <comment>CPUID[80000001h].EDX[30]</comment>
+  </data>
+  <data name="AMD_64BITHOST" xml:space="preserve">
+    <value>SEV guest execution only allowed from a 64-bit host</value>
+    <comment>CPUID[8000001Fh].EAX[11]</comment>
+  </data>
+  <data name="AMD_ABMC" xml:space="preserve">
+    <value>Assignable Bandwidth Monitoring Counters</value>
+    <comment>CPUID[80000020h].EBX[05]</comment>
+  </data>
+  <data name="AMD_ADDRMASKEXT" xml:space="preserve">
+    <value>Address mask extension support for instruction breakpoint</value>
+    <comment>CPUID[80000001h].ECX[30]</comment>
+  </data>
+  <data name="AMD_ALTERNATEINJECTION" xml:space="preserve">
     <value>Alternate Injection supported</value>
+    <comment>CPUID[8000001Fh].EAX[13]</comment>
   </data>
-  <data name="ALTMOVCR8" xml:space="preserve">
+  <data name="AMD_ALTMOVCR8" xml:space="preserve">
     <value>LOCK MOV CR0 means MOV CR8</value>
+    <comment>CPUID[80000001h].ECX[04]</comment>
   </data>
-  <data name="AMX_BF16" xml:space="preserve">
-    <value>Tile computation on bfloat16 numbers</value>
+  <data name="AMD_AUTOMATICIBRS" xml:space="preserve">
+    <value>Automatic IBRS</value>
+    <comment>CPUID[80000021h].EAX[08]</comment>
   </data>
-  <data name="AMX_INT8" xml:space="preserve">
-    <value>Tile computation on 8-bit integers</value>
+  <data name="AMD_AVIC" xml:space="preserve">
+    <value>AMD advanced virtual interrupt controller</value>
+    <comment>CPUID[8000000Ah].EDX[13]</comment>
   </data>
-  <data name="AMX_TILE" xml:space="preserve">
-    <value>Tile architecture</value>
+  <data name="AMD_BE" xml:space="preserve">
+    <value>Memory Bandwidth Enforcement</value>
+    <comment>CPUID[80000008h].EBX[06]</comment>
+  </data>
+  <data name="AMD_BMEC" xml:space="preserve">
+    <value>Bandwidth Monitoring Event Configuration</value>
+    <comment>CPUID[80000020h].EBX[03]</comment>
+  </data>
+  <data name="AMD_BRNTRGT" xml:space="preserve">
+    <value>Branch target address reporting supported</value>
+    <comment>CPUID[8000001Bh].EAX[05]</comment>
+  </data>
+  <data name="AMD_BTC_NO" xml:space="preserve">
+    <value>The processor is not affected by branch type confusion.</value>
+    <comment>CPUID[80000008h].EBX[29]</comment>
+  </data>
+  <data name="AMD_BUSLOCKTHRESHOLD" xml:space="preserve">
+    <value>Bus Lock Threshold</value>
+    <comment>CPUID[8000000Ah].EDX[29]</comment>
+  </data>
+  <data name="AMD_CET_S" xml:space="preserve">
+    <value>CET supervisor enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01h].ECX[12]</comment>
+  </data>
+  <data name="AMD_CET_U" xml:space="preserve">
+    <value>CET user state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01h].ECX[11]</comment>
+  </data>
+  <data name="AMD_CLZERO" xml:space="preserve">
+    <value>CLZERO instruction supported</value>
+    <comment>CPUID[80000008h].EBX[00]</comment>
+  </data>
+  <data name="AMD_CMPLEGACY" xml:space="preserve">
+    <value>Core Multi-processing Legacy Mode</value>
+    <comment>CPUID[80000001h].ECX[01]</comment>
+  </data>
+  <data name="AMD_CPB" xml:space="preserve">
+    <value>Core Performance Boost</value>
+    <comment>CPUID[80000007h].EDX[09]</comment>
+  </data>
+  <data name="AMD_CPPC" xml:space="preserve">
+    <value>Collaborative Processor Performance Control</value>
+    <comment>CPUID[80000008h].EBX[27]</comment>
+  </data>
+  <data name="AMD_CPUIDUSERDIS" xml:space="preserve">
+    <value>CPUID disable for non-privileged software</value>
+    <comment>CPUID[80000021h].EAX[17]</comment>
+  </data>
+  <data name="AMD_DATABKPTEXT" xml:space="preserve">
+    <value>Data access breakpoint extension</value>
+    <comment>CPUID[80000001h].ECX[26]</comment>
+  </data>
+  <data name="AMD_DEBUGSWAP" xml:space="preserve">
+    <value>Full debug state swap supported for SEV-ES guests</value>
+    <comment>CPUID[8000001Fh].EAX[14]</comment>
+  </data>
+  <data name="AMD_DECODEASSISTS" xml:space="preserve">
+    <value>Decode assists</value>
+    <comment>CPUID[8000000Ah].EDX[07]</comment>
+  </data>
+  <data name="AMD_EFERLMSLEUNSUPPORTED" xml:space="preserve">
+    <value>EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported</value>
+    <comment>CPUID[80000008h].EBX[20]</comment>
+  </data>
+  <data name="AMD_EFFFREQRO" xml:space="preserve">
+    <value>Read-only effective frequency interface. Presence of MSRC000_00E7 [Read-Only Max Performance Frequency Clock Count (MPerfReadOnly)] and MSRC000_00E8 [Read-Only Actual Performance Frequency Clock Count (APerfReadOnly)].</value>
+    <comment>CPUID[80000007h].EDX[10]</comment>
+  </data>
+  <data name="AMD_EXTAPICSPACE" xml:space="preserve">
+    <value>Extended APIC space. Presence of extended APIC register</value>
+    <comment>CPUID[80000001h].ECX[03]</comment>
+  </data>
+  <data name="AMD_EXTLVTAVICACCESSCHG" xml:space="preserve">
+    <value>Extended Interrupt Local Vector Table Register AVIC Access changes</value>
+    <comment>CPUID[8000000Ah].EDX[27]</comment>
+  </data>
+  <data name="AMD_FETCHSAM" xml:space="preserve">
+    <value>IBS fetch sampling supported</value>
+    <comment>CPUID[8000001Bh].EAX[01]</comment>
+  </data>
+  <data name="AMD_FFXSR" xml:space="preserve">
+    <value>FXSAVE and FXRSTOR instruction optimizations</value>
+    <comment>CPUID[80000001h].EDX[25]</comment>
+  </data>
+  <data name="AMD_FID" xml:space="preserve">
+    <value>Frequency ID control. Function replaced by HwPstate.</value>
+    <comment>CPUID[80000007h].EDX[01]</comment>
+  </data>
+  <data name="AMD_FLUSHBYASID" xml:space="preserve">
+    <value>TLB flush events, including CR3 writes and CR4.PGE toggles, flush only the current ASID's TLB entries. Support for the extended VMCB TLB_Control</value>
+    <comment>CPUID[8000000Ah].EDX[06]</comment>
+  </data>
+  <data name="AMD_FMA4" xml:space="preserve">
+    <value>Four-operand FMA instruction support</value>
+    <comment>CPUID[80000001h].ECX[16]</comment>
+  </data>
+  <data name="AMD_FP128" xml:space="preserve">
+    <value>The internal FP/SIMD execution data path is 128 bits wide.</value>
+    <comment>CPUID[8000001Ah].EAX[00]</comment>
+  </data>
+  <data name="AMD_FP256" xml:space="preserve">
+    <value>The internal FP/SIMD execution data path is 256 bits wide</value>
+    <comment>CPUID[8000001Ah].EAX[02]</comment>
+  </data>
+  <data name="AMD_GMET" xml:space="preserve">
+    <value>Guest Mode Execution Trap</value>
+    <comment>CPUID[8000000Ah].EDX[17]</comment>
+  </data>
+  <data name="AMD_HOST_MCE_OVERRIDE" xml:space="preserve">
+    <value>When host CR4.MCE=1 and guest CR4.MCE=0, machine check exceptions (#MC) in a guest do not cause shutdown and are always intercepted</value>
+    <comment>CPUID[8000000Ah].EDX[23]</comment>
+  </data>
+  <data name="AMD_HWA" xml:space="preserve">
+    <value>Hardware assert support. Indicates support for MSRC001_10[DF:C0]</value>
+    <comment>CPUID[80000007h].EBX[02]</comment>
+  </data>
+  <data name="AMD_HWENVCACHECOH" xml:space="preserve">
+    <value>Hardware cache coherency across encryption domains enforced</value>
+    <comment>CPUID[8000001Fh].EAX[10]</comment>
+  </data>
+  <data name="AMD_HWPSTATE" xml:space="preserve">
+    <value>Hardware P-state control. MSRC001_0061 [P-state Current Limit], MSRC001_0062 [P-state Control] and MSRC001_0063 [P-state Status] exist</value>
+    <comment>CPUID[80000007h].EDX[07]</comment>
+  </data>
+  <data name="AMD_IBPB" xml:space="preserve">
+    <value>Indirect branch prediction barrier software control available, Spectre mitigation for branch prediction side channel timing attacks</value>
+    <comment>CPUID[80000008h].EBX[12]</comment>
+  </data>
+  <data name="AMD_IBPB_RET" xml:space="preserve">
+    <value>The processor clears the return address predictor when MSR PRED_CMD.IBPB is written to 1.</value>
+    <comment>CPUID[80000008h].EBX[30]</comment>
+  </data>
+  <data name="AMD_IBRS" xml:space="preserve">
+    <value>Indirect branch restricted speculation, Spectre mitigation enabled</value>
+    <comment>CPUID[80000008h].EBX[14]</comment>
+  </data>
+  <data name="AMD_IBRSALWAYSON" xml:space="preserve">
+    <value>IBRS always on mode</value>
+    <comment>CPUID[80000008h].EBX[16]</comment>
+  </data>
+  <data name="AMD_IBRSPREFERRED" xml:space="preserve">
+    <value>IBRS preferred</value>
+    <comment>CPUID[80000008h].EBX[18]</comment>
+  </data>
+  <data name="AMD_IBRSSAMEMODE" xml:space="preserve">
+    <value>IBRS provides Same Mode Protection speculation limits</value>
+    <comment>CPUID[80000008h].EBX[19]</comment>
+  </data>
+  <data name="AMD_IBS" xml:space="preserve">
+    <value>Instruction based sampling</value>
+    <comment>CPUID[80000001h].ECX[10]</comment>
+  </data>
+  <data name="AMD_IBSFFV" xml:space="preserve">
+    <value>IBS feature flags valid</value>
+    <comment>CPUID[8000001Bh].EAX[00]</comment>
+  </data>
+  <data name="AMD_IBSL3MISSFILTERING" xml:space="preserve">
+    <value>3 Miss Filtering for IBS supported</value>
+    <comment>CPUID[8000001Bh].EAX[11]</comment>
+  </data>
+  <data name="AMD_IBSVIRT" xml:space="preserve">
+    <value>IBS Virtualization</value>
+    <comment>CPUID[8000000Ah].EDX[26]</comment>
+  </data>
+  <data name="AMD_IBSVIRTGUESTCTL" xml:space="preserve">
+    <value>IBS Virtualization supported for SEV-ES guests</value>
+    <comment>CPUID[8000001Fh].EAX[19]</comment>
+  </data>
+  <data name="AMD_INSTRETCNTMSR" xml:space="preserve">
+    <value>Instruction Retired Counter MSR available</value>
+    <comment>CPUID[80000008h].EBX[01]</comment>
+  </data>
+  <data name="AMD_INT_WBINVD" xml:space="preserve">
+    <value>WBINVD/WBNOINVD instructions are interruptible</value>
+    <comment>CPUID[80000008h].EBX[13]</comment>
+  </data>
+  <data name="AMD_INVLPGB" xml:space="preserve">
+    <value>INVLPGB and TLBSYNC instruction supported</value>
+    <comment>CPUID[80000008h].EBX[03]</comment>
+  </data>
+  <data name="AMD_INVLPGBNESTEDPAGES" xml:space="preserve">
+    <value>INVLPGB support for invalidating guest nested translations</value>
+    <comment>CPUID[80000008h].EBX[21]</comment>
+  </data>
+  <data name="AMD_L3CACHELCLBWFILLMON" xml:space="preserve">
+    <value>Reads to local DRAM memory</value>
+    <comment>CPUID[80000020h,03h].ECX[00]</comment>
+  </data>
+  <data name="AMD_L3CACHELCLBWNTWRMON" xml:space="preserve">
+    <value>Non-temporal writes to local memory</value>
+    <comment>CPUID[80000020h,03h].ECX[02]</comment>
+  </data>
+  <data name="AMD_L3CACHELCLSLOWBWFILLMON" xml:space="preserve">
+    <value>Reads to local memory identified as “Slow Memory”</value>
+    <comment>CPUID[80000020h,03h].ECX[04]</comment>
+  </data>
+  <data name="AMD_L3CACHERMTBWFILLMON" xml:space="preserve">
+    <value>Reads to remote DRAM memory.</value>
+    <comment>CPUID[80000020h,03h].ECX[01]</comment>
+  </data>
+  <data name="AMD_L3CACHERMTBWNTWRMON" xml:space="preserve">
+    <value>Non-temporal writes to remote memory</value>
+    <comment>CPUID[80000020h,03h].ECX[03]</comment>
+  </data>
+  <data name="AMD_L3CACHERMTSLOWBWFILLMON" xml:space="preserve">
+    <value>Reads to remote memory identified as “Slow Memory”</value>
+    <comment>CPUID[80000020h,03h].ECX[05]</comment>
+  </data>
+  <data name="AMD_L3CACHEVICMON" xml:space="preserve">
+    <value>Dirty victim writes to all types of memory</value>
+    <comment>CPUID[80000020h,03h].ECX[06]</comment>
+  </data>
+  <data name="AMD_L3MBE" xml:space="preserve">
+    <value>Memory Bandwidth Enforcement</value>
+    <comment>CPUID[80000020h].EBX[01]</comment>
+  </data>
+  <data name="AMD_L3RR" xml:space="preserve">
+    <value>L3 Range Reservations</value>
+    <comment>CPUID[80000020h].EBX[04]</comment>
+  </data>
+  <data name="AMD_L3SMBE" xml:space="preserve">
+    <value>Slow Memory Bandwidth Enforcement</value>
+    <comment>CPUID[80000020h].EBX[02]</comment>
+  </data>
+  <data name="AMD_LBRANDPMCFREEZE" xml:space="preserve">
+    <value>Freezing Core Performance Counters and LBR Stack on Core Performance Counter overflow supported</value>
+    <comment>CPUID[80000022h].EAX[02]</comment>
+  </data>
+  <data name="AMD_LBRSTACK" xml:space="preserve">
+    <value>Last Branch Record Stack supported</value>
+    <comment>CPUID[80000022h].EAX[01]</comment>
+  </data>
+  <data name="AMD_LBRVIRT" xml:space="preserve">
+    <value>LBR virtualization</value>
+    <comment>CPUID[8000000Ah].EDX[01]</comment>
+  </data>
+  <data name="AMD_LFENCEALWAYSSERIALIZING" xml:space="preserve">
+    <value>LFENCE is always dispatch serializing</value>
+    <comment>CPUID[80000021h].EAX[02]</comment>
+  </data>
+  <data name="AMD_LWP" xml:space="preserve">
+    <value>Lightweight profiling support</value>
+    <comment>CPUID[80000001h].ECX[15]</comment>
+  </data>
+  <data name="AMD_LWPAVAIL" xml:space="preserve">
+    <value>The LWP feature is available</value>
+    <comment>CPUID[8000001Ch].EAX[00]</comment>
+  </data>
+  <data name="AMD_LWPBRANCHPREDICTION" xml:space="preserve">
+    <value>Branch prediction filtering supported. Branches Retired events can be filtered based on whether the branch was predicted properly</value>
+    <comment>CPUID[8000001Ch].ECX[28]</comment>
+  </data>
+  <data name="AMD_LWPBRE" xml:space="preserve">
+    <value>Branch retired event available</value>
+    <comment>CPUID[8000001Ch].EAX[03]</comment>
+  </data>
+  <data name="AMD_LWPCACHELATENCY" xml:space="preserve">
+    <value>Cache latency filtering supported. Cache-related events can be filtered by latency</value>
+    <comment>CPUID[8000001Ch].ECX[31]</comment>
+  </data>
+  <data name="AMD_LWPCACHELEVELS" xml:space="preserve">
+    <value>Cache level filtering supported. Cache-related events can be filtered by the cache level that returned the data</value>
+    <comment>CPUID[8000001Ch].ECX[30]</comment>
+  </data>
+  <data name="AMD_LWPCNH" xml:space="preserve">
+    <value>Core clocks not halted event available</value>
+    <comment>CPUID[8000001Ch].EAX[05]</comment>
+  </data>
+  <data name="AMD_LWPCONT" xml:space="preserve">
+    <value>Sampling in continuous mode is available</value>
+    <comment>CPUID[8000001Ch].EAX[29]</comment>
+  </data>
+  <data name="AMD_LWPDME" xml:space="preserve">
+    <value>DC miss event available</value>
+    <comment>CPUID[8000001Ch].EAX[04]</comment>
+  </data>
+  <data name="AMD_LWPINT" xml:space="preserve">
+    <value>Interrupt on threshold overflow available</value>
+    <comment>CPUID[8000001Ch].EAX[31]</comment>
+  </data>
+  <data name="AMD_LWPIPFILTERING" xml:space="preserve">
+    <value>IP filtering supported</value>
+    <comment>CPUID[8000001Ch].ECX[29]</comment>
+  </data>
+  <data name="AMD_LWPIRE" xml:space="preserve">
+    <value>Instructions retired event available</value>
+    <comment>CPUID[8000001Ch].EAX[02]</comment>
+  </data>
+  <data name="AMD_LWPPTSC" xml:space="preserve">
+    <value>Performance time stamp counter in event record is available</value>
+    <comment>CPUID[8000001Ch].EAX[30]</comment>
+  </data>
+  <data name="AMD_LWPRNH" xml:space="preserve">
+    <value>Core reference clocks not halted event available</value>
+    <comment>CPUID[8000001Ch].EAX[06]</comment>
+  </data>
+  <data name="AMD_LWPVAL" xml:space="preserve">
+    <value>LWPVAL instruction available</value>
+    <comment>CPUID[8000001Ch].EAX[01]</comment>
+  </data>
+  <data name="AMD_MCAOVERFLOWRECOV" xml:space="preserve">
+    <value>MCA overflow recovery support. If set, indicates that MCA overflow conditions (MCi_STATUS[Overflow]=1) are not fatal; software may safely ignore such conditions. If clear, MCA overflow conditions require software to shut down the system.</value>
+    <comment>CPUID[80000007h].EBX[00]</comment>
+  </data>
+  <data name="AMD_MCOMMIT" xml:space="preserve">
+    <value>MCOMMIT instruction supported</value>
+    <comment>CPUID[80000008h].EBX[08]</comment>
+  </data>
+  <data name="AMD_MEMHMK" xml:space="preserve">
+    <value>Secure Host Multi-Key Memory (MEM-HMK) Encryption Mode Supported</value>
+    <comment>CPUID[80000023h].EAX[00]</comment>
+  </data>
+  <data name="AMD_MISALIGNSSE" xml:space="preserve">
+    <value>Misaligned SSE mode</value>
+    <comment>CPUID[80000001h].ECX[07]</comment>
+  </data>
+  <data name="AMD_MMXEXT" xml:space="preserve">
+    <value>AMD extensions to MMX instructions</value>
+    <comment>CPUID[80000001h].EDX[22]</comment>
+  </data>
+  <data name="AMD_MONITORX" xml:space="preserve">
+    <value>MONITORX instruction support</value>
+    <comment>CPUID[80000001h].ECX[29]</comment>
+  </data>
+  <data name="AMD_MOVU" xml:space="preserve">
+    <value>MOVU SSE instructions are more efficient and should be preferred to SSE MOVL/MOVH. MOVUPS is more efficient than MOVLPS/MOVHPS. MOVUPD is more efficient than MOVLPD/MOVHPD</value>
+    <comment>CPUID[8000001Ah].EAX[01]</comment>
+  </data>
+  <data name="AMD_NESTEDVIRTSNPMSR" xml:space="preserve">
+    <value>VIRT_RMPUPDATE MSR (C001_F001h) and VIRT_PSMASH MSR (C001_F002h) supported</value>
+    <comment>CPUID[8000001Fh].EAX[29]</comment>
+  </data>
+  <data name="AMD_NESTEDVIRTVMCBADDRCHK" xml:space="preserve">
+    <value>Guest VMCB address check</value>
+    <comment>CPUID[8000000Ah].EDX[28]</comment>
+  </data>
+  <data name="AMD_NODEID" xml:space="preserve">
+    <value>Node ID: MSR C001_100Ch</value>
+    <comment>CPUID[80000001h].ECX[19]</comment>
+  </data>
+  <data name="AMD_NONESTEDDATABP" xml:space="preserve">
+    <value>Processor ignores nested data breakpoints</value>
+    <comment>CPUID[80000021h].EAX[00]</comment>
+  </data>
+  <data name="AMD_NOSMMCTLMSR" xml:space="preserve">
+    <value>SMM_CTL MSR (C001_0116h) is not supported</value>
+    <comment>CPUID[80000021h].EAX[09]</comment>
+  </data>
+  <data name="AMD_NP" xml:space="preserve">
+    <value>Nested Paging</value>
+    <comment>CPUID[8000000Ah].EDX[00]</comment>
+  </data>
+  <data name="AMD_NRIPS" xml:space="preserve">
+    <value>Support for NRIP save on #VMEXIT</value>
+    <comment>CPUID[8000000Ah].EDX[03]</comment>
+  </data>
+  <data name="AMD_NULLSELECTCLEARSBASE" xml:space="preserve">
+    <value>Null segment selector loads also clear the destination segment register base and limit</value>
+    <comment>CPUID[80000021h].EAX[06]</comment>
+  </data>
+  <data name="AMD_OPBRNFUSE" xml:space="preserve">
+    <value>Fused branch micro-op indication supported</value>
+    <comment>CPUID[8000001Bh].EAX[08]</comment>
+  </data>
+  <data name="AMD_OPCNT" xml:space="preserve">
+    <value>Op counting mode supported</value>
+    <comment>CPUID[8000001Bh].EAX[04]</comment>
+  </data>
+  <data name="AMD_OPCNTEXT" xml:space="preserve">
+    <value>IbsOpCurCnt and IbsOpMaxCnt extend by 7 bits</value>
+    <comment>CPUID[8000001Bh].EAX[06]</comment>
+  </data>
+  <data name="AMD_OPSAM" xml:space="preserve">
+    <value>IBS execution sampling supported</value>
+    <comment>CPUID[8000001Bh].EAX[02]</comment>
+  </data>
+  <data name="AMD_OSVW" xml:space="preserve">
+    <value>OS visible workaround. Indicates OS-visible workaround support for the Operating System</value>
+    <comment>CPUID[80000001h].ECX[09]</comment>
+  </data>
+  <data name="AMD_PAGEFLUSHMSR" xml:space="preserve">
+    <value>Page Flush MSR available</value>
+    <comment>CPUID[8000001Fh].EAX[02]</comment>
+  </data>
+  <data name="AMD_PAUSEFILTER" xml:space="preserve">
+    <value>Pause intercept filter</value>
+    <comment>CPUID[8000000Ah].EDX[10]</comment>
+  </data>
+  <data name="AMD_PAUSEFILTERTHRESHOLD" xml:space="preserve">
+    <value>Support for the PAUSE filter cycle count threshold</value>
+    <comment>CPUID[8000000Ah].EDX[12]</comment>
+  </data>
+  <data name="AMD_PERFCTREXTCORE" xml:space="preserve">
+    <value>Processor performance counter extensions support. Indicates support for MSRC001_020[A,8,6,4,2,0] and MSRC001_020[B,9,7,5,3,1]</value>
+    <comment>CPUID[80000001h].ECX[23]</comment>
+  </data>
+  <data name="AMD_PERFCTREXTLLC" xml:space="preserve">
+    <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
+    <comment>CPUID[80000001h].ECX[28]</comment>
+  </data>
+  <data name="AMD_PERFCTREXTNB" xml:space="preserve">
+    <value>NB performance counter extensions support. Indicates support for MSRC001_024[6,4,2,0] and MSRC001_024[7,5,3,1]</value>
+    <comment>CPUID[80000001h].ECX[24]</comment>
+  </data>
+  <data name="AMD_PERFMONV2" xml:space="preserve">
+    <value>Performance Monitoring Version 2 supported</value>
+    <comment>CPUID[80000022h].EAX[00]</comment>
+  </data>
+  <data name="AMD_PERFTSC" xml:space="preserve">
+    <value>Performance time-stamp counter</value>
+    <comment>CPUID[80000001h].ECX[27]</comment>
+  </data>
+  <data name="AMD_PPIN" xml:space="preserve">
+    <value>Protected Processor Inventory Number. can be enabled for privileged system inventory agent to Read PPIN</value>
+    <comment>CPUID[80000008h].EBX[23]</comment>
+  </data>
+  <data name="AMD_PQE" xml:space="preserve">
+    <value>Cache Allocation Strategy</value>
+    <comment>CPUID[07h].EBX[15]</comment>
+  </data>
+  <data name="AMD_PQM" xml:space="preserve">
+    <value>Platform QoS Monitoring</value>
+    <comment>CPUID[07h].EBX[12]</comment>
+  </data>
+  <data name="AMD_PREFETCHCTLMSR" xml:space="preserve">
+    <value>Prefetch control MSR supported</value>
+    <comment>CPUID[80000021h].EAX[13]</comment>
+  </data>
+  <data name="AMD_PREVENTHOSTIBS" xml:space="preserve">
+    <value>Disallowing IBS use by the host supported</value>
+    <comment>CPUID[8000001Fh].EAX[15]</comment>
+  </data>
+  <data name="AMD_PROCFEEDBACKINTERFACE" xml:space="preserve">
+    <value>Processor feedback interface.</value>
+    <comment>CPUID[80000007h].EDX[11]</comment>
+  </data>
+  <data name="AMD_PROCPOWERREPORTING" xml:space="preserve">
+    <value>Processor power reporting interface supported</value>
+    <comment>CPUID[80000007h].EDX[12]</comment>
+  </data>
+  <data name="AMD_RDPRU" xml:space="preserve">
+    <value>RDPRU instruction supported</value>
+    <comment>CPUID[80000008h].EBX[04]</comment>
+  </data>
+  <data name="AMD_RDWROPCNT" xml:space="preserve">
+    <value>Read write of op counter supported</value>
+    <comment>CPUID[8000001Bh].EAX[03]</comment>
+  </data>
+  <data name="AMD_RESTRICTEDINJECTION" xml:space="preserve">
+    <value>Restricted Injection supported</value>
+    <comment>CPUID[8000001Fh].EAX[12]</comment>
+  </data>
+  <data name="AMD_RIPINVALIDCHK" xml:space="preserve">
+    <value>Invalid RIP indication supported</value>
+    <comment>CPUID[8000001Bh].EAX[07]</comment>
+  </data>
+  <data name="AMD_RMPQUERY" xml:space="preserve">
+    <value>RMPQUERY Instruction supported</value>
+    <comment>CPUID[8000001Fh].EAX[06]</comment>
+  </data>
+  <data name="AMD_ROGPT" xml:space="preserve">
+    <value>Read-Only Guest Page Table feature support</value>
+    <comment>CPUID[8000000Ah].EDX[21]</comment>
+  </data>
+  <data name="AMD_RSTRFPERRPTRS" xml:space="preserve">
+    <value>FP Error Pointers Restored by XRSTOR</value>
+    <comment>CPUID[80000008h].EBX[02]</comment>
+  </data>
+  <data name="AMD_SCALABLEMCA" xml:space="preserve">
+    <value>MCA Extension (MCAX) support</value>
+    <comment>CPUID[80000007h].EBX[03]</comment>
+  </data>
+  <data name="AMD_SDCIAE" xml:space="preserve">
+    <value>Smart Data Cache Injection (SDCI) Allocation Enforcement</value>
+    <comment>CPUID[80000020h].EBX[06]</comment>
+  </data>
+  <data name="AMD_SECURETSC" xml:space="preserve">
+    <value>Secure TSC supported</value>
+    <comment>CPUID[8000001Fh].EAX[08]</comment>
+  </data>
+  <data name="AMD_SEV" xml:space="preserve">
+    <value>Secure Encrypted Virtualization supported</value>
+    <comment>CPUID[8000001Fh].EAX[01]</comment>
+  </data>
+  <data name="AMD_SEV-ES" xml:space="preserve">
+    <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
+    <comment>CPUID[8000001Fh].EAX[03]</comment>
+  </data>
+  <data name="AMD_SEV-SNP" xml:space="preserve">
+    <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
+    <comment>CPUID[8000001Fh].EAX[04]</comment>
+  </data>
+  <data name="AMD_SKINIT" xml:space="preserve">
+    <value>SKINIT and STGI are supported, independent of the value of MSRC000_0080[SVME]</value>
+    <comment>CPUID[80000001h].ECX[12]</comment>
+  </data>
+  <data name="AMD_SME" xml:space="preserve">
+    <value>Secure Memory Encryption supported</value>
+    <comment>CPUID[8000001Fh].EAX[00]</comment>
+  </data>
+  <data name="AMD_SMMPGCFGLOCK" xml:space="preserve">
+    <value>SMM paging configuration lock supported</value>
+    <comment>CPUID[80000021h].EAX[03]</comment>
+  </data>
+  <data name="AMD_SMTPROTECTION" xml:space="preserve">
+    <value>SMT Protection supported</value>
+    <comment>CPUID[8000001Fh].EAX[25]</comment>
+  </data>
+  <data name="AMD_SPECCTRL" xml:space="preserve">
+    <value>SPEC_CTRL virtualization</value>
+    <comment>CPUID[8000000Ah].EDX[20]</comment>
+  </data>
+  <data name="AMD_SSBDNOTREQUIRED" xml:space="preserve">
+    <value>SSBD not needed on this processor</value>
+    <comment>CPUID[80000008h].EBX[26]</comment>
+  </data>
+  <data name="AMD_SSBDVIRTSPECCTRL" xml:space="preserve">
+    <value>Use VIRT_SPEC_CTRL for SSBD</value>
+    <comment>CPUID[80000008h].EBX[25]</comment>
+  </data>
+  <data name="AMD_SSE4A" xml:space="preserve">
+    <value>EXTRQ, INSERTQ, MOVNTSS, and MOVNTSD instruction support</value>
+    <comment>CPUID[80000001h].ECX[06]</comment>
+  </data>
+  <data name="AMD_SSSCHECK" xml:space="preserve">
+    <value>SVM supervisor shadow stack restrictions</value>
+    <comment>CPUID[8000000Ah].EDX[19]</comment>
+  </data>
+  <data name="AMD_STIBPALWAYSON" xml:space="preserve">
+    <value>STIBP always on mode</value>
+    <comment>CPUID[80000008h].EBX[17]</comment>
+  </data>
+  <data name="AMD_STREAMPERFMON" xml:space="preserve">
+    <value>Streaming performance monitor architecture. Indicates support for MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
+    <comment>CPUID[80000001h].ECX[25]</comment>
+  </data>
+  <data name="AMD_SUCCOR" xml:space="preserve">
+    <value>Software uncorrectable error containment and recovery capability</value>
+    <comment>CPUID[80000007h].EBX[01]</comment>
+  </data>
+  <data name="AMD_SVM" xml:space="preserve">
+    <value>Secure Virtual Machine</value>
+    <comment>CPUID[80000001h].ECX[02]</comment>
+  </data>
+  <data name="AMD_SVML" xml:space="preserve">
+    <value>SVM lock</value>
+    <comment>CPUID[8000000Ah].EDX[02]</comment>
+  </data>
+  <data name="AMD_SVSMCOMMPAGEMSR" xml:space="preserve">
+    <value>SVSM Communication Page MSR (C001_F000h) is supported</value>
+    <comment>CPUID[8000001Fh].EAX[28]</comment>
+  </data>
+  <data name="AMD_TBM" xml:space="preserve">
+    <value>Trailing bit manipulation instruction support</value>
+    <comment>CPUID[80000001h].ECX[21]</comment>
+  </data>
+  <data name="AMD_TCE" xml:space="preserve">
+    <value>Translation cache extension, EFER.TCE</value>
+    <comment>CPUID[80000001h].ECX[17]</comment>
+  </data>
+  <data name="AMD_TLBICTL" xml:space="preserve">
+    <value>INVLPGB/TLBSYNC hypervisor enable in VMCB and TLBSYNC intercept support</value>
+    <comment>CPUID[8000000Ah].EDX[24]</comment>
+  </data>
+  <data name="AMD_TM" xml:space="preserve">
+    <value>Hardware thermal control (HTC)</value>
+    <comment>CPUID[80000007h].EDX[04]</comment>
+  </data>
+  <data name="AMD_TOPOLOGYEXTENSIONS" xml:space="preserve">
+    <value>Topology extensions support</value>
+    <comment>CPUID[80000001h].ECX[22]</comment>
+  </data>
+  <data name="AMD_TS" xml:space="preserve">
+    <value>AMD Temperature sensor</value>
+    <comment>CPUID[80000007h].EDX[00]</comment>
+  </data>
+  <data name="AMD_TSCAUXVIRTUALIZATION" xml:space="preserve">
+    <value>TSC AUX Virtualisation supported</value>
+    <comment>CPUID[8000001Fh].EAX[09]</comment>
+  </data>
+  <data name="AMD_TSCINVARIANT" xml:space="preserve">
+    <value>TSC invariant. The TSC rate is ensured to be invariant across all P-States, C-States, and stop grant transitions (such as STPCLK Throttling); therefore the TSC is suitable for use as a source of time.</value>
+    <comment>CPUID[80000007h].EDX[08]</comment>
+  </data>
+  <data name="AMD_TSCRATEMSR" xml:space="preserve">
+    <value>MSR based TSC rate control. Indicates support for MSR TSC ratio MSRC000_0104</value>
+    <comment>CPUID[8000000Ah].EDX[04]</comment>
+  </data>
+  <data name="AMD_TTP" xml:space="preserve">
+    <value>Thermal Trip</value>
+    <comment>CPUID[80000007h].EDX[03]</comment>
+  </data>
+  <data name="AMD_UPPERADDRESSIGNORE" xml:space="preserve">
+    <value>Upper Address Ignore is supported</value>
+    <comment>CPUID[80000021h].EAX[07]</comment>
+  </data>
+  <data name="AMD_VGIF" xml:space="preserve">
+    <value>Virtualize the Global Interrupt Flag</value>
+    <comment>CPUID[8000000Ah].EDX[16]</comment>
+  </data>
+  <data name="AMD_VID" xml:space="preserve">
+    <value>Voltage ID control. Function replaced by HwPstate.</value>
+    <comment>CPUID[80000007h].EDX[02]</comment>
+  </data>
+  <data name="AMD_VIRTUALTOMMSR" xml:space="preserve">
+    <value>Virtual TOM MSR supported</value>
+    <comment>CPUID[8000001Fh].EAX[18]</comment>
+  </data>
+  <data name="AMD_VMCBCLEAN" xml:space="preserve">
+    <value>Indicates support for VMCB clean bits</value>
+    <comment>CPUID[8000000Ah].EDX[05]</comment>
+  </data>
+  <data name="AMD_VMGEXITPARAMETER" xml:space="preserve">
+    <value>VMGEXIT Parameter supported</value>
+    <comment>CPUID[8000001Fh].EAX[17]</comment>
+  </data>
+  <data name="AMD_VMPL" xml:space="preserve">
+    <value>VM Permission Levels supported</value>
+    <comment>CPUID[8000001Fh].EAX[05]</comment>
+  </data>
+  <data name="AMD_VMPLSSS" xml:space="preserve">
+    <value>VMPL Supervisor Shadow Stack supported</value>
+    <comment>CPUID[8000001Fh].EAX[07]</comment>
+  </data>
+  <data name="AMD_VMSAREGPROT" xml:space="preserve">
+    <value>VMSA Register Protection supported</value>
+    <comment>CPUID[8000001Fh].EAX[24]</comment>
+  </data>
+  <data name="AMD_VMSAVEVIRT" xml:space="preserve">
+    <value>VMSAVE and VMLOAD virtualization (nested virtualization)</value>
+    <comment>CPUID[8000000Ah].EDX[15]</comment>
+  </data>
+  <data name="AMD_VNMI" xml:space="preserve">
+    <value>NMI Virtualization</value>
+    <comment>CPUID[8000000Ah].EDX[25]</comment>
+  </data>
+  <data name="AMD_VTE" xml:space="preserve">
+    <value>Virtual Transparent Encryption for SEV. The Virtual Transparent Encryption feature can be enabled to force all memory accesses within an SEV guest to be encrypted with the guest's key</value>
+    <comment>CPUID[8000001Fh].EAX[16]</comment>
+  </data>
+  <data name="AMD_WDT" xml:space="preserve">
+    <value>Watchdog timer support. See APM2 and APM3. Indicates support for MSRC001_0074</value>
+    <comment>CPUID[80000001h].ECX[13]</comment>
+  </data>
+  <data name="AMD_X2AVIC" xml:space="preserve">
+    <value>AMD advanced virtual interrupt controller for x2APIC mode</value>
+    <comment>CPUID[8000000Ah].EDX[18]</comment>
+  </data>
+  <data name="AMD_XOP" xml:space="preserve">
+    <value>Extended operation support</value>
+    <comment>CPUID[80000001h].ECX[11]</comment>
   </data>
   <data name="APIC" xml:space="preserve">
     <value>On-chip Advanced Programmable Interrupt Controller hardware</value>
-  </data>
-  <data name="AUTOMATICIBRS" xml:space="preserve">
-    <value>Automatic IBRS</value>
-  </data>
-  <data name="AVIC" xml:space="preserve">
-    <value>AMD advanced virtual interrupt controller</value>
+    <comment>CPUID[01h].EDX[09]</comment>
   </data>
   <data name="AVX" xml:space="preserve">
     <value>Advanced Vector Extensions</value>
+    <comment>CPUID[01h].ECX[28]</comment>
   </data>
   <data name="AVX2" xml:space="preserve">
     <value>Advanced Vector Extensions 2</value>
-  </data>
-  <data name="AVX512BW" xml:space="preserve">
-    <value>AVX512 byte and word instructions</value>
-  </data>
-  <data name="AVX512CD" xml:space="preserve">
-    <value>AVX512 conflict detection, broadcast mask instructions</value>
-  </data>
-  <data name="AVX512DQ" xml:space="preserve">
-    <value>AVX512 double/quadword instructions</value>
-  </data>
-  <data name="AVX512ER" xml:space="preserve">
-    <value>AVX512 approximate exponential and reciprocal instructions</value>
-  </data>
-  <data name="AVX512F" xml:space="preserve">
-    <value>AVX512 foundation instructions</value>
-  </data>
-  <data name="AVX512PF" xml:space="preserve">
-    <value>AVX512 prefetch instructions</value>
-  </data>
-  <data name="AVX512VL" xml:space="preserve">
-    <value>AVX512 vector length instructions</value>
-  </data>
-  <data name="AVX512_4FMAPS" xml:space="preserve">
-    <value>AVX512 packed single precision fused multiply add instructions</value>
-  </data>
-  <data name="AVX512_4VNNIW" xml:space="preserve">
-    <value>AVX512 4-register neural network instructions</value>
-  </data>
-  <data name="AVX512_BF16" xml:space="preserve">
-    <value>AVX512 bfloat16 instructions</value>
-  </data>
-  <data name="AVX512_BITALG" xml:space="preserve">
-    <value>AVX512 bit counting instructions</value>
-  </data>
-  <data name="AVX512_FP16" xml:space="preserve">
-    <value>AVX512 float16 instructions</value>
-  </data>
-  <data name="AVX512_IFMA" xml:space="preserve">
-    <value>AVX512 Integer Fuse Multiply Add instructions</value>
-  </data>
-  <data name="AVX512_VBMI" xml:space="preserve">
-    <value>AVX512 bit manipulation instructions (VPERMB, VPERMI2B, VPERMT2B, VPMULTISHIFTQB)</value>
-  </data>
-  <data name="AVX512_VBMI2" xml:space="preserve">
-    <value>AVX512 bit manipulation instructions (VPCOMPRESSB, VCOMPRESSW, VPEXPANDB, VPEXPANDW, VPSHLD, VPSHLDV, VPSHRD, VPSHRDV)</value>
-  </data>
-  <data name="AVX512_VNNI" xml:space="preserve">
-    <value>AVX512 neural network instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS)</value>
-  </data>
-  <data name="AVX512_VP2INTERSECT" xml:space="preserve">
-    <value>AVX512 VP2INTERSECT double/quad word instructions</value>
-  </data>
-  <data name="AVX512_VPOPCNTDQ" xml:space="preserve">
-    <value>AVX512 population count double/quad word instructions</value>
-  </data>
-  <data name="AVX_VNNI" xml:space="preserve">
-    <value>AVX Vector Neural Network Instructions</value>
-  </data>
-  <data name="BE" xml:space="preserve">
-    <value>Memory Bandwidth Enforcement</value>
-  </data>
-  <data name="BHI_CTRL" xml:space="preserve">
-    <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
-  </data>
-  <data name="BMEC" xml:space="preserve">
-    <value>Bandwidth Monitoring Event Configuration</value>
+    <comment>CPUID[07h].EBX[05]</comment>
   </data>
   <data name="BMI1" xml:space="preserve">
     <value>Bit manipulation instructions (ANDN, BEXTR, BLSI, BLSR, TZCNT)</value>
+    <comment>CPUID[07h].EBX[03]</comment>
   </data>
   <data name="BMI2" xml:space="preserve">
     <value>Bit manipulation instructions (BZHI, MULX, PDEP, PEXT, RORX, SARX/SHLX/SHRX</value>
-  </data>
-  <data name="BRNTRGT" xml:space="preserve">
-    <value>Branch target address reporting supported</value>
-  </data>
-  <data name="BTC_NO" xml:space="preserve">
-    <value>The processor is not affected by branch type confusion.</value>
-  </data>
-  <data name="BUSLOCKTHRESHOLD" xml:space="preserve">
-    <value>Bus Lock Threshold</value>
+    <comment>CPUID[07h].EBX[08]</comment>
   </data>
   <data name="BUS_LOCK_DETECT" xml:space="preserve">
     <value>Support for OS bus-lock detection</value>
-  </data>
-  <data name="CET_IBT" xml:space="preserve">
-    <value>CET indirect branch tracking</value>
-  </data>
-  <data name="CET_S" xml:space="preserve">
-    <value>CET supervisor enabled for XSS MSR</value>
+    <comment>CPUID[07h].ECX[24]</comment>
   </data>
   <data name="CET_SS" xml:space="preserve">
     <value>Control flow enforcement (CET) shadow stack features</value>
-  </data>
-  <data name="CET_SSS" xml:space="preserve">
-    <value>Control flow enforcement (CET) supervisor shadow stack features</value>
-  </data>
-  <data name="CET_U" xml:space="preserve">
-    <value>CET user state enabled for XSS MSR</value>
-  </data>
-  <data name="CLDEMOTE" xml:space="preserve">
-    <value>Cache line demote</value>
+    <comment>CPUID[07h].ECX[07]</comment>
   </data>
   <data name="CLFLUSHOPT" xml:space="preserve">
     <value>CLFLUSHOPT (flush cache line optimized) instruction, support persistent memory programming</value>
+    <comment>CPUID[07h].EBX[23]</comment>
   </data>
   <data name="CLFSH" xml:space="preserve">
     <value>CLFLUSH (flush cache line) instruction</value>
+    <comment>CPUID[01h].EDX[19]</comment>
   </data>
   <data name="CLWB" xml:space="preserve">
     <value>CLWB (Cache line write back) instruction, support persistent memory programming</value>
-  </data>
-  <data name="CLZERO" xml:space="preserve">
-    <value>CLZERO instruction supported</value>
+    <comment>CPUID[07h].EBX[24]</comment>
   </data>
   <data name="CMOV" xml:space="preserve">
     <value>Conditional Move Instruction</value>
-  </data>
-  <data name="CMPLEGACY" xml:space="preserve">
-    <value>Core Multi-processing Legacy Mode</value>
+    <comment>CPUID[01h].EDX[15]</comment>
   </data>
   <data name="CMPXCHG16B" xml:space="preserve">
     <value>CMPXCHG16B (compare/exchange atomically 128-bit) instruction</value>
-  </data>
-  <data name="CNXT-ID" xml:space="preserve">
-    <value>L1 Context ID</value>
-  </data>
-  <data name="CPB" xml:space="preserve">
-    <value>Core Performance Boost</value>
-  </data>
-  <data name="CPPC" xml:space="preserve">
-    <value>Collaborative Processor Performance Control</value>
-  </data>
-  <data name="CPUIDUSERDIS" xml:space="preserve">
-    <value>CPUID disable for non-privileged software</value>
+    <comment>CPUID[01h].ECX[13]</comment>
   </data>
   <data name="CX8" xml:space="preserve">
     <value>CMPXCHG8 instruction</value>
-  </data>
-  <data name="DATABKPTEXT" xml:space="preserve">
-    <value>Data access breakpoint extension</value>
-  </data>
-  <data name="DCA" xml:space="preserve">
-    <value>Direct Cache Access for DMA writes</value>
-  </data>
-  <data name="DDPD_U" xml:space="preserve">
-    <value>IA32_SPEC_CTRL MSR allows disable of Data Dependent Prefetcher</value>
+    <comment>CPUID[01h].EDX[08]</comment>
   </data>
   <data name="DE" xml:space="preserve">
     <value>Debugging Extensions</value>
-  </data>
-  <data name="DEBUGSWAP" xml:space="preserve">
-    <value>Full debug state swap supported for SEV-ES guests</value>
-  </data>
-  <data name="DECODEASSISTS" xml:space="preserve">
-    <value>Decode assists</value>
-  </data>
-  <data name="DS" xml:space="preserve">
-    <value>Debug Store, trace of executed jumps</value>
-  </data>
-  <data name="DS-CPL" xml:space="preserve">
-    <value>CPL Qualified Debug Store</value>
-  </data>
-  <data name="DTES64" xml:space="preserve">
-    <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
-  </data>
-  <data name="EFERLMSLEUNSUPPORTED" xml:space="preserve">
-    <value>EFER.LMSLE (Extended Feature Enable Register, Long Mode Segment Limit Enable) is unsupported</value>
-  </data>
-  <data name="EFFFREQRO" xml:space="preserve">
-    <value>Read-only effective frequency interface. Presence of MSRC000_00E7 [Read-Only Max Performance Frequency Clock Count (MPerfReadOnly)] and MSRC000_00E8 [Read-Only Actual Performance Frequency Clock Count (APerfReadOnly)].</value>
-  </data>
-  <data name="EIST" xml:space="preserve">
-    <value>Enhanced Intel SpeedStep(R) Technology</value>
-  </data>
-  <data name="ENQCMD" xml:space="preserve">
-    <value>Enqueue Stores</value>
-  </data>
-  <data name="ERMS" xml:space="preserve">
-    <value>Enhanced REP MOVSB/STOSB</value>
-  </data>
-  <data name="EXTAPICSPACE" xml:space="preserve">
-    <value>Extended APIC space. Presence of extended APIC register</value>
-  </data>
-  <data name="EXTLVTAVICACCESSCHG" xml:space="preserve">
-    <value>Extended Interrupt Local Vector Table Register AVIC Access changes</value>
+    <comment>CPUID[01h].EDX[02]</comment>
   </data>
   <data name="F16C" xml:space="preserve">
     <value>16-bit floating-point conversion (half precision) instructions</value>
-  </data>
-  <data name="FDP_EXCPTN_ONLY" xml:space="preserve">
-    <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
-  </data>
-  <data name="FETCHSAM" xml:space="preserve">
-    <value>IBS fetch sampling supported</value>
-  </data>
-  <data name="FFXSR" xml:space="preserve">
-    <value>FXSAVE and FXRSTOR instruction optimizations</value>
-  </data>
-  <data name="FID" xml:space="preserve">
-    <value>Frequency ID control. Function replaced by HwPstate.</value>
-  </data>
-  <data name="FLUSHBYASID" xml:space="preserve">
-    <value>TLB flush events, including CR3 writes and CR4.PGE toggles, flush only the current ASID's TLB entries. Support for the extended VMCB TLB_Control</value>
+    <comment>CPUID[01h].ECX[29]</comment>
   </data>
   <data name="FMA" xml:space="preserve">
     <value>Fused Multiply Add (FMA3) 3-operand</value>
-  </data>
-  <data name="FMA4" xml:space="preserve">
-    <value>Four-operand FMA instruction support</value>
-  </data>
-  <data name="FP128" xml:space="preserve">
-    <value>The internal FP/SIMD execution data path is 128 bits wide.</value>
-  </data>
-  <data name="FP256" xml:space="preserve">
-    <value>The internal FP/SIMD execution data path is 256 bits wide</value>
+    <comment>CPUID[01h].ECX[12]</comment>
   </data>
   <data name="FPU" xml:space="preserve">
     <value>Floating-point Unit On-Chip</value>
-  </data>
-  <data name="FPU-CS DEP" xml:space="preserve">
-    <value>Deprecates FPU CS and FPU DS values</value>
-  </data>
-  <data name="FSCMPSB" xml:space="preserve">
-    <value>Fast Short CMPSB, SCASB</value>
+    <comment>CPUID[01h].EDX[00]</comment>
   </data>
   <data name="FSGSBASE" xml:space="preserve">
     <value>Read/Write register FS/GS instructions</value>
-  </data>
-  <data name="FSRM" xml:space="preserve">
-    <value>Fast short REP MOV</value>
-  </data>
-  <data name="FSSTOSB" xml:space="preserve">
-    <value>Fast Short STOSB</value>
+    <comment>CPUID[07h].EBX[00]</comment>
   </data>
   <data name="FXSR" xml:space="preserve">
     <value>FXSAVE and FXSTOR instructions</value>
-  </data>
-  <data name="FZMOVSB" xml:space="preserve">
-    <value>Fast Zero-Length MOVSB</value>
-  </data>
-  <data name="GFNI" xml:space="preserve">
-    <value>AVX Galois Field instructions</value>
-  </data>
-  <data name="GMET" xml:space="preserve">
-    <value>Guest Mode Execution Trap</value>
-  </data>
-  <data name="HLE" xml:space="preserve">
-    <value>TSX Hardware lock elision instructions</value>
-  </data>
-  <data name="HOST_MCE_OVERRIDE" xml:space="preserve">
-    <value>When host CR4.MCE=1 and guest CR4.MCE=0, machine check exceptions (#MC) in a guest do not cause shutdown and are always intercepted</value>
-  </data>
-  <data name="HRESET" xml:space="preserve">
-    <value>Supports IA32_HRESET_ENABLE MSR (Processor Reset History)</value>
+    <comment>CPUID[01h].EDX[24]</comment>
   </data>
   <data name="HTT" xml:space="preserve">
     <value>Multi-Threading</value>
-  </data>
-  <data name="HWA" xml:space="preserve">
-    <value>Hardware assert support. Indicates support for MSRC001_10[DF:C0]</value>
-  </data>
-  <data name="HWENVCACHECOH" xml:space="preserve">
-    <value>Hardware cache coherency across encryption domains enforced</value>
-  </data>
-  <data name="HWPSTATE" xml:space="preserve">
-    <value>Hardware P-state control. MSRC001_0061 [P-state Current Limit], MSRC001_0062 [P-state Control] and MSRC001_0063 [P-state Status] exist</value>
-  </data>
-  <data name="HYBRID" xml:space="preserve">
-    <value>Processor identified as a hybrid part</value>
+    <comment>CPUID[01h].EDX[28]</comment>
   </data>
   <data name="HYPERVISOR" xml:space="preserve">
     <value>CPU is running in Hypervisor mode</value>
+    <comment>CPUID[01h].ECX[31]</comment>
   </data>
-  <data name="IA32_ARCH_CAPABILITIES" xml:space="preserve">
+  <data name="INTEL_AMX_BF16" xml:space="preserve">
+    <value>Tile computation on bfloat16 numbers</value>
+    <comment>CPUID[07h].EDX[22]</comment>
+  </data>
+  <data name="INTEL_AMX_INT8" xml:space="preserve">
+    <value>Tile computation on 8-bit integers</value>
+    <comment>CPUID[07h].EDX[25]</comment>
+  </data>
+  <data name="INTEL_AMX_TILE" xml:space="preserve">
+    <value>Tile architecture</value>
+    <comment>CPUID[07h].EDX[24]</comment>
+  </data>
+  <data name="INTEL_AVX512BW" xml:space="preserve">
+    <value>AVX512 byte and word instructions</value>
+    <comment>CPUID[07h].EBX[30]</comment>
+  </data>
+  <data name="INTEL_AVX512CD" xml:space="preserve">
+    <value>AVX512 conflict detection, broadcast mask instructions</value>
+    <comment>CPUID[07h].EBX[28]</comment>
+  </data>
+  <data name="INTEL_AVX512DQ" xml:space="preserve">
+    <value>AVX512 double/quadword instructions</value>
+    <comment>CPUID[07h].EBX[17]</comment>
+  </data>
+  <data name="INTEL_AVX512ER" xml:space="preserve">
+    <value>AVX512 approximate exponential and reciprocal instructions</value>
+    <comment>CPUID[07h].EBX[27]</comment>
+  </data>
+  <data name="INTEL_AVX512F" xml:space="preserve">
+    <value>AVX512 foundation instructions</value>
+    <comment>CPUID[07h].EBX[16]</comment>
+  </data>
+  <data name="INTEL_AVX512PF" xml:space="preserve">
+    <value>AVX512 prefetch instructions</value>
+    <comment>CPUID[07h].EBX[26]</comment>
+  </data>
+  <data name="INTEL_AVX512VL" xml:space="preserve">
+    <value>AVX512 vector length instructions</value>
+    <comment>CPUID[07h].EBX[31]</comment>
+  </data>
+  <data name="INTEL_AVX512_4FMAPS" xml:space="preserve">
+    <value>AVX512 packed single precision fused multiply add instructions</value>
+    <comment>CPUID[07h].EDX[03]</comment>
+  </data>
+  <data name="INTEL_AVX512_4VNNIW" xml:space="preserve">
+    <value>AVX512 4-register neural network instructions</value>
+    <comment>CPUID[07h].EDX[02]</comment>
+  </data>
+  <data name="INTEL_AVX512_BF16" xml:space="preserve">
+    <value>AVX512 bfloat16 instructions</value>
+    <comment>CPUID[07h,01h].EAX[05]</comment>
+  </data>
+  <data name="INTEL_AVX512_BITALG" xml:space="preserve">
+    <value>AVX512 bit counting instructions</value>
+    <comment>CPUID[07h].ECX[12]</comment>
+  </data>
+  <data name="INTEL_AVX512_FP16" xml:space="preserve">
+    <value>AVX512 float16 instructions</value>
+    <comment>CPUID[07h].EDX[23]</comment>
+  </data>
+  <data name="INTEL_AVX512_IFMA" xml:space="preserve">
+    <value>AVX512 Integer Fuse Multiply Add instructions</value>
+    <comment>CPUID[07h].EBX[21]</comment>
+  </data>
+  <data name="INTEL_AVX512_VBMI" xml:space="preserve">
+    <value>AVX512 bit manipulation instructions (VPERMB, VPERMI2B, VPERMT2B, VPMULTISHIFTQB)</value>
+    <comment>CPUID[07h].ECX[01]</comment>
+  </data>
+  <data name="INTEL_AVX512_VBMI2" xml:space="preserve">
+    <value>AVX512 bit manipulation instructions (VPCOMPRESSB, VCOMPRESSW, VPEXPANDB, VPEXPANDW, VPSHLD, VPSHLDV, VPSHRD, VPSHRDV)</value>
+    <comment>CPUID[07h].ECX[06]</comment>
+  </data>
+  <data name="INTEL_AVX512_VNNI" xml:space="preserve">
+    <value>AVX512 neural network instructions (VPDPBUSD, VPDPBUSDS, VPDPWSSD, VPDPWSSDS)</value>
+    <comment>CPUID[07h].ECX[11]</comment>
+  </data>
+  <data name="INTEL_AVX512_VP2INTERSECT" xml:space="preserve">
+    <value>AVX512 VP2INTERSECT double/quad word instructions</value>
+    <comment>CPUID[07h].EDX[08]</comment>
+  </data>
+  <data name="INTEL_AVX512_VPOPCNTDQ" xml:space="preserve">
+    <value>AVX512 population count double/quad word instructions</value>
+    <comment>CPUID[07h].ECX[14]</comment>
+  </data>
+  <data name="INTEL_AVX_VNNI" xml:space="preserve">
+    <value>AVX Vector Neural Network Instructions</value>
+    <comment>CPUID[07h,01h].EAX[04]</comment>
+  </data>
+  <data name="INTEL_BHI_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
+    <comment>CPUID[07h,02h].EDX[04]</comment>
+  </data>
+  <data name="INTEL_CET_IBT" xml:space="preserve">
+    <value>CET indirect branch tracking</value>
+    <comment>CPUID[07h].EDX[20]</comment>
+  </data>
+  <data name="INTEL_CET_SSS" xml:space="preserve">
+    <value>Control flow enforcement (CET) supervisor shadow stack features</value>
+    <comment>CPUID[07h,01h].EDX[18]</comment>
+  </data>
+  <data name="INTEL_CLDEMOTE" xml:space="preserve">
+    <value>Cache line demote</value>
+    <comment>CPUID[07h].ECX[25]</comment>
+  </data>
+  <data name="INTEL_CNXT-ID" xml:space="preserve">
+    <value>L1 Context ID</value>
+    <comment>CPUID[01h].ECX[10]</comment>
+  </data>
+  <data name="INTEL_DCA" xml:space="preserve">
+    <value>Direct Cache Access for DMA writes</value>
+    <comment>CPUID[01h].ECX[18]</comment>
+  </data>
+  <data name="INTEL_DDPD_U" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows disable of Data Dependent Prefetcher</value>
+    <comment>CPUID[07h,02h].EDX[03]</comment>
+  </data>
+  <data name="INTEL_DS" xml:space="preserve">
+    <value>Debug Store, trace of executed jumps</value>
+    <comment>CPUID[01h].EDX[21]</comment>
+  </data>
+  <data name="INTEL_DS-CPL" xml:space="preserve">
+    <value>CPL Qualified Debug Store</value>
+    <comment>CPUID[01h].ECX[04]</comment>
+  </data>
+  <data name="INTEL_DTES64" xml:space="preserve">
+    <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
+    <comment>CPUID[01h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_EIST" xml:space="preserve">
+    <value>Enhanced Intel SpeedStep(R) Technology</value>
+    <comment>CPUID[01h].ECX[07]</comment>
+  </data>
+  <data name="INTEL_ENQCMD" xml:space="preserve">
+    <value>Enqueue Stores</value>
+    <comment>CPUID[07h].ECX[29]</comment>
+  </data>
+  <data name="INTEL_ERMS" xml:space="preserve">
+    <value>Enhanced REP MOVSB/STOSB</value>
+    <comment>CPUID[07h].EBX[09]</comment>
+  </data>
+  <data name="INTEL_FDP_EXCPTN_ONLY" xml:space="preserve">
+    <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
+    <comment>CPUID[07h].EBX[06]</comment>
+  </data>
+  <data name="INTEL_FPU-CS DEP" xml:space="preserve">
+    <value>Deprecates FPU CS and FPU DS values</value>
+    <comment>CPUID[07h].EBX[13]</comment>
+  </data>
+  <data name="INTEL_FSCMPSB" xml:space="preserve">
+    <value>Fast Short REP CMPSB, SCASB</value>
+    <comment>CPUID[07h,01h].EAX[12]</comment>
+  </data>
+  <data name="INTEL_FSRM" xml:space="preserve">
+    <value>Fast short REP MOV</value>
+    <comment>CPUID[07h].EDX[04]</comment>
+  </data>
+  <data name="INTEL_FSSTOSB" xml:space="preserve">
+    <value>Fast Short REP STOSB</value>
+    <comment>CPUID[07h,01h].EAX[11]</comment>
+  </data>
+  <data name="INTEL_FZMOVSB" xml:space="preserve">
+    <value>Fast Zero-Length REP MOVSB</value>
+    <comment>CPUID[07h,01h].EAX[10]</comment>
+  </data>
+  <data name="INTEL_GFNI" xml:space="preserve">
+    <value>AVX Galois Field instructions</value>
+    <comment>CPUID[07h].ECX[08]</comment>
+  </data>
+  <data name="INTEL_HLE" xml:space="preserve">
+    <value>TSX Hardware lock elision instructions</value>
+    <comment>CPUID[07h].EBX[04]</comment>
+  </data>
+  <data name="INTEL_HRESET" xml:space="preserve">
+    <value>Supports IA32_HRESET_ENABLE MSR (Processor Reset History)</value>
+    <comment>CPUID[07h,01h].EAX[22]</comment>
+  </data>
+  <data name="INTEL_HYBRID" xml:space="preserve">
+    <value>Processor identified as a hybrid part</value>
+    <comment>CPUID[07h].EDX[15]</comment>
+  </data>
+  <data name="INTEL_IA32_ARCH_CAPABILITIES" xml:space="preserve">
     <value>Speculative Side Channel mitigates, IA32_ARCH_CAPABILITIES MSR supported, CPU specific</value>
+    <comment>CPUID[07h].EDX[29]</comment>
   </data>
-  <data name="IA32_CORE_CAPABILITIES" xml:space="preserve">
+  <data name="INTEL_IA32_CORE_CAPABILITIES" xml:space="preserve">
     <value>Support for a MSR listing model-specific core capabilities, IA32_CORE_CAPABILITIES MSR supported, CPU specific</value>
+    <comment>CPUID[07h].EDX[30]</comment>
   </data>
-  <data name="IA32_PPIN" xml:space="preserve">
+  <data name="INTEL_IA32_PPIN" xml:space="preserve">
     <value>Enumerates the presence of the IA32_PPIN and IA32_PPIN_CTL MSRs</value>
+    <comment>CPUID[07h,01h].EBX[00]</comment>
   </data>
-  <data name="IA32_TSC_ADJUST" xml:space="preserve">
+  <data name="INTEL_IA32_TSC_ADJUST" xml:space="preserve">
     <value>IA32_TSC_ADJUST MSR</value>
+    <comment>CPUID[07h].EBX[01]</comment>
   </data>
-  <data name="IA64" xml:space="preserve">
+  <data name="INTEL_IA64" xml:space="preserve">
     <value>IA64 processor emulating in x86 mode</value>
+    <comment>CPUID[01h].EDX[30]</comment>
   </data>
-  <data name="IBPB" xml:space="preserve">
-    <value>Indirect branch prediction barrier software control available, Spectre mitigation for branch prediction side channel timing attacks</value>
-  </data>
-  <data name="IBRS" xml:space="preserve">
-    <value>Indirect branch restricted speculation, Spectre mitigation enabled</value>
-  </data>
-  <data name="IBRSALWAYSON" xml:space="preserve">
-    <value>IBRS always on mode</value>
-  </data>
-  <data name="IBRSPREFERRED" xml:space="preserve">
-    <value>IBRS preferred</value>
-  </data>
-  <data name="IBRSSAMEMODE" xml:space="preserve">
-    <value>IBRS provides Same Mode Protection speculation limits</value>
-  </data>
-  <data name="IBRS_IBPB" xml:space="preserve">
+  <data name="INTEL_IBRS_IBPB" xml:space="preserve">
     <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
+    <comment>CPUID[07h].EDX[26]</comment>
   </data>
-  <data name="IBS" xml:space="preserve">
-    <value>Instruction based sampling</value>
-  </data>
-  <data name="IBSFFV" xml:space="preserve">
-    <value>IBS feature flags valid</value>
-  </data>
-  <data name="IBSL3MISSFILTERING" xml:space="preserve">
-    <value>3 Miss Filtering for IBS supported</value>
-  </data>
-  <data name="IBSVIRT" xml:space="preserve">
-    <value>IBS Virtualization</value>
-  </data>
-  <data name="IBSVIRTGUESTCTL" xml:space="preserve">
-    <value>IBS Virtualization supported for SEV-ES guests</value>
-  </data>
-  <data name="INSTRETCNTMSR" xml:space="preserve">
-    <value>Instruction Retired Counter MSR available</value>
-  </data>
-  <data name="INTEL_PT" xml:space="preserve">
+  <data name="INTEL_INTEL_PT" xml:space="preserve">
     <value>Intel Processor Trace</value>
+    <comment>CPUID[07h].EBX[25]</comment>
   </data>
-  <data name="INT_WBINVD" xml:space="preserve">
-    <value>WBINVD/WBNOINVD instructions are interruptible</value>
+  <data name="INTEL_IPRED_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
+    <comment>CPUID[07h,02h].EDX[01]</comment>
   </data>
-  <data name="INVLPGB" xml:space="preserve">
-    <value>INVLPGB and TLBSYNC instruction supported</value>
+  <data name="INTEL_KL" xml:space="preserve">
+    <value>Key Locker</value>
+    <comment>CPUID[07h].ECX[23]</comment>
   </data>
-  <data name="INVLPGBNESTEDPAGES" xml:space="preserve">
-    <value>INVLPGB support for invalidating guest nested translations</value>
+  <data name="INTEL_L1D_FLUSH" xml:space="preserve">
+    <value>IA32_FLUSH_CMD MSR supported</value>
+    <comment>CPUID[07h].EDX[28]</comment>
+  </data>
+  <data name="INTEL_LAM" xml:space="preserve">
+    <value>Linear Address Masking</value>
+    <comment>CPUID[07h,01h].EAX[26]</comment>
+  </data>
+  <data name="INTEL_LBR" xml:space="preserve">
+    <value>Architectural Last Branch Records</value>
+    <comment>CPUID[07h].EDX[19]</comment>
+  </data>
+  <data name="INTEL_MCDT_NO" xml:space="preserve">
+    <value>Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary</value>
+    <comment>CPUID[07h,02h].EDX[05]</comment>
+  </data>
+  <data name="INTEL_MD_CLEAR" xml:space="preserve">
+    <value>MD_CLEAR supported</value>
+    <comment>CPUID[07h].EDX[10]</comment>
+  </data>
+  <data name="INTEL_MOVDIR64B" xml:space="preserve">
+    <value>MOVDIR64B instruction</value>
+    <comment>CPUID[07h].ECX[28]</comment>
+  </data>
+  <data name="INTEL_MOVDIRI" xml:space="preserve">
+    <value>MOVDIRI instruction</value>
+    <comment>CPUID[07h].ECX[27]</comment>
+  </data>
+  <data name="INTEL_MPX" xml:space="preserve">
+    <value>Intel(R) Memory Protection Extensions</value>
+    <comment>CPUID[07h].EBX[14]</comment>
+  </data>
+  <data name="INTEL_PBE" xml:space="preserve">
+    <value>Pending Break Enable</value>
+    <comment>CPUID[01h].EDX[31]</comment>
+  </data>
+  <data name="INTEL_PCONFIG" xml:space="preserve">
+    <value>Platform configuration (Memory Encryption Technologies instructions)</value>
+    <comment>CPUID[07h].EDX[18]</comment>
+  </data>
+  <data name="INTEL_PDCM" xml:space="preserve">
+    <value>Perfmon and Debug Capability</value>
+    <comment>CPUID[01h].ECX[15]</comment>
+  </data>
+  <data name="INTEL_PKS" xml:space="preserve">
+    <value>Protection keys for supervisor-mode pages</value>
+    <comment>CPUID[07h].ECX[31]</comment>
+  </data>
+  <data name="INTEL_PSN" xml:space="preserve">
+    <value>Processor Serial Number is present and enabled</value>
+    <comment>CPUID[01h].EDX[18]</comment>
+  </data>
+  <data name="INTEL_RDT-A" xml:space="preserve">
+    <value>Intel Resource Director Technology - Allocation Capability</value>
+    <comment>CPUID[07h].EBX[15]</comment>
+  </data>
+  <data name="INTEL_RDT-M" xml:space="preserve">
+    <value>Intel Resource Director Technology - Monitoring Capability</value>
+    <comment>CPUID[07h].EBX[12]</comment>
+  </data>
+  <data name="INTEL_RRSBA_CTRL" xml:space="preserve">
+    <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
+    <comment>CPUID[07h,02h].EDX[02]</comment>
+  </data>
+  <data name="INTEL_RTM" xml:space="preserve">
+    <value>TSX restricted transactional memory</value>
+    <comment>CPUID[07h].EBX[11]</comment>
+  </data>
+  <data name="INTEL_RTM_ALWAYS_ABORT" xml:space="preserve">
+    <value>If set, any execution of XBEGIN immediately aborts and transitions to the
+specified fallback address.</value>
+    <comment>CPUID[07h].EDX[11]</comment>
+  </data>
+  <data name="INTEL_RTM_FORCE_ABORT" xml:space="preserve">
+    <value>RTM_FORCE_ABORT supported. Processors that set this bit support the IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0] (RTM_FORCE_ABORT)</value>
+    <comment>CPUID[07h].EDX[13]</comment>
+  </data>
+  <data name="INTEL_SDBG" xml:space="preserve">
+    <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
+    <comment>CPUID[01h].ECX[11]</comment>
+  </data>
+  <data name="INTEL_SERIALIZE" xml:space="preserve">
+    <value>Serialize instruction execution</value>
+    <comment>CPUID[07h].EDX[14]</comment>
+  </data>
+  <data name="INTEL_SGX" xml:space="preserve">
+    <value>Intel(R) Software Guard Extensions</value>
+    <comment>CPUID[07h].EBX[02]</comment>
+  </data>
+  <data name="INTEL_SGX-KEYS" xml:space="preserve">
+    <value>Attestation Services for Intel SGX is supported</value>
+    <comment>CPUID[07h].EDX[01]</comment>
+  </data>
+  <data name="INTEL_SGX_LC" xml:space="preserve">
+    <value>SGX Launch Configuration</value>
+    <comment>CPUID[07h].ECX[30]</comment>
+  </data>
+  <data name="INTEL_SMX" xml:space="preserve">
+    <value>Safer Mode Extensions</value>
+    <comment>CPUID[01h].ECX[06]</comment>
+  </data>
+  <data name="INTEL_SRBDS_CTRL" xml:space="preserve">
+    <value>Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
+(RNGDS_MITG_DIS) is also supported</value>
+    <comment>CPUID[07h].EDX[09]</comment>
+  </data>
+  <data name="INTEL_SS" xml:space="preserve">
+    <value>CPU Cache implements Self Snoop</value>
+    <comment>CPUID[01h].EDX[27]</comment>
+  </data>
+  <data name="INTEL_TM" xml:space="preserve">
+    <value>Thermal Monitor</value>
+    <comment>CPUID[01h].EDX[29]</comment>
+  </data>
+  <data name="INTEL_TM2" xml:space="preserve">
+    <value>Thermal Monitor 2</value>
+    <comment>CPUID[01h].ECX[08]</comment>
+  </data>
+  <data name="INTEL_TME_EN" xml:space="preserve">
+    <value>IA32_TME MSR capabilities are supported</value>
+    <comment>CPUID[07h].ECX[13]</comment>
+  </data>
+  <data name="INTEL_TSC-DEADLINE" xml:space="preserve">
+    <value>Time Stamp Counter Deadline supported by APIC</value>
+    <comment>CPUID[01h].ECX[24]</comment>
+  </data>
+  <data name="INTEL_TSXLDTRK" xml:space="preserve">
+    <value>TSX suspend load address tracking</value>
+    <comment>CPUID[07h].EDX[16]</comment>
+  </data>
+  <data name="INTEL_UINTR" xml:space="preserve">
+    <value>User Space Interrupts</value>
+    <comment>CPUID[07h].EDX[05]</comment>
+  </data>
+  <data name="INTEL_VMX" xml:space="preserve">
+    <value>Virtual Machine Extensions</value>
+    <comment>CPUID[01h].ECX[05]</comment>
+  </data>
+  <data name="INTEL_WAITPKG" xml:space="preserve">
+    <value>User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
+    <comment>CPUID[07h].ECX[05]</comment>
+  </data>
+  <data name="INTEL_XFD" xml:space="preserve">
+    <value>Supports extended feature disable (XFD)</value>
+    <comment>CPUID[0Dh,01h].EAX[04]</comment>
+  </data>
+  <data name="INTEL_XTPR" xml:space="preserve">
+    <value>xTPR Update Control, disable sending task priority messages</value>
+    <comment>CPUID[01h].ECX[14]</comment>
   </data>
   <data name="INVPCID" xml:space="preserve">
     <value>INVPCID instruction for system software that manages process-context identifiers</value>
-  </data>
-  <data name="IPBP_RET" xml:space="preserve">
-    <value>The processor clears the return address predictor when MSR PRED_CMD.IBPB is written to 1.</value>
-  </data>
-  <data name="IPRED_CTRL" xml:space="preserve">
-    <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
-  </data>
-  <data name="KL" xml:space="preserve">
-    <value>Key Locker</value>
-  </data>
-  <data name="L1D_FLUSH" xml:space="preserve">
-    <value>IA32_FLUSH_CMD MSR supported</value>
-  </data>
-  <data name="L3CACHELCLBWFILLMON" xml:space="preserve">
-    <value>Reads to local DRAM memory</value>
-  </data>
-  <data name="L3CACHELCLBWNTWRMON" xml:space="preserve">
-    <value>Non-temporal writes to local memory</value>
-  </data>
-  <data name="L3CACHELCLSLOWBWFILLMON" xml:space="preserve">
-    <value>Reads to local memory identified as “Slow Memory”</value>
-  </data>
-  <data name="L3CACHERMTBWFILLMON" xml:space="preserve">
-    <value>Reads to remote DRAM memory.</value>
-  </data>
-  <data name="L3CACHERMTBWNTWRMON" xml:space="preserve">
-    <value>Non-temporal writes to remote memory</value>
-  </data>
-  <data name="L3CACHERMTSLOWBWFILLMON" xml:space="preserve">
-    <value>Reads to remote memory identified as “Slow Memory”</value>
-  </data>
-  <data name="L3CACHEVICMON" xml:space="preserve">
-    <value>Dirty victim writes to all types of memory</value>
-  </data>
-  <data name="L3MBE" xml:space="preserve">
-    <value>Memory Bandwidth Enforcement</value>
-  </data>
-  <data name="L3RR" xml:space="preserve">
-    <value>L3 Range Reservations</value>
-  </data>
-  <data name="L3SMBE" xml:space="preserve">
-    <value>Slow Memory Bandwidth Enforcement</value>
+    <comment>CPUID[07h].EBX[10]</comment>
   </data>
   <data name="LA57" xml:space="preserve">
     <value>Linear Addressing 57-bit and 5-Level Paging</value>
-  </data>
-  <data name="LAM" xml:space="preserve">
-    <value>Linear Address Masking</value>
-  </data>
-  <data name="LBR" xml:space="preserve">
-    <value>Architectural Last Branch Records</value>
-  </data>
-  <data name="LBRANDPMCFREEZE" xml:space="preserve">
-    <value>Freezing Core Performance Counters and LBR Stack on Core Performance Counter overflow supported</value>
-  </data>
-  <data name="LBRSTACK" xml:space="preserve">
-    <value>Last Branch Record Stack supported</value>
-  </data>
-  <data name="LBRVIRT" xml:space="preserve">
-    <value>LBR virtualization</value>
-  </data>
-  <data name="LFENCEALWAYSSERIALIZING" xml:space="preserve">
-    <value>LFENCE is always dispatch serializing</value>
+    <comment>CPUID[07h].ECX[16]</comment>
   </data>
   <data name="LM" xml:space="preserve">
     <value>Long Mode. Access to 64-bit instructions and registers, also known as x86_64 or x64</value>
-  </data>
-  <data name="LWP" xml:space="preserve">
-    <value>Lightweight profiling support</value>
-  </data>
-  <data name="LWPAVAIL" xml:space="preserve">
-    <value>The LWP feature is available</value>
-  </data>
-  <data name="LWPBRANCHPREDICTION" xml:space="preserve">
-    <value>Branch prediction filtering supported. Branches Retired events can be filtered based on whether the branch was predicted properly</value>
-  </data>
-  <data name="LWPBRE" xml:space="preserve">
-    <value>Branch retired event available</value>
-  </data>
-  <data name="LWPCACHELATENCY" xml:space="preserve">
-    <value>Cache latency filtering supported. Cache-related events can be filtered by latency</value>
-  </data>
-  <data name="LWPCACHELEVELS" xml:space="preserve">
-    <value>Cache level filtering supported. Cache-related events can be filtered by the cache level that returned the data</value>
-  </data>
-  <data name="LWPCNH" xml:space="preserve">
-    <value>Core clocks not halted event available</value>
-  </data>
-  <data name="LWPCONT" xml:space="preserve">
-    <value>Sampling in continuous mode is available</value>
-  </data>
-  <data name="LWPDME" xml:space="preserve">
-    <value>DC miss event available</value>
-  </data>
-  <data name="LWPINT" xml:space="preserve">
-    <value>Interrupt on threshold overflow available</value>
-  </data>
-  <data name="LWPIPFILTERING" xml:space="preserve">
-    <value>IP filtering supported</value>
-  </data>
-  <data name="LWPIRE" xml:space="preserve">
-    <value>Instructions retired event available</value>
-  </data>
-  <data name="LWPPTSC" xml:space="preserve">
-    <value>Performance time stamp counter in event record is available</value>
-  </data>
-  <data name="LWPRNH" xml:space="preserve">
-    <value>Core reference clocks not halted event available</value>
-  </data>
-  <data name="LWPVAL" xml:space="preserve">
-    <value>LWPVAL instruction available</value>
+    <comment>CPUID[80000001h].EDX[29]</comment>
   </data>
   <data name="LZCNT" xml:space="preserve">
     <value>LZCNT (count leading zero bits) instruction</value>
+    <comment>CPUID[80000001h].ECX[05]</comment>
   </data>
   <data name="MCA" xml:space="preserve">
     <value>Machine-Check Architecture</value>
-  </data>
-  <data name="MCAOVERFLOWRECOV" xml:space="preserve">
-    <value>MCA overflow recovery support. If set, indicates that MCA overflow conditions (MCi_STATUS[Overflow]=1) are not fatal; software may safely ignore such conditions. If clear, MCA overflow conditions require software to shut down the system.</value>
-  </data>
-  <data name="MCDT_NO" xml:space="preserve">
-    <value>Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary</value>
+    <comment>CPUID[01h].EDX[14]</comment>
   </data>
   <data name="MCE" xml:space="preserve">
     <value>Machine-Check Exception</value>
-  </data>
-  <data name="MCOMMIT" xml:space="preserve">
-    <value>MCOMMIT instruction supported</value>
-  </data>
-  <data name="MD_CLEAR" xml:space="preserve">
-    <value>MD_CLEAR supported</value>
-  </data>
-  <data name="MEMHMK" xml:space="preserve">
-    <value>Secure Host Multi-Key Memory (MEM-HMK) Encryption Mode Supported</value>
-  </data>
-  <data name="MISALIGNSSE" xml:space="preserve">
-    <value>Misaligned SSE mode</value>
+    <comment>CPUID[01h].EDX[07]</comment>
   </data>
   <data name="MMX" xml:space="preserve">
     <value>MMX Technologies, Multimedia Extensions</value>
-  </data>
-  <data name="MMXEXT" xml:space="preserve">
-    <value>AMD extensions to MMX instructions</value>
+    <comment>CPUID[01h].EDX[23]</comment>
   </data>
   <data name="MONITOR" xml:space="preserve">
     <value>MONITOR and MWAIT instructions</value>
-  </data>
-  <data name="MONITORX" xml:space="preserve">
-    <value>MONITORX instruction support</value>
+    <comment>CPUID[01h].ECX[03]</comment>
   </data>
   <data name="MOVBE" xml:space="preserve">
     <value>MOVBE (big-endian) instruction</value>
-  </data>
-  <data name="MOVDIR64B" xml:space="preserve">
-    <value>MOVDIR64B instruction</value>
-  </data>
-  <data name="MOVDIRI" xml:space="preserve">
-    <value>MOVDIRI instruction</value>
-  </data>
-  <data name="MOVU" xml:space="preserve">
-    <value>MOVU SSE instructions are more efficient and should be preferred to SSE MOVL/MOVH. MOVUPS is more efficient than MOVLPS/MOVHPS. MOVUPD is more efficient than MOVLPD/MOVHPD</value>
+    <comment>CPUID[01h].ECX[22]</comment>
   </data>
   <data name="MP" xml:space="preserve">
     <value>Multi-Processor capable. AMD K7 processors prior to CPUID=0662h may report 0 even if they are MP-capable.</value>
-  </data>
-  <data name="MPX" xml:space="preserve">
-    <value>Intel(R) Memory Protection Extensions</value>
+    <comment>CPUID[80000001h].EDX[19]</comment>
   </data>
   <data name="MSR" xml:space="preserve">
     <value>Model Specific Registers</value>
+    <comment>CPUID[01h].EDX[05]</comment>
   </data>
   <data name="MTRR" xml:space="preserve">
     <value>Memory Type Range Registers</value>
-  </data>
-  <data name="NESTEDVIRTSNPMSR" xml:space="preserve">
-    <value>VIRT_RMPUPDATE MSR (C001_F001h) and VIRT_PSMASH MSR (C001_F002h) supported</value>
-  </data>
-  <data name="NESTEDVIRTVMCBADDRCHK" xml:space="preserve">
-    <value>Guest VMCB address check</value>
-  </data>
-  <data name="NODEID" xml:space="preserve">
-    <value>Node ID: MSR C001_100Ch</value>
-  </data>
-  <data name="NONESTEDDATABP" xml:space="preserve">
-    <value>Processor ignores nested data breakpoints</value>
-  </data>
-  <data name="NOSMMCTLMSR" xml:space="preserve">
-    <value>SMM_CTL MSR (C001_0116h) is not supported</value>
-  </data>
-  <data name="NP" xml:space="preserve">
-    <value>Nested Paging</value>
-  </data>
-  <data name="NRIPS" xml:space="preserve">
-    <value>Support for NRIP save on #VMEXIT</value>
-  </data>
-  <data name="NULLSELECTCLEARSBASE" xml:space="preserve">
-    <value>Null segment selector loads also clear the destination segment register base and limit</value>
-  </data>
-  <data name="OPBRNFUSE" xml:space="preserve">
-    <value>Fused branch micro-op indication supported</value>
-  </data>
-  <data name="OPCNT" xml:space="preserve">
-    <value>Op counting mode supported</value>
-  </data>
-  <data name="OPCNTEXT" xml:space="preserve">
-    <value>IbsOpCurCnt and IbsOpMaxCnt extend by 7 bits</value>
-  </data>
-  <data name="OPSAM" xml:space="preserve">
-    <value>IBS execution sampling supported</value>
+    <comment>CPUID[01h].EDX[12]</comment>
   </data>
   <data name="OSPKE" xml:space="preserve">
     <value>OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions)</value>
-  </data>
-  <data name="OSVW" xml:space="preserve">
-    <value>OS visible workaround. Indicates OS-visible workaround support for the Operating System</value>
+    <comment>CPUID[07h].ECX[04]</comment>
   </data>
   <data name="OSXSAVE" xml:space="preserve">
     <value>OS-Enabled Extended State Management</value>
+    <comment>CPUID[01h].ECX[27]</comment>
   </data>
   <data name="PAE" xml:space="preserve">
     <value>Physical Address Extension</value>
-  </data>
-  <data name="PAGEFLUSHMSR" xml:space="preserve">
-    <value>Page Flush MSR available</value>
+    <comment>CPUID[01h].EDX[06]</comment>
   </data>
   <data name="PAT" xml:space="preserve">
     <value>Page Attribute Table</value>
-  </data>
-  <data name="PAUSEFILTER" xml:space="preserve">
-    <value>Pause intercept filter</value>
-  </data>
-  <data name="PAUSEFILTERTHRESHOLD" xml:space="preserve">
-    <value>Support for the PAUSE filter cycle count threshold</value>
-  </data>
-  <data name="PBE" xml:space="preserve">
-    <value>Pending Break Enable</value>
+    <comment>CPUID[01h].EDX[16]</comment>
   </data>
   <data name="PCID" xml:space="preserve">
     <value>Process Context Identifiers</value>
+    <comment>CPUID[01h].ECX[17]</comment>
   </data>
   <data name="PCLMULQDQ" xml:space="preserve">
     <value>PCLMULQDQ Instruction</value>
-  </data>
-  <data name="PCOMMIT" xml:space="preserve">
-    <value>Persistent Memory PCOMMIT instruction (deprecated, hardware manufacturers support ADR - Asynchronous DRAM refresh)</value>
-  </data>
-  <data name="PCONFIG" xml:space="preserve">
-    <value>Platform configuration (Memory Encryption Technologies instructions)</value>
-  </data>
-  <data name="PDCM" xml:space="preserve">
-    <value>Perfmon and Debug Capability</value>
-  </data>
-  <data name="PERFCTREXTCORE" xml:space="preserve">
-    <value>Processor performance counter extensions support. Indicates support for MSRC001_020[A,8,6,4,2,0] and MSRC001_020[B,9,7,5,3,1]</value>
-  </data>
-  <data name="PERFCTREXTLLC" xml:space="preserve">
-    <value>L2I perf counter extensions (MSRs C001_023[0...7]h) (Fam 15h/16h). L3 perf counter extensions (MSRs C001_023[0...B]h) (Fam 17h)</value>
-  </data>
-  <data name="PERFCTREXTNB" xml:space="preserve">
-    <value>NB performance counter extensions support. Indicates support for MSRC001_024[6,4,2,0] and MSRC001_024[7,5,3,1]</value>
-  </data>
-  <data name="PERFMONV2" xml:space="preserve">
-    <value>Performance Monitoring Version 2 supported</value>
-  </data>
-  <data name="PERFTSC" xml:space="preserve">
-    <value>Performance time-stamp counter</value>
+    <comment>CPUID[01h].ECX[01]</comment>
   </data>
   <data name="PGE" xml:space="preserve">
     <value>Page Global Enable bit in CR4</value>
-  </data>
-  <data name="PKS" xml:space="preserve">
-    <value>Protection keys for supervisor-mode pages</value>
+    <comment>CPUID[01h].EDX[13]; CPUID[01h].EDX[09] AMD K5</comment>
   </data>
   <data name="PKU" xml:space="preserve">
     <value>Protection Keys for user-mode pages</value>
+    <comment>CPUID[07h].ECX[03]</comment>
   </data>
   <data name="POPCNT" xml:space="preserve">
     <value>POPCNT, population count, instruction</value>
-  </data>
-  <data name="PPIN" xml:space="preserve">
-    <value>Protected Processor Inventory Number. can be enabled for privileged system inventory agent to Read PPIN</value>
-  </data>
-  <data name="PQE" xml:space="preserve">
-    <value>Cache Allocation Strategy</value>
-  </data>
-  <data name="PQM" xml:space="preserve">
-    <value>Platform QoS Monitoring</value>
-  </data>
-  <data name="PREFETCHCTLMSR" xml:space="preserve">
-    <value>Prefetch control MSR supported</value>
+    <comment>CPUID[01h].ECX[23]</comment>
   </data>
   <data name="PREFETCHW" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write</value>
+    <comment>CPUID[80000001h].ECX[08]</comment>
   </data>
   <data name="PREFETCHWT1" xml:space="preserve">
     <value>Prefetch data into caches in anticipation of a write, with T1 hint. Intel(R) Xeon Phi(TM) only</value>
-  </data>
-  <data name="PREVENTHOSTIBS" xml:space="preserve">
-    <value>Disallowing IBS use by the host supported</value>
-  </data>
-  <data name="PROCFEEDBACKINTERFACE" xml:space="preserve">
-    <value>Processor feedback interface.</value>
-  </data>
-  <data name="PROCPOWERREPORTING" xml:space="preserve">
-    <value>Processor power reporting interface supported</value>
+    <comment>CPUID[07h].ECX[00]</comment>
   </data>
   <data name="PSE" xml:space="preserve">
     <value>Page Size Extension</value>
+    <comment>CPUID[01h].EDX[03]</comment>
   </data>
   <data name="PSE-36" xml:space="preserve">
     <value>36-bit Page Size Extension</value>
+    <comment>CPUID[01h].EDX[17]</comment>
   </data>
   <data name="PSFD" xml:space="preserve">
-    <value>IA32_SPEC_CTRL MSR allows disable of Fast Store Forwarding Predictor without disabling Speculative Store Bypass</value>
-  </data>
-  <data name="PSN" xml:space="preserve">
-    <value>Processor Serial Number is present and enabled</value>
+    <value>MSR allows disable of Fast Store Forwarding Predictor without disabling Speculative Store Bypass</value>
+    <comment>CPUID[07h,02h].EDX[00] Intel; CPUID[80000008h].EBX[28] AMD</comment>
   </data>
   <data name="RDPID" xml:space="preserve">
     <value>Read Processor ID and IA32_TSX_AUX</value>
-  </data>
-  <data name="RDPRU" xml:space="preserve">
-    <value>RDPRU instruction supported</value>
+    <comment>CPUID[07h].ECX[22]</comment>
   </data>
   <data name="RDRAND" xml:space="preserve">
     <value>On-chip random number generator, RDRAND instruction</value>
+    <comment>CPUID[01h].ECX[30]</comment>
   </data>
   <data name="RDSEED" xml:space="preserve">
     <value>RDSEED (read random seed) instruction</value>
-  </data>
-  <data name="RDT-A" xml:space="preserve">
-    <value>Intel Resource Director Technology - Allocation Capability</value>
-  </data>
-  <data name="RDT-M" xml:space="preserve">
-    <value>Intel Resource Director Technology - Monitoring Capability</value>
+    <comment>CPUID[07h].EBX[18]</comment>
   </data>
   <data name="RDTSCP" xml:space="preserve">
     <value>RDTSCP and IA32_TSX_AUX supported</value>
-  </data>
-  <data name="RDWROPCNT" xml:space="preserve">
-    <value>Read write of op counter supported</value>
-  </data>
-  <data name="RESTRICTEDINJECTION" xml:space="preserve">
-    <value>Restricted Injection supported</value>
-  </data>
-  <data name="RIPINVALIDCHK" xml:space="preserve">
-    <value>Invalid RIP indication supported</value>
-  </data>
-  <data name="RMPQUERY" xml:space="preserve">
-    <value>RMPQUERY Instruction supported</value>
-  </data>
-  <data name="ROGPT" xml:space="preserve">
-    <value>Read-Only Guest Page Table feature support</value>
-  </data>
-  <data name="RRSBA_CTRL" xml:space="preserve">
-    <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
-  </data>
-  <data name="RSTRFPERRPTRS" xml:space="preserve">
-    <value>FP Error Pointers Restored by XRSTOR</value>
-  </data>
-  <data name="RTM" xml:space="preserve">
-    <value>TSX restricted transactional memory</value>
-  </data>
-  <data name="RTM_ALWAYS_ABORT" xml:space="preserve">
-    <value>If set, any execution of XBEGIN immediately aborts and transitions to the
-specified fallback address.</value>
-  </data>
-  <data name="RTM_FORCE_ABORT" xml:space="preserve">
-    <value>RTM_FORCE_ABORT supported. Processors that set this bit support the
-IA32_TSX_FORCE_ABORT MSR. They allow software to set IA32_TSX_FORCE_ABORT[0]
-(RTM_FORCE_ABORT)</value>
-  </data>
-  <data name="SCALABLEMCA" xml:space="preserve">
-    <value>MCA Extension (MCAX) support</value>
-  </data>
-  <data name="SDBG" xml:space="preserve">
-    <value>Silicon Debug (IA32_DEBUG_INTERFACE MSR)</value>
-  </data>
-  <data name="SDCIAE" xml:space="preserve">
-    <value>Smart Data Cache Injection (SDCI) Allocation Enforcement</value>
-  </data>
-  <data name="SECURETSC" xml:space="preserve">
-    <value>Secure TSC supported</value>
+    <comment>CPUID[80000001h].EDX[27]</comment>
   </data>
   <data name="SEP" xml:space="preserve">
     <value>Fast System Call, SYSENTER and SYSEXIT instructions</value>
-  </data>
-  <data name="SERIALIZE" xml:space="preserve">
-    <value>Serialize instruction execution</value>
-  </data>
-  <data name="SEV" xml:space="preserve">
-    <value>Secure Encrypted Virtualization supported</value>
-  </data>
-  <data name="SEV-ES" xml:space="preserve">
-    <value>SEV (Secure Encrypted Virtualization) Encrypted State supported</value>
-  </data>
-  <data name="SEV-SNP" xml:space="preserve">
-    <value>SEV (Secure Encrypted Virtualization) Secure Nested Paging supported</value>
-  </data>
-  <data name="SGX" xml:space="preserve">
-    <value>Intel(R) Software Guard Extensions</value>
-  </data>
-  <data name="SGX-KEYS" xml:space="preserve">
-    <value>Attestation Services for Intel SGX is supported</value>
-  </data>
-  <data name="SGX_LC" xml:space="preserve">
-    <value>SGX Launch Configuration</value>
+    <comment>CPUID[01h].EDX[11]</comment>
   </data>
   <data name="SHA" xml:space="preserve">
     <value>Intel(R) Secure Hash Algorithm Extensions</value>
-  </data>
-  <data name="SKINIT" xml:space="preserve">
-    <value>SKINIT and STGI are supported, independent of the value of MSRC000_0080[SVME]</value>
+    <comment>CPUID[07h].EBX[29]</comment>
   </data>
   <data name="SMAP" xml:space="preserve">
     <value>Supervisor Mode Access Prevention</value>
-  </data>
-  <data name="SME" xml:space="preserve">
-    <value>Secure Memory Encryption supported</value>
+    <comment>CPUID[07h].EBX[20]</comment>
   </data>
   <data name="SMEP" xml:space="preserve">
     <value>Supervisor Mode Execution Prevention</value>
-  </data>
-  <data name="SMMPGCFGLOCK" xml:space="preserve">
-    <value>SMM paging configuration lock supported</value>
-  </data>
-  <data name="SMTPROTECTION" xml:space="preserve">
-    <value>SMT Protection supported</value>
-  </data>
-  <data name="SMX" xml:space="preserve">
-    <value>Safer Mode Extensions</value>
-  </data>
-  <data name="SPECCTRL" xml:space="preserve">
-    <value>SPEC_CTRL virtualization</value>
-  </data>
-  <data name="SRBDS_CTRL" xml:space="preserve">
-    <value>Special register buffer data sampling mitigations. Enumerates support for the IA32_MCU_OPT_CTRL MSR and indicates its bit 0
-(RNGDS_MITG_DIS) is also supported</value>
-  </data>
-  <data name="SS" xml:space="preserve">
-    <value>CPU Cache implements Self Snoop</value>
+    <comment>CPUID[07h].EBX[07]</comment>
   </data>
   <data name="SSBD" xml:space="preserve">
     <value>Speculative Store Bypass Disable (SSBD)</value>
-  </data>
-  <data name="SSBDNOTREQUIRED" xml:space="preserve">
-    <value>SSBD not needed on this processor</value>
-  </data>
-  <data name="SSBDVIRTSPECCTRL" xml:space="preserve">
-    <value>Use VIRT_SPEC_CTRL for SSBD</value>
+    <comment>CPUID[07h].EDX[31] Intel; CPUID[80000008h].EBX[24] AMD</comment>
   </data>
   <data name="SSE" xml:space="preserve">
     <value>Streaming SIMD Extensions</value>
+    <comment>CPUID[01h].EDX[25]</comment>
   </data>
   <data name="SSE2" xml:space="preserve">
     <value>Streaming SIMD Extensions 2</value>
+    <comment>CPUID[01h].EDX[26]</comment>
   </data>
   <data name="SSE3" xml:space="preserve">
     <value>Streaming SIMD Extensions 3</value>
-  </data>
-  <data name="SSE4A" xml:space="preserve">
-    <value>EXTRQ, INSERTQ, MOVNTSS, and MOVNTSD instruction support</value>
+    <comment>CPUID[01h].ECX[00]</comment>
   </data>
   <data name="SSE4_1" xml:space="preserve">
     <value>Streaming SIMD Extensions 4.1</value>
+    <comment>CPUID[01h].ECX[19]</comment>
   </data>
   <data name="SSE4_2" xml:space="preserve">
     <value>Streaming SIMD Extensions 4.2</value>
-  </data>
-  <data name="SSSCHECK" xml:space="preserve">
-    <value>SVM supervisor shadow stack restrictions</value>
+    <comment>CPUID[01h].ECX[20]</comment>
   </data>
   <data name="SSSE3" xml:space="preserve">
     <value>Supplemental Streaming SIMD Extensions 3</value>
+    <comment>CPUID[01h].ECX[09]</comment>
   </data>
   <data name="STIBP" xml:space="preserve">
     <value>Single thread indirect branch predictors (STIBP)</value>
-  </data>
-  <data name="STIBPALWAYSON" xml:space="preserve">
-    <value>STIBP always on mode</value>
-  </data>
-  <data name="STREAMPERFMON" xml:space="preserve">
-    <value>Streaming performance monitor architecture. Indicates support for
-MSRC001_028[C:8,4:1]. Reserved from #24594, rev 3.21, May 2013</value>
-  </data>
-  <data name="SUCCOR" xml:space="preserve">
-    <value>Software uncorrectable error containment and recovery capability</value>
-  </data>
-  <data name="SVM" xml:space="preserve">
-    <value>Secure Virtual Machine</value>
-  </data>
-  <data name="SVML" xml:space="preserve">
-    <value>SVM lock</value>
-  </data>
-  <data name="SVSMCOMMPAGEMSR" xml:space="preserve">
-    <value>SVSM Communication Page MSR (C001_F000h) is supported</value>
+    <comment>CPUID[07h].EDX[27] Intel; CPUID[80000008h].EBX[15] AMD</comment>
   </data>
   <data name="SYSCALL" xml:space="preserve">
     <value>SYSCALL and SYSRET instructions are supported</value>
-  </data>
-  <data name="TBM" xml:space="preserve">
-    <value>Trailing bit manipulation instruction support</value>
-  </data>
-  <data name="TCE" xml:space="preserve">
-    <value>Translation cache extension, EFER.TCE</value>
-  </data>
-  <data name="TLBICTL" xml:space="preserve">
-    <value>INVLPGB/TLBSYNC hypervisor enable in VMCB and TLBSYNC intercept support</value>
-  </data>
-  <data name="TM" xml:space="preserve">
-    <value>Thermal Monitor</value>
-  </data>
-  <data name="TM2" xml:space="preserve">
-    <value>Thermal Monitor 2</value>
-  </data>
-  <data name="TME_EN" xml:space="preserve">
-    <value>IA32_TME MSR capabilities are supported</value>
-  </data>
-  <data name="TOPOLOGYEXTENSIONS" xml:space="preserve">
-    <value>Topology extensions support</value>
-  </data>
-  <data name="TS" xml:space="preserve">
-    <value>AMD Temperature sensor</value>
+    <comment>CPUID[80000001h].EDX[11]</comment>
   </data>
   <data name="TSC" xml:space="preserve">
     <value>Time Stamp Counter</value>
-  </data>
-  <data name="TSC-DEADLINE" xml:space="preserve">
-    <value>Time Stamp Counter Deadline supported by APIC</value>
-  </data>
-  <data name="TSCAUXVIRTUALIZATION" xml:space="preserve">
-    <value>TSC AUX Virtualisation supported</value>
-  </data>
-  <data name="TSCINVARIANT" xml:space="preserve">
-    <value>TSC invariant. The TSC rate is ensured to be invariant across all P-States, C-States, and stop grant transitions (such as STPCLK Throttling); therefore the TSC is suitable for use as a source of time.</value>
-  </data>
-  <data name="TSCRATEMSR" xml:space="preserve">
-    <value>MSR based TSC rate control. Indicates support for MSR TSC ratio MSRC000_0104</value>
-  </data>
-  <data name="TSXLDTRK" xml:space="preserve">
-    <value>TSX suspend load address tracking</value>
-  </data>
-  <data name="TTP" xml:space="preserve">
-    <value>Thermal Trip</value>
-  </data>
-  <data name="UINTR" xml:space="preserve">
-    <value>User Space Interrupts</value>
+    <comment>CPUID[01h].EDX[04]</comment>
   </data>
   <data name="UMIP" xml:space="preserve">
     <value>User-mode Instruction Prevention</value>
-  </data>
-  <data name="UPPERADDRESSIGNORE" xml:space="preserve">
-    <value>Upper Address Ignore is supported</value>
+    <comment>CPUID[07h].ECX[02]</comment>
   </data>
   <data name="VAES" xml:space="preserve">
     <value>Vectored AES 128-bit on vectored data 256bit registers</value>
-  </data>
-  <data name="VGIF" xml:space="preserve">
-    <value>Virtualize the Global Interrupt Flag</value>
-  </data>
-  <data name="VID" xml:space="preserve">
-    <value>Voltage ID control. Function replaced by HwPstate.</value>
-  </data>
-  <data name="VIRTUALTOMMSR" xml:space="preserve">
-    <value>Virtual TOM MSR supported</value>
-  </data>
-  <data name="VMCBCLEAN" xml:space="preserve">
-    <value>Indicates support for VMCB clean bits</value>
+    <comment>CPUID[07h].ECX[09]</comment>
   </data>
   <data name="VME" xml:space="preserve">
     <value>Virtual 8086 Mode Extensions</value>
-  </data>
-  <data name="VMGEXITPARAMETER" xml:space="preserve">
-    <value>VMGEXIT Parameter supported</value>
-  </data>
-  <data name="VMPL" xml:space="preserve">
-    <value>VM Permission Levels supported</value>
-  </data>
-  <data name="VMPLSSS" xml:space="preserve">
-    <value>VMPL Supervisor Shadow Stack supported</value>
-  </data>
-  <data name="VMSAREGPROT" xml:space="preserve">
-    <value>VMSA Register Protection supported</value>
-  </data>
-  <data name="VMSAVEVIRT" xml:space="preserve">
-    <value>VMSAVE and VMLOAD virtualization (nested virtualization)</value>
-  </data>
-  <data name="VMX" xml:space="preserve">
-    <value>Virtual Machine Extensions</value>
-  </data>
-  <data name="VNMI" xml:space="preserve">
-    <value>NMI Virtualization</value>
+    <comment>CPUID[01h].EDX[01]</comment>
   </data>
   <data name="VPCLMULQDQ" xml:space="preserve">
     <value>Vectored VPCLMULQDQ Instruction</value>
-  </data>
-  <data name="VTE" xml:space="preserve">
-    <value>Virtual Transparent Encryption for SEV. The Virtual Transparent Encryption feature can be enabled to force all memory accesses within an SEV guest to be encrypted with the guest's key</value>
-  </data>
-  <data name="WAITPKG" xml:space="preserve">
-    <value>User level monitor/wait (TPAUSE, UMONITOR, UMWAIT) instructions</value>
+    <comment>CPUID[07h].ECX[10]</comment>
   </data>
   <data name="WBNOINVD" xml:space="preserve">
     <value>WBNOINVD instruction supported</value>
-  </data>
-  <data name="WDT" xml:space="preserve">
-    <value>Watchdog timer support. See APM2 and APM3. Indicates support for
-MSRC001_0074</value>
+    <comment>CPUID[80000008h].EBX[09]</comment>
   </data>
   <data name="X2APIC" xml:space="preserve">
     <value>Extended APIC support</value>
-  </data>
-  <data name="X2AVIC" xml:space="preserve">
-    <value>AMD advanced virtual interrupt controller for x2APIC mode</value>
+    <comment>CPUID[01h].ECX[21]</comment>
   </data>
   <data name="XD" xml:space="preserve">
     <value>Execution Disable bit</value>
-  </data>
-  <data name="XFD" xml:space="preserve">
-    <value>Supports extended feature disable (XFD)</value>
+    <comment>CPUID[80000001h].EDX[20]</comment>
   </data>
   <data name="XGETBV" xml:space="preserve">
     <value>XGETBV with ECX = 1 supported</value>
-  </data>
-  <data name="XOP" xml:space="preserve">
-    <value>Extended operation support</value>
+    <comment>CPUID[0Dh,01h].EAX[02]</comment>
   </data>
   <data name="XSAVE" xml:space="preserve">
     <value>XSAVE/XSTOR states</value>
+    <comment>CPUID[01h].ECX[26]</comment>
   </data>
   <data name="XSAVEC" xml:space="preserve">
     <value>XSAVEC and compact XRSTOR supported</value>
+    <comment>CPUID[0Dh,01h].EAX[01]</comment>
   </data>
   <data name="XSAVEOPT" xml:space="preserve">
     <value>XSAVEOPT is available</value>
+    <comment>CPUID[0Dh,01h].EAX[00]</comment>
   </data>
   <data name="XSAVES" xml:space="preserve">
     <value>XSAVES, XRSTOR, and XSS are supported</value>
-  </data>
-  <data name="XTPR" xml:space="preserve">
-    <value>xTPR Update Control, disable sending task priority messages</value>
+    <comment>CPUID[0Dh,01h].EAX[03]</comment>
   </data>
 </root>

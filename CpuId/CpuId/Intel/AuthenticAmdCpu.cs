@@ -42,6 +42,7 @@
 
         internal AuthenticAmdCpu(BasicCpu cpu) : base(cpu)
         {
+            Features.DescriptionPrefix = "AMD";
             GetProcessorSignature(cpu);
             if (m_ProcessorSignature == 0) {
                 Description = string.Empty;
@@ -175,7 +176,7 @@
             "MCOMMIT", "WBNOINVD", null, null, "IBPB", "INT_WBINVD", "IBRS", "STIBP",
             // PPIN = [10]
             "IbrsAlwaysOn", "StibpAlwaysOn", "IbrsPreferred", "IbrsSameMode", "EferLmsleUnsupported", "INVLPGBnestedPages", null, "PPIN",
-            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", null
+            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IBPB_RET", null
         };
 
         private readonly static string[] FeaturesCpuId8000000AEdx = new string[] {
@@ -283,12 +284,12 @@
                 ReservedFeature(FeatureGroup.StandardFeatures, features, 2, 0x0105CDF4);
 
                 // Alias AMD features to well known Intel features. Use the description from the Intel feature name.
-                AliasFeature("SSE4_1", Features["SSE41"], true);
-                AliasFeature("SSE4_2", Features["SSE42"], true);
-                AliasFeature("AESNI", Features["AES"], true);
-                AliasFeature("CX8", Features["CMPXCHG8B"], true);
-                AliasFeature("SEP", Features["SysEnterSysExit"], true);
-                AliasFeature("PSE-36", Features["PSE36"], true);
+                Features.Add("SSE4_1", Features["SSE41"]);
+                Features.Add("SSE4_2", Features["SSE42"]);
+                Features.Add("AESNI", Features["AES"]);
+                Features.Add("CX8", Features["CMPXCHG8B"]);
+                Features.Add("SEP", Features["SysEnterSysExit"]);
+                Features.Add("PSE-36", Features["PSE36"]);
             }
 
             FindExtendedFeatures(cpu);
@@ -317,8 +318,8 @@
                 }
 
                 // Alias AMD features to well known Intel features. Use the description from the Intel feature name.
-                AliasFeature("VPCLMULQDQ", Features["VPCMULQDQ"], true);
-                AliasFeature("BUS_LOCK_DETECT", Features["BUSLOCKTRAP"], true);
+                Features.Add("VPCLMULQDQ", Features["VPCMULQDQ"]);
+                Features.Add("BUS_LOCK_DETECT", Features["BUSLOCKTRAP"]);
             }
 
             if (cpu.FunctionCount < ExtendedProcessorState) return;
@@ -350,12 +351,12 @@
                 Features["3DNowPrefetch"].Value |= Features["LM"].Value || Features["3DNow"].Value;
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 3, 0x10240400);
 
-                AliasFeature("AHF64", Features["LahfSahf"], true);
-                AliasFeature("LZCNT", Features["ABM"], true);
-                AliasFeature("PREFETCHW", Features["3DNowPrefetch"], true);
-                AliasFeature("SYSCALL", Features["SysCallSysRet"], true);
-                AliasFeature("XD", Features["NX"], true);
-                AliasFeature("1GB_PAGE", Features["Page1GB"], true);
+                Features.Add("AHF64", Features["LahfSahf"]);
+                Features.Add("LZCNT", Features["ABM"]);
+                Features.Add("PREFETCHW", Features["3DNowPrefetch"]);
+                Features.Add("SYSCALL", Features["SysCallSysRet"]);
+                Features.Add("XD", Features["NX"]);
+                Features.Add("1GB_PAGE", Features["Page1GB"]);
             }
 
             if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;

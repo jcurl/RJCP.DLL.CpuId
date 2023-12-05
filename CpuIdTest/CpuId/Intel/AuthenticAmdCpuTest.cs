@@ -91,7 +91,7 @@
             "CLZERO", "InstRetCntMsr", "RstrFpErrPtrs", "INVLPGB", "RDPRU", "", "BE", "",
             "MCOMMIT", "WBNOINVD", "", "", "IBPB", "INT_WBINVD", "IBRS", "STIBP",
             "IbrsAlwaysOn", "StibpAlwaysOn", "IbrsPreferred", "IbrsSameMode", "EferLmsleUnsupported", "INVLPGBnestedPages", "", "PPIN",
-            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IPBP_RET", ""
+            "SSBD", "SsbdVirtSpecCtrl", "SsbdNotRequired", "CPPC", "PSFD", "BTC_NO", "IBPB_RET", ""
         };
 
         private static readonly string[] CpuId_80_0A_Edx = new[] {

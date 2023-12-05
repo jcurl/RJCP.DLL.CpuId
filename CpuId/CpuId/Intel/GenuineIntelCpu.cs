@@ -25,6 +25,7 @@
 
         internal GenuineIntelCpu(BasicCpu cpu) : base(cpu)
         {
+            Features.DescriptionPrefix = "INTEL";
             GetProcessorSignature(cpu);
             if (m_ProcessorSignature == 0) {
                 Description = string.Empty;
