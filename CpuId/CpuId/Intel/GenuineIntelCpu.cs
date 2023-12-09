@@ -10,8 +10,15 @@
     {
         internal const int LegacyCache = 0x02;
         internal const int LegacyTopology = 0x04;
+        internal const int ThermalPower = 0x06;
+        internal const int PerfSampling = 0x0A;
         internal const int ExtendedTopology = 0x0B;
+        internal const int RdtMonitoring = 0x0F;
+        internal const int SgxLeaf = 0x12;
+        internal const int ProcTrace = 0x14;
         internal const int AddressTranslation = 0x18;
+        internal const int KeyLocker = 0x19;
+        internal const int LastBranchRec = 0x1C;
         internal const int ExtendedTopology2 = 0x1F;
 
         private int m_ProcessorSignature;
@@ -156,6 +163,20 @@
             "FXSR", "SSE", "SSE2", "SS", "HTT", "TM", "IA64", "PBE"
         };
 
+        private readonly static string[] FeaturesCpuId06Eax = new string[] {
+            "DTS", "TurboBoost", "ARAT", null, "PLN", "ECMD", "PTM", "HWP",
+            "HWP_Notification", "HWP_Activity_Window", "HWP_Energy_Performance_Preference", "HWP_Package_Level_Request", null, "HDC", "TurboBoost3.0", "HWPCaps",
+            "HWP_PECI", "Flexible_HWP", "FastAccess_HWP_REQUEST", "HW_FEEDBACK", "HWP_Idle_Ignore", null, null, "ThreadDirector",
+            "IA32_TERM_INTERRUPT", null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId06Ecx = new string[] {
+            "HWCFC", null, null, "SETBH", null, null, null, null,
+            null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null
+        };
+
         private readonly static string[] FeaturesCpuId07Ebx = new string[] {
             "FSGSBASE", "IA32_TSC_ADJUST", "SGX", "BMI1", "HLE", "AVX2", "FDP_EXCPTN_ONLY", "SMEP",
             "BMI2", "ERMS", "INVPCID", "RTM", "RDT-M", "FPU-CS Dep", "MPX", "RDT-A",
@@ -205,8 +226,134 @@
             null, null, null, null, null, null, null, null
         };
 
+        private readonly static string[] FeaturesCpuId0AEbx = new string[] {
+            "CoreCycleEv", "InstRetEv", "RefCycleEv", "LLCRefEv", "LLCMissEv", "BrnInstRetEv", "BrnMisRetEv", "TopDownSlotsEv",
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
         private readonly static string[] FeaturesCpuId0D01Eax = new string[] {
             "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "XFD", null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0D01Ecx = new string[] {
+            null, null, null, null, null, null, null, null,
+            "PTState", null, "PASID", "CET_U", "CET_S", "HDCState", "UINTRState", "LBRState",
+            "HWPState", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0FEdx = new string[] {
+            null, "L3RDT", null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0F01Eax = new string[] {
+            null, null, null, null, null, null, null, null,
+            "IA32_QM_CTR", "RDT_CMT", "RDT_MBM", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId0F01Edx = new string[] {
+            "L3CACHEOCCMON", "L3CACHETOTBWMON", "L3CACHELCLBWMON", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId10Ebx = new string[] {
+            null, "RDTL3CACHEALLOC", "RDTL2CACHEALLOC", "RDTMEMBWALLOC", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId1001Ecx = new string[] {
+            null, "RDTL3CAT", "RDTL3_CDP", "RDTL3NONCTGCAP", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId1002Ecx = new string[] {
+            null, null, "RDTL2_CDP", "RDTL2NONCTGCAP", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId1003Ecx = new string[] {
+            null, null, "RDTMEMBWLINEAR", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId12Eax = new string[] {
+            "SGX1", "SGX2", null, null, null, "ENCLV", "ENCLS", "ENCLU",
+            null, null, "ENCLS_EUPDATESVN", "ENCLU_EDECCSSA", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId14Ebx = new string[] {
+            "IA32_RTIT_CR3_MATCH", "ConfigurablePsb", "IPFiltering", "MTCTimingPacket", "PTWRITE", "PowerEventTrace", "PreservePsbPmi", "EventEn",
+            "DisTNT", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId14Ecx = new string[] {
+            "ToPA", "ToPA_TABLES", "PTSRO", "TraceTransport", null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, "PTLIP"
+        };
+
+        private readonly static string[] FeaturesCpuId19Eax = new string[] {
+            "KL_CPL0", "KL_NOENC", "KL_NODEC", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId19Ebx = new string[] {
+            "AESKLE", null, "AESWIDE", null, "KL_MSR", null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId19Ecx = new string[] {
+            "LOADIWKEY_NB", "KSENC", null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId1CEax = new string[] {
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, "LBR_DEEPC", "LBRLIP"
+        };
+
+        private readonly static string[] FeaturesCpuId1CEbx = new string[] {
+            "LBRCPL", "LBRBF", "LBRCSM", null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
+        private readonly static string[] FeaturesCpuId1CEcx = new string[] {
+            "LBRMISPRED", "LBRTIMED", "LBRBTF", null, null, null, null, null,
             null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null
@@ -226,6 +373,13 @@
             null, null, "1GB_PAGE", "RDTSCP", null, "LM", null, null
         };
 
+        private readonly static string[] FeaturesCpuId80000008Ebx = new string[] {
+            null, null, null, null, null, null, null, null,
+            null, "WBNOINVD", null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null
+        };
+
         private void FindFeatures(BasicCpu cpu)
         {
             if (cpu.FunctionCount < FeatureInformationFunction) return;
@@ -242,6 +396,16 @@
             }
 
             FindExtendedFeatures(cpu);
+
+            if (cpu.FunctionCount < ThermalPower) return;
+            CpuIdRegister features6 = cpu.CpuRegisters.GetCpuId(ThermalPower, 0);
+            if (features6 != null) {
+                TestFeatures(FeaturesCpuId06Eax, FeatureGroup.PowerManagement, features6, 0);
+                ReservedFeature(FeatureGroup.PowerManagement, features6, 0, unchecked((int)0xFE601008));
+
+                TestFeatures(FeaturesCpuId06Ecx, FeatureGroup.PowerManagement, features6, 2);
+                ReservedFeature(FeatureGroup.PowerManagement, features6, 2, unchecked((int)0xFFFF00F6));
+            }
 
             if (cpu.FunctionCount < ExtendedFeatureFunction) return;
             CpuIdRegister features7 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 0);
@@ -294,17 +458,129 @@
                 }
             }
 
+            FindPerformanceFeature(cpu);
+
             if (cpu.FunctionCount < ExtendedProcessorState) return;
             CpuIdRegister features13 = cpu.CpuRegisters.GetCpuId(ExtendedProcessorState, 1);
             if (features13 != null) {
                 TestFeatures(FeaturesCpuId0D01Eax, FeatureGroup.ExtendedState, features13, 0);
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 0, unchecked((int)0xFFFFFFE0));
+
+                TestFeatures(FeaturesCpuId0D01Ecx, FeatureGroup.ExtendedState, features13, 2);
+                ReservedFeature(FeatureGroup.ExtendedState, features13, 2, unchecked((int)0xFFF80000));
+
+                ReservedFeature(FeatureGroup.ExtendedState, features13, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.FunctionCount < RdtMonitoring) return;
+            if (Features["RDT-M"].Value) {
+                CpuIdRegister features15 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 0);
+                if (features15 != null) {
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features15, 0, unchecked((int)0xFFFFFFFF));
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features15, 2, unchecked((int)0xFFFFFFFF));
+
+                    TestFeatures(FeaturesCpuId0FEdx, FeatureGroup.RdtMonitoring, features15, 3);
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features15, 3, unchecked((int)0xFFFFFFFD));
+
+                    CpuIdRegister features15s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 1);
+                    if (features15s1 != null) {
+                        TestFeatures(FeaturesCpuId0F01Eax, FeatureGroup.RdtMonitoring, features15s1, 0);
+                        ReservedFeature(FeatureGroup.RdtMonitoring, features15s1, 0, unchecked((int)0xFFFFF800));
+
+                        TestFeatures(FeaturesCpuId0F01Edx, FeatureGroup.RdtMonitoring, features15s1, 3);
+                        ReservedFeature(FeatureGroup.RdtMonitoring, features15s1, 3, unchecked((int)0xFFFFFFF8));
+                    }
+                }
+            }
+
+            if (cpu.FunctionCount < RdtMonitoring + 1) return;
+            if (Features["RDT-A"].Value) {
+                CpuIdRegister features16 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 0);
+                if (features16 != null) {
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features16, 0, unchecked((int)0xFFFFFFFF));
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features16, 2, unchecked((int)0xFFFFFFFF));
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features16, 3, unchecked((int)0xFFFFFFFF));
+
+                    TestFeatures(FeaturesCpuId10Ebx, FeatureGroup.RdtMonitoring, features16, 1);
+                    ReservedFeature(FeatureGroup.RdtMonitoring, features16, 1, unchecked((int)0xFFFFFFF1));
+
+                    CpuIdRegister features16s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 1);
+                    if (features16s1 != null) {
+                        TestFeatures(FeaturesCpuId1001Ecx, FeatureGroup.RdtMonitoring, features16s1, 2);
+                        ReservedFeature(FeatureGroup.RdtMonitoring, features16s1, 0, unchecked((int)0xFFFFFFF1));
+                    }
+
+                    CpuIdRegister features16s2 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 2);
+                    if (features16s2 != null) {
+                        TestFeatures(FeaturesCpuId1002Ecx, FeatureGroup.RdtMonitoring, features16s2, 2);
+                        ReservedFeature(FeatureGroup.RdtMonitoring, features16s2, 0, unchecked((int)0xFFFFFFF3));
+                    }
+
+                    CpuIdRegister features16s3 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 3);
+                    if (features16s3 != null) {
+                        TestFeatures(FeaturesCpuId1003Ecx, FeatureGroup.RdtMonitoring, features16s3, 2);
+                        ReservedFeature(FeatureGroup.RdtMonitoring, features16s3, 0, unchecked((int)0xFFFFFFFB));
+                    }
+                }
+            }
+
+            if (cpu.FunctionCount < SgxLeaf) return;
+            if (Features["SGX"].Value) {
+                CpuIdRegister features18 = cpu.CpuRegisters.GetCpuId(SgxLeaf, 0);
+                if (features18 != null) {
+                    TestFeatures(FeaturesCpuId12Eax, FeatureGroup.Sgx, features18, 0);
+                    ReservedFeature(FeatureGroup.ExtendedState, features18, 0, unchecked((int)0xFFFFF31C));
+
+                    ReservedFeature(FeatureGroup.ExtendedState, features18, 2, unchecked((int)0xFFFFFFFF));
+                }
+            }
+
+            if (cpu.FunctionCount < ProcTrace) return;
+            CpuIdRegister features20 = cpu.CpuRegisters.GetCpuId(ProcTrace, 0);
+            if (features20 != null) {
+                TestFeatures(FeaturesCpuId14Ebx, FeatureGroup.ProcessorTrace, features20, 1);
+                ReservedFeature(FeatureGroup.ProcessorTrace, features20, 1, unchecked((int)0xFFFFFE00));
+
+                TestFeatures(FeaturesCpuId14Ecx, FeatureGroup.ProcessorTrace, features20, 2);
+                ReservedFeature(FeatureGroup.ProcessorTrace, features20, 2, unchecked(0x7FFFFFF0));
+
+                ReservedFeature(FeatureGroup.ProcessorTrace, features20, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.FunctionCount < KeyLocker) return;
+            CpuIdRegister features25 = cpu.CpuRegisters.GetCpuId(KeyLocker, 0);
+            if (features25 != null) {
+                TestFeatures(FeaturesCpuId19Eax, FeatureGroup.KeyLocker, features25, 0);
+                ReservedFeature(FeatureGroup.KeyLocker, features25, 0, unchecked((int)0xFFFFFFF8));
+
+                TestFeatures(FeaturesCpuId19Ebx, FeatureGroup.KeyLocker, features25, 1);
+                ReservedFeature(FeatureGroup.KeyLocker, features25, 1, unchecked((int)0xFFFFFFEA));
+
+                TestFeatures(FeaturesCpuId19Ecx, FeatureGroup.KeyLocker, features25, 2);
+                ReservedFeature(FeatureGroup.KeyLocker, features25, 2, unchecked((int)0xFFFFFFFC));
+
+                ReservedFeature(FeatureGroup.KeyLocker, features25, 3, unchecked((int)0xFFFFFFFF));
+            }
+
+            if (cpu.FunctionCount < LastBranchRec) return;
+            CpuIdRegister features30 = cpu.CpuRegisters.GetCpuId(LastBranchRec, 0);
+            if (features30 != null) {
+                TestFeatures(FeaturesCpuId1CEax, FeatureGroup.LastBranchRecords, features30, 0);
+                ReservedFeature(FeatureGroup.LastBranchRecords, features30, 0, unchecked(0x3FFFFF00));
+
+                TestFeatures(FeaturesCpuId1CEbx, FeatureGroup.LastBranchRecords, features30, 1);
+                ReservedFeature(FeatureGroup.LastBranchRecords, features30, 1, unchecked((int)0xFFFFFFF8));
+
+                TestFeatures(FeaturesCpuId1CEcx, FeatureGroup.LastBranchRecords, features30, 2);
+                ReservedFeature(FeatureGroup.LastBranchRecords, features30, 2, unchecked((int)0xFFFFFFF8));
+
+                ReservedFeature(FeatureGroup.LastBranchRecords, features30, 3, unchecked((int)0xFFFFFFFF));
             }
         }
 
         private void FindExtendedFeatures(BasicCpu cpu)
         {
-            if (cpu.ExtendedFunctionCount < 1) return;
+            if (cpu.ExtendedFunctionCount < ExtendedInformationFunction - MaxExtendedFunction) return;
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
             if (extfeat != null) {
                 TestFeatures(FeaturesCpuId800000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);
@@ -313,6 +589,29 @@
                 TestFeatures(FeaturesCpuId800000001Edx, FeatureGroup.ExtendedFeatures, extfeat, 3);
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 3, unchecked((int)0xD3EFF7FF));
             }
+
+            if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
+            CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
+            if (extfeat8 != null) {
+                TestFeatures(FeaturesCpuId80000008Ebx, FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1);
+                ReservedFeature(FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1, unchecked((int)0xFFFFFDFF));
+            }
+        }
+
+        private void FindPerformanceFeature(BasicCpu cpu)
+        {
+            if (cpu.FunctionCount < PerfSampling) return;
+            CpuIdRegister features10 = cpu.CpuRegisters.GetCpuId(PerfSampling, 1);
+            if (features10 == null) return;
+
+            int l = features10.Result[0] >> 24; // Get length of EBX bit vector
+            for (int i = 0; i < 32; i++) {
+                if (i <= l && !string.IsNullOrEmpty(FeaturesCpuId0AEbx[i])) {
+                    bool value = (features10.Result[1] & (1 << i)) == 0; // The bit is set if it is enabled
+                    Features.Add(FeaturesCpuId0AEbx[i], value, FeatureGroup.PerformanceSampling, BitGroup(features10, 1, i));
+                }
+            }
+            ReservedFeature(FeatureGroup.PerformanceSampling, features10, 1, unchecked((int)0xFFFFFF00));
         }
 
         /// <inheritdoc/>

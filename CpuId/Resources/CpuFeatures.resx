@@ -197,14 +197,6 @@
     <value>Bus Lock Threshold</value>
     <comment>CPUID[8000000Ah].EDX[29]</comment>
   </data>
-  <data name="AMD_CET_S" xml:space="preserve">
-    <value>CET supervisor enabled for XSS MSR</value>
-    <comment>CPUID[0Dh,01h].ECX[12]</comment>
-  </data>
-  <data name="AMD_CET_U" xml:space="preserve">
-    <value>CET user state enabled for XSS MSR</value>
-    <comment>CPUID[0Dh,01h].ECX[11]</comment>
-  </data>
   <data name="AMD_CLZERO" xml:space="preserve">
     <value>CLZERO instruction supported</value>
     <comment>CPUID[80000008h].EBX[00]</comment>
@@ -853,9 +845,17 @@
     <value>Support for OS bus-lock detection</value>
     <comment>CPUID[07h].ECX[24]</comment>
   </data>
+  <data name="CET_S" xml:space="preserve">
+    <value>CET supervisor enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01h].ECX[12]</comment>
+  </data>
   <data name="CET_SS" xml:space="preserve">
     <value>Control flow enforcement (CET) shadow stack features</value>
     <comment>CPUID[07h].ECX[07]</comment>
+  </data>
+  <data name="CET_U" xml:space="preserve">
+    <value>CET user state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01h].ECX[11]</comment>
   </data>
   <data name="CLFLUSHOPT" xml:space="preserve">
     <value>CLFLUSHOPT (flush cache line optimized) instruction, support persistent memory programming</value>
@@ -913,6 +913,14 @@
     <value>CPU is running in Hypervisor mode</value>
     <comment>CPUID[01h].ECX[31]</comment>
   </data>
+  <data name="INTEL_AESKLE" xml:space="preserve">
+    <value>AES Key Locker instructions are fully enabled.</value>
+    <comment>CPUID[19h].EBX[00]</comment>
+  </data>
+  <data name="INTEL_AESWIDE" xml:space="preserve">
+    <value>AES wide Key Locker instructions are supported</value>
+    <comment>CPUID[19h].EBX[02]</comment>
+  </data>
   <data name="INTEL_AMX_BF16" xml:space="preserve">
     <value>Tile computation on bfloat16 numbers</value>
     <comment>CPUID[07h].EDX[22]</comment>
@@ -924,6 +932,10 @@
   <data name="INTEL_AMX_TILE" xml:space="preserve">
     <value>Tile architecture</value>
     <comment>CPUID[07h].EDX[24]</comment>
+  </data>
+  <data name="INTEL_ARAT" xml:space="preserve">
+    <value>APIC-Timer-always-running feature is supported</value>
+    <comment>CPUID[06h].EAX[02]</comment>
   </data>
   <data name="INTEL_AVX512BW" xml:space="preserve">
     <value>AVX512 byte and word instructions</value>
@@ -1005,6 +1017,14 @@
     <value>IA32_SPEC_CTRL MSR allows enable of BHI_DIS_S behaviour</value>
     <comment>CPUID[07h,02h].EDX[04]</comment>
   </data>
+  <data name="INTEL_BRNINSTRETEV" xml:space="preserve">
+    <value>Branch instruction retired event available</value>
+    <comment>CPUID[0Ah].EBX[05]. Note - inverted</comment>
+  </data>
+  <data name="INTEL_BRNMISRETEV" xml:space="preserve">
+    <value>Branch mispredict retired event available</value>
+    <comment>CPUID[0Ah].EBX[06]. Note - inverted</comment>
+  </data>
   <data name="INTEL_CET_IBT" xml:space="preserve">
     <value>CET indirect branch tracking</value>
     <comment>CPUID[07h].EDX[20]</comment>
@@ -1021,6 +1041,14 @@
     <value>L1 Context ID</value>
     <comment>CPUID[01h].ECX[10]</comment>
   </data>
+  <data name="INTEL_CONFIGURABLEPSB" xml:space="preserve">
+    <value>Support of Configurable PSB and Cycle-Accurate Mode</value>
+    <comment>CPUID[14h].EBX[01]</comment>
+  </data>
+  <data name="INTEL_CORECYCLEEV" xml:space="preserve">
+    <value>Core cycle event available</value>
+    <comment>CPUID[0Ah].EBX[00]. Note - inverted</comment>
+  </data>
   <data name="INTEL_DCA" xml:space="preserve">
     <value>Direct Cache Access for DMA writes</value>
     <comment>CPUID[01h].ECX[18]</comment>
@@ -1028,6 +1056,10 @@
   <data name="INTEL_DDPD_U" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows disable of Data Dependent Prefetcher</value>
     <comment>CPUID[07h,02h].EDX[03]</comment>
+  </data>
+  <data name="INTEL_DISTNT" xml:space="preserve">
+    <value>Writes can set IA32_RTIT_CTL[55] (DisTNT), disabling TNT packet generation</value>
+    <comment>CPUID[14h].EBX[08]</comment>
   </data>
   <data name="INTEL_DS" xml:space="preserve">
     <value>Debug Store, trace of executed jumps</value>
@@ -1041,9 +1073,37 @@
     <value>64-Bit Debug Store. The processor has the ability to write a history of the 64-bit branch to and from addresses into a memory buffer</value>
     <comment>CPUID[01h].ECX[02]</comment>
   </data>
+  <data name="INTEL_DTS" xml:space="preserve">
+    <value>Digital temperature sensor is supported</value>
+    <comment>CPUID[06h].EAX[00]</comment>
+  </data>
+  <data name="INTEL_ECMD" xml:space="preserve">
+    <value>Clock modulation duty cycle extension is supported</value>
+    <comment>CPUID[06h].EAX[05]</comment>
+  </data>
   <data name="INTEL_EIST" xml:space="preserve">
     <value>Enhanced Intel SpeedStep(R) Technology</value>
     <comment>CPUID[01h].ECX[07]</comment>
+  </data>
+  <data name="INTEL_ENCLS" xml:space="preserve">
+    <value>Idicates Intel SGX supports ENCLS instruction leaves ETRACKC, ERDINFO, ELDBC, and ELDUC</value>
+    <comment>CPUID[12h].EAX[06]</comment>
+  </data>
+  <data name="INTEL_ENCLS_EUPDATESVN" xml:space="preserve">
+    <value>Indicates Intel SGX supports ENCLS instruction leaf EUPDATESVN</value>
+    <comment>CPUID[12h].EAX[10]</comment>
+  </data>
+  <data name="INTEL_ENCLU" xml:space="preserve">
+    <value>Indicates Intel SGX supports ENCLU instruction leaf EVERIFYREPORT2</value>
+    <comment>CPUID[12h].EAX[07]</comment>
+  </data>
+  <data name="INTEL_ENCLU_EDECCSSA" xml:space="preserve">
+    <value>Indicates Intel SGX supports ENCLU instruction leaf EDECCSSA</value>
+    <comment>CPUID[12h].EAX[11]</comment>
+  </data>
+  <data name="INTEL_ENCLV" xml:space="preserve">
+    <value>Indicates Intel SGX supports ENCLV instruction leaves EINCVIRTCHILD, EDECVIRTCHILD, and ESETCONTEXT</value>
+    <comment>CPUID[12h].EAX[05]</comment>
   </data>
   <data name="INTEL_ENQCMD" xml:space="preserve">
     <value>Enqueue Stores</value>
@@ -1053,9 +1113,21 @@
     <value>Enhanced REP MOVSB/STOSB</value>
     <comment>CPUID[07h].EBX[09]</comment>
   </data>
+  <data name="INTEL_EVENTEN" xml:space="preserve">
+    <value>Writes can set IA32_RTIT_CTL[31] (EventEn), enabling Event Trace packet generation</value>
+    <comment>CPUID[14h].EBX[07]</comment>
+  </data>
+  <data name="INTEL_FASTACCESS_HWP_REQUEST" xml:space="preserve">
+    <value>Fast access mode for the IA32_HWP_REQUEST MSR is supported</value>
+    <comment>CPUID[06h].EAX[18]</comment>
+  </data>
   <data name="INTEL_FDP_EXCPTN_ONLY" xml:space="preserve">
     <value>x87 FPU Data Pointer updated only on x87 exceptions</value>
     <comment>CPUID[07h].EBX[06]</comment>
+  </data>
+  <data name="INTEL_FLEXIBLE_HWP" xml:space="preserve">
+    <value>Flexible HWP is supported</value>
+    <comment>CPUID[06h].EAX[17]</comment>
   </data>
   <data name="INTEL_FPU-CS DEP" xml:space="preserve">
     <value>Deprecates FPU CS and FPU DS values</value>
@@ -1081,6 +1153,14 @@
     <value>AVX Galois Field instructions</value>
     <comment>CPUID[07h].ECX[08]</comment>
   </data>
+  <data name="INTEL_HDC" xml:space="preserve">
+    <value>HDC base registers IA32_PKG_HDC_CTL, IA32_PM_CTL1, IA32_THREAD_STALL MSRs are supported</value>
+    <comment>CPUID[06h].EAX[13]</comment>
+  </data>
+  <data name="INTEL_HDCSTATE" xml:space="preserve">
+    <value>HDC state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[13]</comment>
+  </data>
   <data name="INTEL_HLE" xml:space="preserve">
     <value>TSX Hardware lock elision instructions</value>
     <comment>CPUID[07h].EBX[04]</comment>
@@ -1088,6 +1168,50 @@
   <data name="INTEL_HRESET" xml:space="preserve">
     <value>Supports IA32_HRESET_ENABLE MSR (Processor Reset History)</value>
     <comment>CPUID[07h,01h].EAX[22]</comment>
+  </data>
+  <data name="INTEL_HWCFC" xml:space="preserve">
+    <value>Hardware Coordination Feedback Capability (Presence of IA32_MPERF and IA32_APERF). The capability to provide a measure of delivered processor performance (since last reset of the counters), as a percentage of the expected processor performance when running at the TSC frequency</value>
+    <comment>CPUID[06h].ECX[00]</comment>
+  </data>
+  <data name="INTEL_HWP" xml:space="preserve">
+    <value>HWP base registers (IA32_PM_ENABLE[bit 0], IA32_HWP_CAPABILITIES, IA32_HWP_REQUEST, IA32_HWP_STATUS) are supported</value>
+    <comment>CPUID[06h].EAX[07]</comment>
+  </data>
+  <data name="INTEL_HWPCAPS" xml:space="preserve">
+    <value>Highest Performance change is supported</value>
+    <comment>CPUID[06h].EAX[15]</comment>
+  </data>
+  <data name="INTEL_HWPSTATE" xml:space="preserve">
+    <value>HWP state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[16]</comment>
+  </data>
+  <data name="INTEL_HWP_ACTIVITY_WINDOW" xml:space="preserve">
+    <value>IA32_HWP_REQUEST[bits 41:32] is supported</value>
+    <comment>CPUID[06h].EAX[09]</comment>
+  </data>
+  <data name="INTEL_HWP_ENERGY_PERFORMANCE_PREFERENCE" xml:space="preserve">
+    <value>IA32_HWP_REQUEST[bits 31:24] is supported</value>
+    <comment>CPUID[06h].EAX[10]</comment>
+  </data>
+  <data name="INTEL_HWP_IDLE_IGNORE" xml:space="preserve">
+    <value>Ignoring Idle Logical Processor HWP request is supported</value>
+    <comment>CPUID[06h].EAX[20]</comment>
+  </data>
+  <data name="INTEL_HWP_NOTIFICATION" xml:space="preserve">
+    <value>IA32_HWP_INTERRUPT MSR is supported</value>
+    <comment>CPUID[06h].EAX[08]</comment>
+  </data>
+  <data name="INTEL_HWP_PACKAGE_LEVEL_REQUEST" xml:space="preserve">
+    <value>IA32_HWP_REQUEST_PKG MSR is supported</value>
+    <comment>CPUID[06h].EAX[11]</comment>
+  </data>
+  <data name="INTEL_HWP_PECI" xml:space="preserve">
+    <value>HWP PECI override is supported</value>
+    <comment>CPUID[06h].EAX[16]</comment>
+  </data>
+  <data name="INTEL_HW_FEEDBACK" xml:space="preserve">
+    <value>IA32_HW_FEEDBACK_PTR MSR, IA32_HW_FEEDBACK_CONFIG MSR, IA32_PACKAGE_THERM_STATUS MSR bit 26, and IA32_PACKAGE_THERM_INTERRUPT MSR bit 25 are supported</value>
+    <comment>CPUID[06h].EAX[19]</comment>
   </data>
   <data name="INTEL_HYBRID" xml:space="preserve">
     <value>Processor identified as a hybrid part</value>
@@ -1105,6 +1229,18 @@
     <value>Enumerates the presence of the IA32_PPIN and IA32_PPIN_CTL MSRs</value>
     <comment>CPUID[07h,01h].EBX[00]</comment>
   </data>
+  <data name="INTEL_IA32_QM_CTR" xml:space="preserve">
+    <value>Indicates the presence of an overflow bit in the IA32_QM_CTR MSR (bit 61)</value>
+    <comment>CPUID[0Fh,01h].EAX[08]</comment>
+  </data>
+  <data name="INTEL_IA32_RTIT_CR3_MATCH" xml:space="preserve">
+    <value>IA32_RTIT_CTL.CR3Filter can be set to 1, and IA32_RTIT_CR3_MATCH MSR is accessible</value>
+    <comment>CPUID[14h].EBX[00]</comment>
+  </data>
+  <data name="INTEL_IA32_TERM_INTERRUPT" xml:space="preserve">
+    <value>IA32_THERM_INTERRUPT MSR bit 25 is supported</value>
+    <comment>CPUID[06h].EAX[24]</comment>
+  </data>
   <data name="INTEL_IA32_TSC_ADJUST" xml:space="preserve">
     <value>IA32_TSC_ADJUST MSR</value>
     <comment>CPUID[07h].EBX[01]</comment>
@@ -1117,9 +1253,17 @@
     <value>Indirect branch restricted speculation (IBRS) and indirect branch predictor barrier (IBPB)</value>
     <comment>CPUID[07h].EDX[26]</comment>
   </data>
+  <data name="INTEL_INSTRETEV" xml:space="preserve">
+    <value>Instruction retired event available</value>
+    <comment>CPUID[0Ah].EBX[01]. Note - inverted</comment>
+  </data>
   <data name="INTEL_INTEL_PT" xml:space="preserve">
     <value>Intel Processor Trace</value>
     <comment>CPUID[07h].EBX[25]</comment>
+  </data>
+  <data name="INTEL_IPFILTERING" xml:space="preserve">
+    <value>Support of IP Filtering, TraceStop filtering, and preservation of Intel PT MSRs across warm reset</value>
+    <comment>CPUID[14h].EBX[02]</comment>
   </data>
   <data name="INTEL_IPRED_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows control of IPRED_DIS control</value>
@@ -1129,9 +1273,45 @@
     <value>Key Locker</value>
     <comment>CPUID[07h].ECX[23]</comment>
   </data>
+  <data name="INTEL_KL_CPL0" xml:space="preserve">
+    <value>Key Locker restriction of CPL0-only supported</value>
+    <comment>CPUID[19h].EAX[00]</comment>
+  </data>
+  <data name="INTEL_KL_MSR" xml:space="preserve">
+    <value>Platform supports the Key Locker MSRs (IA32_COPY_LOCAL_TO_PLATFORM, IA23_COPY_PLATFORM_TO_LOCAL, IA32_COPY_STATUS, and IA32_IWKEYBACKUP_STATUS) and backing up the internal wrapping key</value>
+    <comment>CPUID[19h].EBX[04]</comment>
+  </data>
+  <data name="INTEL_KL_NODEC" xml:space="preserve">
+    <value>Key Locker restriction of no-decrypt supported</value>
+    <comment>CPUID[19h].EAX[02]</comment>
+  </data>
+  <data name="INTEL_KL_NOENC" xml:space="preserve">
+    <value>Key Locker restriction of no-encrypt supported</value>
+    <comment>CPUID[19h].EAX[01]</comment>
+  </data>
+  <data name="INTEL_KSENC" xml:space="preserve">
+    <value>KeySource encoding of 1 (randomization of the internal wrapping key) is supported</value>
+    <comment>CPUID[19h].EBX[01]</comment>
+  </data>
   <data name="INTEL_L1D_FLUSH" xml:space="preserve">
     <value>IA32_FLUSH_CMD MSR supported</value>
     <comment>CPUID[07h].EDX[28]</comment>
+  </data>
+  <data name="INTEL_L3CACHELCLBWMON" xml:space="preserve">
+    <value>Supports L3 Local Bandwidth monitoring</value>
+    <comment>CPUID[0Fh,01h].EDX[02]</comment>
+  </data>
+  <data name="INTEL_L3CACHEOCCMON" xml:space="preserve">
+    <value>Supports L3 occupancy monitoring</value>
+    <comment>CPUID[0Fh,01h].EDX[00]</comment>
+  </data>
+  <data name="INTEL_L3CACHETOTBWMON" xml:space="preserve">
+    <value>Supports L3 Total Bandwidth monitoring</value>
+    <comment>CPUID[0Fh,01h].EDX[01]</comment>
+  </data>
+  <data name="INTEL_L3RDT" xml:space="preserve">
+    <value>Supports L3 Cache Intel RDT Monitoring</value>
+    <comment>CPUID[0Fh].EDX[01]</comment>
   </data>
   <data name="INTEL_LAM" xml:space="preserve">
     <value>Linear Address Masking</value>
@@ -1140,6 +1320,54 @@
   <data name="INTEL_LBR" xml:space="preserve">
     <value>Architectural Last Branch Records</value>
     <comment>CPUID[07h].EDX[19]</comment>
+  </data>
+  <data name="INTEL_LBRBF" xml:space="preserve">
+    <value>Branch Filtering Supported. If set, the processor supports setting IA32_LBR_CTL[22:16] to non-zero value.</value>
+    <comment>CPUID[1Ch].EBX[01]</comment>
+  </data>
+  <data name="INTEL_LBRBTF" xml:space="preserve">
+    <value>Branch Type Field Supported. IA32_LBR_INFO_x[59:56] holds indication of the recorded operation's branch type (BR_TYPE)</value>
+    <comment>CPUID[1Ch].ECX[02]</comment>
+  </data>
+  <data name="INTEL_LBRCPL" xml:space="preserve">
+    <value>CPL Filtering Supported. If set, the processor supports setting IA32_LBR_CTL[2:1] to non-zero value</value>
+    <comment>CPUID[1Ch].EBX[00]</comment>
+  </data>
+  <data name="INTEL_LBRCSM" xml:space="preserve">
+    <value>Call-stack Mode Supported. If set, the processor supports setting IA32_LBR_CTL[3] to 1</value>
+    <comment>CPUID[1Ch].EBX[02]</comment>
+  </data>
+  <data name="INTEL_LBRLIP" xml:space="preserve">
+    <value>IP Values Contain LIP. If set, LBR IP values contain LIP. If clear, IP values contain Effective IP</value>
+    <comment>CPUID[1Ch].EAX[31]</comment>
+  </data>
+  <data name="INTEL_LBRMISPRED" xml:space="preserve">
+    <value>Mispredict Bit Supported. IA32_LBR_x_INFO[63] holds indication of branch misprediction (MISPRED)</value>
+    <comment>CPUID[1Ch].ECX[00]</comment>
+  </data>
+  <data name="INTEL_LBRSTATE" xml:space="preserve">
+    <value>LBR state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[15]</comment>
+  </data>
+  <data name="INTEL_LBRTIMED" xml:space="preserve">
+    <value>Timed LBRs Supported. IA32_LBR_x_INFO[15:0] holds CPU cycles since last LBR entry (CYC_CNT), and IA32_LBR_x_INFO[60] holds an indication of whether the value held there is valid (CYC_CNT_VALID)</value>
+    <comment>CPUID[1Ch].ECX[01]</comment>
+  </data>
+  <data name="INTEL_LBR_DEEPC" xml:space="preserve">
+    <value>Deep C-state Reset. Indicates that LBRs may be cleared on an MWAIT that requests a C-state numerically greater than C1.</value>
+    <comment>CPUID[1Ch].EAX[30]</comment>
+  </data>
+  <data name="INTEL_LLCMISSEV" xml:space="preserve">
+    <value>Last-level cache misses event available</value>
+    <comment>CPUID[0Ah].EBX[04]. Note - inverted</comment>
+  </data>
+  <data name="INTEL_LLCREFEV" xml:space="preserve">
+    <value>Last-level cache reference event available</value>
+    <comment>CPUID[0Ah].EBX[03]. Note - inverted</comment>
+  </data>
+  <data name="INTEL_LOADIWKEY_NB" xml:space="preserve">
+    <value>The NoBackup parameter to LOADIWKEY is supported</value>
+    <comment>CPUID[19h].ECX[00]</comment>
   </data>
   <data name="INTEL_MCDT_NO" xml:space="preserve">
     <value>Processor does not exhibit MXCSR configuration dependent timing and no mitigation necessary</value>
@@ -1161,6 +1389,14 @@
     <value>Intel(R) Memory Protection Extensions</value>
     <comment>CPUID[07h].EBX[14]</comment>
   </data>
+  <data name="INTEL_MTCTIMINGPACKET" xml:space="preserve">
+    <value>Support of MTC timing packet and suppression of COFI-based packets</value>
+    <comment>CPUID[14h].EBX[03]</comment>
+  </data>
+  <data name="INTEL_PASID" xml:space="preserve">
+    <value>PASID state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[10]</comment>
+  </data>
   <data name="INTEL_PBE" xml:space="preserve">
     <value>Pending Break Enable</value>
     <comment>CPUID[01h].EDX[31]</comment>
@@ -1177,9 +1413,41 @@
     <value>Protection keys for supervisor-mode pages</value>
     <comment>CPUID[07h].ECX[31]</comment>
   </data>
+  <data name="INTEL_PLN" xml:space="preserve">
+    <value>Power limit notification controls are supported</value>
+    <comment>CPUID[06h].EAX[04]</comment>
+  </data>
+  <data name="INTEL_POWEREVENTTRACE" xml:space="preserve">
+    <value>Support of Power Event Trace. Writes can set IA32_RTIT_CTL[4] (PwrEvtEn), enabling Power Event Trace packet generation</value>
+    <comment>CPUID[14h].EBX[05]</comment>
+  </data>
+  <data name="INTEL_PRESERVEPSBPMI" xml:space="preserve">
+    <value>support for PSB and PMI preservation. Writes can set IA32_RTIT_CTL[56] (InjectPsbPmiOnEnable), enabling the processor to set IA32_RTIT_STATUS[7] (PendTopaPMI) and/or IA32_RTIT_STATUS[6] (PendPSB) in order to preserve ToPA PMIs  and/or PSBs otherwise lost due to Intel PT disable. Writes can also set PendToPAPMI and PendPSB.</value>
+    <comment>CPUID[14h].EBX[06]</comment>
+  </data>
   <data name="INTEL_PSN" xml:space="preserve">
     <value>Processor Serial Number is present and enabled</value>
     <comment>CPUID[01h].EDX[18]</comment>
+  </data>
+  <data name="INTEL_PTLIP" xml:space="preserve">
+    <value>Generated packets which contain IP payloads have LIP values, which include the CS base component</value>
+    <comment>CPUID[14h].ECX[31]</comment>
+  </data>
+  <data name="INTEL_PTM" xml:space="preserve">
+    <value>Package thermal management is supported</value>
+    <comment>CPUID[06h].EAX[06]</comment>
+  </data>
+  <data name="INTEL_PTSRO" xml:space="preserve">
+    <value>Support of Single-Range Output scheme</value>
+    <comment>CPUID[14h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_PTSTATE" xml:space="preserve">
+    <value>PT state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[08]</comment>
+  </data>
+  <data name="INTEL_PTWRITE" xml:space="preserve">
+    <value>Support of PTWRITE. Writes can set IA32_RTIT_CTL[12] (PTWEn) and IA32_RTIT_CTL[5] (FUPonPTW), and PTWRITE can generate packets</value>
+    <comment>CPUID[14h].EBX[04]</comment>
   </data>
   <data name="INTEL_RDT-A" xml:space="preserve">
     <value>Intel Resource Director Technology - Allocation Capability</value>
@@ -1188,6 +1456,54 @@
   <data name="INTEL_RDT-M" xml:space="preserve">
     <value>Intel Resource Director Technology - Monitoring Capability</value>
     <comment>CPUID[07h].EBX[12]</comment>
+  </data>
+  <data name="INTEL_RDTL2CACHEALLOC" xml:space="preserve">
+    <value>Supports L2 Cache Allocation Technology</value>
+    <comment>CPUID[10h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_RDTL2NONCTGCAP" xml:space="preserve">
+    <value>Indicates non-contiguous capacity bitmask is supported. The bits that are set in the various IA32_L2_MASK_n registers do not have to be contiguous</value>
+    <comment>CPUID[10h,02h].ECX[03]</comment>
+  </data>
+  <data name="INTEL_RDTL2_CDP" xml:space="preserve">
+    <value>Indicates L2 Code and Data Prioritization Technology is supported</value>
+    <comment>CPUID[10h,02h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_RDTL3CACHEALLOC" xml:space="preserve">
+    <value>Supports L3 Cache Allocation Technology</value>
+    <comment>CPUID[10h].ECX[01]</comment>
+  </data>
+  <data name="INTEL_RDTL3CAT" xml:space="preserve">
+    <value>indicates L3 CAT for non-CPU agents is supported.</value>
+    <comment>CPUID[10h,01h].ECX[01]</comment>
+  </data>
+  <data name="INTEL_RDTL3NONCTGCAP" xml:space="preserve">
+    <value>Indicates non-contiguous capacity bitmask is supported. The bits that are set in the various IA32_L3_MASK_n registers do not have to be contiguous.</value>
+    <comment>CPUID[10h,01h].ECX[03]</comment>
+  </data>
+  <data name="INTEL_RDTL3_CDP" xml:space="preserve">
+    <value>Indicates L3 Code and Data Prioritization Technology is supported.</value>
+    <comment>CPUID[10h,01h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_RDTMEMBWALLOC" xml:space="preserve">
+    <value>Supports Memory Bandwidth Allocation</value>
+    <comment>CPUID[10h].ECX[03]</comment>
+  </data>
+  <data name="INTEL_RDTMEMBWLINEAR" xml:space="preserve">
+    <value>Reports whether the response of the delay values is linear</value>
+    <comment>CPUID[10h,03h].ECX[02]</comment>
+  </data>
+  <data name="INTEL_RDT_CMT" xml:space="preserve">
+    <value>Indicates the presence of non-CPU agent Intel RDT CMT (Cache Monitoring Technology) support</value>
+    <comment>CPUID[0Fh,01h].EAX[09]</comment>
+  </data>
+  <data name="INTEL_RDT_MBM" xml:space="preserve">
+    <value>Indicates the presence of non-CPU agent Intel RDT MBM (Memory Bandwiddth Monitoring) support</value>
+    <comment>CPUID[0Fh,01h].EAX[10]</comment>
+  </data>
+  <data name="INTEL_REFCYCLEEV" xml:space="preserve">
+    <value>Reference cycles event available</value>
+    <comment>CPUID[0Ah].EBX[02]. Note - inverted</comment>
   </data>
   <data name="INTEL_RRSBA_CTRL" xml:space="preserve">
     <value>IA32_SPEC_CTRL MSR allows disable of RRSBA behaviour</value>
@@ -1214,6 +1530,10 @@ specified fallback address.</value>
     <value>Serialize instruction execution</value>
     <comment>CPUID[07h].EDX[14]</comment>
   </data>
+  <data name="INTEL_SETBH" xml:space="preserve">
+    <value>The processor supports performance-energy bias preference if CPUID.06H:ECX.SETBH[bit 3] is set and it also implies the presence of a new architectural MSR called IA32_ENERGY_PERF_BIAS (1B0H)</value>
+    <comment>CPUID[06h].ECX{03]</comment>
+  </data>
   <data name="INTEL_SGX" xml:space="preserve">
     <value>Intel(R) Software Guard Extensions</value>
     <comment>CPUID[07h].EBX[02]</comment>
@@ -1221,6 +1541,14 @@ specified fallback address.</value>
   <data name="INTEL_SGX-KEYS" xml:space="preserve">
     <value>Attestation Services for Intel SGX is supported</value>
     <comment>CPUID[07h].EDX[01]</comment>
+  </data>
+  <data name="INTEL_SGX1" xml:space="preserve">
+    <value>Indicates Intel SGX supports the collection of SGX1 leaf functions</value>
+    <comment>CPUID[12h].EAX[00]</comment>
+  </data>
+  <data name="INTEL_SGX2" xml:space="preserve">
+    <value>Indicates Intel SGX supports the collection of SGX2 leaf functions</value>
+    <comment>CPUID[12h].EAX[01]</comment>
   </data>
   <data name="INTEL_SGX_LC" xml:space="preserve">
     <value>SGX Launch Configuration</value>
@@ -1239,6 +1567,10 @@ specified fallback address.</value>
     <value>CPU Cache implements Self Snoop</value>
     <comment>CPUID[01h].EDX[27]</comment>
   </data>
+  <data name="INTEL_THREADDIRECTOR" xml:space="preserve">
+    <value>Intel® Thread Director supported. A32_HW_FEEDBACK_CHAR and IA32_HW_FEEDBACK_THREAD_CONFIG MSRs are supported</value>
+    <comment>CPUID[06h].EAX[23]</comment>
+  </data>
   <data name="INTEL_TM" xml:space="preserve">
     <value>Thermal Monitor</value>
     <comment>CPUID[01h].EDX[29]</comment>
@@ -1251,6 +1583,22 @@ specified fallback address.</value>
     <value>IA32_TME MSR capabilities are supported</value>
     <comment>CPUID[07h].ECX[13]</comment>
   </data>
+  <data name="INTEL_TOPA" xml:space="preserve">
+    <value>Tracing can be enabled with IA32_RTIT_CTL.ToPA = 1, hence utilizing the ToPA output scheme; IA32_RTIT_OUTPUT_BASE and IA32_RTIT_OUTPUT_MASK_PTRS MSRs can be accessed</value>
+    <comment>CPUID[14h].ECX[00]</comment>
+  </data>
+  <data name="INTEL_TOPA_TABLES" xml:space="preserve">
+    <value>ToPA tables can hold any number of output entries, up to the maximum allowed by the MaskOrTableOffset field of IA32_RTIT_OUTPUT_MASK_PTRS</value>
+    <comment>CPUID[14h].ECX[01]</comment>
+  </data>
+  <data name="INTEL_TOPDOWNSLOTSEV" xml:space="preserve">
+    <value>Top-down slots event available</value>
+    <comment>CPUID[0Ah].EBX[07]. Note - inverted</comment>
+  </data>
+  <data name="INTEL_TRACETRANSPORT" xml:space="preserve">
+    <value>Support of output to Trace Transport subsystem</value>
+    <comment>CPUID[14h].ECX[03]</comment>
+  </data>
   <data name="INTEL_TSC-DEADLINE" xml:space="preserve">
     <value>Time Stamp Counter Deadline supported by APIC</value>
     <comment>CPUID[01h].ECX[24]</comment>
@@ -1259,9 +1607,21 @@ specified fallback address.</value>
     <value>TSX suspend load address tracking</value>
     <comment>CPUID[07h].EDX[16]</comment>
   </data>
+  <data name="INTEL_TURBOBOOST" xml:space="preserve">
+    <value>Intel Turbo Boost Technology available</value>
+    <comment>CPUID[06h].EAX[01]</comment>
+  </data>
+  <data name="INTEL_TURBOBOOST3.0" xml:space="preserve">
+    <value>Intel® Turbo Boost Max Technology 3.0 available</value>
+    <comment>CPUID[06h].EAX[14]</comment>
+  </data>
   <data name="INTEL_UINTR" xml:space="preserve">
     <value>User Space Interrupts</value>
     <comment>CPUID[07h].EDX[05]</comment>
+  </data>
+  <data name="INTEL_UINTRSTATE" xml:space="preserve">
+    <value>UINTR state enabled for XSS MSR</value>
+    <comment>CPUID[0Dh,01H].ECX[14]</comment>
   </data>
   <data name="INTEL_VMX" xml:space="preserve">
     <value>Virtual Machine Extensions</value>

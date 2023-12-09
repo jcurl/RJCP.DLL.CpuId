@@ -58,7 +58,6 @@
             "", "", "", "", "", "", "", ""
         };
 
-        // TODO DOTNET-887: Use names as in doc
         private static readonly string[] CpuId_80_01_Ecx = new[] {
             "LahfSahf", "CmpLegacy", "SVM", "ExtApicSpace", "AltMovCr8", "ABM", "SSE4A", "MisAlignSSE",
             "3DNowPrefetch", "OSVW", "IBS", "XOP", "SKINIT", "WDT", "", "LWP",
@@ -183,46 +182,47 @@
         {
             FeatureCheck = new FeatureCheck();
 
-            // The order of the group is important, as this defines the order when using `FeatureCheck.Check`
-            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].ECX", CpuId_01_Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].EDX", CpuId_01_Edx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EBX", CpuId_07_Ebx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].ECX", CpuId_07_Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].EAX", CpuId_0D_s01_Eax);
-            FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].ECX", CpuId_0D_s01_Ecx);
-            FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].ECX", CpuId_80_01_Ecx);
-            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].EDX", CpuId_80_01_Edx);
-            FeatureCheck.AddFeatureSet("power", "CPUID[80000007h].EBX", CpuId_80_07_Ebx);
-            FeatureCheck.AddFeatureSet("power", "CPUID[80000007h].EDX", CpuId_80_07_Edx);
-            FeatureCheck.AddFeatureSet("extfeature", "CPUID[80000008h].EBX", CpuId_80_08_Ebx);
-            FeatureCheck.AddFeatureSet("svm", "CPUID[8000000Ah].EDX", CpuId_80_0A_Edx);
-            FeatureCheck.AddFeatureSet("perfopt", "CPUID[8000001Ah].EAX", CpuId_80_1A_Eax);
-            FeatureCheck.AddFeatureSet("perfopt", "CPUID[8000001Ah].EBX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("perfopt", "CPUID[8000001Ah].ECX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("perfopt", "CPUID[8000001Ah].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("perfsamp", "CPUID[8000001Bh].EAX", CpuId_80_1B_Eax);
-            FeatureCheck.AddFeatureSet("perfsamp", "CPUID[8000001Bh].EBX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("perfsamp", "CPUID[8000001Bh].ECX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("perfsamp", "CPUID[8000001Bh].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("lwp", "CpuId[8000001Ch].EAX", CpuId_80_1C_Eax);
-            FeatureCheck.AddFeatureSet("lwp", "CpuId[8000001Ch].ECX", CpuId_80_1C_Ecx);
-            FeatureCheck.AddFeatureSet("lwp", "CpuId[8000001Ch].EDX", CpuId_80_1C_Edx);
-            FeatureCheck.AddFeatureSet("encmem", "CPUID[8000001Fh].EAX", CpuId_80_1F_Eax);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].EAX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].EBX", CpuId_80_20_Ebx);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].ECX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].ECX", CpuId_80_20_s03_Ecx);
-            FeatureCheck.AddFeatureSet("pqos", "CPUID[80000020h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("extended2", "CPUID[80000021h].EAX", CpuId_80_21_Eax);
-            FeatureCheck.AddFeatureSet("extended2", "CPUID[80000021h].ECX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("extended2", "CPUID[80000021h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("extperf", "CPUID[80000022H].EAX", CpuId_80_22_Eax);
-            FeatureCheck.AddFeatureSet("extperf", "CPUID[80000022h].ECX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("extperf", "CPUID[80000022h].EDX", CpuId_Reserved);
-            FeatureCheck.AddFeatureSet("mkenc", "CPUID[80000022H].EAX", CpuId_80_23_Eax);
+            // The order of the group is important, as this defines the order when using `FeatureCheck.Check`. The
+            // `name` must match `GetReservedFeatureName`.
+            FeatureCheck.AddFeatureSet("standard", "CPUID(01h).ECX", CpuId_01_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(01h).EDX", CpuId_01_Edx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).EBX", CpuId_07_Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).ECX", CpuId_07_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID(0Dh,01h).EAX", CpuId_0D_s01_Eax);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID(0Dh,01h).ECX", CpuId_0D_s01_Ecx);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID(0Dh,01h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("extended", "CPUID(80000001h).ECX", CpuId_80_01_Ecx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID(80000001h).EDX", CpuId_80_01_Edx);
+            FeatureCheck.AddFeatureSet("power", "CPUID(80000007h).EBX", CpuId_80_07_Ebx);
+            FeatureCheck.AddFeatureSet("power", "CPUID(80000007h).EDX", CpuId_80_07_Edx);
+            FeatureCheck.AddFeatureSet("extfeature", "CPUID(80000008h).EBX", CpuId_80_08_Ebx);
+            FeatureCheck.AddFeatureSet("svm", "CPUID(8000000Ah).EDX", CpuId_80_0A_Edx);
+            FeatureCheck.AddFeatureSet("perfopt", "CPUID(8000001Ah).EAX", CpuId_80_1A_Eax);
+            FeatureCheck.AddFeatureSet("perfopt", "CPUID(8000001Ah).EBX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("perfopt", "CPUID(8000001Ah).ECX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("perfopt", "CPUID(8000001Ah).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("perfsamp", "CPUID(8000001Bh).EAX", CpuId_80_1B_Eax);
+            FeatureCheck.AddFeatureSet("perfsamp", "CPUID(8000001Bh).EBX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("perfsamp", "CPUID(8000001Bh).ECX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("perfsamp", "CPUID(8000001Bh).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("lwp", "CpuId(8000001Ch).EAX", CpuId_80_1C_Eax);
+            FeatureCheck.AddFeatureSet("lwp", "CpuId(8000001Ch).ECX", CpuId_80_1C_Ecx);
+            FeatureCheck.AddFeatureSet("lwp", "CpuId(8000001Ch).EDX", CpuId_80_1C_Edx);
+            FeatureCheck.AddFeatureSet("encmem", "CPUID(8000001Fh).EAX", CpuId_80_1F_Eax);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).EAX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).EBX", CpuId_80_20_Ebx);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).ECX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).ECX", CpuId_80_20_s03_Ecx);
+            FeatureCheck.AddFeatureSet("pqos", "CPUID(80000020h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("extended2", "CPUID(80000021h).EAX", CpuId_80_21_Eax);
+            FeatureCheck.AddFeatureSet("extended2", "CPUID(80000021h).ECX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("extended2", "CPUID(80000021h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("extperf", "CPUID(80000022H).EAX", CpuId_80_22_Eax);
+            FeatureCheck.AddFeatureSet("extperf", "CPUID(80000022h).ECX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("extperf", "CPUID(80000022h).EDX", CpuId_Reserved);
+            FeatureCheck.AddFeatureSet("mkenc", "CPUID(80000022H).EAX", CpuId_80_23_Eax);
         }
 
         private AuthenticAmdCpu GetCpu(string fileName)

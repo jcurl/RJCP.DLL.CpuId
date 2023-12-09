@@ -241,24 +241,6 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CET supervisor enabled for XSS MSR.
-        /// </summary>
-        internal static string AMD_CET_S {
-            get {
-                return ResourceManager.GetString("AMD_CET_S", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CET user state enabled for XSS MSR.
-        /// </summary>
-        internal static string AMD_CET_U {
-            get {
-                return ResourceManager.GetString("AMD_CET_U", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CLZERO instruction supported.
         /// </summary>
         internal static string AMD_CLZERO {
@@ -1717,11 +1699,29 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CET supervisor enabled for XSS MSR.
+        /// </summary>
+        internal static string CET_S {
+            get {
+                return ResourceManager.GetString("CET_S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Control flow enforcement (CET) shadow stack features.
         /// </summary>
         internal static string CET_SS {
             get {
                 return ResourceManager.GetString("CET_SS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CET user state enabled for XSS MSR.
+        /// </summary>
+        internal static string CET_U {
+            get {
+                return ResourceManager.GetString("CET_U", resourceCulture);
             }
         }
         
@@ -1852,6 +1852,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AES Key Locker instructions are fully enabled..
+        /// </summary>
+        internal static string INTEL_AESKLE {
+            get {
+                return ResourceManager.GetString("INTEL_AESKLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AES wide Key Locker instructions are supported.
+        /// </summary>
+        internal static string INTEL_AESWIDE {
+            get {
+                return ResourceManager.GetString("INTEL_AESWIDE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tile computation on bfloat16 numbers.
         /// </summary>
         internal static string INTEL_AMX_BF16 {
@@ -1875,6 +1893,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INTEL_AMX_TILE {
             get {
                 return ResourceManager.GetString("INTEL_AMX_TILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APIC-Timer-always-running feature is supported.
+        /// </summary>
+        internal static string INTEL_ARAT {
+            get {
+                return ResourceManager.GetString("INTEL_ARAT", resourceCulture);
             }
         }
         
@@ -2059,6 +2086,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Branch instruction retired event available.
+        /// </summary>
+        internal static string INTEL_BRNINSTRETEV {
+            get {
+                return ResourceManager.GetString("INTEL_BRNINSTRETEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch mispredict retired event available.
+        /// </summary>
+        internal static string INTEL_BRNMISRETEV {
+            get {
+                return ResourceManager.GetString("INTEL_BRNMISRETEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CET indirect branch tracking.
         /// </summary>
         internal static string INTEL_CET_IBT {
@@ -2095,6 +2140,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support of Configurable PSB and Cycle-Accurate Mode.
+        /// </summary>
+        internal static string INTEL_CONFIGURABLEPSB {
+            get {
+                return ResourceManager.GetString("INTEL_CONFIGURABLEPSB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Core cycle event available.
+        /// </summary>
+        internal static string INTEL_CORECYCLEEV {
+            get {
+                return ResourceManager.GetString("INTEL_CORECYCLEEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Direct Cache Access for DMA writes.
         /// </summary>
         internal static string INTEL_DCA {
@@ -2109,6 +2172,15 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INTEL_DDPD_U {
             get {
                 return ResourceManager.GetString("INTEL_DDPD_U", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writes can set IA32_RTIT_CTL[55] (DisTNT), disabling TNT packet generation.
+        /// </summary>
+        internal static string INTEL_DISTNT {
+            get {
+                return ResourceManager.GetString("INTEL_DISTNT", resourceCulture);
             }
         }
         
@@ -2140,11 +2212,74 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Digital temperature sensor is supported.
+        /// </summary>
+        internal static string INTEL_DTS {
+            get {
+                return ResourceManager.GetString("INTEL_DTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clock modulation duty cycle extension is supported.
+        /// </summary>
+        internal static string INTEL_ECMD {
+            get {
+                return ResourceManager.GetString("INTEL_ECMD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enhanced Intel SpeedStep(R) Technology.
         /// </summary>
         internal static string INTEL_EIST {
             get {
                 return ResourceManager.GetString("INTEL_EIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idicates Intel SGX supports ENCLS instruction leaves ETRACKC, ERDINFO, ELDBC, and ELDUC.
+        /// </summary>
+        internal static string INTEL_ENCLS {
+            get {
+                return ResourceManager.GetString("INTEL_ENCLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports ENCLS instruction leaf EUPDATESVN.
+        /// </summary>
+        internal static string INTEL_ENCLS_EUPDATESVN {
+            get {
+                return ResourceManager.GetString("INTEL_ENCLS_EUPDATESVN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports ENCLU instruction leaf EVERIFYREPORT2.
+        /// </summary>
+        internal static string INTEL_ENCLU {
+            get {
+                return ResourceManager.GetString("INTEL_ENCLU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports ENCLU instruction leaf EDECCSSA.
+        /// </summary>
+        internal static string INTEL_ENCLU_EDECCSSA {
+            get {
+                return ResourceManager.GetString("INTEL_ENCLU_EDECCSSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports ENCLV instruction leaves EINCVIRTCHILD, EDECVIRTCHILD, and ESETCONTEXT.
+        /// </summary>
+        internal static string INTEL_ENCLV {
+            get {
+                return ResourceManager.GetString("INTEL_ENCLV", resourceCulture);
             }
         }
         
@@ -2167,11 +2302,38 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Writes can set IA32_RTIT_CTL[31] (EventEn), enabling Event Trace packet generation.
+        /// </summary>
+        internal static string INTEL_EVENTEN {
+            get {
+                return ResourceManager.GetString("INTEL_EVENTEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast access mode for the IA32_HWP_REQUEST MSR is supported.
+        /// </summary>
+        internal static string INTEL_FASTACCESS_HWP_REQUEST {
+            get {
+                return ResourceManager.GetString("INTEL_FASTACCESS_HWP_REQUEST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to x87 FPU Data Pointer updated only on x87 exceptions.
         /// </summary>
         internal static string INTEL_FDP_EXCPTN_ONLY {
             get {
                 return ResourceManager.GetString("INTEL_FDP_EXCPTN_ONLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flexible HWP is supported.
+        /// </summary>
+        internal static string INTEL_FLEXIBLE_HWP {
+            get {
+                return ResourceManager.GetString("INTEL_FLEXIBLE_HWP", resourceCulture);
             }
         }
         
@@ -2230,6 +2392,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HDC base registers IA32_PKG_HDC_CTL, IA32_PM_CTL1, IA32_THREAD_STALL MSRs are supported.
+        /// </summary>
+        internal static string INTEL_HDC {
+            get {
+                return ResourceManager.GetString("INTEL_HDC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HDC state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_HDCSTATE {
+            get {
+                return ResourceManager.GetString("INTEL_HDCSTATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TSX Hardware lock elision instructions.
         /// </summary>
         internal static string INTEL_HLE {
@@ -2244,6 +2424,105 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INTEL_HRESET {
             get {
                 return ResourceManager.GetString("INTEL_HRESET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_HW_FEEDBACK_PTR MSR, IA32_HW_FEEDBACK_CONFIG MSR, IA32_PACKAGE_THERM_STATUS MSR bit 26, and IA32_PACKAGE_THERM_INTERRUPT MSR bit 25 are supported.
+        /// </summary>
+        internal static string INTEL_HW_FEEDBACK {
+            get {
+                return ResourceManager.GetString("INTEL_HW_FEEDBACK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware Coordination Feedback Capability (Presence of IA32_MPERF and IA32_APERF). The capability to provide a measure of delivered processor performance (since last reset of the counters), as a percentage of the expected processor performance when running at the TSC frequency.
+        /// </summary>
+        internal static string INTEL_HWCFC {
+            get {
+                return ResourceManager.GetString("INTEL_HWCFC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HWP base registers (IA32_PM_ENABLE[bit 0], IA32_HWP_CAPABILITIES, IA32_HWP_REQUEST, IA32_HWP_STATUS) are supported.
+        /// </summary>
+        internal static string INTEL_HWP {
+            get {
+                return ResourceManager.GetString("INTEL_HWP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_HWP_REQUEST[bits 41:32] is supported.
+        /// </summary>
+        internal static string INTEL_HWP_ACTIVITY_WINDOW {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_ACTIVITY_WINDOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_HWP_REQUEST[bits 31:24] is supported.
+        /// </summary>
+        internal static string INTEL_HWP_ENERGY_PERFORMANCE_PREFERENCE {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_ENERGY_PERFORMANCE_PREFERENCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignoring Idle Logical Processor HWP request is supported.
+        /// </summary>
+        internal static string INTEL_HWP_IDLE_IGNORE {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_IDLE_IGNORE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_HWP_INTERRUPT MSR is supported.
+        /// </summary>
+        internal static string INTEL_HWP_NOTIFICATION {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_NOTIFICATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_HWP_REQUEST_PKG MSR is supported.
+        /// </summary>
+        internal static string INTEL_HWP_PACKAGE_LEVEL_REQUEST {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_PACKAGE_LEVEL_REQUEST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HWP PECI override is supported.
+        /// </summary>
+        internal static string INTEL_HWP_PECI {
+            get {
+                return ResourceManager.GetString("INTEL_HWP_PECI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highest Performance change is supported.
+        /// </summary>
+        internal static string INTEL_HWPCAPS {
+            get {
+                return ResourceManager.GetString("INTEL_HWPCAPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HWP state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_HWPSTATE {
+            get {
+                return ResourceManager.GetString("INTEL_HWPSTATE", resourceCulture);
             }
         }
         
@@ -2284,6 +2563,33 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicates the presence of an overflow bit in the IA32_QM_CTR MSR (bit 61).
+        /// </summary>
+        internal static string INTEL_IA32_QM_CTR {
+            get {
+                return ResourceManager.GetString("INTEL_IA32_QM_CTR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_RTIT_CTL.CR3Filter can be set to 1, and IA32_RTIT_CR3_MATCH MSR is accessible.
+        /// </summary>
+        internal static string INTEL_IA32_RTIT_CR3_MATCH {
+            get {
+                return ResourceManager.GetString("INTEL_IA32_RTIT_CR3_MATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IA32_THERM_INTERRUPT MSR bit 25 is supported.
+        /// </summary>
+        internal static string INTEL_IA32_TERM_INTERRUPT {
+            get {
+                return ResourceManager.GetString("INTEL_IA32_TERM_INTERRUPT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IA32_TSC_ADJUST MSR.
         /// </summary>
         internal static string INTEL_IA32_TSC_ADJUST {
@@ -2311,11 +2617,29 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instruction retired event available.
+        /// </summary>
+        internal static string INTEL_INSTRETEV {
+            get {
+                return ResourceManager.GetString("INTEL_INSTRETEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intel Processor Trace.
         /// </summary>
         internal static string INTEL_INTEL_PT {
             get {
                 return ResourceManager.GetString("INTEL_INTEL_PT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support of IP Filtering, TraceStop filtering, and preservation of Intel PT MSRs across warm reset.
+        /// </summary>
+        internal static string INTEL_IPFILTERING {
+            get {
+                return ResourceManager.GetString("INTEL_IPFILTERING", resourceCulture);
             }
         }
         
@@ -2338,11 +2662,92 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key Locker restriction of CPL0-only supported.
+        /// </summary>
+        internal static string INTEL_KL_CPL0 {
+            get {
+                return ResourceManager.GetString("INTEL_KL_CPL0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform supports the Key Locker MSRs (IA32_COPY_LOCAL_TO_PLATFORM, IA23_COPY_PLATFORM_TO_LOCAL, IA32_COPY_STATUS, and IA32_IWKEYBACKUP_STATUS) and backing up the internal wrapping key.
+        /// </summary>
+        internal static string INTEL_KL_MSR {
+            get {
+                return ResourceManager.GetString("INTEL_KL_MSR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Locker restriction of no-decrypt supported.
+        /// </summary>
+        internal static string INTEL_KL_NODEC {
+            get {
+                return ResourceManager.GetString("INTEL_KL_NODEC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Locker restriction of no-encrypt supported.
+        /// </summary>
+        internal static string INTEL_KL_NOENC {
+            get {
+                return ResourceManager.GetString("INTEL_KL_NOENC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeySource encoding of 1 (randomization of the internal wrapping key) is supported.
+        /// </summary>
+        internal static string INTEL_KSENC {
+            get {
+                return ResourceManager.GetString("INTEL_KSENC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IA32_FLUSH_CMD MSR supported.
         /// </summary>
         internal static string INTEL_L1D_FLUSH {
             get {
                 return ResourceManager.GetString("INTEL_L1D_FLUSH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L3 Local Bandwidth monitoring.
+        /// </summary>
+        internal static string INTEL_L3CACHELCLBWMON {
+            get {
+                return ResourceManager.GetString("INTEL_L3CACHELCLBWMON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L3 occupancy monitoring.
+        /// </summary>
+        internal static string INTEL_L3CACHEOCCMON {
+            get {
+                return ResourceManager.GetString("INTEL_L3CACHEOCCMON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L3 Total Bandwidth monitoring.
+        /// </summary>
+        internal static string INTEL_L3CACHETOTBWMON {
+            get {
+                return ResourceManager.GetString("INTEL_L3CACHETOTBWMON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L3 Cache Intel RDT Monitoring.
+        /// </summary>
+        internal static string INTEL_L3RDT {
+            get {
+                return ResourceManager.GetString("INTEL_L3RDT", resourceCulture);
             }
         }
         
@@ -2361,6 +2766,114 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INTEL_LBR {
             get {
                 return ResourceManager.GetString("INTEL_LBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deep C-state Reset. Indicates that LBRs may be cleared on an MWAIT that requests a C-state numerically greater than C1..
+        /// </summary>
+        internal static string INTEL_LBR_DEEPC {
+            get {
+                return ResourceManager.GetString("INTEL_LBR_DEEPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch Filtering Supported. If set, the processor supports setting IA32_LBR_CTL[22:16] to non-zero value..
+        /// </summary>
+        internal static string INTEL_LBRBF {
+            get {
+                return ResourceManager.GetString("INTEL_LBRBF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch Type Field Supported. IA32_LBR_INFO_x[59:56] holds indication of the recorded operation&apos;s branch type (BR_TYPE).
+        /// </summary>
+        internal static string INTEL_LBRBTF {
+            get {
+                return ResourceManager.GetString("INTEL_LBRBTF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CPL Filtering Supported. If set, the processor supports setting IA32_LBR_CTL[2:1] to non-zero value.
+        /// </summary>
+        internal static string INTEL_LBRCPL {
+            get {
+                return ResourceManager.GetString("INTEL_LBRCPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call-stack Mode Supported. If set, the processor supports setting IA32_LBR_CTL[3] to 1.
+        /// </summary>
+        internal static string INTEL_LBRCSM {
+            get {
+                return ResourceManager.GetString("INTEL_LBRCSM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Values Contain LIP. If set, LBR IP values contain LIP. If clear, IP values contain Effective IP.
+        /// </summary>
+        internal static string INTEL_LBRLIP {
+            get {
+                return ResourceManager.GetString("INTEL_LBRLIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mispredict Bit Supported. IA32_LBR_x_INFO[63] holds indication of branch misprediction (MISPRED).
+        /// </summary>
+        internal static string INTEL_LBRMISPRED {
+            get {
+                return ResourceManager.GetString("INTEL_LBRMISPRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LBR state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_LBRSTATE {
+            get {
+                return ResourceManager.GetString("INTEL_LBRSTATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timed LBRs Supported. IA32_LBR_x_INFO[15:0] holds CPU cycles since last LBR entry (CYC_CNT), and IA32_LBR_x_INFO[60] holds an indication of whether the value held there is valid (CYC_CNT_VALID).
+        /// </summary>
+        internal static string INTEL_LBRTIMED {
+            get {
+                return ResourceManager.GetString("INTEL_LBRTIMED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last-level cache misses event available.
+        /// </summary>
+        internal static string INTEL_LLCMISSEV {
+            get {
+                return ResourceManager.GetString("INTEL_LLCMISSEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last-level cache reference event available.
+        /// </summary>
+        internal static string INTEL_LLCREFEV {
+            get {
+                return ResourceManager.GetString("INTEL_LLCREFEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The NoBackup parameter to LOADIWKEY is supported.
+        /// </summary>
+        internal static string INTEL_LOADIWKEY_NB {
+            get {
+                return ResourceManager.GetString("INTEL_LOADIWKEY_NB", resourceCulture);
             }
         }
         
@@ -2410,6 +2923,24 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support of MTC timing packet and suppression of COFI-based packets.
+        /// </summary>
+        internal static string INTEL_MTCTIMINGPACKET {
+            get {
+                return ResourceManager.GetString("INTEL_MTCTIMINGPACKET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PASID state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_PASID {
+            get {
+                return ResourceManager.GetString("INTEL_PASID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pending Break Enable.
         /// </summary>
         internal static string INTEL_PBE {
@@ -2446,11 +2977,83 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power limit notification controls are supported.
+        /// </summary>
+        internal static string INTEL_PLN {
+            get {
+                return ResourceManager.GetString("INTEL_PLN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support of Power Event Trace. Writes can set IA32_RTIT_CTL[4] (PwrEvtEn), enabling Power Event Trace packet generation.
+        /// </summary>
+        internal static string INTEL_POWEREVENTTRACE {
+            get {
+                return ResourceManager.GetString("INTEL_POWEREVENTTRACE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to support for PSB and PMI preservation. Writes can set IA32_RTIT_CTL[56] (InjectPsbPmiOnEnable), enabling the processor to set IA32_RTIT_STATUS[7] (PendTopaPMI) and/or IA32_RTIT_STATUS[6] (PendPSB) in order to preserve ToPA PMIs  and/or PSBs otherwise lost due to Intel PT disable. Writes can also set PendToPAPMI and PendPSB..
+        /// </summary>
+        internal static string INTEL_PRESERVEPSBPMI {
+            get {
+                return ResourceManager.GetString("INTEL_PRESERVEPSBPMI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processor Serial Number is present and enabled.
         /// </summary>
         internal static string INTEL_PSN {
             get {
                 return ResourceManager.GetString("INTEL_PSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated packets which contain IP payloads have LIP values, which include the CS base component.
+        /// </summary>
+        internal static string INTEL_PTLIP {
+            get {
+                return ResourceManager.GetString("INTEL_PTLIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package thermal management is supported.
+        /// </summary>
+        internal static string INTEL_PTM {
+            get {
+                return ResourceManager.GetString("INTEL_PTM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support of Single-Range Output scheme.
+        /// </summary>
+        internal static string INTEL_PTSRO {
+            get {
+                return ResourceManager.GetString("INTEL_PTSRO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PT state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_PTSTATE {
+            get {
+                return ResourceManager.GetString("INTEL_PTSTATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support of PTWRITE. Writes can set IA32_RTIT_CTL[12] (PTWEn) and IA32_RTIT_CTL[5] (FUPonPTW), and PTWRITE can generate packets.
+        /// </summary>
+        internal static string INTEL_PTWRITE {
+            get {
+                return ResourceManager.GetString("INTEL_PTWRITE", resourceCulture);
             }
         }
         
@@ -2464,11 +3067,119 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicates the presence of non-CPU agent Intel RDT CMT (Cache Monitoring Technology) support.
+        /// </summary>
+        internal static string INTEL_RDT_CMT {
+            get {
+                return ResourceManager.GetString("INTEL_RDT_CMT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intel Resource Director Technology - Monitoring Capability.
         /// </summary>
         internal static string INTEL_RDT_M {
             get {
                 return ResourceManager.GetString("INTEL_RDT-M", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates the presence of non-CPU agent Intel RDT MBM (Memory Bandwiddth Monitoring) support.
+        /// </summary>
+        internal static string INTEL_RDT_MBM {
+            get {
+                return ResourceManager.GetString("INTEL_RDT_MBM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates L2 Code and Data Prioritization Technology is supported.
+        /// </summary>
+        internal static string INTEL_RDTL2_CDP {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL2_CDP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L2 Cache Allocation Technology.
+        /// </summary>
+        internal static string INTEL_RDTL2CACHEALLOC {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL2CACHEALLOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates non-contiguous capacity bitmask is supported. The bits that are set in the various IA32_L2_MASK_n registers do not have to be contiguous.
+        /// </summary>
+        internal static string INTEL_RDTL2NONCTGCAP {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL2NONCTGCAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates L3 Code and Data Prioritization Technology is supported..
+        /// </summary>
+        internal static string INTEL_RDTL3_CDP {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL3_CDP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports L3 Cache Allocation Technology.
+        /// </summary>
+        internal static string INTEL_RDTL3CACHEALLOC {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL3CACHEALLOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to indicates L3 CAT for non-CPU agents is supported..
+        /// </summary>
+        internal static string INTEL_RDTL3CAT {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL3CAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates non-contiguous capacity bitmask is supported. The bits that are set in the various IA32_L3_MASK_n registers do not have to be contiguous..
+        /// </summary>
+        internal static string INTEL_RDTL3NONCTGCAP {
+            get {
+                return ResourceManager.GetString("INTEL_RDTL3NONCTGCAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supports Memory Bandwidth Allocation.
+        /// </summary>
+        internal static string INTEL_RDTMEMBWALLOC {
+            get {
+                return ResourceManager.GetString("INTEL_RDTMEMBWALLOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports whether the response of the delay values is linear.
+        /// </summary>
+        internal static string INTEL_RDTMEMBWLINEAR {
+            get {
+                return ResourceManager.GetString("INTEL_RDTMEMBWLINEAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference cycles event available.
+        /// </summary>
+        internal static string INTEL_REFCYCLEEV {
+            get {
+                return ResourceManager.GetString("INTEL_REFCYCLEEV", resourceCulture);
             }
         }
         
@@ -2528,6 +3239,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The processor supports performance-energy bias preference if CPUID.06H:ECX.SETBH[bit 3] is set and it also implies the presence of a new architectural MSR called IA32_ENERGY_PERF_BIAS (1B0H).
+        /// </summary>
+        internal static string INTEL_SETBH {
+            get {
+                return ResourceManager.GetString("INTEL_SETBH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intel(R) Software Guard Extensions.
         /// </summary>
         internal static string INTEL_SGX {
@@ -2551,6 +3271,24 @@ namespace RJCP.Diagnostics.Resources {
         internal static string INTEL_SGX_LC {
             get {
                 return ResourceManager.GetString("INTEL_SGX_LC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports the collection of SGX1 leaf functions.
+        /// </summary>
+        internal static string INTEL_SGX1 {
+            get {
+                return ResourceManager.GetString("INTEL_SGX1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates Intel SGX supports the collection of SGX2 leaf functions.
+        /// </summary>
+        internal static string INTEL_SGX2 {
+            get {
+                return ResourceManager.GetString("INTEL_SGX2", resourceCulture);
             }
         }
         
@@ -2583,6 +3321,15 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intel® Thread Director supported. A32_HW_FEEDBACK_CHAR and IA32_HW_FEEDBACK_THREAD_CONFIG MSRs are supported.
+        /// </summary>
+        internal static string INTEL_THREADDIRECTOR {
+            get {
+                return ResourceManager.GetString("INTEL_THREADDIRECTOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thermal Monitor.
         /// </summary>
         internal static string INTEL_TM {
@@ -2610,6 +3357,42 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tracing can be enabled with IA32_RTIT_CTL.ToPA = 1, hence utilizing the ToPA output scheme; IA32_RTIT_OUTPUT_BASE and IA32_RTIT_OUTPUT_MASK_PTRS MSRs can be accessed.
+        /// </summary>
+        internal static string INTEL_TOPA {
+            get {
+                return ResourceManager.GetString("INTEL_TOPA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToPA tables can hold any number of output entries, up to the maximum allowed by the MaskOrTableOffset field of IA32_RTIT_OUTPUT_MASK_PTRS.
+        /// </summary>
+        internal static string INTEL_TOPA_TABLES {
+            get {
+                return ResourceManager.GetString("INTEL_TOPA_TABLES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top-down slots event available.
+        /// </summary>
+        internal static string INTEL_TOPDOWNSLOTSEV {
+            get {
+                return ResourceManager.GetString("INTEL_TOPDOWNSLOTSEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support of output to Trace Transport subsystem.
+        /// </summary>
+        internal static string INTEL_TRACETRANSPORT {
+            get {
+                return ResourceManager.GetString("INTEL_TRACETRANSPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time Stamp Counter Deadline supported by APIC.
         /// </summary>
         internal static string INTEL_TSC_DEADLINE {
@@ -2628,11 +3411,38 @@ namespace RJCP.Diagnostics.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intel Turbo Boost Technology available.
+        /// </summary>
+        internal static string INTEL_TURBOBOOST {
+            get {
+                return ResourceManager.GetString("INTEL_TURBOBOOST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel® Turbo Boost Max Technology 3.0 available.
+        /// </summary>
+        internal static string INTEL_TURBOBOOST3_0 {
+            get {
+                return ResourceManager.GetString("INTEL_TURBOBOOST3.0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Space Interrupts.
         /// </summary>
         internal static string INTEL_UINTR {
             get {
                 return ResourceManager.GetString("INTEL_UINTR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UINTR state enabled for XSS MSR.
+        /// </summary>
+        internal static string INTEL_UINTRSTATE {
+            get {
+                return ResourceManager.GetString("INTEL_UINTRSTATE", resourceCulture);
             }
         }
         

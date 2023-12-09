@@ -16,116 +16,263 @@
     {
         private readonly static string TestResources = Path.Combine(Deploy.TestDirectory, "TestResources", "GenuineIntel");
 
-        private static readonly string[] CpuId01Ecx = new[] {
+        private static readonly string[] CpuId_01_Ecx = new[] {
             "SSE3", "PCLMULQDQ", "DTES64", "MONITOR", "DS-CPL", "VMX", "SMX", "EIST",
             "TM2", "SSSE3", "CNXT-ID", "SDBG", "FMA", "CMPXCHG16B", "xTPR", "PDCM",
             "", "PCID", "DCA", "SSE4_1", "SSE4_2", "x2APIC", "MOVBE", "POPCNT",
             "TSC-DEADLINE", "AESNI", "XSAVE", "OSXSAVE", "AVX", "F16C", "RDRAND", "HYPERVISOR"
         };
 
-        private static readonly string[] CpuId01Edx = new[] {
+        private static readonly string[] CpuId_01_Edx = new[] {
             "FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE",
             "CX8", "APIC", "", "SEP", "MTRR", "PGE", "MCA", "CMOV",
             "PAT", "PSE-36", "PSN", "CLFSH", "", "DS", "ACPI", "MMX",
             "FXSR", "SSE", "SSE2", "SS", "HTT", "TM", "IA64", "PBE"
         };
 
-        private static readonly string[] CpuId07Ebx = new[] {
+        private static readonly string[] CpuId_06_Eax = new[] {
+            "DTS", "TurboBoost", "ARAT", "", "PLN", "ECMD", "PTM", "HWP",
+            "HWP_Notification", "HWP_Activity_Window", "HWP_Energy_Performance_Preference", "HWP_Package_Level_Request", "", "HDC", "TurboBoost3.0", "HWPCaps",
+            "HWP_PECI", "Flexible_HWP", "FastAccess_HWP_REQUEST", "HW_FEEDBACK", "HWP_Idle_Ignore", "", "", "ThreadDirector",
+            "IA32_TERM_INTERRUPT", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId_06_Ecx = new[] {
+            "HWCFC", "", "", "SETBH", "", "", "", "",
+            null, null, null, null, null, null, null,
+            "", "", "", "", "", "", "",
+            "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId_07_Ebx = new[] {
             "FSGSBASE", "IA32_TSC_ADJUST", "SGX", "BMI1", "HLE", "AVX2", "FDP_EXCPTN_ONLY", "SMEP",
             "BMI2", "ERMS", "INVPCID", "RTM", "RDT-M", "FPU-CS Dep", "MPX", "RDT-A",
             "AVX512F", "AVX512DQ", "RDSEED", "ADX", "SMAP", "AVX512_IFMA", "", "CLFLUSHOPT",
             "CLWB", "INTEL_PT", "AVX512PF", "AVX512ER", "AVX512CD", "SHA", "AVX512BW", "AVX512VL"
         };
 
-        private static readonly string[] CpuId07Ecx = new[] {
+        private static readonly string[] CpuId_07_Ecx = new[] {
             "PREFETCHWT1", "AVX512_VBMI", "UMIP", "PKU", "OSPKE", "WAITPKG", "AVX512_VBMI2", "CET_SS",
             "GFNI", "VAES", "VPCLMULQDQ", "AVX512_VNNI", "AVX512_BITALG", "TME_EN", "AVX512_VPOPCNTDQ", "",
             "LA57", null, null, null, null, null, "RDPID", "KL",
             "BUS_LOCK_DETECT", "CLDEMOTE", "", "MOVDIRI", "MOVDIR64B", "ENQCMD", "SGX_LC", "PKS"
         };
 
-        private static readonly string[] CpuId07Edx = new[] {
+        private static readonly string[] CpuId_07_Edx = new[] {
             "", "SGX-KEYS", "AVX512_4VNNIW", "AVX512_4FMAPS", "FSRM", "UINTR", "", "",
             "AVX512_VP2INTERSECT", "SRBDS_CTRL", "MD_CLEAR", "RTM_ALWAYS_ABORT", "", "RTM_FORCE_ABORT", "SERIALIZE", "Hybrid",
             "TSXLDTRK", "", "PCONFIG", "LBR", "CET_IBT", "", "AMX_BF16", "AVX512_FP16",
             "AMX_TILE", "AMX_INT8", "IBRS_IBPB", "STIBP", "L1D_FLUSH", "IA32_ARCH_CAPABILITIES", "IA32_CORE_CAPABILITIES", "SSBD"
         };
 
-        private static readonly string[] CpuId07_01Eax = new[] {
+        private static readonly string[] CpuId_07_s01_Eax = new[] {
             "", "", "", "", "AVX_VNNI", "AVX512_BF16", "", "",
             "", "", "FZMOVSB", "FSSTOSB", "FSCMPSB", "", "", "",
             "", "", "", "", "", "", "HRESET", "",
             "", "", "LAM", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_01Ebx = new[] {
+        private static readonly string[] CpuId_07_s01_Ebx = new[] {
             "IA32_PPIN", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_01Ecx = new[] {
+        private static readonly string[] CpuId_07_s01_Ecx = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_01Edx = new[] {
+        private static readonly string[] CpuId_07_s01_Edx = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "CET_SSS", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_02Eax = new[] {
+        private static readonly string[] CpuId_07_s02_Eax = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_02Ebx = new[] {
+        private static readonly string[] CpuId_07_s02_Ebx = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_02Ecx = new[] {
+        private static readonly string[] CpuId_07_s02_Ecx = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId07_02Edx = new[] {
+        private static readonly string[] CpuId_07_s02_Edx = new[] {
             "PSFD", "IPRED_CTRL", "RRSBA_CTRL", "DDPD_U", "BHI_CTRL", "MCDT_NO", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId13Eax = new[] {
+        private static readonly string[] CpuId_0A_Ebx = new[] {
+            "CoreCycleEv", "InstRetEv", "RefCycleEv", "LLCRefEv", "LLCMissEv", "BrnInstRetEv", "BrnMisRetEv", "TopDownSlotsEv",
+            null, null, null, null, null, null, null, null,
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId_0D_s01_Eax = new[] {
             "XSAVEOPT", "XSAVEC", "XGETBV", "XSAVES", "XFD", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId81Ecx = new[] {
+        private readonly static string[] CpuId_0D_s01_Ecx = new[] {
+            null, null, null, null, null, null, null, null,
+            "PTState", null, "PASID", "CET_U", "CET_S", "HDCState", "UINTRState", "LBRState",
+            "HWPState", null, null, "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_0F_Edx = new string[] {
+            "", "L3RDT", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_0F_s01_Eax = new[] {
+            null, null, null, null, null, null, null, null,
+            "IA32_QM_CTR", "RDT_CMT", "RDT_MBM", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_0F_s01_Edx = new[] {
+            "L3CACHEOCCMON", "L3CACHETOTBWMON", "L3CACHELCLBWMON", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_10_Ebx = new[] {
+            "", "RDTL3CACHEALLOC", "RDTL2CACHEALLOC", "RDTMEMBWALLOC",  "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_10_s01_Ecx = new[] {
+            "", "RDTL3CAT", "RDTL3_CDP", "RDTL3NONCTGCAP", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_10_s02_Ecx = new[] {
+            "", "", "RDTL2_CDP", "RDTL2NONCTGCAP", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_10_s03_Ecx = new[] {
+            "", "", "RDTMEMBWLINEAR", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_12_Eax = new[] {
+            "SGX1", "SGX2", "", "", "", "ENCLV", "ENCLS", "ENCLU",
+            "", "", "ENCLS_EUPDATESVN", "ENCLU_EDECCSSA", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_14_Ebx = new string[] {
+            "IA32_RTIT_CR3_MATCH", "ConfigurablePsb", "IPFiltering", "MTCTimingPacket", "PTWRITE", "PowerEventTrace", "PreservePsbPmi", "EventEn",
+            "DisTNT", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_14_Ecx = new string[] {
+            "ToPA", "ToPA_TABLES", "PTSRO", "TraceTransport", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "PTLIP"
+        };
+
+        private readonly static string[] CpuId_19_Eax = new string[] {
+            "KL_CPL0", "KL_NOENC", "KL_NODEC", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_19_Ebx = new string[] {
+            "AESKLE", "", "AESWIDE", "", "KL_MSR", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_19_Ecx = new string[] {
+            "LOADIWKEY_NB", "KSENC", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_1C_Eax = new string[] {
+            null, null, null, null, null, null, null, null,
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "LBR_DEEPC", "LBRLIP"
+        };
+
+        private readonly static string[] CpuId_1C_Ebx = new string[] {
+            "LBRCPL", "LBRBF", "LBRCSM", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private readonly static string[] CpuId_1C_Ecx = new string[] {
+            "LBRMISPRED", "LBRTIMED", "LBRBTF", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
+        };
+
+        private static readonly string[] CpuId_80_01_Ecx = new[] {
             "AHF64", "", "", "", "", "LZCNT", "", "",
             "PREFETCHW", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", ""
         };
 
-        private static readonly string[] CpuId81Edx = new[] {
+        private static readonly string[] CpuId_80_01_Edx = new[] {
             "", "", "", "", "", "", "", "",
             "", "", "", "SYSCALL", "", "", "", "",
             "", "", "", "", "XD", "", "", "",
             "", "", "1GB_PAGE", "RDTSCP", "", "LM", "", ""
+        };
+
+        private static readonly string[] CpuId_80_08_Ebx = new[] {
+            "", "", "", "", "", "", "", "",
+            "", "WBNOINVD", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", ""
         };
 
         private FeatureCheck FeatureCheck { get; set; }
@@ -133,22 +280,46 @@
         public GenuineIntelCpuTest()
         {
             FeatureCheck = new FeatureCheck();
-            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].ECX", CpuId01Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[01h].EDX", CpuId01Edx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EBX", CpuId07Ebx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].ECX", CpuId07Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h].EDX", CpuId07Edx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h,01h].EAX", CpuId07_01Eax);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].EBX", CpuId07_01Ebx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].ECX", CpuId07_01Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.01h].EDX", CpuId07_01Edx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h,02h].EAX", CpuId07_02Eax);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].EBX", CpuId07_02Ebx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].ECX", CpuId07_02Ecx);
-            FeatureCheck.AddFeatureSet("standard", "CPUID[07h.02h].EDX", CpuId07_02Edx);
-            FeatureCheck.AddFeatureSet("procstate", "CPUID[0Dh,01h].EAX", CpuId13Eax);
-            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].ECX", CpuId81Ecx);
-            FeatureCheck.AddFeatureSet("extended", "CPUID[80000001h].EDX", CpuId81Edx);
+
+            // The order of the group is important, as this defines the order when using `FeatureCheck.Check`. The
+            // `name` must match `GetReservedFeatureName`.
+            FeatureCheck.AddFeatureSet("standard", "CPUID(01h).ECX", CpuId_01_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(01h).EDX", CpuId_01_Edx);
+            FeatureCheck.AddFeatureSet("thermal", "CPUID(06h).EAX", CpuId_06_Eax);
+            FeatureCheck.AddFeatureSet("thermal", "CPUID(06h).ECX", CpuId_06_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).EBX", CpuId_07_Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).ECX", CpuId_07_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h).EDX", CpuId_07_Edx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h,01h).EAX", CpuId_07_s01_Eax);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.01h).EBX", CpuId_07_s01_Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.01h).ECX", CpuId_07_s01_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.01h).EDX", CpuId_07_s01_Edx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h,02h).EAX", CpuId_07_s02_Eax);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.02h).EBX", CpuId_07_s02_Ebx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.02h).ECX", CpuId_07_s02_Ecx);
+            FeatureCheck.AddFeatureSet("standard", "CPUID(07h.02h).EDX", CpuId_07_s02_Edx);
+            FeatureCheck.AddFeatureSet("perf", "CPUID(0Ah).EBX", CpuId_0A_Ebx);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID(0Dh,01h).EAX", CpuId_0D_s01_Eax);
+            FeatureCheck.AddFeatureSet("procstate", "CPUID(0Dh,01h).ECX", CpuId_0D_s01_Ecx);
+            FeatureCheck.AddFeatureSet("rdtm", "CPUID(0Fh).ECX", CpuId_0F_Edx);
+            FeatureCheck.AddFeatureSet("rdtm", "CPUID(0Fh,01h).EAX", CpuId_0F_s01_Eax);
+            FeatureCheck.AddFeatureSet("rdtm", "CPUID(0Fh,01h).EDX", CpuId_0F_s01_Edx);
+            FeatureCheck.AddFeatureSet("rdta", "CPUID(10h).EBX", CpuId_10_Ebx);
+            FeatureCheck.AddFeatureSet("rdta", "CPUID(10h,01h).ECX", CpuId_10_s01_Ecx);
+            FeatureCheck.AddFeatureSet("rdta", "CPUID(10h,02h).ECX", CpuId_10_s02_Ecx);
+            FeatureCheck.AddFeatureSet("rdta", "CPUID(10h,03h).ECX", CpuId_10_s03_Ecx);
+            FeatureCheck.AddFeatureSet("sgx", "CPUID(12h).EAX", CpuId_12_Eax);
+            FeatureCheck.AddFeatureSet("pt", "CPUID(14h).EBX", CpuId_14_Ebx);
+            FeatureCheck.AddFeatureSet("pt", "CPUID(14h).ECX", CpuId_14_Ecx);
+            FeatureCheck.AddFeatureSet("kl", "CPUID(19h).EAX", CpuId_19_Eax);
+            FeatureCheck.AddFeatureSet("kl", "CPUID(19h).EBX", CpuId_19_Ebx);
+            FeatureCheck.AddFeatureSet("kl", "CPUID(19h).ECX", CpuId_19_Ecx);
+            FeatureCheck.AddFeatureSet("lbr", "CPUID(1Ch).EAX", CpuId_1C_Eax);
+            FeatureCheck.AddFeatureSet("lbr", "CPUID(1Ch).EBX", CpuId_1C_Ebx);
+            FeatureCheck.AddFeatureSet("lbr", "CPUID(1Ch).ECX", CpuId_1C_Ecx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID(80000001h).ECX", CpuId_80_01_Ecx);
+            FeatureCheck.AddFeatureSet("extended", "CPUID(80000001h).EDX", CpuId_80_01_Edx);
+            FeatureCheck.AddFeatureSet("extfeature", "CPUID(80000008h).EBX", CpuId_80_08_Ebx);
         }
 
         private GenuineIntelCpu GetCpu(string fileName)
@@ -235,6 +406,7 @@
             CheckSignature(0x10677);
             FeatureCheck.Check("standard", 0x0008E3FD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x20100000);
+            FeatureCheck.Check("thermal", 0x00000001, 0x00000001);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM)2 Quad  CPU   Q9450  @ 2.66GHz"));
 
@@ -251,6 +423,7 @@
             CheckSignature(0x6EC);
             FeatureCheck.Check("standard", 0x0000C1A9, 0xBFE9FBFF);
             FeatureCheck.Check("extended", 0x00000000, 0x00100000);
+            FeatureCheck.Check("thermal", 0x00000001, 0x00000001);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) Duo CPU      T2700  @ 2.33GHz"));
 
@@ -267,6 +440,7 @@
             CheckSignature(0x106A5);
             FeatureCheck.Check("standard", 0x0098E3BD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000003, 0x00000001);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7 CPU         920  @ 2.67GHz"));
 
@@ -283,6 +457,7 @@
             CheckSignature(0x106A5);
             FeatureCheck.Check("standard", 0x009CE3BD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000003, 0x00000001);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz"));
 
@@ -299,6 +474,7 @@
             CheckSignature(0x206A7);
             FeatureCheck.Check("standard", 0x9C982203, 0x1FEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000075, 0x00000009);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i3-2120T CPU @ 2.60GHz"));
 
@@ -315,6 +491,7 @@
             CheckSignature(0x206A7);
             FeatureCheck.Check("standard", 0x1FBAE3BF, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-2630QM CPU @ 2.00GHz"));
 
@@ -331,6 +508,7 @@
             CheckSignature(0x306A9);
             FeatureCheck.Check("standard", 0x7FBAE3BF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz"));
 
@@ -347,6 +525,7 @@
             CheckSignature(0x306A9);
             FeatureCheck.Check("standard", 0x7FBAE3FF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
+            FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-3820QM CPU @ 2.70GHz"));
 
@@ -363,6 +542,7 @@
             CheckSignature(0x306E4);
             FeatureCheck.Check("standard", 0x7FBEE3BF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x2C100800);
+            FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-4930K CPU @ 3.40GHz"));
 
@@ -380,6 +560,8 @@
             FeatureCheck.Check("standard", 0xFEDAF387, 0xBFEBFBFF, 0x009C6FBB, 0x00000000, 0xBC000400);
             FeatureCheck.Check("procstate", 0x0000000F);
             FeatureCheck.Check("extended", 0x00000121, 0x2C100800);
+            FeatureCheck.Check("thermal", 0x000007F3, 0x00000009);
+            FeatureCheck.Check("pt", 0x0000000F, 0x00000003);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
 
@@ -417,6 +599,7 @@
             x86cpu.Check("standard", 0XF6FA3203, 0x0F8BFBFF, 0x009C27AB, 0x00000000, 0xBC000000);
             x86cpu.Check("procstate", 0x0000000B);
             x86cpu.Check("extended", 0x00000121, 0x2C100000);
+            x86cpu.Check("thermal", 0x00000004, 0x00000000);
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
 
@@ -457,8 +640,10 @@
         {
             CheckSignature(0x506E3);
             x86cpu.Check("standard", 0x7FFAFBBF, 0xBFEBFBFF, 0x029C6FBF, 0x00000000, 0x9C002400);
-            x86cpu.Check("procstate", 0x0000000F);
+            x86cpu.Check("procstate", 0x0000000F, 0x00000100);
             x86cpu.Check("extended", 0x00000121, 0x2C100800);
+            x86cpu.Check("thermal", 0x000027F7, 0x00000009);
+            x86cpu.Check("pt", 0x0000000F, 0x00000007);
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
 
@@ -504,6 +689,7 @@
             x86cpu.Check("standard", 0xF7FA3203, 0x1F8BBBFF, 0x009C27AB, 0x00000000, 0xBC000400);
             x86cpu.Check("procstate", 0x0000000B);
             x86cpu.Check("extended", 0x00000121, 0x2C100000);
+            x86cpu.Check("thermal", 0x00000004, 0x00000000);
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
 
@@ -540,8 +726,11 @@
         {
             CheckSignature(0x906ED);
             x86cpu.Check("standard", 0x7FFAFBFF, 0xBFEBFBFF, 0x029C6FBF, 0x40000000, 0xBC000400);
-            x86cpu.Check("procstate", 0x0000000F);
+            x86cpu.Check("procstate", 0x0000000F, 0x00000100);
             x86cpu.Check("extended", 0x00000121, 0x2C100800);
+            x86cpu.Check("thermal", 0x000027F7, 0x00000001);
+            x86cpu.Check("sgx", 0x00000001);
+            x86cpu.Check("pt", 0x0000000F, 0x00000007);
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
 
@@ -558,8 +747,10 @@
             GenuineIntelCpu cpu = GetCpu("i9-10900K.xml");
             CheckSignature(0xA0655);
             FeatureCheck.Check("standard", 0x7FFAFBFF, 0xBFEBFBFF, 0x029C67AF, 0x40000008, 0xBC000400);
-            FeatureCheck.Check("procstate", 0x0000000F);
+            FeatureCheck.Check("procstate", 0x0000000F, 0x00000100);
             FeatureCheck.Check("extended", 0x00000121, 0x2C100000);
+            FeatureCheck.Check("thermal", 0x000027F7, 0x00000001);
+            FeatureCheck.Check("pt", 0x0000000F, 0x00000007);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz"));
 
@@ -575,8 +766,14 @@
             GenuineIntelCpu cpu = GetCpu("i9-12900K.xml");
             CheckSignature(0x90672);
             FeatureCheck.Check("standard", 0x7FFAFBFF, 0xBFEBFBFF, 0x239CA7EB, 0x98C027AC, 0xFC1CC410, 0x00400810);
-            FeatureCheck.Check("procstate", 0x0000000F);
+            FeatureCheck.Check("procstate", 0x0000000F, 0x00019900);
             FeatureCheck.Check("extended", 0x00000121, 0x2C100000);
+            FeatureCheck.Check("thermal", 0x00DFCFF7, 0x00000409);
+            FeatureCheck.Check("rdtm", 0x00000000, 0x00000000, 0x0000000);
+            FeatureCheck.Check("rdta", 0x00000004, 0x00000000, 0x00000000, 0x00000000);
+            FeatureCheck.Check("pt", 0x0000005F, 0x00000007);
+            FeatureCheck.Check("kl", 0x00000007, 0x00000014, 0x00000003);
+            FeatureCheck.Check("lbr", 0x4000000B, 0x00000007, 0x00000007);
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("12th Gen Intel(R) Core(TM) i9-12900K"));
 

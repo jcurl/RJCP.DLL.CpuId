@@ -162,7 +162,7 @@
 #endif
         }
 
-        private static string BitGroup(CpuIdRegister register, int outRegister, int bit)
+        internal static string BitGroup(CpuIdRegister register, int outRegister, int bit)
         {
             if (register.SubFunction == 0) {
                 return $"CPUID.{register.Function:X02}h:{GetRegisterName(outRegister)}[{bit}]";
@@ -252,7 +252,7 @@
                 return string.Format("CPUID({0:X2}h).{1}[{2}]",
                     register.Function, GetRegisterName(result), bit);
             }
-            return string.Format("CPUID(EAX={0:X2}h,ECX={1:X2}h).{2}[{3}]",
+            return string.Format("CPUID({0:X2}h,{1:X2}h).{2}[{3}]",
                 register.Function, register.SubFunction, GetRegisterName(result), bit);
         }
 

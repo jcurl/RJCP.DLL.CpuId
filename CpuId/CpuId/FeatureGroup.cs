@@ -31,7 +31,7 @@
         ExtendedFeatures,
 
         /// <summary>
-        /// Processor power management, described by CPUID.80000007h.
+        /// Processor power management, described by Intel CPUID.06h; AMD CPUID.80000007h.
         /// </summary>
         PowerManagement,
 
@@ -51,7 +51,7 @@
         PerformanceOptimizations,
 
         /// <summary>
-        /// AMD Performance Sampling Feature Indicators, described by CPUID.8000001Bh.
+        /// AMD Performance Sampling Feature Indicators, described by Intel CPUID.0Ah; AMD CPUID.8000001Bh.
         /// </summary>
         PerformanceSampling,
 
@@ -74,5 +74,30 @@
         /// AMD Performance Monitoring and Debug, described by CPUID.8000_0022h.
         /// </summary>
         PerfMonDebug,
+
+        /// <summary>
+        /// Intel RDT monitoring, described by CPUID.0Fh, CPUID.10H.
+        /// </summary>
+        RdtMonitoring,
+
+        /// <summary>
+        /// Intel Secure Guard Extensions, described by CPUID.12h.
+        /// </summary>
+        Sgx,
+
+        /// <summary>
+        /// Intel Processor Trace, described by CPUID.14h.
+        /// </summary>
+        ProcessorTrace,
+
+        /// <summary>
+        /// Intel Key Locker, described by CPUID.19h.
+        /// </summary>
+        KeyLocker,
+
+        /// <summary>
+        /// Intel Last Branch Records, described by CPUID.1Ch.
+        /// </summary>
+        LastBranchRecords
     }
 }

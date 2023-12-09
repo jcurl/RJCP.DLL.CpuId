@@ -339,8 +339,7 @@
 
         private void FindExtendedFeatures(BasicCpu cpu)
         {
-            if (cpu.ExtendedFunctionCount < 1) return;
-
+            if (cpu.ExtendedFunctionCount < ExtendedInformationFunction - MaxExtendedFunction) return;
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
             if (extfeat != null) {
                 TestFeatures(FeaturesCpuId80000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);

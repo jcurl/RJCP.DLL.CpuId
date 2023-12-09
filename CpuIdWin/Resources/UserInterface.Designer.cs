@@ -97,6 +97,24 @@ namespace RJCP.Diagnostics.CpuIdWin.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intel Key Locker.
+        /// </summary>
+        internal static string fgKeyLocker {
+            get {
+                return ResourceManager.GetString("fgKeyLocker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Branch Records Information.
+        /// </summary>
+        internal static string fgLastBranchRecords {
+            get {
+                return ResourceManager.GetString("fgLastBranchRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lightweight Profiling Features.
         /// </summary>
         internal static string fgLightweightProfiling {
@@ -147,6 +165,33 @@ namespace RJCP.Diagnostics.CpuIdWin.Resources {
         internal static string fgPqosExtended {
             get {
                 return ResourceManager.GetString("fgPqosExtended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel Processor Trace.
+        /// </summary>
+        internal static string fgProcessorTrace {
+            get {
+                return ResourceManager.GetString("fgProcessorTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intel Resource Director Technology.
+        /// </summary>
+        internal static string fgRdtMonitoring {
+            get {
+                return ResourceManager.GetString("fgRdtMonitoring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure Guard Extensions.
+        /// </summary>
+        internal static string fgSgx {
+            get {
+                return ResourceManager.GetString("fgSgx", resourceCulture);
             }
         }
         

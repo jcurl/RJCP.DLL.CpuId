@@ -119,35 +119,43 @@
   </resheader>
   <data name="fgEncryptedMemory" xml:space="preserve">
     <value>Encrypted Memory Features</value>
-    <comment>AMD Fn8000_001F_EAX, Fn8000_0023</comment>
+    <comment>AMD Fn8000_001Fh_EAX, Fn8000_0023h</comment>
   </data>
   <data name="fgExtendedFeatures" xml:space="preserve">
     <value>Extended Features</value>
-    <comment>Fn8000_0001, AMD Fn8000_0021</comment>
+    <comment>Fn8000_0001h, AMD Fn8000_0021h</comment>
   </data>
   <data name="fgExtendedFeaturesIdentifiers" xml:space="preserve">
     <value>Extended Feature Identifiers</value>
-    <comment>Fn8000_0008_EBX</comment>
+    <comment>Fn8000_0008h_EBX</comment>
   </data>
   <data name="fgExtendedState" xml:space="preserve">
     <value>Extended State</value>
-    <comment>Fn0000_000D_EAX,ECX_x1</comment>
+    <comment>Fn0000_000Dh_EAX,ECX_x1</comment>
+  </data>
+  <data name="fgKeyLocker" xml:space="preserve">
+    <value>Intel Key Locker</value>
+    <comment>Intel Fn0000_0019h</comment>
+  </data>
+  <data name="fgLastBranchRecords" xml:space="preserve">
+    <value>Last Branch Records Information</value>
+    <comment>Intel Fn0000_001Ch</comment>
   </data>
   <data name="fgLightweightProfiling" xml:space="preserve">
     <value>Lightweight Profiling Features</value>
-    <comment>AMD Fn8000_001C</comment>
+    <comment>AMD Fn8000_001Ch</comment>
   </data>
   <data name="fgPerfMonDebug" xml:space="preserve">
     <value>Extended Performance Monitoring and Debug</value>
-    <comment>AMD Fn8000_0021</comment>
+    <comment>AMD Fn8000_0021h</comment>
   </data>
   <data name="fgPerformanceOptimizations" xml:space="preserve">
     <value>Performance Optimization Features</value>
-    <comment>AMD Fn8000_001A</comment>
+    <comment>AMD Fn8000_001Ah</comment>
   </data>
   <data name="fgPerformanceSampling" xml:space="preserve">
     <value>Performance Sampling Features</value>
-    <comment>AMD Fn8000_001B</comment>
+    <comment>AMD Fn8000_001Bh</comment>
   </data>
   <data name="fgPowerManagement" xml:space="preserve">
     <value>Power Management Features</value>
@@ -155,19 +163,31 @@
   </data>
   <data name="fgPqosExtended" xml:space="preserve">
     <value>PQOS Extended Features</value>
-    <comment>AMD Fn8000_0020</comment>
+    <comment>AMD Fn8000_0020h</comment>
+  </data>
+  <data name="fgProcessorTrace" xml:space="preserve">
+    <value>Intel Processor Trace</value>
+    <comment>Intel Fn0000_0014h</comment>
+  </data>
+  <data name="fgRdtMonitoring" xml:space="preserve">
+    <value>Intel Resource Director Technology</value>
+    <comment>Intel Fn0000_000Fh, Fn0000_0010h</comment>
+  </data>
+  <data name="fgSgx" xml:space="preserve">
+    <value>Secure Guard Extensions</value>
+    <comment>Intel Fn0000_0012h</comment>
   </data>
   <data name="fgStandardFeatures" xml:space="preserve">
     <value>Standard Features</value>
-    <comment>Fn0000_0001_ECX,EDX</comment>
+    <comment>Fn0000_0001h_ECX,EDX</comment>
   </data>
   <data name="fgStructuredExtendedFeatures" xml:space="preserve">
     <value>Structured Extended Features</value>
-    <comment>Fn0000_0007_EAX,EBX,ECX,EDX</comment>
+    <comment>Fn0000_0007h_EAX,EBX,ECX,EDX</comment>
   </data>
   <data name="fgSvmFeatures" xml:space="preserve">
     <value>Secure Memory Features</value>
-    <comment>AMD Fn8000_000A</comment>
+    <comment>AMD Fn8000_000Ah</comment>
   </data>
   <data name="fgUnknown" xml:space="preserve">
     <value>Unknown Feature Group</value>
