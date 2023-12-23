@@ -22,7 +22,7 @@
     <ProjectGuid>{5A90E8A3-F910-4128-BCED-B2FBD9E772AD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>cpuiddll</RootNamespace>
-    <WindowsTargetPlatformVersion>5.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -74,13 +74,17 @@
     <OutDir>$(SolutionDir)$(Configuration)\x86\</OutDir>
     <IntDir>$(Configuration)\x86\</IntDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>cpuid</TargetName>
     <OutDir>$(SolutionDir)$(Configuration)\x64\</OutDir>
     <IntDir>$(Configuration)\x64\</IntDir>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,6 +92,8 @@
     <OutDir>$(SolutionDir)$(Configuration)\x86\</OutDir>
     <IntDir>$(Configuration)\x86\</IntDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,15 +101,19 @@
     <OutDir>$(SolutionDir)$(Configuration)\x64\</OutDir>
     <IntDir>$(Configuration)\x64\</IntDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CPUIDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>inc;inc\private</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;src</AdditionalIncludeDirectories>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,12 +125,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CPUIDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>inc;inc\private</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;src</AdditionalIncludeDirectories>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,13 +142,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CPUIDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>inc;inc\private</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;src</AdditionalIncludeDirectories>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,13 +166,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CPUIDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>inc;inc\private</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;src</AdditionalIncludeDirectories>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,13 +185,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="inc\cpuiddll.h" />
-    <ClInclude Include="inc\private\cpuid.h" />
-    <ClInclude Include="inc\private\cpuidtypes.h" />
-    <ClInclude Include="inc\private\cpuidx.h" />
-    <ClInclude Include="inc\private\cpuid_iter.h" />
-    <ClInclude Include="inc\private\kernelfunc.h" />
-    <ClInclude Include="inc\private\stdafx.h" />
-    <ClInclude Include="inc\private\targetver.h" />
+    <ClInclude Include="inc\cpuid\cpuidinfo.h" />
+    <ClInclude Include="src\cpuid\CpuIdDump.h" />
+    <ClInclude Include="src\cpuid\CpuIdDumpAuthenticAmd.h" />
+    <ClInclude Include="src\cpuid\CpuIdDumpGeneric.h" />
+    <ClInclude Include="src\cpuid\CpuIdDumpGenuineIntel.h" />
+    <ClInclude Include="src\cpuid\CpuIdDumpUtils.h" />
+    <ClInclude Include="src\cpuid\CpuIdFactory.h" />
+    <ClInclude Include="src\cpuid\CpuIdNative.h" />
+    <ClInclude Include="src\cpuid\CpuIdNativeFactory.h" />
+    <ClInclude Include="src\cpuid\CpuIdRegister.h" />
+    <ClInclude Include="src\cpuid\cpuidx.h" />
+    <ClInclude Include="src\cpuid\ICpuId.h" />
+    <ClInclude Include="src\cpuid\ICpuIdConfig.h" />
+    <ClInclude Include="src\cpuid\ICpuIdDump.h" />
+    <ClInclude Include="src\cpuid\ICpuIdFactory.h" />
+    <ClInclude Include="src\globalstate.h" />
+    <ClInclude Include="src\native\win32\kernel32\Kernel32.h" />
+    <ClInclude Include="src\native\win32\LibraryHandle.h" />
+    <ClInclude Include="src\native\win32\Thread.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\targetver.h" />
     <ClInclude Include="rsrc\resource32.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -186,13 +216,15 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cpuid\CpuIdDump.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdDumpAuthenticAmd.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdDumpGeneric.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdDumpGenuineIntel.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdNative.cpp" />
     <ClCompile Include="src\cpuiddll.cpp" />
-    <ClCompile Include="src\cpuiddump_amd.cpp" />
-    <ClCompile Include="src\cpuiddump_common.cpp" />
-    <ClCompile Include="src\cpuiddump_default.cpp" />
-    <ClCompile Include="src\cpuiddump_intel.cpp" />
-    <ClCompile Include="src\cpuiddump_main.cpp" />
-    <ClCompile Include="src\cpuid_iter.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdNativeConfig.h" />
+    <ClCompile Include="src\cpuid\CpuIdNativeFactory.cpp" />
+    <ClCompile Include="src\cpuid\CpuIdRegister.cpp" />
     <ClCompile Include="src\dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
@@ -207,7 +239,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\getcurrentprocessornumber.cpp" />
+    <ClCompile Include="src\globalstate.cpp" />
+    <ClCompile Include="src\native\win32\kernel32\Kernel32.cpp" />
+    <ClCompile Include="src\native\win32\LibraryHandle.cpp" />
+    <ClCompile Include="src\native\win32\Thread.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,0 +1,63 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+ColumnLimit:     120
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+#BitFieldColonSpacingStyle: Both
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel:  false
+  AfterClass:      false
+  AfterControlStatement: Never
+  AfterEnum:       false
+  AfterFunction:   false
+  AfterNamespace:  false
+  AfterObjCDeclaration: false
+  AfterStruct:     false
+  AfterUnion:      false
+  AfterExternBlock: false
+  BeforeCatch:     false
+  BeforeElse:      false
+  BeforeLambdaBody: false
+  BeforeWhile:     false
+  IndentBraces:    false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+# Sorty by `SortPriority` then group by `Priority`.
+IncludeBlocks:   Regroup
+IncludeCategories:
+  - Regex:           '^<Windows\.h>'
+    Priority:        -1
+    SortPriority:    -2
+    CaseSensitive:   false
+  - Regex:           '^"stdafx\.h"'
+    Priority:        -1
+    SortPriority:    0
+    CaseSensitive:   false
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+    SortPriority:    2
+    CaseSensitive:   false
+  - Regex:           '^<ext/.*\.h>'
+    Priority:        2
+    SortPriority:    2
+    CaseSensitive:   false
+  - Regex:           '^<.*'
+    Priority:        2
+    SortPriority:    2
+    CaseSensitive:   false
+  - Regex:           '.*'
+    Priority:        3
+    SortPriority:    2
+    CaseSensitive:   false
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+IncludeIsMainSourceRegex: ''
+InsertNewlineAtEOF: true
+SpaceAfterTemplateKeyword: false
+SpaceInEmptyBlock: true

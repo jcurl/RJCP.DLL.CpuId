@@ -1,82 +1,148 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-// (C) 2012-2020, Jason Curl
-//
-////////////////////////////////////////////////////////////////////////////////
-//
-// Header: cpuiddll.cpp
-//
-// Description:
-//  Entry points to the Windows DLL.
-//
-////////////////////////////////////////////////////////////////////////////////
-
 #include "stdafx.h"
 
-#include "kernelfunc.h"
 #include "cpuiddll.h"
-#include "cpuid.h"
 
-#define CORES (sizeof(DWORD_PTR) << 3)
+#include "cpuid/CpuIdDump.h"
+#include "cpuid/cpuidx.h"
+#include "globalstate.h"
 
-CPUIDDLL_API int WINAPI cpuid(DWORD eax, DWORD ecx, LPDWORD peax, LPDWORD pebx, LPDWORD pecx, LPDWORD pedx)
-{
-    return cpuidl(eax, ecx, peax, pebx, pecx, pedx);
+using namespace rjcp::diagnostics;
+
+CPUIDDLL_API int APIENTRY hascpuid() {
+  return cpuidt();
 }
 
-CPUIDDLL_API int WINAPI hascpuid()
-{
-    return cpuidt() != 0;
+CPUIDDLL_API int APIENTRY cpuid(DWORD eax, DWORD ecx, LPDWORD peax, LPDWORD pebx, LPDWORD pecx, LPDWORD pedx) {
+  if (!global->GetCpuId()) {
+    SetLastError(ERROR_INVALID_OPERATION);
+    return -1;
+  }
+
+  auto cpuidr = global->GetCpuId()->GetCpuId(eax, ecx);
+  if (!cpuidr) {
+    SetLastError(ERROR_INVALID_OPERATION);
+    return -1;
+  }
+
+  cpuid::CpuIdRegister reg = *cpuidr;
+  *peax = reg.Eax();
+  *pebx = reg.Ebx();
+  *pecx = reg.Ecx();
+  *pedx = reg.Edx();
+  return 0;
 }
 
-CPUIDDLL_API int WINAPI iddump(struct cpuidinfo *info, size_t bytes)
-{
-    DWORD currentProcessor = id_GetCurrentProcessorNumber();
-    return iddumponcore(info, bytes, currentProcessor);
+CPUIDDLL_API int APIENTRY iddump(struct cpuidinfo* info, size_t bytes) {
+  if (info == nullptr) {
+    SetLastError(ERROR_INVALID_PARAMETER);
+    return -1;
+  }
+
+  auto cpuidq = global->GetCpuId();
+  if (!cpuidq) {
+    SetLastError(ERROR_INVALID_OPERATION);
+    return -1;
+  }
+  auto results = cpuid::CpuIdDump(*cpuidq);
+
+  unsigned int count{};
+  unsigned int elements{static_cast<unsigned int>(bytes / sizeof(struct cpuidinfo))};
+  for (auto& element : results) {
+    if (count >= elements) return static_cast<int>(count);
+
+    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    info[count].veax = element.InEax();
+    info[count].vecx = element.InEcx();
+    info[count].peax = element.Eax();
+    info[count].pebx = element.Ebx();
+    info[count].pecx = element.Ecx();
+    info[count].pedx = element.Edx();
+    // NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    count++;
+  }
+
+  return static_cast<int>(count);
 }
 
-CPUIDDLL_API int WINAPI iddumponcore(struct cpuidinfo *info, size_t bytes, int core)
-{
-    // DWORD_PTR is either 32-bit or 64-bit.
-    if (core < 0 || core >= CORES) {
-        SetLastError(ERROR_INVALID_PARAMETER);
-        return -1;
+CPUIDDLL_API int APIENTRY iddumponcore(struct cpuidinfo* info, size_t bytes, int core) {
+  if (core < 0 || core >= 64) {
+    SetLastError(ERROR_INVALID_PARAMETER);
+    return -1;
+  }
+
+  if (info == nullptr) {
+    SetLastError(ERROR_INVALID_PARAMETER);
+    return -1;
+  }
+
+  auto cpuidq = global->GetCpuId(core);
+  if (!cpuidq) {
+    SetLastError(ERROR_INVALID_OPERATION);
+    return -1;
+  }
+  auto results = cpuid::CpuIdDump(*cpuidq);
+
+  unsigned int count{};
+  unsigned int elements{static_cast<unsigned int>(bytes / sizeof(struct cpuidinfo))};
+  for (auto& element : results) {
+    if (count >= elements) return static_cast<int>(count);
+
+    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    info[count].veax = element.InEax();
+    info[count].vecx = element.InEcx();
+    info[count].peax = element.Eax();
+    info[count].pebx = element.Ebx();
+    info[count].pecx = element.Ecx();
+    info[count].pedx = element.Edx();
+    // NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    count++;
+  }
+
+  return static_cast<int>(count);
+}
+
+CPUIDDLL_API int APIENTRY iddumpall(struct cpuidinfo* info, size_t bytes) {
+  if (info == nullptr) {
+    SetLastError(ERROR_INVALID_PARAMETER);
+    return -1;
+  }
+
+  unsigned int count{};
+  unsigned int elements{static_cast<unsigned int>(bytes / sizeof(struct cpuidinfo))};
+  for (unsigned int i = 0; i < global->GetCpuCount(); i++) {
+    auto cpuidq = global->GetCpuId(i);
+    if (!cpuidq) {
+      SetLastError(ERROR_INVALID_OPERATION);
+      return -1;
     }
+    auto results = cpuid::CpuIdDump(*cpuidq);
 
-    HANDLE currentThread = GetCurrentThread();
-    DWORD_PTR newMask = (DWORD_PTR)((DWORD_PTR)1 << core);    // C4334 should explicitly cast
-    DWORD_PTR affinity = SetThreadAffinityMask(currentThread, newMask);
-    if (!affinity) return -1;
+    // Add a "header" that contains the core number.
+    if (elements == 0 || count >= elements - 1) return static_cast<int>(count);
+    // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    info[count].veax = 0xFFFFFFFF;
+    info[count].vecx = i;
+    info[count].peax = 0;
+    info[count].pebx = 0;
+    info[count].pecx = 0;
+    info[count].pedx = 0;
+    // NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    count++;
 
-    int result = iddump_main(info, bytes);
-    SetThreadAffinityMask(currentThread, affinity);
-    return result;
-}
+    for (auto& element : results) {
+      if (count >= elements) return static_cast<int>(count);
 
-CPUIDDLL_API int WINAPI iddumpall(struct cpuidinfo *info, size_t bytes)
-{
-    if (info == NULL || bytes < 3 * sizeof(struct cpuidinfo)) return 0;
-
-    SYSTEM_INFO sysInfo = {0, };
-    GetNativeSystemInfo(&sysInfo);
-
-    // On 32-bit machines, can only represent 32 processors. On 64-bit machines, can represent
-    // 64 processors.
-    DWORD_PTR processorMask = sysInfo.dwActiveProcessorMask;
-
-    int i = 0;
-    for (int core = 0; core < CORES && processorMask; core++) {
-        if (processorMask & 0x01) {
-            info[i].veax = 0xFFFFFFFF;
-            info[i].vecx = core;
-
-            int c = iddumponcore(info + i + 1, bytes - (i + 1) * sizeof(struct cpuidinfo), core);
-            i += c + 1;
-        }
-
-        // Get the next processor
-        processorMask = processorMask >> 1;
+      // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+      info[count].veax = element.InEax();
+      info[count].vecx = element.InEcx();
+      info[count].peax = element.Eax();
+      info[count].pebx = element.Ebx();
+      info[count].pecx = element.Ecx();
+      info[count].pedx = element.Edx();
+      // NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+      count++;
     }
+  }
 
-    return i;
+  return static_cast<int>(count);
 }

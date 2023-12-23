@@ -1,0 +1,23 @@
+@startuml CpuIdDump
+
+abstract class ICpuIdDump {
+    +CpuIdDump(cpuid: ICpuId):\n std::vector<CpuIdRegister>
+}
+
+class CpuIdDumpGeniuneIntel {
+    +CpuIdDump(cpuid: ICpuId):\n std::vector<CpuIdRegister>
+}
+
+class CpuIdDumpAuthenticAmd {
+    +CpuIdDump(cpuid: ICpuId):\n std::vector<CpuIdRegister>
+}
+
+class CpuIdRegister
+
+ICpuIdDump <|-d- CpuIdDumpGeniuneIntel
+
+ICpuIdDump <|-d- CpuIdDumpAuthenticAmd
+
+ICpuIdDump "1" -r- "*" CpuIdRegister
+
+@enduml

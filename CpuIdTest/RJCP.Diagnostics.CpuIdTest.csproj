@@ -19,7 +19,7 @@
     <Description>Test harness for RJCP.Diagnostics.CpuId.</Description>
     <Version>1.0.0</Version>
 
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>Default</AnalysisMode>
@@ -54,6 +54,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\CpuId\Native\CpuIdLib+CpuIdInfo.cs" Link="Native\CpuIdLib+CpuIdInfo.cs" />
+    <Compile Include="..\CpuId\Native\CpuIdLib.cs" Link="Native\CpuIdLib.cs" />
     <Compile Include="CpuIdTest.cs" />
     <Compile Include="CpuIdXmlFactoryTest.cs" />
     <Compile Include="CpuId\Intel\AuthenticAmdCpuTest.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="CpuId\Intel\GenericIntelCpuTest.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelCpuTest.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelFakeCpuTest.cs" />
+    <Compile Include="Native\CpuIdLibTest.cs" />
   </ItemGroup>
 
   <ItemGroup>

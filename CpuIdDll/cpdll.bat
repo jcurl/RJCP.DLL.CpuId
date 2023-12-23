@@ -1,4 +1,8 @@
 @echo off
+
+REM Copy the object build from the C++ solution to a standard location, which
+REM the .NET builds use.
+
 echo Copying... CpuId folder...
 if not exist ..\CpuId\x86 mkdir ..\CpuId\x86
 copy Release\x86\cpuid.dll ..\CpuId\x86\cpuid.dll > NUL
@@ -7,87 +11,75 @@ if not exist ..\CpuId\x64 mkdir ..\CpuId\x64
 copy Release\x64\cpuid.dll ..\CpuId\x64\cpuid.dll > NUL
 copy Release\x64\cpuid.pdb ..\CpuId\x64\cpuid.pdb > NUL
 
-:cpuidwin32debug_net48
-if not exist ..\CpuIdWin\bin\Debug\net48\x86 goto cpuidwin32debug_core31
-echo Copying... CpuIdWin Debug\net48\x86
-copy Debug\x86\cpuid.dll ..\CpuIdWin\bin\Debug\net48\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdWin\bin\Debug\net48\x86\cpuid.pdb > NUL
-:cpuidwin32debug_core31
-if not exist ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86 goto cpuidwin64debug_net48
-echo Copying... CpuIdWin Debug\netcoreapp3.1\x86
-copy Debug\x86\cpuid.dll ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdWin\bin\Debug\netcoreapp3.1\x86\cpuid.pdb > NUL
-:cpuidwin64debug_net48
-if not exist ..\CpuIdWin\bin\Debug\net48\x64 goto cpuidwin64debug_core31
-echo Copying... CpuIdWin Debug\net48\x64
-copy Debug\x64\cpuid.dll ..\CpuIdWin\bin\Debug\net48\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdWin\bin\Debug\net48\x64\cpuid.pdb > NUL
-:cpuidwin64debug_core31
-if not exist ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64 goto cpuidwin32release_net48
-echo Copying... CpuIdWin Debug\netcoreapp3.1\x64
-copy Debug\x64\cpuid.dll ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdWin\bin\Debug\netcoreapp3.1\x64\cpuid.pdb > NUL
-:cpuidwin32release_net48
-if not exist ..\CpuIdWin\bin\Release\net48\x86 goto cpuidwin32release_core31
-echo Copying... CpuIdWin Release\net48\x86
-copy Release\x86\cpuid.dll ..\CpuIdWin\bin\Release\net48\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdWin\bin\Release\net48\x86\cpuid.pdb > NUL
-:cpuidwin32release_core31
-if not exist ..\CpuIdWin\bin\Release\netcoreapp3.1\x86 goto cpuidwin64release_net48
-echo Copying... CpuIdWin Release\netcoreapp3.1\x86
-copy Release\x86\cpuid.dll ..\CpuIdWin\bin\Release\netcoreapp3.1\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdWin\bin\Release\netcoreapp3.1\x86\cpuid.pdb > NUL
-:cpuidwin64release_net48
-if not exist ..\CpuIdWin\bin\Release\net48\x64 goto cpuidwin64release_core31
-echo Copying... CpuIdWin Release\net48\x64
-copy Release\x64\cpuid.dll ..\CpuIdWin\bin\Release\net48\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdWin\bin\Release\net48\x64\cpuid.pdb > NUL
-:cpuidwin64release_core31
-if not exist ..\CpuIdWin\bin\Release\netcoreapp3.1\x64 goto cpuidcon32debug_net40
-echo Copying... CpuIdWin Release\netcoreapp3.1\x64
-copy Release\x64\cpuid.dll ..\CpuIdWin\bin\Release\netcoreapp3.1\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdWin\bin\Release\netcoreapp3.1\x64\cpuid.pdb > NUL
+REM So the .NET projects don't need continuous rebuilding, just copy the DLLs
+REM to the correct location.
+REM
+REM Microsoft suggests that copying the file means breakpoints won't work [1],
+REM but this doesn't appear to be the case.
+REM
+REM [1] https://learn.microsoft.com/en-us/visualstudio/debugger/how-to-debug-from-a-dll-project
 
-:cpuidcon32debug_net40
-if not exist ..\CpuIdCon\bin\Debug\net40\x86 goto cpuidcon32debug_core31
-echo Copying... CpuIdCon Debug\net40\x86
-copy Debug\x86\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x86\cpuid.pdb > NUL
-:cpuidcon32debug_core31
-if not exist ..\CpuIdCon\bin\Debug\net40\x86 goto cpuidcon64debug_net40
-echo Copying... CpuIdCon Debug\netcoreapp3.1\x86
-copy Debug\x86\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x86\cpuid.dll > NUL
-copy Debug\x86\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x86\cpuid.pdb > NUL
-:cpuidcon64debug_net40
-if not exist ..\CpuIdCon\bin\Debug\net40\x64 goto cpuidcon64debug_core31
-echo Copying... CpuIdCon Debug\net40\x64
-copy Debug\x64\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x64\cpuid.pdb > NUL
-:cpuidcon64debug_core31
-if not exist ..\CpuIdCon\bin\Debug\net40\x64 goto cpuidcon32release_net40
-echo Copying... CpuIdCon Debug\netcoreapp3.1\x64
-copy Debug\x64\cpuid.dll ..\CpuIdCon\bin\Debug\net40\x64\cpuid.dll > NUL
-copy Debug\x64\cpuid.pdb ..\CpuIdCon\bin\Debug\net40\x64\cpuid.pdb > NUL
-:cpuidcon32release_net40
-if not exist ..\CpuIdCon\bin\Release\net40\x86 goto cpuidcon32release_core31
-echo Copying... CpuIdCon Release\net40\x86
-copy Release\x86\cpuid.dll ..\CpuIdCon\bin\Release\net40\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdCon\bin\Release\net40\x86\cpuid.pdb > NUL
-:cpuidcon32release_core31
-if not exist ..\CpuIdCon\bin\Release\net40\x86 goto cpuidcon64release_net40
-echo Copying... CpuIdCon Release\netcoreapp3.1\x86
-copy Release\x86\cpuid.dll ..\CpuIdCon\bin\Release\net40\x86\cpuid.dll > NUL
-copy Release\x86\cpuid.pdb ..\CpuIdCon\bin\Release\net40\x86\cpuid.pdb > NUL
-:cpuidcon64release_net40
-if not exist ..\CpuIdCon\bin\Release\net40\x64 goto cpuidcon64release_core31
-echo Copying... CpuIdCon Release\net40\x64
-copy Release\x64\cpuid.dll ..\CpuIdCOn\bin\Release\net40\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdCOn\bin\Release\net40\x64\cpuid.pdb > NUL
-:cpuidcon64release_core31
-if not exist ..\CpuIdCon\bin\Release\net40\x64 goto done
-echo Copying... CpuIdCon Release\netcoreapp3.1\x64
-copy Release\x64\cpuid.dll ..\CpuIdCOn\bin\Release\net40\x64\cpuid.dll > NUL
-copy Release\x64\cpuid.pdb ..\CpuIdCOn\bin\Release\net40\x64\cpuid.pdb > NUL
+call :SUB_Link CpuIdTest\legacy Debug net48 x86
+call :SUB_Link CpuIdTest\legacy Debug net48 x64
+call :SUB_Link CpuIdTest Debug netcoreapp3.1 x86
+call :SUB_Link CpuIdTest Debug netcoreapp3.1 x64
 
-:done
+call :SUB_Copy CpuIdWin Debug net48 x86
+call :SUB_Copy CpuIdWin Debug net48 x64
+call :SUB_Copy CpuIdWin Debug netcoreapp3.1 x86
+call :SUB_Copy CpuIdWin Debug netcoreapp3.1 x64
+call :SUB_Copy CpuIdWin Release net48 x86
+call :SUB_Copy CpuIdWin Release net48 x64
+call :SUB_Copy CpuIdWin Release netcoreapp3.1 x86
+call :SUB_Copy CpuIdWin Release netcoreapp3.1 x64
+
+call :SUB_Copy CpuIdCon Debug net40 x86
+call :SUB_Copy CpuIdCon Debug net40 x64
+call :SUB_Copy CpuIdCon Debug netcoreapp3.1 x86
+call :SUB_Copy CpuIdCon Debug netcoreapp3.1 x64
+call :SUB_Copy CpuIdCon Release net40 x86
+call :SUB_Copy CpuIdCon Release net40 x64
+call :SUB_Copy CpuIdCon Release netcoreapp3.1 x86
+call :SUB_Copy CpuIdCon Release netcoreapp3.1 x64
 pause
+exit
+
+REM ============================================================================
+REM Subroutines
+REM ============================================================================
+
+:SUB_Copy
+set "tgtfldr=%~1"
+set "release=%~2"
+set "netver=%~3"
+set "arch=%~4"
+if not exist "..\%tgtfldr%\bin\%release%\%netver%\%arch%" exit /b
+echo Copying... %tgtfldr%\bin\%release%\%netver%\%arch%
+call :SUB_CopyFile "%release%\%arch%\cpuid.dll" "..\%tgtfldr%\bin\%release%\%netver%\%arch%\cpuid.dll" > NUL
+call :SUB_CopyFile "%release%\%arch%\cpuid.pdb" "..\%tgtfldr%\bin\%release%\%netver%\%arch%\cpuid.pdb" > NUL
+exit /b
+
+:SUB_CopyFile
+set "source=%~1"
+set "dest=%~2"
+if exist "%dest%" del "%dest%"
+copy "%source%" "%dest%"
+exit /b
+
+:SUB_Link
+set "tgtfldr=%~1"
+set "release=%~2"
+set "netver=%~3"
+set "arch=%~4"
+if not exist "..\%tgtfldr%\bin\%release%\%netver%\%arch%" exit /b
+echo Linking... %tgtfldr%\bin\%release%\%netver%\%arch%
+call :SUB_LinkFile "%release%\%arch%\cpuid.dll" "..\%tgtfldr%\bin\%release%\%netver%\%arch%\cpuid.dll" > NUL
+call :SUB_LinkFile "%release%\%arch%\cpuid.pdb" "..\%tgtfldr%\bin\%release%\%netver%\%arch%\cpuid.pdb" > NUL
+exit /b
+
+:SUB_LinkFile
+set "source=%~1"
+set "dest=%~2"
+if exist "%dest%" del "%dest%"
+mklink /h "%dest%" "%source%"
+exit /b

@@ -1,0 +1,40 @@
+@startuml MakeCpuIdFactory_Sequence
+
+actor User
+participant MakeCpuIdFactory
+participant CpuIdNativeFactory
+participant CpuIdNative
+
+activate MakeCpuIdFactory
+
+group Get Factory
+User -> MakeCpuIdFactory : MakeCpuIdFactory(config)
+MakeCpuIdFactory -> CpuIdNativeFactory : <<instantiate>>
+activate CpuIdNativeFactory
+MakeCpuIdFactory --> User : std::unique_ptr<CpuIdNativeFactory>
+end group
+
+group Get CpuId for CPU
+User -> CpuIdNativeFactory : MakeCpuId()
+CpuIdNativeFactory -> CpuIdNative : <<instantiate>>
+activate CpuIdNative
+note right
+ If a `cpunum` is given then
+ current thread will be pinned
+ until object is destroyed
+end note
+CpuIdNativeFactory --> User : std::unique_ptr<CpuIdNative>
+end group
+
+group Get CPUID information
+User -> CpuIdNative : GetCpuId(eax, ecx)
+CpuIdNative --> User : std::optional<CpuIdRegister>
+
+User -> CpuIdNative : GetCpuId(eax, ecx)
+CpuIdNative --> User : std::optional<CpuIdRegister>
+
+User -> CpuIdNative : GetCpuId(eax, ecx)
+CpuIdNative --> User : std::optional<CpuIdRegister>
+end group
+
+@enduml

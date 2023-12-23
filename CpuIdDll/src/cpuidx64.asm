@@ -1,7 +1,7 @@
-		option casemap: none      ; case sensitive 
- 
+		option casemap: none      ; case sensitive
+
 		.code
- 
+
 ; See http://msdn.microsoft.com/en-us/library/zthk2dkh.aspx
 ; R11+48 pedx
 ; R11+40 pecx
@@ -23,7 +23,7 @@ cpuidl proc
 		mov dword ptr [rax], ecx
 		mov rax, qword ptr [r11+48]
 		mov dword ptr [rax], edx
-		
+
 		pop rbx
 		xor eax,eax
 		ret

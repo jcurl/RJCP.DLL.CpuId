@@ -1,0 +1,30 @@
+@startuml MakeCpuIdFactory_Classes
+
+abstract class ICpuIdFactory
+abstract class ICpuId
+abstract class ICpuIdConfig
+
+class CpuIdNativeFactory
+class CpuIdNative
+class CpuIdNativeConfig
+class CpuIdRegister
+
+class MakeCpuIdFactory <<free function>> {
+    {static} MakeCpuIdFactory(config: CpuIdNativeConfig&): CpuIdNativeFactory
+}
+
+ICpuIdFactory <|.d. CpuIdNativeFactory
+
+ICpuId <|.d. CpuIdNative
+
+ICpuIdConfig <|.d. CpuIdNativeConfig
+
+CpuIdNativeConfig <-d- MakeCpuIdFactory : <<depends>>
+
+MakeCpuIdFactory -r-> CpuIdNativeFactory : <<creates>>
+
+CpuIdNativeFactory -r-> CpuIdNative : <<creates>>
+
+CpuIdNative -r-> CpuIdRegister : <<creates>>
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml CpuIdNative
+set separator ::
+
+class rjcp::diagnostics::cpuid::CpuIdNative {
+    +CpuIdNative()
+    +CpuIdNative(cpunum: unsigned int)
+    --
+    +GetCpuId(eax: std::uint32_t, ecx: std::uint32_t):\n std::optional<CpuIdRegister>
+}
+
+class rjcp::diagnostics::cpuid::CpuIdRegister
+
+class rjcp::native::win32::Thread {
+    +Thread()
+    +Thread(cpunum: unsigned int)
+    +~Thread()
+    --
+    +IsPinned(): bool
+}
+note bottom
+    When called with `cpunum`, pins the current
+    thread on that core. Affinity is restored
+    when the destructor is called.
+
+    When no `cpunum` is used, pins on the current
+    core or (Core #0 on WinXP).
+end note
+
+class rjcp::native::win32::kernel32::Kernel32 {
+    instance(): Kernel32&
+    GetCurrentProcessorNumber(): DWORD
+}
+
+class rjcp::native::win32::ModuleGet {
+    ModuleGet(file_name: LPCTSTR)
+    operator[](proc_name: LPCSTR): ProcAddress
+}
+
+CpuIdNative -r-> CpuIdRegister : <<creates>>
+
+CpuIdNative -d- Thread
+
+Thread -r-> Kernel32 : <<uses>>
+
+Kernel32 -d- ModuleGet
+@enduml

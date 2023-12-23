@@ -1,17 +1,17 @@
 		.686                      ; create 32 bit code, required for "cpuid" instruction
 		.model flat, stdcall      ; 32 bit memory model
-		option casemap: none      ; case sensitive 
+		option casemap: none      ; case sensitive
 		option language: stdcall
- 
+
 		.code
- 
+
 ;stdcall calling convention used for 32-bit
 ; EBP+28 pedx:NEAR PTR DWORD
 ; EBP+24 pecx:NEAR PTR DWORD
 ; EBP+20 pebx:NEAR PTR DWORD
 ; EBP+16 peax:NEAR PTR DWORD
 ; EBP+12 vecx:DWORD
-; EBP+8  veax:DWORD 
+; EBP+8  veax:DWORD
 ; EBP+4  callers EIP
 ; EBP+0  callers EBP
 cpuidl proc veax:DWORD, vecx:DWORD, peax:NEAR PTR DWORD, pebx:NEAR PTR DWORD, pecx:NEAR PTR DWORD, pedx:NEAR PTR DWORD

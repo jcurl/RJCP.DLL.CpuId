@@ -16,6 +16,9 @@
         public static unsafe extern int iddump(CpuIdInfo* s, int len);
 
         [DllImport("cpuid.dll")]
+        public static unsafe extern int iddumponcore(CpuIdInfo* s, int len, int core);
+
+        [DllImport("cpuid.dll")]
         public static unsafe extern int iddumpall(CpuIdInfo* s, int len);
     }
 }

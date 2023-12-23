@@ -1,0 +1,12 @@
+Checks:
+    clang-analyzer-*
+    -bugprone-*
+    -bugprone-easily-swappable-parameters
+    performance-*
+    misc-*
+    -misc-const-correctness
+    cert-*
+    cppcoreguidelines-*
+    -cppcoreguidelines-avoid-magic-numbers
+    portability-*
+    readability-*'
