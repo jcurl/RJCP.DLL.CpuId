@@ -407,6 +407,7 @@
             FeatureCheck.Check("standard", 0x0008E3FD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x20100000);
             FeatureCheck.Check("thermal", 0x00000001, 0x00000001);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM)2 Quad  CPU   Q9450  @ 2.66GHz"));
 
@@ -424,6 +425,7 @@
             FeatureCheck.Check("standard", 0x0000C1A9, 0xBFE9FBFF);
             FeatureCheck.Check("extended", 0x00000000, 0x00100000);
             FeatureCheck.Check("thermal", 0x00000001, 0x00000001);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) Duo CPU      T2700  @ 2.33GHz"));
 
@@ -441,6 +443,7 @@
             FeatureCheck.Check("standard", 0x0098E3BD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000003, 0x00000001);
+            FeatureCheck.Check("perf", 0x000000BB); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7 CPU         920  @ 2.67GHz"));
 
@@ -458,6 +461,7 @@
             FeatureCheck.Check("standard", 0x009CE3BD, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000003, 0x00000001);
+            FeatureCheck.Check("perf", 0x000000BB); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Xeon(R) CPU           W3540  @ 2.93GHz"));
 
@@ -475,6 +479,7 @@
             FeatureCheck.Check("standard", 0x9C982203, 0x1FEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000075, 0x00000009);
+            FeatureCheck.Check("perf", 0x00000080); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i3-2120T CPU @ 2.60GHz"));
 
@@ -492,6 +497,7 @@
             FeatureCheck.Check("standard", 0x1FBAE3BF, 0xBFEBFBFF);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-2630QM CPU @ 2.00GHz"));
 
@@ -509,6 +515,7 @@
             FeatureCheck.Check("standard", 0x7FBAE3BF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz"));
 
@@ -526,6 +533,7 @@
             FeatureCheck.Check("standard", 0x7FBAE3FF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x28100800);
             FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-3820QM CPU @ 2.70GHz"));
 
@@ -543,6 +551,7 @@
             FeatureCheck.Check("standard", 0x7FBEE3BF, 0xBFEBFBFF, 0x00000281, 0x00000000, 0x00000000);
             FeatureCheck.Check("extended", 0x00000001, 0x2C100800);
             FeatureCheck.Check("thermal", 0x00000077, 0x00000009);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-4930K CPU @ 3.40GHz"));
 
@@ -562,6 +571,7 @@
             FeatureCheck.Check("extended", 0x00000121, 0x2C100800);
             FeatureCheck.Check("thermal", 0x000007F3, 0x00000009);
             FeatureCheck.Check("pt", 0x0000000F, 0x00000003);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz"));
 
@@ -644,6 +654,7 @@
             x86cpu.Check("extended", 0x00000121, 0x2C100800);
             x86cpu.Check("thermal", 0x000027F7, 0x00000009);
             x86cpu.Check("pt", 0x0000000F, 0x00000007);
+            x86cpu.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz"));
 
@@ -731,6 +742,7 @@
             x86cpu.Check("thermal", 0x000027F7, 0x00000001);
             x86cpu.Check("sgx", 0x00000001);
             x86cpu.Check("pt", 0x0000000F, 0x00000007);
+            x86cpu.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             x86cpu.AssertOnDifference();
             Assert.That(x86cpu.Cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
 
@@ -751,6 +763,7 @@
             FeatureCheck.Check("extended", 0x00000121, 0x2C100000);
             FeatureCheck.Check("thermal", 0x000027F7, 0x00000001);
             FeatureCheck.Check("pt", 0x0000000F, 0x00000007);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz"));
 
@@ -774,6 +787,7 @@
             FeatureCheck.Check("pt", 0x0000005F, 0x00000007);
             FeatureCheck.Check("kl", 0x00000007, 0x00000014, 0x00000003);
             FeatureCheck.Check("lbr", 0x4000000B, 0x00000007, 0x00000007);
+            FeatureCheck.Check("perf", 0x000000FF); // Bits are reversed, so 1 = Enabled here; 0 = Enabled in CPUID.
             FeatureCheck.AssertOnDifference();
             Assert.That(cpu.Description, Is.EqualTo("12th Gen Intel(R) Core(TM) i9-12900K"));
 

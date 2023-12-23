@@ -601,7 +601,7 @@
         private void FindPerformanceFeature(BasicCpu cpu)
         {
             if (cpu.FunctionCount < PerfSampling) return;
-            CpuIdRegister features10 = cpu.CpuRegisters.GetCpuId(PerfSampling, 1);
+            CpuIdRegister features10 = cpu.CpuRegisters.GetCpuId(PerfSampling, 0);
             if (features10 == null) return;
 
             int l = features10.Result[0] >> 24; // Get length of EBX bit vector
