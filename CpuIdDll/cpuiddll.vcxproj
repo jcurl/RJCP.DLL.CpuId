@@ -201,6 +201,7 @@
     <ClInclude Include="src\cpuid\ICpuIdDump.h" />
     <ClInclude Include="src\cpuid\ICpuIdFactory.h" />
     <ClInclude Include="src\globalstate.h" />
+    <ClInclude Include="src\native\win32\kernel32\GetCurrentProcessorNumberCpuId.h" />
     <ClInclude Include="src\native\win32\kernel32\Kernel32.h" />
     <ClInclude Include="src\native\win32\LibraryHandle.h" />
     <ClInclude Include="src\native\win32\Thread.h" />
@@ -240,6 +241,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\globalstate.cpp" />
+    <ClCompile Include="src\native\win32\kernel32\GetCurrentProcessorNumberCpuId.cpp" />
     <ClCompile Include="src\native\win32\kernel32\Kernel32.cpp" />
     <ClCompile Include="src\native\win32\LibraryHandle.cpp" />
     <ClCompile Include="src\native\win32\Thread.cpp" />

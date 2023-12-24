@@ -36,6 +36,11 @@ class rjcp::native::win32::ModuleGet {
     operator[](proc_name: LPCSTR): ProcAddress
 }
 
+class rjcp::native::win32::LibraryLoad {
+    LibraryLoad(file_name: LPCTSTR)
+    operator[](proc_name: LPCSTR): ProcAddress
+}
+
 CpuIdNative -r-> CpuIdRegister : <<creates>>
 
 CpuIdNative -d- Thread
@@ -43,4 +48,5 @@ CpuIdNative -d- Thread
 Thread -r-> Kernel32 : <<uses>>
 
 Kernel32 -d- ModuleGet
+Kernel32 -d- LibraryLoad
 @enduml

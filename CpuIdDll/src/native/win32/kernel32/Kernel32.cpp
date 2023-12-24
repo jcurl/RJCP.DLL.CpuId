@@ -1,7 +1,9 @@
 #include "native/win32/kernel32/Kernel32.h"
 
 #include "native/win32/LibraryHandle.h"
+#include "native/win32/kernel32/GetCurrentProcessorNumberCpuId.h"
 
+#include <memory>
 #include <mutex>
 
 namespace rjcp {
@@ -28,12 +30,14 @@ class Kernel32 {
   // change the state of this class.
   auto GetCurrentProcessorNumber() -> DWORD {
     if (GetCurrentProcessorNumber_) return GetCurrentProcessorNumber_();
+    if (NtGetCurrentProcessorNumber_) return NtGetCurrentProcessorNumber_();
 
-    // Windows XP doesn't offer this function. Some examples use the APICID of the CPUID instruction, but this is wrong,
-    // the APICID isn't necessarily a one-to-one mapping. The APIC IDs could be 0, 2, 4 for CPU's 0, 1, 2. We can't
-    // second guess how the OS scheduler is configured.
-    //
-    // Until we find a better solution, just say we're always on the primary processor.
+    // Windows XP doesn't offer this function. We enuemrate over all threads in the system, query the 8-bit APICID, and
+    // then to get the thread number, reverse map the APICID back to the original thread number.
+    std::call_once(GetCurrentProcessorNumberCpuIdFlag_, [this] {
+      GetCurrentProcessorNumberCpuId_ = std::make_unique<GetCurrentProcessorNumberCpuId>();
+    });
+    if (GetCurrentProcessorNumberCpuId_) return GetCurrentProcessorNumberCpuId_->GetCurrentProcessorNumber();
     return 0;
   }
 
@@ -48,10 +52,15 @@ class Kernel32 {
 
  private:
   // Must be before the public fields use this property.
-  ModuleGet handle_{TEXT("kernel32.dll")};
+  ModuleGet khandle_{TEXT("kernel32.dll")};
+  LibraryLoad nhandle_{TEXT("ntdll.dll")};
 
   using GetCurrentProcessorNumber_t = DWORD(WINAPI*)();
-  GetCurrentProcessorNumber_t GetCurrentProcessorNumber_ = handle_["GetCurrentProcessorNumber"];
+  GetCurrentProcessorNumber_t GetCurrentProcessorNumber_ = khandle_["GetCurrentProcessorNumber"];
+  GetCurrentProcessorNumber_t NtGetCurrentProcessorNumber_ = nhandle_["NtGetCurrentProcessorNumber"];
+
+  std::once_flag GetCurrentProcessorNumberCpuIdFlag_{};
+  std::unique_ptr<GetCurrentProcessorNumberCpuId> GetCurrentProcessorNumberCpuId_{};
 };
 
 Kernel32 Kernel32::instance_;  // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)

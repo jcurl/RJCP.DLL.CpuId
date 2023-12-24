@@ -16,7 +16,7 @@ This document covers the design and layout of the DLL project.
   - [3.3. CpuIdNative](#33-cpuidnative)
     - [3.3.1. Thread Implementation](#331-thread-implementation)
     - [3.3.2. Kernel32 Class and Windows XP compatibility](#332-kernel32-class-and-windows-xp-compatibility)
-      - [3.3.2.1. Future Work: Windows XP GetCurrentProcessorNumber](#3321-future-work-windows-xp-getcurrentprocessornumber)
+      - [3.3.2.1. Windows XP GetCurrentProcessorNumber](#3321-windows-xp-getcurrentprocessornumber)
       - [3.3.2.2. Future Work: Processor Groups](#3322-future-work-processor-groups)
   - [3.4. Dumping CPUID for a Processor](#34-dumping-cpuid-for-a-processor)
 
@@ -186,17 +186,41 @@ groups.
 
 #### 3.3.2. Kernel32 Class and Windows XP compatibility
 
+Windows XP is the baseline implementation and so the project officially targets
+only Windows XP API. However, it should use newer APIs when available,
+especially to target 64-bit.
+
+The class `Kernel32` abstracts API that isn't avaiable, by dynamically loading
+system libraries and using
+[GetProcAddress](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress)
+to test for and use missing functionality.
+
+This programming idiom allows future versions of the library to target newer
+Operating Systems, while still maintaining compatibility to older Operating
+Systems.
+
+##### 3.3.2.1. Windows XP GetCurrentProcessorNumber
+
 Windows XP doesn't support pinning the current thread to the current CPU. To do
 this, it needs the function
 [GetCurrentProcessorNumber()](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessornumber),
 which is only available on Windows Vista and later (only Windows XP drivers have
 access to this function).
 
-To work around this problem, while still targetting the library to work on
-Windows XP, we dynamically check for the existence of the function in
-`kernel32.dll`. If the function doesn't exist, then CPU#0 is always returned.
-Otherwise the current CPU thread is returned that allows the affinity for the
-current thread to be set to the current CPU thread.
+The function is dynamically loaded through
+[GetProcAddress](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress)
+to see if it exists. If it does (which is on Windows Vista and later), then the
+call is used. Otherwise, other mechanisms are used:
+
+- Check for
+  [NtGetCurrentProcessorNumber](https://learn.microsoft.com/en-us/windows/win32/procthread/ntgetcurrentprocessornumber).
+  This exists on Windows Server 2003 and may exist on Windows XP (tested with
+  Windows XP SP3 as being present).
+- Failing that, a fallback mechanism is used, where each CPU thread available in
+  the system (is limited to 32 threads on Windows XP) is queried with the
+  CPUID.01h.EBX[31:24] bits, that contains the CPU APIC ID. Then the workaround
+  is to query via the CPUID instruction the APICID for which we can then derive
+  the current thread.
 
 The implementation detail is through the singleton
 `rjcp::native::win32::kernel32::Kernel32`. It uses the class
@@ -204,29 +228,6 @@ The implementation detail is through the singleton
 hood
 [GetModuleHandleW()](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandlew))
 and dynamically get the address to the desired function.
-
-This programming idiom allows future versions of the library to target newer
-Operating Systems, while still maintaining compatibility to older Operating
-Systems.
-
-##### 3.3.2.1. Future Work: Windows XP GetCurrentProcessorNumber
-
-Windows XP doesn't support the method
-[GetCurrentProcessorNumber()](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessornumber),
-first only being supported in Windows Vista and later.
-
-There are two mechanisms for implementing this:
-
-- Use internal details to get the current processor number, potentially from the
-  current thread information, if available. Not using documented API is
-  undesirable. Or;
-- Iterate through all known threads (at most 32 on Windows XP (v5.1), or 64 on
-  Windows XP 64-bit / Windows Server 2003 (v5.2)). As we do this, get the APICID
-  using the CPUID instruction, so that when we have such a table, the CPUID can
-  tell us the CPU thread as configured by the Operating System.
-  - Some implementations rely on the APICID to map to the processor thread. This
-    is incorrect, it is regularly observed that the CPU core and the APICID are
-    not identical in value.
 
 ##### 3.3.2.2. Future Work: Processor Groups
 
