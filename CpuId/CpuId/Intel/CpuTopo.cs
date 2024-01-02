@@ -22,7 +22,7 @@
         /// Gets the identifier, derived from the APIC Id.
         /// </summary>
         /// <value>The identifier.</value>
-        public long Id { get; private set; }
+        public long Id { get; }
 
         /// <summary>
         /// Defines the APIC mask which defines this processor level.
@@ -56,12 +56,12 @@
         /// </item>
         /// </list>
         /// </remarks>
-        public long Mask { get; private set; }
+        public long Mask { get; }
 
         /// <summary>
         /// Gets the topology description for the core that the <see cref="Id"/> represents.
         /// </summary>
         /// <value>The topology type.</value>
-        public CpuTopoType TopoType { get; private set; }
+        public CpuTopoType TopoType { get; }
     }
 }

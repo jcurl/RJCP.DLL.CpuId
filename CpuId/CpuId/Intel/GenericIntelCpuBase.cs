@@ -26,8 +26,6 @@
         private protected GenericIntelCpuBase(BasicCpu cpu)
         {
             m_Cpu = cpu;
-            Features = new CpuFeatures();
-            Topology = new Topology();
         }
 
         /// <inheritdoc/>
@@ -70,10 +68,10 @@
         public int ProcessorType { get; protected set; }
 
         /// <inheritdoc/>
-        public CpuFeatures Features { get; private set; }
+        public CpuFeatures Features { get; } = new CpuFeatures();
 
         /// <inheritdoc/>
-        public Topology Topology { get; private set; }
+        public Topology Topology { get; } = new Topology();
 
         /// <summary>
         /// Gets the brand string from registers 80000002-80000004h.

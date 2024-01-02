@@ -27,6 +27,20 @@
 
             lblApicId.Text = cpuId.Topology.ApicId.ToString("X8");
 
+            if (cpuId.Topology.BigLittle is BigLittleIntel perfCore) {
+                switch (perfCore.CoreType) {
+                case BigLittleIntelCoreType.IntelAtom:
+                    lblBigLittle.Text = $"Intel ATOM (model {perfCore.ModelId:x06}h)";
+                    break;
+                case BigLittleIntelCoreType.IntelCore:
+                    lblBigLittle.Text = $"Intel Core (model {perfCore.ModelId:x06}h)";
+                    break;
+                default:
+                    lblBigLittle.Text = $"Intel {perfCore.CoreType:x02} (model {perfCore.ModelId:x06}h)";
+                    break;
+                }
+            }
+
             foreach (CpuTopo cpuTopo in cpuId.Topology.CoreTopology) {
                 ListViewItem lvi = new ListViewItem {
                     Text = cpuTopo.TopoType.ToString(),

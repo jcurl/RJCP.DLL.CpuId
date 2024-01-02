@@ -34,6 +34,8 @@ ICpuRegisters "1" *-d- "*" CpuIdRegister
 
 @enduml
 
+'======================================================================
+
 @startuml CpuIdX86.Topology
 
 interface ICpuIdX86
@@ -42,6 +44,7 @@ class Topology {
     +ApicId: long
     +CoreTopology: CpuTopoList
     +CacheTopology: CacheTopoList
+    +BigLittle: IBigLittle
 }
 ICpuIdX86 *-d- Topology
 
@@ -68,6 +71,8 @@ CacheTopoList "1" *-d- "*" CacheTopo
 
 @enduml
 
+'======================================================================
+
 @startuml CpuIdX86.CacheTopo
 
 class CacheTopo
@@ -80,5 +85,38 @@ CacheTopo <-d- CacheTopoCpu
 CacheTopo <-d- CacheTopoTrace
 CacheTopo <-d- CacheTopoTlb
 CacheTopo <-d- CacheTopoPrefetch
+
+@enduml
+
+'======================================================================
+
+@startuml CpuIdX86.BigLittle
+
+interface IBigLittle {
+    +IsPerformance: bool
+}
+
+class Topology {
+    +ApicId: long
+    +CoreTopology: CpuTopoList
+    +CacheTopology: CacheTopoList
+    +BigLittle: IBigLittle
+}
+
+Topology *-r- IBigLittle
+
+class BigLittleIntel {
+    +IsPerformance: bool
+    +CoreType: BigLittleIntelCoreType
+    +ModelId: int
+}
+
+enum BigLittleIntelCoreType {
+    IntelAtom = 0x20
+    IntelCore = 0x40
+}
+
+IBigLittle <|.d. BigLittleIntel
+BigLittleIntel -r- BigLittleIntelCoreType
 
 @enduml

@@ -34,6 +34,8 @@
             this.hdrPackageLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrIdentifier = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hdrMask = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lbltxtBigLittle = new System.Windows.Forms.Label();
+            this.lblBigLittle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblApicId
@@ -68,9 +70,9 @@
             this.lvwCpuTopo.FullRowSelect = true;
             this.lvwCpuTopo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwCpuTopo.HideSelection = false;
-            this.lvwCpuTopo.Location = new System.Drawing.Point(144, 48);
+            this.lvwCpuTopo.Location = new System.Drawing.Point(144, 58);
             this.lvwCpuTopo.Name = "lvwCpuTopo";
-            this.lvwCpuTopo.Size = new System.Drawing.Size(333, 269);
+            this.lvwCpuTopo.Size = new System.Drawing.Size(333, 259);
             this.lvwCpuTopo.TabIndex = 2;
             this.lvwCpuTopo.UseCompatibleStateImageBehavior = false;
             this.lvwCpuTopo.View = System.Windows.Forms.View.Details;
@@ -87,10 +89,32 @@
             // 
             this.hdrMask.Text = "Mask";
             // 
+            // lbltxtBigLittle
+            // 
+            this.lbltxtBigLittle.Location = new System.Drawing.Point(3, 31);
+            this.lbltxtBigLittle.Name = "lbltxtBigLittle";
+            this.lbltxtBigLittle.Size = new System.Drawing.Size(132, 14);
+            this.lbltxtBigLittle.TabIndex = 3;
+            this.lbltxtBigLittle.Text = "Big/Little Core:";
+            this.lbltxtBigLittle.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblBigLittle
+            // 
+            this.lblBigLittle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBigLittle.AutoEllipsis = true;
+            this.lblBigLittle.Location = new System.Drawing.Point(141, 31);
+            this.lblBigLittle.Name = "lblBigLittle";
+            this.lblBigLittle.Size = new System.Drawing.Size(310, 14);
+            this.lblBigLittle.TabIndex = 4;
+            this.lblBigLittle.Text = "-";
+            // 
             // CpuTopologyControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblBigLittle);
+            this.Controls.Add(this.lbltxtBigLittle);
             this.Controls.Add(this.lvwCpuTopo);
             this.Controls.Add(this.lblApicId);
             this.Controls.Add(this.lbltxtApicId);
@@ -107,5 +131,7 @@
         private System.Windows.Forms.ColumnHeader hdrPackageLevel;
         private System.Windows.Forms.ColumnHeader hdrIdentifier;
         private System.Windows.Forms.ColumnHeader hdrMask;
+        private System.Windows.Forms.Label lbltxtBigLittle;
+        private System.Windows.Forms.Label lblBigLittle;
     }
 }

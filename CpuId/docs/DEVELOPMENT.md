@@ -26,6 +26,7 @@ organisation. For detailed API information, see the MAML documentation in code.
     - [3.4.1. Topology Class Diagram](#341-topology-class-diagram)
     - [3.4.2. APIC Identifier](#342-apic-identifier)
     - [3.4.3. The Core Topology](#343-the-core-topology)
+      - [3.4.3.1. Big/Little](#3431-biglittle)
     - [3.4.4. The Cache Topology](#344-the-cache-topology)
 - [4. Future Work](#4-future-work)
   - [4.1. Processor Groups](#41-processor-groups)
@@ -290,6 +291,17 @@ table, which is out side of the scope of CpuId.NET.
 
 Each element contains an identifier (which thread, which core, which package
 number) which is derived from the APIC identifier.
+
+##### 3.4.3.1. Big/Little
+
+Intel Processors, since 12th Gen, support a BIG.little architecture, where the
+big cores are based on the Intel Core microarchitecture, and the little cores
+are based on the Intel Atom microarchitecture.
+
+If the `cpu.Topology.BigLittle` is not `null`, it can be tested to be the
+interface for further information
+
+![Intel BIG.little](assets/CpuIdX86/CpuIdX86.BigLittle.svg)
 
 #### 3.4.4. The Cache Topology
 

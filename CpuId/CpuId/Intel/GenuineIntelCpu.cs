@@ -18,6 +18,7 @@
         internal const int ProcTrace = 0x14;
         internal const int AddressTranslation = 0x18;
         internal const int KeyLocker = 0x19;
+        internal const int NativeModelId = 0x1A;
         internal const int LastBranchRec = 0x1C;
         internal const int ExtendedTopology2 = 0x1F;
 
@@ -622,6 +623,27 @@
 
         private void GetCpuTopology(BasicCpu cpu)
         {
+            if (cpu.FunctionCount >= NativeModelId) {
+                CpuIdRegister nativeId = cpu.CpuRegisters.GetCpuId(NativeModelId, 0);
+                if (nativeId.Result[0] != 0) {
+                    BigLittleIntelCoreType coreType = (BigLittleIntelCoreType)((nativeId.Result[0] >> 24) & 0xFF);
+                    int modelId = nativeId.Result[0] & 0xFFFFFF;
+
+                    // At the moment, only Gen 12-14 have this, and there is only Atom/Core.
+                    switch (coreType) {
+                    case BigLittleIntelCoreType.IntelAtom:
+                        Topology.BigLittle = new BigLittleIntel(false, coreType, modelId);
+                        break;
+                    case BigLittleIntelCoreType.IntelCore:
+                        Topology.BigLittle = new BigLittleIntel(true, coreType, modelId);
+                        break;
+                    default:
+                        Topology.BigLittle = new BigLittleIntel(false, coreType, modelId);
+                        break;
+                    }
+                }
+            }
+
             if (!Features["HTT"].Value || !Features["APIC"].Value) {
                 if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology) {
                     CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);

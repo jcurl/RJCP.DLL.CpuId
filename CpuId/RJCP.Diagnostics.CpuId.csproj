@@ -84,6 +84,9 @@
     <Compile Include="CpuId\Intel\AmdBrandIdentifier+FamilyF.cs" />
     <Compile Include="CpuId\Intel\AuthenticAmdCpu.cs" />
     <Compile Include="CpuId\Intel\BasicCpu.cs" />
+    <Compile Include="CpuId\Intel\BigLittleIntel.cs" />
+    <Compile Include="CpuId\Intel\BigLittleIntelCoreType.cs" />
+    <Compile Include="CpuId\Intel\IBigLittle.cs" />
     <Compile Include="CpuId\Intel\CacheTopo.cs" />
     <Compile Include="CpuId\Intel\CacheTopoCpu.cs" />
     <Compile Include="CpuId\Intel\CacheTopoList.cs" />

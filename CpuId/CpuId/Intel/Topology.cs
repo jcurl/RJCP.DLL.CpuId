@@ -22,5 +22,11 @@
         /// </summary>
         /// <value>Information about the cache topology.</value>
         public CacheTopoList CacheTopology { get; } = new CacheTopoList();
+
+        /// <summary>
+        /// Gets information if this is a Big / Little core, and extra information associated with it.
+        /// </summary>
+        /// <value>Information about big / little, or <see langword="null"/> if not available.</value>
+        public IBigLittle BigLittle { get; set; }
     }
 }
