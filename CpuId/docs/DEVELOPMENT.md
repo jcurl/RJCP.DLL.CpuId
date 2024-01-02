@@ -1,7 +1,7 @@
 # CPUID .NET Library <!-- omit in toc -->
 
-This document covers the overview on how to use the library. For detailed API
-information, see the MAML documentation in code.
+This document covers usage of the library and a high level overview of its
+organisation. For detailed API information, see the MAML documentation in code.
 
 <!--
     This documentation uses Visual Studio Code with Markdown All in One
@@ -11,10 +11,13 @@ information, see the MAML documentation in code.
 - [1. Supported Platforms](#1-supported-platforms)
   - [1.1. Libraries and Location](#11-libraries-and-location)
 - [2. Instantiating](#2-instantiating)
-  - [2.1. Based on the Local CPU](#21-based-on-the-local-cpu)
-  - [2.2. From a Previously Saved XML file](#22-from-a-previously-saved-xml-file)
-    - [2.2.1. The XML File Format](#221-the-xml-file-format)
-    - [2.2.2. Writing the XML Format](#222-writing-the-xml-format)
+  - [2.1. The Factory Model Layout](#21-the-factory-model-layout)
+    - [2.1.1. CPUID on Windows](#211-cpuid-on-windows)
+    - [2.1.2. CPUID on Linux (Not Implemented)](#212-cpuid-on-linux-not-implemented)
+  - [2.2. Instantiate from the Local CPU](#22-instantiate-from-the-local-cpu)
+  - [2.3. Instantiate from a Saved XML file](#23-instantiate-from-a-saved-xml-file)
+    - [2.3.1. The XML File Format](#231-the-xml-file-format)
+    - [2.3.2. Writing the XML Format](#232-writing-the-xml-format)
 - [3. Intel Architecture](#3-intel-architecture)
   - [3.1. Basic Information (`ICpuId`)](#31-basic-information-icpuid)
   - [3.2. Basic Information (`Intel.ICpuIdX86`)](#32-basic-information-intelicpuidx86)
@@ -23,16 +26,15 @@ information, see the MAML documentation in code.
     - [3.4.1. The Core Topology](#341-the-core-topology)
     - [3.4.2. The Cache Topology](#342-the-cache-topology)
 - [4. Future Work](#4-future-work)
-  - [4.1. Thread Affinity](#41-thread-affinity)
-  - [4.2. Processor Groups](#42-processor-groups)
-  - [4.3. Windows XP](#43-windows-xp)
+  - [4.1. Processor Groups](#41-processor-groups)
+  - [4.2. Windows XP](#42-windows-xp)
 
 ## 1. Supported Platforms
 
 This library supports only Intel and AMD processors for Windows XP and later. It
 consists of two parts:
 
-- Native DLL for 32-bit and 64-bit Intel, compiled with Visual Studio 2012 with
+- Native DLL for 32-bit and 64-bit Intel, compiled with Visual Studio 2022 with
   Windows XP support; and
 - .NET DLL for parsing the CPUID information returned on those processors.
 
@@ -54,7 +56,54 @@ will not be able to get CPUID information for the current CPU.
 
 The library uses the _factory_ model. You do not instantiate classes directly.
 
-### 2.1. Based on the Local CPU
+### 2.1. The Factory Model Layout
+
+To get the CPUID settings for all cores in the system, call the
+`ICpuIdFactory.CreateAll()` method that returns an `IEnumerable<ICpuId>`. There
+are multiple factories for getting this information, whether it be from the
+local machine, or a file saved on disk. To add extra functionality, one can
+provide a custom implementation based in `ICpuIdFactory`.
+
+![CpuID Factory](assets/CpuIdFactory/CpuIdFactory.svg)
+
+The diagram above shows, that when instantiating via the `CpuIdFactory`, it
+obtains the information from the CPU(s) managed by the OS.
+
+When instantiating the `CpuIdXmlFactory`, the objects are read from an XML file.
+This is interesting to analyse CPUID dumps of other machines, for example, to
+perform post-mortem analysis.
+
+#### 2.1.1. CPUID on Windows
+
+The first class responsible for reading the CPUID information is the
+`WindowsCpuIdFactory` which loads the appropriate DLL dependending on the
+architecture which is running. This is a feature of Windows, that once the DLL
+is loaded in memory, P/Invoke simply only needs to refer to the DLL image in
+memory, not on disk, so all P/Invoke methods are applicable for 32-bit as well
+as 64-bit so long as the library is loaded prior.
+
+The `WindowsCpuIdFactory` then calls `X86CpuIdFactory` that calls the loaded
+library to retrieve the CPUID information. It's not shown in the above diagram,
+but the libraries are wrapped around the class `CpuIdLib` which P/Invokes into
+the native windows libraries.
+
+#### 2.1.2. CPUID on Linux (Not Implemented)
+
+You can see in the UML diagram, that the code is not implemented for Linux.
+However, the software is architected that it could be easy to add.
+
+- Create a new `LinuxCpuIdFactory` class, that derives from
+  `X86CpuIdFactoryBase`.
+- There are multiple ways of reading the CPUID information. One could use the
+  Kernel interfaces, a kernel module, or write a shared object that obtains this
+  information. One could implement a factory for each mechanism, and then
+  iterate through each factory in the order preferred, until the information is
+  obtained.
+- The factory class would read the information, put it into a `BasicCpu`
+  structure (not shown) and call the base class. All parsing of the CPUID
+  information is already implemented.
+
+### 2.2. Instantiate from the Local CPU
 
 Use the following code snippet:
 
@@ -88,7 +137,7 @@ to get the number of processors in the system (specifically, only for the
 current processor group on Windows, which is supported on Windows Vista and
 later).
 
-### 2.2. From a Previously Saved XML file
+### 2.3. Instantiate from a Saved XML file
 
 Use the following code snippet to load data from a previously saved XML file.
 
@@ -116,7 +165,7 @@ ICpuIdFactory factory = new CpuIdXmlFactory() {
 IEnumerable<ICpuId> cpus = factory.CreateAll();
 ```
 
-#### 2.2.1. The XML File Format
+#### 2.3.1. The XML File Format
 
 The file format is simple:
 
@@ -132,7 +181,7 @@ The file format is simple:
 
 The attribute `eax` is the CPUID function requested, where `ecx` is the sub-leaf.
 
-#### 2.2.2. Writing the XML Format
+#### 2.3.2. Writing the XML Format
 
 There is the program `CpuIdCon` which does this in only a few lines. Most of the
 work is in the framework itself. You can use this for your own programs to make
@@ -232,27 +281,15 @@ different caches for Data, Instruction, Unified caches for the CPU or MMU (TLB).
 
 ## 4. Future Work
 
-### 4.1. Thread Affinity
-
-The thread affinity is set by the code when dumping all registers. There's a DLL
-API that allows to specify the affinity for which the current thread should run,
-but this is not exposed by the CpuId.NET methods. The reason being, the
-`iddumpall` native method dumps all registers at once and is generally
-sufficient, and the library should be updated to perform a more comprehensive
-dump with newer CPUs.
-
-None-the-less, it could be conceivable that one of the factory methods allows
-for a core number, to set the affinity automatically. The core numbers supported
-would be 0 to 63 while processor groups under Windows is not supported (and is
-only needed on 64-bit processors and later).
-
-### 4.2. Processor Groups
+### 4.1. Processor Groups
 
 The library does not support Processor Groups. It would need to be determined
 how to support this for Windows XP (which doesn't have processor groups) and
 Windows Vista and later, which do.
 
-### 4.3. Windows XP
+See [CpuIdDll/DESIGN.md](../../CpuIdDll/docs/DESIGN.md) for more information.
+
+### 4.2. Windows XP
 
 It would be interesting to keep Windows XP support (which includes Windows
 Server 2003). This allows for the capture of older CPUs, which newer versions of

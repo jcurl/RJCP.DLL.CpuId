@@ -38,7 +38,7 @@ to try and target as many CPUs as possible.
 
 There are 4 projects:
 
-- A C++ library compiled with Visual Studio 2012 IDE with Windows XP
+- A C++ library compiled with Visual Studio 2022 IDE with Windows XP
   compatibility
 - A .NET Assembly reusable in other projects
 - CPUID for Windows
