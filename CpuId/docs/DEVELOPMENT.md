@@ -23,8 +23,10 @@ organisation. For detailed API information, see the MAML documentation in code.
   - [3.2. Basic Information (`Intel.ICpuIdX86`)](#32-basic-information-intelicpuidx86)
   - [3.3. Dumping Registers](#33-dumping-registers)
   - [3.4. Topology](#34-topology)
-    - [3.4.1. The Core Topology](#341-the-core-topology)
-    - [3.4.2. The Cache Topology](#342-the-cache-topology)
+    - [3.4.1. Topology Class Diagram](#341-topology-class-diagram)
+    - [3.4.2. APIC Identifier](#342-apic-identifier)
+    - [3.4.3. The Core Topology](#343-the-core-topology)
+    - [3.4.4. The Cache Topology](#344-the-cache-topology)
 - [4. Future Work](#4-future-work)
   - [4.1. Processor Groups](#41-processor-groups)
   - [4.2. Windows XP](#42-windows-xp)
@@ -232,6 +234,8 @@ interface offers in addition:
 - Access to the CPUID registers through `Registers`
 - Information about the CPU Topology via `Topology`
 
+![x86 Top Level](assets/CpuIdX86/CpuIdX86.Interface.svg)
+
 ### 3.3. Dumping Registers
 
 The CpuId.NET library caches the results of the CPUID instruction in local
@@ -248,6 +252,11 @@ identifier may change and can result in inconsistent results.
 Once the value is read, it is cached and does not change so that other threads
 can process the data on any available thread.
 
+The initial set of CPUID registers which are cached is obtained by the DLL. This
+makes the DLL responsible for "knowing" all applicable CPUID registers when just
+instantiating and then dumping the registers to a file. If registers are
+missing, application code can query further registers.
+
 ### 3.4. Topology
 
 The `Topology` field of type `Intel.Topology` supports basic APIC information
@@ -256,10 +265,18 @@ is usually the initial APIC identifier on system start, but may sometimes be
 assigned by the BIOS. This can be used to help identify the various processors
 and their relationship.
 
+#### 3.4.1. Topology Class Diagram
+
+This class diagram gives an overview of the x86 topology information:
+
+![x86 Topology](assets/CpuIdX86/CpuIdX86.Topology.svg)
+
+#### 3.4.2. APIC Identifier
+
 If the `cpu.Topology.ApicId` is -1, then the topology is not supported, and the
 `cpu.Topology` can be ignored.
 
-#### 3.4.1. The Core Topology
+#### 3.4.3. The Core Topology
 
 To learn how the cores are organized within the CPU, each CPU has a
 `CoreTopoList` exposed by `Topology.CoreTopology`. This is a list of properties,
@@ -274,10 +291,12 @@ table, which is out side of the scope of CpuId.NET.
 Each element contains an identifier (which thread, which core, which package
 number) which is derived from the APIC identifier.
 
-#### 3.4.2. The Cache Topology
+#### 3.4.4. The Cache Topology
 
 Each core has cache, exposed by `Topology.CacheTopoList`. This is a list of
 different caches for Data, Instruction, Unified caches for the CPU or MMU (TLB).
+
+![x86 Cache Topology](assets/CpuIdX86/CpuIdX86.CacheTopo.svg)
 
 ## 4. Future Work
 

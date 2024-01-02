@@ -1,0 +1,84 @@
+@startuml CpuIdX86.Interface
+
+interface ICpuId
+
+interface ICpuIdX86 {
+    +ProcessorSignature: int
+    +Family: int
+    +Model: int
+    +Stepping: int
+    +ProcessorType: int
+    +BrandString: string
+    +Registers: ICpuRegisters
+    +Topology: Topology
+}
+
+ICpuId <|.d. ICpuIdX86
+
+interface ICpuRegisters {
+    +GetCpuId(function: int, subFunction: int): CpuIdRegister
+    +IsOnline: bool
+}
+
+interface "IEnumerable<CpuIdRegister>" as IEnumerable_CpuIdRegister
+
+class CpuIdRegister {
+    +Function: int
+    +SubFunction: int
+    +Result: IList<int> <<ReadOnlyCollection>>
+}
+
+IEnumerable_CpuIdRegister <|.d. ICpuRegisters
+ICpuIdX86 *-r- ICpuRegisters
+ICpuRegisters "1" *-d- "*" CpuIdRegister
+
+@enduml
+
+@startuml CpuIdX86.Topology
+
+interface ICpuIdX86
+
+class Topology {
+    +ApicId: long
+    +CoreTopology: CpuTopoList
+    +CacheTopology: CacheTopoList
+}
+ICpuIdX86 *-d- Topology
+
+class CpuTopoList
+class CpuTopo {
+    +Id: long
+    +Mask: long
+    +TopoType: CpuTopoType
+}
+enum CacheType
+CacheType -l- CacheTopo
+Topology *-d- CpuTopoList
+CpuTopoList "1" *-d- "*" CpuTopo
+
+class CacheTopoList
+class CacheTopo {
+    +Level: int
+    +CacheType: CacheType
+}
+enum TopoType
+TopoType -l- CpuTopo
+Topology *-d- CacheTopoList
+CacheTopoList "1" *-d- "*" CacheTopo
+
+@enduml
+
+@startuml CpuIdX86.CacheTopo
+
+class CacheTopo
+class CacheTopoCpu
+class CacheTopoTrace
+class CacheTopoTlb
+class CacheTopoPrefetch
+
+CacheTopo <-d- CacheTopoCpu
+CacheTopo <-d- CacheTopoTrace
+CacheTopo <-d- CacheTopoTlb
+CacheTopo <-d- CacheTopoPrefetch
+
+@enduml
