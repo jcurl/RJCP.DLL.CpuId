@@ -28,9 +28,16 @@ organisation. For detailed API information, see the MAML documentation in code.
     - [3.4.3. The Core Topology](#343-the-core-topology)
       - [3.4.3.1. Big/Little](#3431-biglittle)
     - [3.4.4. The Cache Topology](#344-the-cache-topology)
-- [4. Future Work](#4-future-work)
-  - [4.1. Processor Groups](#41-processor-groups)
-  - [4.2. Windows XP](#42-windows-xp)
+- [4. Updating for Newer Processors](#4-updating-for-newer-processors)
+  - [4.1. AMD64 Feature Level](#41-amd64-feature-level)
+  - [4.2. Feature Bits](#42-feature-bits)
+  - [4.3. CPU Topology](#43-cpu-topology)
+  - [4.4. Cache Topology](#44-cache-topology)
+  - [4.5. Big/Little](#45-biglittle)
+  - [4.6. Specific CPU behaviour](#46-specific-cpu-behaviour)
+- [5. Future Work](#5-future-work)
+  - [5.1. Processor Groups](#51-processor-groups)
+  - [5.2. Windows XP](#52-windows-xp)
 
 ## 1. Supported Platforms
 
@@ -310,9 +317,116 @@ different caches for Data, Instruction, Unified caches for the CPU or MMU (TLB).
 
 ![x86 Cache Topology](assets/CpuIdX86/CpuIdX86.CacheTopo.svg)
 
-## 4. Future Work
+## 4. Updating for Newer Processors
 
-### 4.1. Processor Groups
+This section gives an overview of the kind of work expected when adding a new
+CPU, or updating for features of a new CPU.
+
+The implementation is very much IA32 (x86) / IA32e (x86-64) centric and no
+research or consideration has been made for ARM or AARCH64 processors.
+
+### 4.1. AMD64 Feature Level
+
+The ABI defines a feature level, used under Linux to determine which compiled
+library to load. You can use this library also to get the feature level and load
+your own custom library (e.g. through setting up DLL paths, or loading the
+libraries explicitly).
+
+See [x86-64 psABI](https://gitlab.com/x86-psABIs/x86-64-ABI) which links to
+[PDF](https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build)
+which contains the definitive list. As processors move forward, this should be
+checked for newer versions of AMD64 feature levels.
+
+The functionality resides in `GenericIntelCpuBase.IdentifyFeatureLevel()` but
+must be read from each derived class (e.g. `AuthenticAmdCpu` or
+`GenuineIntelCpu`) after the features have been tested. The names of the
+features must be the same across all derived classes.
+
+### 4.2. Feature Bits
+
+Each derived class (e.g. `AuthenticAmdCpu` or `GenuineIntelCpu`) is responsible
+for checking the feature bits and setting the values. See the function
+`FindFeatures()` in each.
+
+This is only to test the existence of a CPUID feature. Settings, such as
+caching, limits, parameters are not part of the feature bits (each results in
+either `true` or `false`).
+
+| CPUID (h) | Intel |  AMD  | Feature Group               | Notes                          |
+| --------- | :---: | :---: | --------------------------- | ------------------------------ |
+| 01        |   X   |   X   | StandardFeatures            |                                |
+| 06        |   X   |   -   | PowerManagement             |                                |
+| 07        |   X   |   X   | StructuredExtendedFeatures  |                                |
+| 0A        |   X   |   -   | PerformanceSampling         |                                |
+| 0D        |   X   |   X   | ExtendedState               |                                |
+| 0F        |   X   |   -   | RdtMonitoring               |                                |
+| 10        |   X   |   -   | RdtMonitoring               |                                |
+| 12        |   X   |   -   | Sgx                         |                                |
+| 14        |   X   |   -   | ProcessorTrace              |                                |
+| 19        |   X   |   -   | KeyLocker                   |                                |
+| 1C        |   X   |   -   | LastBranchRecords           |                                |
+| 80000001  |   X   |   X   | ExtendedFeatures            |                                |
+| 80000007  |   -   |   X   | PowerManagement             |                                |
+| 80000008  |   X   |   X   | ExtendedFeaturesIdentifiers |                                |
+| 8000000A  |   -   |   X   | SvmFeatures                 |                                |
+| 8000001A  |   -   |   X   | PerformanceOptimizations    |                                |
+| 8000001B  |   -   |   X   | PerformanceSampling         |                                |
+| 8000001C  |   -   |   X   | LightweightProfiling        |                                |
+| 8000001F  |   -   |   X   | EncryptedMemory             |                                |
+| 80000020  |   -   |   X   | PqosExtended                | Similar to Intel RdtMonitoring |
+| 80000021  |   -   |   X   | ExtendedFeatures            |                                |
+| 80000022  |   -   |   X   | PerfMonDebug                |                                |
+| 80000023  |   -   |   X   | EncryptedMemory             |                                |
+
+Check across the CPU implementations, if the features are identical, they should
+have the same name. There are some rare cases where features have the same name,
+but are derived from different bits. To ensure that the descriptions are
+correct, the `CpuFeatures.resx` file should have the keys prefixed with `AMD_`
+or `INTEL_` (and be all capital letters).
+
+Each bit needs to be checked individually. Support functions are provided to
+make this easier.
+
+### 4.3. CPU Topology
+
+As the number of cores increase, especially beyond 256 cores, newer datasheets
+will contain new information about the APIC identifiers.
+
+The methods `GetCpuTopology` in `AuthenticAmdCpu` or `GenuineIntelCpu` is
+responsible for decoding the CPUID information and constructing the:
+
+- APIC identifier, which the CPU uses to determine the unique identifier for the
+  core;
+- Topology (location) for each core, such as the `CpuTopoType`, the mask as when
+  applied to the APIC id, so that applications can determine the 'group' of
+  cores that it belongs to (such as two threads have a common core)
+
+### 4.4. Cache Topology
+
+Each core provides typically information about the caches available. Again as
+the topologies change, so do the caches that are available.
+
+The method `GetCacheTopology()` in `AuthenticAmdCpu` or `GenuineIntelCpu` is
+responsible for decoding the CPUID information and constructing the caches.
+
+The masks should be defined to show which APIC Identifiers share the same cache.
+
+### 4.5. Big/Little
+
+This is new in Intel processors. AMD may implement this also. Must identify the
+core if it is a power core, or an efficiency core. Intel provides the core type
+(as Core(TM) or Atom(TM)). AMD will need its own class deriving from
+`IBigLittle` and is part of the `Topology` class.
+
+### 4.6. Specific CPU behaviour
+
+In some cases, there are tests for specific CPUs. This is documented either in
+the CPU data sheet specifically, or sometimes in the microarchitectural general
+documentation.
+
+## 5. Future Work
+
+### 5.1. Processor Groups
 
 The library does not support Processor Groups. It would need to be determined
 how to support this for Windows XP (which doesn't have processor groups) and
@@ -320,7 +434,7 @@ Windows Vista and later, which do.
 
 See [CpuIdDll/DESIGN.md](../../CpuIdDll/docs/DESIGN.md) for more information.
 
-### 4.2. Windows XP
+### 5.2. Windows XP
 
 It would be interesting to keep Windows XP support (which includes Windows
 Server 2003). This allows for the capture of older CPUs, which newer versions of
