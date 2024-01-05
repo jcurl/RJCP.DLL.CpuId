@@ -59,6 +59,7 @@
             BrandString = IntelLegacySignatures.GetType(m_ExtendedFamily, m_ExtendedModel, m_ProcessorType, m_FamilyCode, m_ModelNumber);
             Description = GetDescription();
             FindFeatures(cpu);
+            FeatureLevel = IdentifyFeatureLevel();
             GetCpuTopology(cpu);
             GetCacheTopology(cpu);
         }

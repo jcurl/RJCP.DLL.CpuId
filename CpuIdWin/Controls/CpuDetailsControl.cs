@@ -22,11 +22,12 @@
 
             if (cpuId is ICpuIdX86 x86Cpu) {
                 lblBrand.Text = x86Cpu.BrandString;
-                lblProcessorSignature.Text = string.Format("{0:X}h", x86Cpu.ProcessorSignature);
-                lblFamily.Text = string.Format("{0:X}h", x86Cpu.Family);
-                lblModel.Text = string.Format("{0:X}h", x86Cpu.Model);
-                lblStepping.Text = string.Format("{0}", x86Cpu.Stepping);
-                lblProcessorType.Text = string.Format("{0}", x86Cpu.ProcessorType);
+                lblProcessorSignature.Text = $"{x86Cpu.ProcessorSignature:X}h";
+                lblFamily.Text = $"{x86Cpu.Family:X}h";
+                lblModel.Text = $"{x86Cpu.Model:X}h";
+                lblStepping.Text = $"{x86Cpu.Stepping}";
+                lblProcessorType.Text = $"{x86Cpu.ProcessorType}";
+                lblFeatureLevel.Text = $"{x86Cpu.FeatureLevel}";
 
                 lblHypervisor.Text = GetHypervisor(x86Cpu) ?? "-";
             }

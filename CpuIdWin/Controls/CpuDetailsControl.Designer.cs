@@ -48,6 +48,8 @@
             this.lblProcessorSignature = new System.Windows.Forms.TextBox();
             this.lblHypervisor = new System.Windows.Forms.TextBox();
             this.lbltxtHypervisor = new System.Windows.Forms.Label();
+            this.lbltxtFeatureLevel = new System.Windows.Forms.Label();
+            this.lblFeatureLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbltxtCpuVendor
@@ -236,7 +238,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHypervisor.BackColor = System.Drawing.SystemColors.Control;
             this.lblHypervisor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lblHypervisor.Location = new System.Drawing.Point(144, 183);
+            this.lblHypervisor.Location = new System.Drawing.Point(144, 209);
             this.lblHypervisor.Name = "lblHypervisor";
             this.lblHypervisor.ReadOnly = true;
             this.lblHypervisor.Size = new System.Drawing.Size(307, 13);
@@ -245,17 +247,38 @@
             // 
             // lbltxtHypervisor
             // 
-            this.lbltxtHypervisor.Location = new System.Drawing.Point(3, 182);
+            this.lbltxtHypervisor.Location = new System.Drawing.Point(3, 208);
             this.lbltxtHypervisor.Name = "lbltxtHypervisor";
             this.lbltxtHypervisor.Size = new System.Drawing.Size(132, 14);
             this.lbltxtHypervisor.TabIndex = 18;
             this.lbltxtHypervisor.Text = "Hypervisor:";
             this.lbltxtHypervisor.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // lbltxtFeatureLevel
+            // 
+            this.lbltxtFeatureLevel.Location = new System.Drawing.Point(3, 174);
+            this.lbltxtFeatureLevel.Name = "lbltxtFeatureLevel";
+            this.lbltxtFeatureLevel.Size = new System.Drawing.Size(132, 14);
+            this.lbltxtFeatureLevel.TabIndex = 20;
+            this.lbltxtFeatureLevel.Text = "AMD64 Feature Level:";
+            this.lbltxtFeatureLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblFeatureLevel
+            // 
+            this.lblFeatureLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFeatureLevel.Location = new System.Drawing.Point(141, 174);
+            this.lblFeatureLevel.Name = "lblFeatureLevel";
+            this.lblFeatureLevel.Size = new System.Drawing.Size(310, 14);
+            this.lblFeatureLevel.TabIndex = 21;
+            this.lblFeatureLevel.Text = "-";
+            // 
             // CpuDetailsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblFeatureLevel);
+            this.Controls.Add(this.lbltxtFeatureLevel);
             this.Controls.Add(this.lblHypervisor);
             this.Controls.Add(this.lbltxtHypervisor);
             this.Controls.Add(this.lblProcessorSignature);
@@ -305,5 +328,7 @@
         private System.Windows.Forms.TextBox lblProcessorSignature;
         private System.Windows.Forms.TextBox lblHypervisor;
         private System.Windows.Forms.Label lbltxtHypervisor;
+        private System.Windows.Forms.Label lbltxtFeatureLevel;
+        private System.Windows.Forms.Label lblFeatureLevel;
     }
 }

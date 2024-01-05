@@ -52,5 +52,15 @@
         /// </summary>
         /// <value>The topology for the core.</value>
         Topology Topology { get; }
+
+        /// <summary>
+        /// Gets the AMD64 feature level.
+        /// </summary>
+        /// <value>The AMD64 feature level.</value>
+        /// <remarks>
+        /// The AMD64 feature level is defined in the AMD64 ABI. More information can be found at
+        /// https://gitlab.com/x86-psABIs/x86-64-ABI.
+        /// </remarks>
+        int FeatureLevel { get; }
     }
 }

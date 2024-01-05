@@ -73,6 +73,9 @@
         /// <inheritdoc/>
         public Topology Topology { get; } = new Topology();
 
+        /// <inheritdoc/>
+        public int FeatureLevel { get; protected set; }
+
         /// <summary>
         /// Gets the brand string from registers 80000002-80000004h.
         /// </summary>
@@ -262,6 +265,48 @@
                 return BitRegisterName[outRegister];
             }
             return $"R{outRegister}";
+        }
+
+        private bool HasFeatures(params string[] features)
+        {
+            foreach (string feature in features) {
+                if (!Features[feature].Value) return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Uses the already identified features to identify the current AMD64 feature level.
+        /// </summary>
+        /// <returns>The feature level, as defined by https://gitlab.com/x86-psABIs/x86-64-ABI.</returns>
+        /// <remarks>
+        /// The default feature level is 0 (32-bit). The following feature levels are defined, and are cumulative.
+        /// <list type="bullet">
+        /// <item>1 - CMOV, CX8, FPU, FXSR, MMX, OSFXSR, SCE, SSE, SSE2</item>
+        /// <item>2 - CPMXCHG16B, LAHF-SAHF, POPCNT, SSE3, SSE4_1, SSE4_2, SSSE3</item>
+        /// <item>3 - AVX, AVX2, BMI1, BMI2, F16C, FMA, LZCNT, MOVBE, OSXSAVE</item>
+        /// <item>4 - AVX512F, AVX512BW, AVX512CD, AVX512DQ, AVX512VL</item>
+        /// </list>
+        /// </remarks>
+        protected virtual int IdentifyFeatureLevel()
+        {
+            // SCE is defined in IA32_EFER.SCE and CPUID bit is "SYSCALL". We can't test in user mode if this is
+            // enabled.
+
+            // OSFXSR is defined in CR4 and CPUID bit is "FXSR".
+            if (!HasFeatures("CMOV", "CX8", "FPU", "FXSR", "MMX", "FXSR", "SYSCALL", "SSE", "SSE2"))
+                return 0;
+
+            if (!HasFeatures("CMPXCHG16B", "AHF64", "POPCNT", "SSE3", "SSE4_1", "SSE4_2", "SSSE3"))
+                return 1;
+
+            if (!HasFeatures("AVX", "AVX2", "BMI1", "BMI2", "F16C", "FMA", "LZCNT", "MOVBE", "OSXSAVE"))
+                return 2;
+
+            if (!HasFeatures("AVX512F", "AVX512BW", "AVX512CD", "AVX512DQ", "AVX512VL"))
+                return 3;
+
+            return 4;
         }
 
         /// <summary>

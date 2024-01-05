@@ -67,6 +67,7 @@
             BrandString = AmdBrandIdentifier.GetType(this);
             Description = GetDescription();
             FindFeatures(cpu);
+            FeatureLevel = IdentifyFeatureLevel();
             GetCpuTopology(cpu);
             GetCacheTopology(cpu);
         }
