@@ -3,6 +3,9 @@
     using System;
     using System.Runtime.InteropServices;
     using System.Security;
+#if NETFRAMEWORK
+    using System.Runtime.ConstrainedExecution;
+#endif
 
     [SuppressUnmanagedCodeSecurity]
     internal static partial class Kernel32
@@ -13,6 +16,9 @@
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true, EntryPoint = "LoadLibraryW")]
         public static extern SafeLibraryHandle LoadLibrary(string lpFileName);
 
+#if NETFRAMEWORK
+        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+#endif
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         public static extern bool FreeLibrary(IntPtr hModule);
 
