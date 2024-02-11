@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Versioning;
     using CpuId;
     using NUnit.Framework;
 
@@ -10,6 +11,7 @@
     {
         [Test]
         [Platform("Win")]
+        [SupportedOSPlatform("windows")]
         public void CurrentCpuId()
         {
             var factory = new CpuIdFactory();
@@ -24,6 +26,7 @@
 
         [Test]
         [Platform("Win")]
+        [SupportedOSPlatform("windows")]
         public void AllCpuId()
         {
             var factory = new CpuIdFactory();

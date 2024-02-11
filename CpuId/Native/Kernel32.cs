@@ -2,12 +2,14 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
     using System.Security;
 #if NETFRAMEWORK
     using System.Runtime.ConstrainedExecution;
 #endif
 
     [SuppressUnmanagedCodeSecurity]
+    [SupportedOSPlatform("windows")]
     internal static partial class Kernel32
     {
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true, EntryPoint = "LoadLibraryExW")]

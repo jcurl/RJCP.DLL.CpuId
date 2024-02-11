@@ -1,8 +1,10 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
     using System;
+    using System.Runtime.Versioning;
     using Native;
 
+    [SupportedOSPlatform("windows")]
     internal class CpuRegisters : CpuRegistersBase
     {
         /// <summary>

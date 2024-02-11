@@ -1,6 +1,7 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
     using System;
+    using System.Runtime.Versioning;
     using System.Xml;
     using Native;
 
@@ -23,6 +24,7 @@
         /// <paramref name="data"/>.
         /// </exception>
         /// <remarks>This constructor reads all CPU information from the current CPU node.</remarks>
+        [SupportedOSPlatform("windows")]
         public BasicCpu(CpuIdLib.CpuIdInfo[] data, int offset, int length)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));

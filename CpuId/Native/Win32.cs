@@ -2,8 +2,10 @@
 {
     using System;
     using System.IO;
+    using System.Runtime.Versioning;
     using static Kernel32;
 
+    [SupportedOSPlatform("windows")]
     internal static class Win32
     {
         public static SafeLibraryHandle LoadLibrary<T>(string fileName)

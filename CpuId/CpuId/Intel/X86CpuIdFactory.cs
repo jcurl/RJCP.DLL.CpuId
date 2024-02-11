@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
     using Native;
 
+    [SupportedOSPlatform("windows")]
     internal class X86CpuIdFactory : X86CpuIdFactoryBase
     {
         private const int MaxCpuLeaves = 256;

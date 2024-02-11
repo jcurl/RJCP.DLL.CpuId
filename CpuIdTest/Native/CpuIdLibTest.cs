@@ -2,11 +2,13 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
     using CpuId;
     using NUnit.Framework;
 
     [TestFixture]
     [Platform("Win")]
+    [SupportedOSPlatform("windows")]
     public class CpuIdLibTest
     {
         [OneTimeSetUp]

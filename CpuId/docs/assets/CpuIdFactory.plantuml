@@ -2,6 +2,13 @@
 allowmixing
 hide empty members
 
+skinparam component {
+    BackgroundColor<<Windows>> #B0C0F0
+}
+skinparam class {
+    BackgroundColor<<Windows>> #B0C0F0
+}
+
 enum CpuVendor
 hide CpuVendor
 
@@ -15,19 +22,26 @@ interface ICpuId { }
 class CpuIdXmlFactory { }
 class CpuIdFactory { }
 
-component [x86\\cpuid.dll] as x86cpuidwin
-component [x64\\cpuid.dll] as x64cpuidwin
+component [x86\\cpuid.dll] as x86cpuidwin <<Windows>>
+component [x64\\cpuid.dll] as x64cpuidwin <<Windows>>
 
 ICpuIdFactory ()-- CpuIdXmlFactory
 ICpuIdFactory ()-- CpuIdFactory
 
+namespace Native {
+    class CpuIdLib <<static>> <<Windows>>
+}
+
 namespace CpuId {
-    class WindowsCpuIdFactory { }
+    class WindowsCpuIdFactory <<Windows>> { }
 
     namespace CpuId.Intel {
         class X86CpuIdFactoryBase { }
-        class X86CpuIdFactory { }
+        class X86CpuIdFactory <<Windows>> { }
         class X86CpuIdFactoryXml { }
+
+        class BasicCpu <<Windows>> { }
+        class CpuRegisters <<Windows>> { }
 
         class GenuineIntelCpu <<ICpuId>> { }
         class GenericIntelCpu <<ICpuId>> { }
@@ -35,20 +49,27 @@ namespace CpuId {
     }
 }
 
-CpuId.Intel.X86CpuIdFactoryBase <|-- CpuId.Intel.X86CpuIdFactory
+CpuId.Intel.X86CpuIdFactoryBase <|-d- CpuId.Intel.X86CpuIdFactory
+CpuId.Intel.X86CpuIdFactory -d-> CpuId.Intel.BasicCpu : <<creates>>
+CpuId.Intel.GenuineIntelCpu o-d- CpuId.Intel.BasicCpu
+CpuId.Intel.GenericIntelCpu o-d- CpuId.Intel.BasicCpu
+CpuId.Intel.AuthenticAmdCpu o-d- CpuId.Intel.BasicCpu
+CpuId.Intel.BasicCpu *-r- CpuId.Intel.CpuRegisters
+CpuId.Intel.CpuRegisters -r- Native.CpuIdLib
 
-CpuIdFactory --> CpuId.WindowsCpuIdFactory : <<creates>>
-CpuIdFactory .> ICpuId : <<returns>>
+CpuIdFactory -d--> CpuId.WindowsCpuIdFactory : <<creates>>
+CpuIdFactory .d.> ICpuId : <<returns>>
 
 CpuId.WindowsCpuIdFactory --> CpuId.Intel.X86CpuIdFactory : <<creates>>
-CpuId.WindowsCpuIdFactory -- x86cpuidwin
-CpuId.WindowsCpuIdFactory -- x64cpuidwin
+CpuId.WindowsCpuIdFactory -- Native.CpuIdLib
+Native.CpuIdLib -- x86cpuidwin
+Native.CpuIdLib -- x64cpuidwin
 
 CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.GenuineIntelCpu : <<returns>>
 CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.GenericIntelCpu : <<returns>>
 CpuId.Intel.X86CpuIdFactoryBase ..> CpuId.Intel.AuthenticAmdCpu : <<returns>>
 
-CpuIdXmlFactory --> CpuId.Intel.X86CpuIdFactoryXml : <<creates>>
-CpuIdXmlFactory .> ICpuId : <<returns>>
+CpuIdXmlFactory -d---> CpuId.Intel.X86CpuIdFactoryXml : <<creates>>
+CpuIdXmlFactory .d.> ICpuId : <<returns>>
 CpuId.Intel.X86CpuIdFactoryBase <|-- CpuId.Intel.X86CpuIdFactoryXml
 @enduml

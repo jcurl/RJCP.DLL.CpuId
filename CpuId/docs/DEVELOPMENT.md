@@ -51,6 +51,9 @@ consists of two parts:
 The library is required to get access to the native CPU instruction CPUID for a
 live capture.
 
+On platforms that are not supportd, it is still possible to read and present XML
+files that contain CPU ID information.
+
 ### 1.1. Libraries and Location
 
 The .NET assembly supports 32-bit and 64-bit. For this, the library `cpuid.dll`
@@ -98,6 +101,10 @@ but the libraries are wrapped around the class `CpuIdLib` which P/Invokes into
 the native windows libraries.
 
 #### 2.1.2. CPUID on Linux (Not Implemented)
+
+Classes and methods that rely on Windows API or the `cpuid.dll` library are
+marked as `[SupportedOSPlatform("windows")]`. In the UML diagram, these are
+marked as blue.
 
 You can see in the UML diagram, that the code is not implemented for Linux.
 However, the software is architected that it could be easy to add.

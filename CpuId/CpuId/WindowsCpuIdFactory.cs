@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Versioning;
     using Intel;
     using Native;
 
+    [SupportedOSPlatform("windows")]
     internal class WindowsCpuIdFactory : ICpuIdFactory
     {
         public ICpuId Create()
