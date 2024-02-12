@@ -25,8 +25,7 @@
             {
                 if (IsReadOnly)
                     throw new InvalidOperationException("List is read only");
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowIfNull(value);
                 m_CpuTopo[index] = value;
             }
         }
@@ -73,8 +72,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            ThrowHelper.ThrowIfNull(item);
             m_CpuTopo.Add(item);
         }
 
@@ -148,8 +146,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            ThrowHelper.ThrowIfNull(item);
             m_CpuTopo.Insert(index, item);
         }
 

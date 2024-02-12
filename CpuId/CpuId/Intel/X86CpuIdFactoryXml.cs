@@ -10,7 +10,7 @@
 
         public X86CpuIdFactoryXml(XmlNode node)
         {
-            if (node == null) throw new ArgumentNullException(nameof(node));
+            ThrowHelper.ThrowIfNull(node);
             Node = node;
         }
 
@@ -21,7 +21,7 @@
             get { return m_Node; }
             set
             {
-                if (value == null) throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowIfNull(value);
                 m_Node = value;
             }
         }
@@ -67,8 +67,8 @@
         /// <exception cref="ArgumentException"><paramref name="cpus"/> may not be <see langword="null"/>.</exception>
         public static void Save(XmlWriter xmlWriter, IEnumerable<GenericIntelCpuBase> cpus)
         {
-            if (xmlWriter == null) throw new ArgumentNullException(nameof(xmlWriter));
-            if (cpus == null) throw new ArgumentNullException(nameof(cpus));
+            ThrowHelper.ThrowIfNull(xmlWriter);
+            ThrowHelper.ThrowIfNull(cpus);
 
             xmlWriter.WriteStartElement("cpuid");
             xmlWriter.WriteAttributeString("type", "x86");

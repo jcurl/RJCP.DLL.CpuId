@@ -27,9 +27,9 @@
 
         public void AddFeatureSet(string group, string name, string[] featureSet)
         {
-            if (group == null) throw new ArgumentNullException(nameof(group));
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (featureSet == null) throw new ArgumentNullException(nameof(featureSet));
+            ThrowHelper.ThrowIfNull(group);
+            ThrowHelper.ThrowIfNull(name);
+            ThrowHelper.ThrowIfNull(featureSet);
             if (string.IsNullOrEmpty(group)) throw new ArgumentException("Group is empty", nameof(group));
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("Name is empty", nameof(name));
 
@@ -59,7 +59,7 @@
 
         public void LoadCpu(ICpuIdX86 cpu)
         {
-            if (cpu == null) throw new ArgumentNullException(nameof(cpu));
+            ThrowHelper.ThrowIfNull(cpu);
             Cpu = cpu;
             Cpus = new ICpuIdX86[] { cpu };
             Initialize();
@@ -90,8 +90,8 @@
 
         public void Check(string group, params uint[] registers)
         {
-            if (group == null) throw new ArgumentNullException(nameof(group));
-            if (registers == null) throw new ArgumentNullException(nameof(registers));
+            ThrowHelper.ThrowIfNull(group);
+            ThrowHelper.ThrowIfNull(registers);
             if (registers.Length == 0) throw new ArgumentException("No registers to check are provided", nameof(registers));
             if (Cpu == null) throw new InvalidOperationException("CPU not loaded");
 

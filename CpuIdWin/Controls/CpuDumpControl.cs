@@ -8,7 +8,7 @@
     {
         public CpuDumpControl(ICpuIdX86 cpuId)
         {
-            if (cpuId == null) throw new ArgumentNullException(nameof(cpuId));
+            ThrowHelper.ThrowIfNull(cpuId);
 
             InitializeComponent();
 

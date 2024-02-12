@@ -52,8 +52,7 @@
 
         protected void AddRegister(CpuIdRegister result)
         {
-            if (result == null)
-                throw new ArgumentNullException(nameof(result));
+            ThrowHelper.ThrowIfNull(result);
 
             if (!m_Registers.TryGetValue(result.Function, out List<CpuIdRegister> registers)) {
                 registers = new List<CpuIdRegister>();

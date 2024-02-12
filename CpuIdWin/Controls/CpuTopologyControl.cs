@@ -8,7 +8,7 @@
     {
         public CpuTopologyControl(ICpuIdX86 cpuId)
         {
-            if (cpuId == null) throw new ArgumentNullException(nameof(cpuId));
+            ThrowHelper.ThrowIfNull(cpuId);
 
             // The CoreMask is used to know how many bits to show for the cache mask.
             int coreMask = 0;

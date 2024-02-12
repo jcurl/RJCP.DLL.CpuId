@@ -468,7 +468,7 @@
         /// <exception cref="ArgumentNullException"><paramref name="xmlWriter"/> may not be <see langword="null"/>.</exception>
         public void Save(XmlWriter xmlWriter)
         {
-            if (xmlWriter == null) throw new ArgumentNullException(nameof(xmlWriter));
+            ThrowHelper.ThrowIfNull(xmlWriter);
             xmlWriter.WriteStartElement("processor");
             WriteRegisters(xmlWriter);
             xmlWriter.WriteEndElement();

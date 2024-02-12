@@ -27,7 +27,7 @@
         [SupportedOSPlatform("windows")]
         public BasicCpu(CpuIdLib.CpuIdInfo[] data, int offset, int length)
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            ThrowHelper.ThrowIfNull(data);
             if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "offset is negative");
             if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "length is negative");
             if (offset > data.Length - length) throw new ArgumentException("The length and offset would exceed the boundaries of the array/buffer");

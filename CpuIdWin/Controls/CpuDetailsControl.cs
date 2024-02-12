@@ -12,7 +12,7 @@
 
         public CpuDetailsControl(ICpuId cpuId)
         {
-            if (cpuId == null) throw new ArgumentNullException(nameof(cpuId));
+            ThrowHelper.ThrowIfNull(cpuId);
 
             InitializeComponent();
 

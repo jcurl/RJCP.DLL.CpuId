@@ -25,7 +25,7 @@
         /// <param name="bitGroup">The name of the bit group. This string is language independent.</param>
         internal CpuFeature(string feature, bool value, FeatureGroup featureGroup, string bitGroup)
         {
-            if (feature == null) throw new ArgumentNullException(nameof(feature));
+            ThrowHelper.ThrowIfNull(feature);
             Feature = feature;
             Value = value;
             Group = featureGroup;

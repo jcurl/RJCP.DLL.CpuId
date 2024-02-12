@@ -13,8 +13,7 @@
     {
         internal CpuIdRegister(int function, int subfunction, IEnumerable<int> result)
         {
-            if (result == null)
-                throw new ArgumentNullException(nameof(result));
+            ThrowHelper.ThrowIfNull(result);
 
             Function = function;
             SubFunction = subfunction;
