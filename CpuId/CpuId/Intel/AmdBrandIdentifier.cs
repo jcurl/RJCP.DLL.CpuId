@@ -27,8 +27,9 @@
             int brand = feature.Result[1] & 0xFF;
 
             CpuIdRegister extFeature = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
-            if (extFeature == null) return brand;
-            return brand | ((extFeature.Result[1] & 0xFFFF) << 8);
+            return extFeature == null ?
+                brand :
+                brand | ((extFeature.Result[1] & 0xFFFF) << 8);
         }
     }
 }

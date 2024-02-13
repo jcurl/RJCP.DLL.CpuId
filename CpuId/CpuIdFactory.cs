@@ -29,7 +29,7 @@
         public ICpuId Create()
         {
             if (Platform.IsWinNT()) {
-                WindowsCpuIdFactory factory = new WindowsCpuIdFactory();
+                WindowsCpuIdFactory factory = new();
                 return factory.Create();
             }
 
@@ -55,7 +55,7 @@
         public IEnumerable<ICpuId> CreateAll()
         {
             if (Platform.IsWinNT()) {
-                WindowsCpuIdFactory factory = new WindowsCpuIdFactory();
+                WindowsCpuIdFactory factory = new();
                 return factory.CreateAll();
             }
 

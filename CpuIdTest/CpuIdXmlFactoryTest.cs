@@ -16,7 +16,7 @@
         [Test]
         public void IntelCreateFromXmlFile()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory();
+            CpuIdXmlFactory factory = new();
             ICpuId cpu = factory.Create(MultiCpu);
 
             Assert.That(cpu, Is.Not.Null);
@@ -26,7 +26,7 @@
         [Test]
         public void IntelCreateFromXmlFileProperty()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory {
+            CpuIdXmlFactory factory = new() {
                 FileName = MultiCpu
             };
             ICpuId cpu = factory.Create();
@@ -38,7 +38,7 @@
         [Test]
         public void IntelCreateFromXmlConstructorFile()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory(MultiCpu);
+            CpuIdXmlFactory factory = new(MultiCpu);
             ICpuId cpu = factory.Create();
 
             Assert.That(cpu, Is.Not.Null);
@@ -48,7 +48,7 @@
         [Test]
         public void IntelCreateAllFromXmlFile()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory();
+            CpuIdXmlFactory factory = new();
             IEnumerable<ICpuId> cpus = factory.CreateAll(MultiCpu);
 
             Assert.That(cpus, Is.Not.Null);
@@ -61,7 +61,7 @@
         [Test]
         public void IntelCreateAllFromXmlFileProperty()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory {
+            CpuIdXmlFactory factory = new() {
                 FileName = MultiCpu
             };
             IEnumerable<ICpuId> cpus = factory.CreateAll();
@@ -76,7 +76,7 @@
         [Test]
         public void IntelCreateAllFromXmlConstructorFile()
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory(MultiCpu);
+            CpuIdXmlFactory factory = new(MultiCpu);
             IEnumerable<ICpuId> cpus = factory.CreateAll();
 
             Assert.That(cpus, Is.Not.Null);
@@ -103,14 +103,10 @@
         private static void CreateAll(params string[] path)
         {
             string directory = Path.Combine(path);
-            string fullPath;
-            if (Path.IsPathRooted(directory)) {
-                fullPath = directory;
-            } else {
-                fullPath = Path.Combine(Deploy.TestDirectory, "TestResources", directory);
-            }
-
-            CpuIdXmlFactory factory = new CpuIdXmlFactory();
+            string fullPath = Path.IsPathRooted(directory) ?
+                directory :
+                Path.Combine(Deploy.TestDirectory, "TestResources", directory);
+            CpuIdXmlFactory factory = new();
             string[] files = Directory.GetFiles(fullPath, "*.xml", SearchOption.AllDirectories);
             foreach (string file in files) {
                 CreateAll(factory, file);

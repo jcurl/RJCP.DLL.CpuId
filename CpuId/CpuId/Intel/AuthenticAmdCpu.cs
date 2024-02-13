@@ -51,16 +51,12 @@
 
             ProcessorSignature = m_ProcessorSignature;
 
-            if (m_FamilyCode != 0x0F) {
-                Family = m_FamilyCode;
-            } else {
-                Family = m_ExtendedFamily + m_FamilyCode;
-            }
-            if (m_FamilyCode == 0x0F) {
-                Model = (m_ExtendedModel << 4) + m_ModelNumber;
-            } else {
-                Model = m_ModelNumber;
-            }
+            Family = m_FamilyCode != 0x0F ?
+                m_FamilyCode :
+                m_ExtendedFamily + m_FamilyCode;
+            Model = m_FamilyCode == 0x0F ?
+                (m_ExtendedModel << 4) + m_ModelNumber :
+                m_ModelNumber;
 
             Stepping = m_SteppingId;
             ProcessorType = m_ProcessorType;
@@ -91,9 +87,7 @@
         private string GetDescription()
         {
             string brandString = GetProcessorBrandString();
-            if (brandString != null) return brandString;
-
-            return BrandString;
+            return brandString != null ? brandString : BrandString;
         }
 
         private readonly static string[] FeaturesCpuId01Ecx = new string[] {

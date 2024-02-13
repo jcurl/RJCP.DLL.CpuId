@@ -4,7 +4,7 @@
 
     internal sealed class SubFunction
     {
-        private readonly Dictionary<int, BitMask> m_SubFunction = new Dictionary<int, BitMask>();
+        private readonly Dictionary<int, BitMask> m_SubFunction = new();
 
         public bool Set(int subFunction, int register, int mask)
         {

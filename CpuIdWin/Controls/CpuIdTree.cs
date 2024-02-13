@@ -11,8 +11,8 @@
 
     public partial class CpuIdTree : UserControl
     {
-        private readonly ObservableCollection<ICpuId> m_Cores = new ObservableCollection<ICpuId>();
-        private readonly Dictionary<TreeNode, TreeNodeData> m_NodeControls = new Dictionary<TreeNode, TreeNodeData>();
+        private readonly ObservableCollection<ICpuId> m_Cores = new();
+        private readonly Dictionary<TreeNode, TreeNodeData> m_NodeControls = new();
 
         private int m_NodeId;
 
@@ -75,14 +75,10 @@
 
         private TreeNode BuildTreeNode(ICpuId cpuId, int nodeNumber)
         {
-            string nodeName;
-            if (cpuId is ICpuIdX86 x86cpuId && x86cpuId.Topology.ApicId != -1) {
-                nodeName = string.Format("Node: APIC {0:X8}", x86cpuId.Topology.ApicId);
-            } else {
-                nodeName = string.Format("Node: {0}", nodeNumber);
-            }
-
-            TreeNode node = new TreeNode(nodeName) {
+            string nodeName = cpuId is ICpuIdX86 x86cpuId && x86cpuId.Topology.ApicId != -1
+                ? string.Format("Node: APIC {0:X8}", x86cpuId.Topology.ApicId)
+                : string.Format("Node: {0}", nodeNumber);
+            TreeNode node = new(nodeName) {
                 ImageKey = "icoCpu",
                 SelectedImageKey = "icoCpu"
             };
@@ -91,7 +87,7 @@
                 CpuId = cpuId,
             });
 
-            TreeNode nodeDetails = new TreeNode("Details") {
+            TreeNode nodeDetails = new("Details") {
                 ImageKey = "icoDetails",
                 SelectedImageKey = "icoDetails"
             };
@@ -102,7 +98,7 @@
             node.Nodes.Add(nodeDetails);
 
             if (IsIntelOrAmd(cpuId)) {
-                TreeNode nodeFeatures = new TreeNode("Features") {
+                TreeNode nodeFeatures = new("Features") {
                     ImageKey = "icoFeatures",
                     SelectedImageKey = "icoFeatures"
                 };
@@ -112,7 +108,7 @@
                 });
                 node.Nodes.Add(nodeFeatures);
 
-                TreeNode nodeTopology = new TreeNode("Topology") {
+                TreeNode nodeTopology = new("Topology") {
                     ImageKey = "icoTopology",
                     SelectedImageKey = "icoTopology"
                 };
@@ -122,7 +118,7 @@
                 });
                 node.Nodes.Add(nodeTopology);
 
-                TreeNode nodeCache = new TreeNode("Cache") {
+                TreeNode nodeCache = new("Cache") {
                     ImageKey = "icoCache",
                     SelectedImageKey = "icoCache"
                 };
@@ -134,7 +130,7 @@
             }
 
             if (IsX86Cpu(cpuId)) {
-                TreeNode nodeDump = new TreeNode("Dump") {
+                TreeNode nodeDump = new("Dump") {
                     ImageKey = "icoDump",
                     SelectedImageKey = "icoDump"
                 };
@@ -150,7 +146,7 @@
 
         private static bool IsIntelOrAmd(ICpuId cpuId)
         {
-            return cpuId is GenuineIntelCpu || cpuId is AuthenticAmdCpu;
+            return cpuId is GenuineIntelCpu or AuthenticAmdCpu;
         }
 
         private static bool IsX86Cpu(ICpuId cpuId)

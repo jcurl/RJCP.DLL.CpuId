@@ -4,7 +4,7 @@
 
     internal sealed class BitMask
     {
-        private readonly Dictionary<int, int> m_RegisterMask = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> m_RegisterMask = new();
 
         public bool Set(int register, int mask)
         {

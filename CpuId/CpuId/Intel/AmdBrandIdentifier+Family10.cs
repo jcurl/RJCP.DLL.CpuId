@@ -7,7 +7,7 @@
         private static class Family10
         {
             // [PkgType][StringN][Pg][NC][StringIndex]
-            private static readonly Node Family10hTree = new Node(16) {
+            private static readonly Node Family10hTree = new(16) {
                 // PkgType 0
                 new Node(0) {
                     // Table 14
@@ -364,8 +364,9 @@
                 string s1 = Family10hTree[pkgType][1][pg][nc][str1].Value;
                 if (!string.IsNullOrEmpty(s1)) {
                     string s2 = Family10hTree[pkgType][2][pg][nc][str2].Value;
-                    if (string.IsNullOrEmpty(s2)) return string.Format("{0}{1}", s1, pma);
-                    return string.Format("{0}{1}{2}", s1, pma, s2);
+                    return string.IsNullOrEmpty(s2) ?
+                        string.Format("{0}{1}", s1, pma) :
+                        string.Format("{0}{1}{2}", s1, pma, s2);
                 }
                 return "AMD Processor Model Unknown";
             }

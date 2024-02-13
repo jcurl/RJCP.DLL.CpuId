@@ -43,16 +43,12 @@
             ProcessorSignature = m_ProcessorSignature;
 
             // Calculations taken from Intel Developer Manual Volume 2, 325383-072US, May 2020
-            if (m_FamilyCode != 0x0F) {
-                Family = m_FamilyCode;
-            } else {
-                Family = m_ExtendedFamily + m_FamilyCode;
-            }
-            if (m_FamilyCode == 0x06 || m_FamilyCode == 0x0F) {
-                Model = (m_ExtendedModel << 4) + m_ModelNumber;
-            } else {
-                Model = m_ModelNumber;
-            }
+            Family = m_FamilyCode != 0x0F ?
+                m_FamilyCode :
+                m_ExtendedFamily + m_FamilyCode;
+            Model = m_FamilyCode is 0x06 or 0x0F ?
+                (m_ExtendedModel << 4) + m_ModelNumber :
+                m_ModelNumber;
 
             Stepping = m_SteppingId;
             ProcessorType = m_ProcessorType;
@@ -678,11 +674,9 @@
                 GetLegacyTopology(apic, topo);
             } else {
                 CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-                if (Features["APIC"].Value) {
-                    Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
-                } else {
-                    Topology.ApicId = 0;
-                }
+                Topology.ApicId = Features["APIC"].Value ?
+                    (apic.Result[1] >> 24) & 0xFF :
+                    0;
 
                 int mnlpbits = Log2Pof2(GetMaxNumberOfLogicalProcessors(cpu));
                 Topology.CoreTopology.Add(new CpuTopo(0, CpuTopoType.Core, ~(-1 << mnlpbits)));
@@ -777,7 +771,7 @@
             GetLegacyCacheTopologyEntry((register >> 24) & 0xFF, ref leafCpu, ref leafTlb, ref noExtraCache);
         }
 
-        private static readonly Dictionary<int, List<CacheTopo>> CacheLookup = new Dictionary<int, List<CacheTopo>>() {
+        private static readonly Dictionary<int, List<CacheTopo>> CacheLookup = new() {
             [0x01] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4k, 4, 32) },
             [0x02] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.InstructionTlb4M, 0, 2) },
             [0x03] = new List<CacheTopo>() { new CacheTopoTlb(1, CacheType.DataTlb4k, 4, 64) },

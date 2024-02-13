@@ -9,7 +9,7 @@
         {
             const int space = 4;
 
-            BitArray bstring = new BitArray(64);
+            BitArray bstring = new(64);
             int upperBit = -1;
             for (int i = 0; i < 64; i++) {
                 if (value != 0) {
@@ -23,7 +23,7 @@
             }
             if (upperBit == -1) upperBit = 63;
 
-            StringBuilder result = new StringBuilder(upperBit);
+            StringBuilder result = new(upperBit);
             for (int i = upperBit; i >= 0; --i) {
                 result.Append(bstring[i] ? '1' : '0');
                 if (i != 0 && i % space == 0) result.Append(' ');

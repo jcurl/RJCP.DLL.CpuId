@@ -9,7 +9,7 @@
     /// </summary>
     public class CacheTopoList : IList<CacheTopo>
     {
-        private readonly List<CacheTopo> m_CacheTopo = new List<CacheTopo>();
+        private readonly List<CacheTopo> m_CacheTopo = new();
 
         /// <summary>
         /// Gets or sets the <see cref="CacheTopo"/> at the specified index.
@@ -97,8 +97,7 @@
         /// </returns>
         public bool Contains(CacheTopo item)
         {
-            if (item == null) return false;
-            return m_CacheTopo.Contains(item);
+            return item == null ? false : m_CacheTopo.Contains(item);
         }
 
         /// <summary>
@@ -131,8 +130,7 @@
         /// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         public int IndexOf(CacheTopo item)
         {
-            if (item == null) return -1;
-            return m_CacheTopo.IndexOf(item);
+            return item == null ? -1 : m_CacheTopo.IndexOf(item);
         }
 
         /// <summary>
@@ -164,8 +162,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            if (item == null) return false;
-            return m_CacheTopo.Remove(item);
+            return item == null ? false : m_CacheTopo.Remove(item);
         }
 
         /// <summary>

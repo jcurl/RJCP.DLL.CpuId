@@ -33,7 +33,7 @@
 
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog {
+            OpenFileDialog dlg = new() {
                 CheckFileExists = true,
                 AutoUpgradeEnabled = true,
                 Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
@@ -72,7 +72,7 @@
         {
             if (cpuIdTree1.Cores.Count == 0) return;
 
-            SaveFileDialog dlg = new SaveFileDialog {
+            SaveFileDialog dlg = new() {
                 AddExtension = true,
                 AutoUpgradeEnabled = true,
                 CheckPathExists = true,
@@ -101,22 +101,20 @@
             ICpuId firstCpu = cpuIdTree1.Cores[0];
             if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
                 if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
-                    if (m_IsLocal)
-                        return string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, machine);
-                    return string.Format("{0}{1:X07}.xml", firstCpu.VendorId, x86cpu.ProcessorSignature);
+                    return m_IsLocal
+                        ? string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, machine)
+                        : string.Format("{0}{1:X07}.xml", firstCpu.VendorId, x86cpu.ProcessorSignature);
                 }
-                if (m_IsLocal)
-                    return string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, machine);
-                return string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description);
+                return m_IsLocal
+                    ? string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, machine)
+                    : string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description);
             }
             if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
-                if (m_IsLocal)
-                    return string.Format("{0} ({1}).xml", firstCpu.VendorId, machine);
-                return string.Format("{0}.xml", firstCpu.VendorId);
+                return m_IsLocal ? string.Format("{0} ({1}).xml", firstCpu.VendorId, machine) : string.Format("{0}.xml", firstCpu.VendorId);
             }
-            if (m_IsLocal)
-                return string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, machine);
-            return string.Format("{0} ({1}).xml", firstCpu.VendorId, firstCpu.Description);
+            return m_IsLocal
+                ? string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, machine)
+                : string.Format("{0} ({1}).xml", firstCpu.VendorId, firstCpu.Description);
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)

@@ -265,7 +265,7 @@
             FeatureCheck.Check("extfeature", 0x00000000);
             Assert.That(cpu.Description, Is.EqualTo("AMD A8-5500 APU with Radeon(tm) HD Graphics"));
 
-            CacheTopoList expectedCache = new CacheTopoList() {
+            CacheTopoList expectedCache = new() {
                 new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
                 new CacheTopoCpu(1, CacheType.Data, 4, 64, 16),
                 new CacheTopoCpu(2, CacheType.Unified, 16, 64, 2048),
@@ -306,7 +306,7 @@
             Assert.That(cpu.Description, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
             Assert.That(cpu.BrandString, Is.EqualTo("Quad-Core AMD Opteron(tm) Processor 2347 HE"));
 
-            CacheTopoList expectedCache = new CacheTopoList() {
+            CacheTopoList expectedCache = new() {
                 new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
                 new CacheTopoCpu(1, CacheType.Data, 2, 64, 64),
                 new CacheTopoCpu(2, CacheType.Unified, 16, 64, 512),
@@ -334,7 +334,7 @@
             Assert.That(cpu.Description, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
             Assert.That(cpu.BrandString, Is.EqualTo("AMD Phenom(tm) II X2 550 Processor"));
 
-            CacheTopoList expectedCache = new CacheTopoList() {
+            CacheTopoList expectedCache = new() {
                 new CacheTopoCpu(1, CacheType.Instruction, 2, 64, 64),
                 new CacheTopoCpu(1, CacheType.Data, 2, 64, 64),
                 new CacheTopoCpu(2, CacheType.Unified, 16, 64, 512),

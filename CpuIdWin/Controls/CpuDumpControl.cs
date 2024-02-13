@@ -22,12 +22,11 @@
                     lvg = lvgs;
                 } else if (((reg.Function >> 28) & 0xF) == 0x2) {
                     lvg = lvgp;
-                } else if (((reg.Function >> 28) & 0xF) == 0x4) {
-                    lvg = lvgh;
                 } else {
-                    lvg = lvge;
+                    lvg = ((reg.Function >> 28) & 0xF) == 0x4 ?
+                        lvgh :
+                        lvge;
                 }
-
                 AddRegister(unchecked(reg.Function),
                     unchecked(reg.SubFunction),
                     unchecked(reg.Result[0]),
@@ -39,7 +38,7 @@
 
         private void AddRegister(int eax, int ecx, int reax, int rebx, int recx, int redx, ListViewGroup lvg)
         {
-            ListViewItem lvw = new ListViewItem(
+            ListViewItem lvw = new(
                 new string[] {
                     eax.ToString("X8"),
                     ecx.ToString("X8"),

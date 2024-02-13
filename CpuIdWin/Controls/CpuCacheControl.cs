@@ -15,11 +15,9 @@
             // The CoreMask is used to know how many bits to show for the cache mask.
             foreach (CpuTopo cpuLevel in cpuId.Topology.CoreTopology) {
                 if (cpuLevel.TopoType == CpuTopoType.Package) {
-                    if (cpuLevel.Mask == 0) {
-                        m_CoreMask = 8;
-                    } else {
-                        m_CoreMask = GetBitSize(~cpuLevel.Mask);
-                    }
+                    m_CoreMask = cpuLevel.Mask == 0 ?
+                        8 :
+                        GetBitSize(~cpuLevel.Mask);
                 }
             }
             if (m_CoreMask < 8) m_CoreMask = 8;
@@ -48,13 +46,12 @@
             if (value < 0x10000) return 16;
             if (value < 0x100000) return 20;
             if (value < 0x1000000) return 24;
-            if (value < 0x10000000) return 28;
-            return 32;
+            return value < 0x10000000 ? 28 : 32;
         }
 
         private TreeNode CacheCpuNode(CacheTopoCpu cacheTopoCpu)
         {
-            TreeNode node = new TreeNode(cacheTopoCpu.ToString());
+            TreeNode node = new(cacheTopoCpu.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoCpu.Level));
             node.Nodes.Add(string.Format("Size: {0} kB", cacheTopoCpu.Size / 1024));
             node.Nodes.Add(string.Format("Associativity: {0}", GetAssociativity(cacheTopoCpu.Associativity, cacheTopoCpu.Sets)));
@@ -69,7 +66,7 @@
 
         private TreeNode CacheTlbNode(CacheTopoTlb cacheTopoTlb)
         {
-            TreeNode node = new TreeNode(cacheTopoTlb.ToString());
+            TreeNode node = new(cacheTopoTlb.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoTlb.Level));
             node.Nodes.Add(string.Format("Entries: {0}", cacheTopoTlb.Entries));
             node.Nodes.Add(string.Format("Associativity: {0}", GetAssociativity(cacheTopoTlb.Associativity, cacheTopoTlb.Sets)));
@@ -82,7 +79,7 @@
 
         private static TreeNode CachePrefetchNode(CacheTopoPrefetch cacheTopoPrefetch)
         {
-            TreeNode node = new TreeNode(cacheTopoPrefetch.ToString());
+            TreeNode node = new(cacheTopoPrefetch.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoPrefetch.Level));
             node.Nodes.Add(string.Format("Prefetch Size: {0} bytes", cacheTopoPrefetch.LineSize));
             return node;
@@ -90,7 +87,7 @@
 
         private static TreeNode CacheTraceNode(CacheTopoTrace cacheTopoTrace)
         {
-            TreeNode node = new TreeNode(cacheTopoTrace.ToString());
+            TreeNode node = new(cacheTopoTrace.ToString());
             node.Nodes.Add(string.Format("Level: {0}", cacheTopoTrace.Level));
             node.Nodes.Add(string.Format("Associativity: {0}", GetAssociativity(cacheTopoTrace.Associativity, 0)));
             node.Nodes.Add(string.Format("Size: {0} kB μ-ops", cacheTopoTrace.Size / 1024));

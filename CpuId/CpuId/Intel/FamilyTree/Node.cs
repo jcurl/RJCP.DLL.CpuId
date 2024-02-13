@@ -10,7 +10,7 @@
     [DebuggerDisplay("Node: {Key}; {Value}")]
     internal class Node : INode
     {
-        private readonly Dictionary<int, INode> m_Nodes = new Dictionary<int, INode>();
+        private readonly Dictionary<int, INode> m_Nodes = new();
 
         public Node(int key) : this(key, string.Empty) { }
 
@@ -36,8 +36,9 @@
         {
             get
             {
-                if (m_Nodes.TryGetValue(key, out INode value)) return value;
-                return new NodeEmpty(key);
+                return m_Nodes.TryGetValue(key, out INode value) ?
+                    value :
+                    new NodeEmpty(key);
             }
         }
 

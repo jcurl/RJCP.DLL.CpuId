@@ -13,7 +13,7 @@
         {
             string fullPath = Path.Combine(TestResources, fileName);
 
-            CpuIdXmlFactory factory = new CpuIdXmlFactory();
+            CpuIdXmlFactory factory = new();
             ICpuId cpu = factory.Create(fullPath);
             GenericIntelCpu x86cpu = cpu as GenericIntelCpu;
             Assert.That(cpu, Is.Not.Null);

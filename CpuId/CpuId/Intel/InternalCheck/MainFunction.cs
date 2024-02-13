@@ -4,7 +4,7 @@
 
     internal sealed class MainFunction
     {
-        private readonly Dictionary<int, SubFunction> m_Function = new Dictionary<int, SubFunction>();
+        private readonly Dictionary<int, SubFunction> m_Function = new();
 
         public bool Set(int function, int subFunction, int register, int mask)
         {

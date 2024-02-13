@@ -796,7 +796,7 @@
             FeatureCheck.AssertCoreTopo(CpuTopoType.Core, 0, 63);
             FeatureCheck.AssertCoreTopo(CpuTopoType.Package, 0, -1 << 7);
 
-            CacheTopoList expectedCache = new CacheTopoList() {
+            CacheTopoList expectedCache = new() {
                 new CacheTopoPrefetch(CacheType.Prefetch, 64),
                 new CacheTopoCpu(1, CacheType.Data, 12, 64, 64, 1),
                 new CacheTopoCpu(1, CacheType.Instruction, 8, 64, 64, 1),

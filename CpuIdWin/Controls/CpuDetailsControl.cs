@@ -45,7 +45,7 @@
         {
             if (register == null) return null;
 
-            StringBuilder description = new StringBuilder();
+            StringBuilder description = new();
             int ebx = register.Result[1];
             int ecx = register.Result[2];
             int edx = register.Result[3];

@@ -8,7 +8,7 @@
     [DebuggerDisplay("NodeEmpty: {Key}")]
     internal class NodeEmpty : INode
     {
-        private static readonly List<INode> m_Empty = new List<INode>();
+        private static readonly List<INode> m_Empty = new();
 
         public NodeEmpty(int key)
         {

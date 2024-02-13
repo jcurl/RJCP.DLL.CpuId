@@ -9,7 +9,7 @@
     /// </summary>
     public class CpuTopoList : IList<CpuTopo>
     {
-        private readonly List<CpuTopo> m_CpuTopo = new List<CpuTopo>();
+        private readonly List<CpuTopo> m_CpuTopo = new();
 
         /// <summary>
         /// Gets or sets the <see cref="CpuTopo"/> at the specified index.
@@ -97,8 +97,7 @@
         /// </returns>
         public bool Contains(CpuTopo item)
         {
-            if (item == null) return false;
-            return m_CpuTopo.Contains(item);
+            return item == null ? false : m_CpuTopo.Contains(item);
         }
 
         /// <summary>
@@ -131,8 +130,7 @@
         /// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         public int IndexOf(CpuTopo item)
         {
-            if (item == null) return -1;
-            return m_CpuTopo.IndexOf(item);
+            return item == null ? -1 : m_CpuTopo.IndexOf(item);
         }
 
         /// <summary>
@@ -164,8 +162,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            if (item == null) return false;
-            return m_CpuTopo.Remove(item);
+            return item == null ? false : m_CpuTopo.Remove(item);
         }
 
         /// <summary>

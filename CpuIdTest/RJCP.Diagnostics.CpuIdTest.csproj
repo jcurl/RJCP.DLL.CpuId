@@ -22,6 +22,7 @@
     <AnalysisMode>Default</AnalysisMode>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <LangVersion Condition="$(TargetFramework.StartsWith('net4'))">10</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

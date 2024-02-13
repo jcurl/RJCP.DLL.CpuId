@@ -32,7 +32,7 @@
 
             for (int i = 0; i < length; i++) {
                 int r = offset + i;
-                CpuIdRegister result = new CpuIdRegister(data[r].veax, data[r].vecx,
+                CpuIdRegister result = new(data[r].veax, data[r].vecx,
                     new int[] { data[r].peax, data[r].pebx, data[r].pecx, data[r].pedx });
                 AddRegister(result);
             }

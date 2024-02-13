@@ -23,7 +23,7 @@
 
         // Key is the group (e.g. "standard", or "extended")
         // Value is list of [RegisterGroup, Features]
-        private readonly Dictionary<string, List<FeatureSet>> m_FeatureSet = new Dictionary<string, List<FeatureSet>>();
+        private readonly Dictionary<string, List<FeatureSet>> m_FeatureSet = new();
 
         public void AddFeatureSet(string group, string name, string[] featureSet)
         {
@@ -48,7 +48,7 @@
 
         public void LoadCpu(string fileName)
         {
-            CpuIdXmlFactory factory = new CpuIdXmlFactory();
+            CpuIdXmlFactory factory = new();
             Cpu = factory.Create(fileName) as ICpuIdX86;
             if (Cpu == null) throw new InvalidOperationException("Couldn't load CPU file");
 
@@ -78,7 +78,7 @@
 
         public FeatureCheck GetFeatureCpu(ICpuIdX86 cpu)
         {
-            FeatureCheck newFeature = new FeatureCheck();
+            FeatureCheck newFeature = new();
             newFeature.LoadCpu(cpu);
             foreach (string group in m_FeatureSet.Keys) {
                 foreach (FeatureSet set in m_FeatureSet[group]) {
@@ -150,14 +150,14 @@
 
             if (Missing.Count == 0 && Additional.Count == 0) return;
 
-            StringBuilder featureMissing = new StringBuilder();
+            StringBuilder featureMissing = new();
             foreach (string feature in Missing) {
                 if (featureMissing.Length > 0) featureMissing.Append(", ");
                 featureMissing.Append(feature);
             }
             if (featureMissing.Length == 0) featureMissing.Append('-');
 
-            StringBuilder featurePresent = new StringBuilder();
+            StringBuilder featurePresent = new();
             foreach (string feature in Additional) {
                 if (featurePresent.Length > 0) featurePresent.Append(", ");
                 featurePresent.Append(feature);
@@ -174,8 +174,8 @@
 
             // All features in the test case should have a description. An error here indicates a problem in the test
             // case.
-            HashSet<string> missing = new HashSet<string>();
-            HashSet<string> knownFeatures = new HashSet<string>();
+            HashSet<string> missing = new();
+            HashSet<string> knownFeatures = new();
             foreach (List<FeatureSet> group in m_FeatureSet.Values) {
                 foreach (FeatureSet featureSet in group) {
                     foreach (string feature in featureSet.Set) {
@@ -209,7 +209,7 @@
             }
 
             if (missing.Count > 0) {
-                StringBuilder missingText = new StringBuilder();
+                StringBuilder missingText = new();
                 foreach (string entry in missing) {
                     if (missingText.Length != 0) missingText.Append(", ");
                     missingText.Append(entry);
@@ -232,7 +232,7 @@
             }
 
             if (missing.Count > 0) {
-                StringBuilder missingText = new StringBuilder();
+                StringBuilder missingText = new();
                 foreach (string entry in missing) {
                     if (missingText.Length != 0) missingText.Append(", ");
                     missingText.Append(entry);

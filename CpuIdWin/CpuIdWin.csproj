@@ -26,6 +26,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <LangVersion Condition="$(TargetFramework.StartsWith('net4'))">10</LangVersion>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 
     <RevisionControl>git</RevisionControl>

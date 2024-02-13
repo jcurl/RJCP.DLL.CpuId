@@ -4,7 +4,7 @@
 
     internal static class IntelLegacySignatures
     {
-        private static readonly Dictionary<int, string> I486 = new Dictionary<int, string>() {
+        private static readonly Dictionary<int, string> I486 = new() {
             [0x003] = "IntelDX2 OverDrive",
             [0x004] = "Intel486 SL",
             [0x005] = "IntelSX2",
@@ -13,7 +13,7 @@
             [0x018] = "IntelDX4(TM) OverDrive"
         };
 
-        private static readonly Dictionary<int, string> Pentium = new Dictionary<int, string>() {
+        private static readonly Dictionary<int, string> Pentium = new() {
             [0x001] = "Pentium (60, 66)",
             [0x002] = "Pentium (75, 90, 100, 120, 133, 150, 166, 200)",
             [0x011] = "Pentium (60, 66) OverDrive",
@@ -23,7 +23,7 @@
             [0x018] = "Pentium (75, 90, 100, 120, 133) MMX(TM)"
         };
 
-        private static readonly Dictionary<int, string> PentiumPro = new Dictionary<int, string>() {
+        private static readonly Dictionary<int, string> PentiumPro = new() {
             [0x001] = "Pentium Pro",
             [0x003] = "Pentium II, Model 03h",
             [0x005] = "Pentium II, Xeon, Celeron, Model 05h",
@@ -53,7 +53,7 @@
             [0x309] = "Intel Core 3rd Gen, Xeon E3-1200 v2, Sandy Bridge, 22nm"
         };
 
-        private static readonly Dictionary<int, string> Pentium4 = new Dictionary<int, string>() {
+        private static readonly Dictionary<int, string> Pentium4 = new() {
             [0x000] = "Pentium 4, Xeon",
             [0x001] = "Pentium 4, Intel Xeon, Intel Xeon MP, Intel Celeron, Model 01h, 0.18um",
             [0x002] = "Pentium 4, Mobile Intel Pentium 4, Intel Xeon, Intel Xeon MP, Intel Celeron, Intel Mobile Celeron, 0.13um",
@@ -96,8 +96,7 @@
         {
             if (extmodel != 0) return defaultName;
             int index = (extmodel << 8) | (type << 4) | model;
-            if (mapping.TryGetValue(index, out string description)) return description;
-            return defaultName;
+            return mapping.TryGetValue(index, out string description) ? description : defaultName;
         }
     }
 }

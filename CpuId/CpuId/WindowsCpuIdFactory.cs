@@ -18,7 +18,7 @@
             case OSArchitecture.x86:
             case OSArchitecture.x86_x64:
                 LoadLibrary();
-                X86CpuIdFactory factory = new X86CpuIdFactory();
+                X86CpuIdFactory factory = new();
                 ICpuId cpu = factory.Create();
                 if (cpu is ICpuIdX86 x86cpu) {
                     x86cpu.Topology.CoreTopology.IsReadOnly = true;
@@ -38,7 +38,7 @@
             case OSArchitecture.x86:
             case OSArchitecture.x86_x64:
                 LoadLibrary();
-                X86CpuIdFactory factory = new X86CpuIdFactory();
+                X86CpuIdFactory factory = new();
                 IEnumerable<ICpuId> cpus = factory.CreateAll();
                 foreach (ICpuId cpu in cpus) {
                     if (cpu is ICpuIdX86 x86cpu) {

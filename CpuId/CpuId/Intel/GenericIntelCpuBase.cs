@@ -85,7 +85,7 @@
         protected string GetProcessorBrandString()
         {
             if (m_Cpu.ExtendedFunctionCount >= 4) {
-                StringBuilder brand = new StringBuilder(50);
+                StringBuilder brand = new(50);
                 WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand1Function, 0));
                 WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand2Function, 0));
                 WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand3Function, 0));
@@ -130,7 +130,7 @@
 #if DEBUG
         // This section adds debug checks, to ensure that a field is not defined more than once. If it is, DEBUG mode
         // will cause an exception, indicating a programmatic error.
-        private readonly MainFunction m_MainFunction = new MainFunction();
+        private readonly MainFunction m_MainFunction = new();
 #endif
 
         /// <summary>
@@ -165,10 +165,9 @@
 
         internal static string BitGroup(CpuIdRegister register, int outRegister, int bit)
         {
-            if (register.SubFunction == 0) {
-                return $"CPUID.{register.Function:X02}h:{GetRegisterName(outRegister)}[{bit}]";
-            }
-            return $"CPUID.{register.Function:X02}h.{register.SubFunction:X02}:{GetRegisterName(outRegister)}[{bit}]";
+            return register.SubFunction == 0
+                ? $"CPUID.{register.Function:X02}h:{GetRegisterName(outRegister)}[{bit}]"
+                : $"CPUID.{register.Function:X02}h.{register.SubFunction:X02}:{GetRegisterName(outRegister)}[{bit}]";
         }
 
         /// <summary>
@@ -249,11 +248,10 @@
 
         private static string GetReservedFeatureName(CpuIdRegister register, int result, int bit)
         {
-            if (register.SubFunction == 0) {
-                return string.Format("CPUID({0:X2}h).{1}[{2}]",
-                    register.Function, GetRegisterName(result), bit);
-            }
-            return string.Format("CPUID({0:X2}h,{1:X2}h).{2}[{3}]",
+            return register.SubFunction == 0
+                ? string.Format("CPUID({0:X2}h).{1}[{2}]",
+                    register.Function, GetRegisterName(result), bit)
+                : string.Format("CPUID({0:X2}h,{1:X2}h).{2}[{3}]",
                 register.Function, register.SubFunction, GetRegisterName(result), bit);
         }
 
@@ -261,10 +259,9 @@
 
         internal static string GetRegisterName(int outRegister)
         {
-            if (outRegister >= 0 && outRegister <= 3) {
-                return BitRegisterName[outRegister];
-            }
-            return $"R{outRegister}";
+            return outRegister is >= 0 and <= 3 ?
+                BitRegisterName[outRegister] :
+                $"R{outRegister}";
         }
 
         private bool HasFeatures(params string[] features)
@@ -303,10 +300,9 @@
             if (!HasFeatures("AVX", "AVX2", "BMI1", "BMI2", "F16C", "FMA", "LZCNT", "MOVBE", "OSXSAVE"))
                 return 2;
 
-            if (!HasFeatures("AVX512F", "AVX512BW", "AVX512CD", "AVX512DQ", "AVX512VL"))
-                return 3;
-
-            return 4;
+            return !HasFeatures("AVX512F", "AVX512BW", "AVX512CD", "AVX512DQ", "AVX512VL") ?
+                3 :
+                4;
         }
 
         /// <summary>
@@ -383,7 +379,7 @@
                     int partitions = ((cache.Result[1] >> 12) & 0x3FF) + 1;
                     int ways = ((cache.Result[1] >> 22) & 0x3FF) + 1;
 
-                    CacheTopoCpu cacheTopoCpu = new CacheTopoCpu(level, ctype, ways, lineSize, sets, partitions);
+                    CacheTopoCpu cacheTopoCpu = new(level, ctype, ways, lineSize, sets, partitions);
 
                     int numSharingCache = Log2Pof2(((cache.Result[0] >> 14) & 0xFFF) + 1);
                     cacheTopoCpu.Mask = ~(-1 << numSharingCache);
@@ -442,13 +438,9 @@
 
                     int numSharingCache = Log2Pof2(((cache.Result[3] >> 14) & 0xFFF) + 1);
                     long mask = ~(-1 << numSharingCache);
-                    CacheTopoTlb cacheTopoTlb;
-                    if (fullAssociative) {
-                        cacheTopoTlb = new CacheTopoTlb(level, ctype, 0, ways, mask);
-                    } else {
-                        cacheTopoTlb = new CacheTopoTlb(level, ctype, ways, ways * sets, mask);
-                    }
-
+                    CacheTopoTlb cacheTopoTlb = fullAssociative ?
+                        new CacheTopoTlb(level, ctype, 0, ways, mask) :
+                        new CacheTopoTlb(level, ctype, ways, ways * sets, mask);
                     Topology.CacheTopology.Add(cacheTopoTlb);
                 }
 

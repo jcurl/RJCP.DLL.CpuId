@@ -14,11 +14,9 @@
             int coreMask = 0;
             foreach (CpuTopo cpuLevel in cpuId.Topology.CoreTopology) {
                 if (cpuLevel.TopoType == CpuTopoType.Package) {
-                    if (cpuLevel.Mask == 0) {
-                        coreMask = 8;
-                    } else {
-                        coreMask = GetBitSize(~cpuLevel.Mask);
-                    }
+                    coreMask = cpuLevel.Mask == 0 ?
+                        8 :
+                        GetBitSize(~cpuLevel.Mask);
                 }
             }
             if (coreMask < 8) coreMask = 8;
@@ -42,7 +40,7 @@
             }
 
             foreach (CpuTopo cpuTopo in cpuId.Topology.CoreTopology) {
-                ListViewItem lvi = new ListViewItem {
+                ListViewItem lvi = new() {
                     Text = cpuTopo.TopoType.ToString(),
                     SubItems = {
                         cpuTopo.Id.ToString(),
@@ -67,8 +65,7 @@
             if (value < 0x10000) return 16;
             if (value < 0x100000) return 20;
             if (value < 0x1000000) return 24;
-            if (value < 0x10000000) return 28;
-            return 32;
+            return value < 0x10000000 ? 28 : 32;
         }
     }
 }

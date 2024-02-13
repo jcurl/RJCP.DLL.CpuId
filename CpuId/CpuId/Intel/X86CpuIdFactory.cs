@@ -20,7 +20,7 @@
         public override IEnumerable<ICpuId> CreateAll()
         {
             IEnumerable<BasicCpu> cpus = GetLocalCpuNodes();
-            List<ICpuId> ids = new List<ICpuId>();
+            List<ICpuId> ids = new();
             foreach (BasicCpu cpu in cpus) {
                 ids.Add(Create(cpu));
             }
@@ -53,14 +53,14 @@
 
             // Each CPU has the first element with EAX=0xFFFFFFFF and the CPU number as ECX. This isn't captured by the
             // CPUID instruction, but a part of the library to allow separating the CPU information
-            List<BasicCpu> cpus = new List<BasicCpu>();
+            List<BasicCpu> cpus = new();
             int cpustart = 0;
             for (int i = 0; i < r; i++) {
                 if (data[i].veax == -1) {
                     // Describes the start of a CPU node.
                     if (i - cpustart > 0) {
                         // Process the data that we had.
-                        BasicCpu cpu = new BasicCpu(data, cpustart + 1, i - cpustart - 1);
+                        BasicCpu cpu = new(data, cpustart + 1, i - cpustart - 1);
                         cpus.Add(cpu);
                     }
                     cpustart = i;
@@ -68,7 +68,7 @@
             }
             if (r - cpustart > 0) {
                 // Process the data that we had.
-                BasicCpu cpu = new BasicCpu(data, cpustart + 1, r - cpustart - 1);
+                BasicCpu cpu = new(data, cpustart + 1, r - cpustart - 1);
                 cpus.Add(cpu);
             }
 

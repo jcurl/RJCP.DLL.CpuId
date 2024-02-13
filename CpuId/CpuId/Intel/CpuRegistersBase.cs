@@ -6,8 +6,8 @@
 
     internal abstract class CpuRegistersBase : ICpuRegisters
     {
-        private readonly Dictionary<int, List<CpuIdRegister>> m_Registers = new Dictionary<int, List<CpuIdRegister>>();
-        private readonly List<CpuIdRegister> m_RegisterList = new List<CpuIdRegister>();
+        private readonly Dictionary<int, List<CpuIdRegister>> m_Registers = new();
+        private readonly List<CpuIdRegister> m_RegisterList = new();
 
         private int m_CurrentFunction;
         private int m_CurrentSubfunction;

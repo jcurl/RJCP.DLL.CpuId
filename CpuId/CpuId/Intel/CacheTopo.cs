@@ -76,16 +76,15 @@
                 break;
             }
 
-            StringBuilder pageSize = new StringBuilder();
+            StringBuilder pageSize = new();
             if (((int)CacheType & (int)CacheType.Page4k) != 0) StringBuilderAppendOr(pageSize, "4k");
             if (((int)CacheType & (int)CacheType.Page2M) != 0) StringBuilderAppendOr(pageSize, "2M");
             if (((int)CacheType & (int)CacheType.Page4M) != 0) StringBuilderAppendOr(pageSize, "4M");
             if (((int)CacheType & (int)CacheType.Page1G) != 0) StringBuilderAppendOr(pageSize, "1G");
 
-            if (pageSize.Length == 0) {
-                return string.Format("L{0} {1}", Level, cacheType);
-            }
-            return string.Format("L{0} {1} ({2} page size)", Level, cacheType, pageSize.ToString());
+            return pageSize.Length == 0
+                ? string.Format("L{0} {1}", Level, cacheType)
+                : string.Format("L{0} {1} ({2} page size)", Level, cacheType, pageSize.ToString());
         }
 
         private static void StringBuilderAppendOr(StringBuilder sb, string text)

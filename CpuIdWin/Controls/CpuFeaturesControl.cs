@@ -14,7 +14,7 @@
             InitializeComponent();
 
             lvwFeatures.SuspendLayout();
-            Dictionary<FeatureGroup, ListViewGroup> groups = new Dictionary<FeatureGroup, ListViewGroup>();
+            Dictionary<FeatureGroup, ListViewGroup> groups = new();
             foreach (string feature in cpuId.Features) {
                 CpuFeature cpuFeature = cpuId.Features[feature];
 
@@ -34,7 +34,7 @@
                     lvwFeatures.Groups.Add(lvg);
                 }
 
-                ListViewItem lvi = new ListViewItem() {
+                ListViewItem lvi = new() {
                     Checked = cpuId.Features[feature].Value,
                     Text = feature,
                     Group = lvg

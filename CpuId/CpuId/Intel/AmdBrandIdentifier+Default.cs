@@ -6,7 +6,7 @@
     {
         private static class DefaultFamily
         {
-            private static readonly Dictionary<int, string> AmdLegacy = new Dictionary<int, string>() {
+            private static readonly Dictionary<int, string> AmdLegacy = new() {
                 // Names taken from AMD K85(TM) Family BIOS and Software Tools 21062C/0
                 [0x50] = "AMD-K5 (PR75, PR90, PR100)",
                 [0x51] = "AMD-K5 (PR120, PR133)",
@@ -29,8 +29,9 @@
             public static string GetType(AuthenticAmdCpu cpu)
             {
                 int key = (cpu.Family << 4) | cpu.Model;
-                if (AmdLegacy.TryGetValue(key, out string brandName)) return brandName;
-                return string.Empty;
+                return AmdLegacy.TryGetValue(key, out string brandName) ?
+                    brandName :
+                    string.Empty;
             }
         }
     }

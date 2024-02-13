@@ -29,7 +29,7 @@
                 i++;
             }
 
-            CpuIdRegister result = new CpuIdRegister(function, subfunction, registers);
+            CpuIdRegister result = new(function, subfunction, registers);
             AddRegister(result);
         }
 

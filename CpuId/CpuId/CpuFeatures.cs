@@ -10,10 +10,10 @@
     public class CpuFeatures : IEnumerable<string>
     {
         private readonly Dictionary<string, CpuFeature> m_Features =
-            new Dictionary<string, CpuFeature>(StringComparer.InvariantCultureIgnoreCase);
+            new(StringComparer.InvariantCultureIgnoreCase);
 
         private readonly Dictionary<string, CpuFeature> m_NoFeature =
-            new Dictionary<string, CpuFeature>(StringComparer.InvariantCultureIgnoreCase);
+            new(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CpuFeatures"/> class.
@@ -46,8 +46,9 @@
         {
             get
             {
-                if (m_Features.TryGetValue(key, out CpuFeature value)) return value;
-                return GetNoFeature(key);
+                return m_Features.TryGetValue(key, out CpuFeature value) ?
+                    value :
+                    GetNoFeature(key);
             }
             internal set
             {

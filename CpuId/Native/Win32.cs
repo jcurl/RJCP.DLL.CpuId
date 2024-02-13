@@ -10,14 +10,10 @@
     {
         public static SafeLibraryHandle LoadLibrary<T>(string fileName)
         {
-            Uri assemblyLocation = new Uri(typeof(T).Assembly.Location);
+            Uri assemblyLocation = new(typeof(T).Assembly.Location);
             string libraryPath = Path.GetDirectoryName(assemblyLocation.LocalPath);
 
-            if (!Environment.Is64BitProcess) {
-                libraryPath = Path.Combine(libraryPath, "x86", fileName);
-            } else {
-                libraryPath = Path.Combine(libraryPath, "x64", fileName);
-            }
+            libraryPath = !Environment.Is64BitProcess ? Path.Combine(libraryPath, "x86", fileName) : Path.Combine(libraryPath, "x64", fileName);
 
             return LoadLibraryEx(libraryPath, IntPtr.Zero, LoadLibraryFlags.None);
         }
@@ -64,9 +60,7 @@
         private static bool IsWow64()
         {
             try {
-                if (IsWow64Process(GetCurrentProcess(), out bool wow64))
-                    return wow64;
-                return false;
+                return IsWow64Process(GetCurrentProcess(), out bool wow64) && wow64;
             } catch (EntryPointNotFoundException) {
                 return false;
             }

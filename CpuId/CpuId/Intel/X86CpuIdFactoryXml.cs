@@ -40,7 +40,7 @@
 
             XmlNodeList cpuNodes = Node.SelectNodes("./processor");
             IEnumerable<BasicCpu> cpus = GetCpuNodes(cpuNodes);
-            List<ICpuId> ids = new List<ICpuId>();
+            List<ICpuId> ids = new();
             foreach (BasicCpu cpu in cpus) {
                 ids.Add(Create(cpu));
             }
@@ -49,9 +49,9 @@
 
         private static List<BasicCpu> GetCpuNodes(XmlNodeList xmlNodes)
         {
-            List<BasicCpu> cpus = new List<BasicCpu>();
+            List<BasicCpu> cpus = new();
             foreach (XmlNode cpuNode in xmlNodes) {
-                BasicCpu cpu = new BasicCpu(cpuNode);
+                BasicCpu cpu = new(cpuNode);
                 cpus.Add(cpu);
             }
 

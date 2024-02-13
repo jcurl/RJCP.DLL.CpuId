@@ -17,7 +17,7 @@
 
             Function = function;
             SubFunction = subfunction;
-            List<int> results = new List<int>(result);
+            List<int> results = new(result);
             Result = new ReadOnlyCollection<int>(results);
         }
 

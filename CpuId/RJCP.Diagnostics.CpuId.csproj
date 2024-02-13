@@ -28,6 +28,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion Condition="$(TargetFramework.StartsWith('net4'))">10</LangVersion>
 
     <!-- Suppress the warning that the native DLLs won't be applied as a reference in the project.
 

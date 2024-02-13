@@ -70,9 +70,7 @@
         public ICpuId Create()
         {
             if (FileName == null) throw new InvalidOperationException("FileName is null");
-            if (string.IsNullOrEmpty(FileName)) throw new InvalidOperationException("File name is empty");
-
-            return Create(FileName);
+            return string.IsNullOrEmpty(FileName) ? throw new InvalidOperationException("File name is empty") : Create(FileName);
         }
 
         /// <summary>
@@ -93,7 +91,7 @@
 
             switch (processor) {
             case "x86":
-                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new CpuId.Intel.X86CpuIdFactoryXml(cpuIdNode);
+                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new(cpuIdNode);
                 return x86Factory.Create();
             default:
                 // This processor type is unknown.
@@ -106,7 +104,7 @@
             ThrowHelper.ThrowIfNull(fileName);
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name is empty", nameof(fileName));
 
-            XmlDocument xmlDoc = new XmlDocument {
+            XmlDocument xmlDoc = new() {
                 XmlResolver = null
             };
             xmlDoc.Load(fileName);
@@ -126,9 +124,7 @@
         public IEnumerable<ICpuId> CreateAll()
         {
             if (FileName == null) throw new InvalidOperationException("FileName is null");
-            if (string.IsNullOrEmpty(FileName)) throw new InvalidOperationException("File name is empty");
-
-            return CreateAll(FileName);
+            return string.IsNullOrEmpty(FileName) ? throw new InvalidOperationException("File name is empty") : CreateAll(FileName);
         }
 
         /// <summary>
@@ -150,7 +146,7 @@
 
             switch (processor) {
             case "x86":
-                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new CpuId.Intel.X86CpuIdFactoryXml(cpuIdNode);
+                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new(cpuIdNode);
                 return x86Factory.CreateAll();
             default:
                 // This processor type is unknown.
@@ -174,7 +170,7 @@
             ThrowHelper.ThrowIfNull(fileName);
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name may not be empty", nameof(fileName));
 
-            List<CpuId.Intel.GenericIntelCpuBase> x86cpus = new List<CpuId.Intel.GenericIntelCpuBase>();
+            List<CpuId.Intel.GenericIntelCpuBase> x86cpus = new();
             foreach (ICpuId cpu in cpus) {
                 if (cpu is CpuId.Intel.GenericIntelCpuBase x86cpu) {
                     x86cpus.Add(x86cpu);
