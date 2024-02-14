@@ -28,7 +28,7 @@
 
         public override ICpuId Create()
         {
-            if (Node == null) throw new InvalidOperationException("Node is not defined");
+            if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNode cpuNode = Node.SelectSingleNode("./processor");
             return Create(new BasicCpu(cpuNode));
@@ -36,7 +36,7 @@
 
         public override IEnumerable<ICpuId> CreateAll()
         {
-            if (Node == null) throw new InvalidOperationException("Node is not defined");
+            if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNodeList cpuNodes = Node.SelectNodes("./processor");
             IEnumerable<BasicCpu> cpus = GetCpuNodes(cpuNodes);

@@ -41,7 +41,7 @@
                 pnlInfo.Controls.Clear();
                 tvwCpuId.Nodes.Clear();
                 foreach (TreeNodeData nodeData in m_NodeControls.Values) {
-                    if (nodeData.Control != null) nodeData.Control.Dispose();
+                    if (nodeData.Control is not null) nodeData.Control.Dispose();
                 }
                 m_NodeControls.Clear();
                 m_NodeId = 0;
@@ -65,7 +65,7 @@
         private TreeNode GetSelectedCpuNode()
         {
             TreeNode selectedNode = tvwCpuId.SelectedNode;
-            while (selectedNode != null) {
+            while (selectedNode is not null) {
                 if (m_NodeControls[selectedNode].NodeType == NodeType.CpuRootNode)
                     return selectedNode;
                 selectedNode = selectedNode.Parent;
@@ -164,7 +164,7 @@
                     if (child == selectedNode) {
                         pnlInfo.Controls.Clear();
                     }
-                    if (nodeData.Control != null) nodeData.Control.Dispose();
+                    if (nodeData.Control is not null) nodeData.Control.Dispose();
                     m_NodeControls.Remove(child);
                 }
             }
@@ -181,7 +181,7 @@
                 return;
             }
 
-            if (data.Control == null) {
+            if (data.Control is null) {
                 ICpuIdX86 x86cpu = data.CpuId as ICpuIdX86;
 
                 switch (data.NodeType) {
@@ -192,15 +192,15 @@
                     data.Control = new CpuFeaturesControl(data.CpuId);
                     break;
                 case NodeType.CpuDump:
-                    if (x86cpu == null) return;
+                    if (x86cpu is null) return;
                     data.Control = new CpuDumpControl(x86cpu);
                     break;
                 case NodeType.CpuTopology:
-                    if (x86cpu == null) return;
+                    if (x86cpu is null) return;
                     data.Control = new CpuTopologyControl(x86cpu);
                     break;
                 case NodeType.CpuCache:
-                    if (x86cpu == null) return;
+                    if (x86cpu is null) return;
                     data.Control = new CpuCacheControl(x86cpu);
                     break;
                 default:
@@ -240,7 +240,7 @@
             // runtime, where we do the scaling manually before adding it.
 
             Control control = this;
-            while (control != null) {
+            while (control is not null) {
                 if (control is ContainerControl containerControl) {
                     switch (containerControl.AutoScaleMode) {
                     case AutoScaleMode.Inherit:

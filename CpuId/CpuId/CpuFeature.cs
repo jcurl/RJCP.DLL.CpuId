@@ -78,13 +78,13 @@
             string description;
             if (!string.IsNullOrEmpty(prefix)) {
                 description = Resources.CpuFeatures.ResourceManager.GetString($"{prefix}_{descriptionKey}");
-                if (description != null) {
+                if (description is not null) {
                     Description = description;
                     return;
                 }
             }
             description = Resources.CpuFeatures.ResourceManager.GetString(descriptionKey);
-            if (description != null) Description = description;
+            if (description is not null) Description = description;
         }
 
         /// <summary>

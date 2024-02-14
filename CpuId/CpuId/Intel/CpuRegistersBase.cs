@@ -16,7 +16,7 @@
 
         public virtual CpuIdRegister GetCpuId(int function, int subfunction)
         {
-            if (m_CurrentFunction == function && m_CurrentRegisterList != null) {
+            if (m_CurrentFunction == function && m_CurrentRegisterList is not null) {
                 if (m_CurrentSubfunction == subfunction)
                     return GetNextSubfunction(subfunction);
             } else {

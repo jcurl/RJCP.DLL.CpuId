@@ -65,7 +65,7 @@
             if (cpu.FunctionCount == 0) return;
 
             CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (feature == null) return;
+            if (feature is null) return;
 
             int eax = feature.Result[0];
             int ebx = feature.Result[1];
@@ -96,7 +96,7 @@
 
             // 2. Check CPUID.80000000.EAX >= 800000004. If so, get branding information from 80000002-80000004.
             string brandString = GetProcessorBrandString();
-            if (brandString != null) return brandString;
+            if (brandString is not null) return brandString;
 
             // 3. Check CPUID.00000001.EBX bits 7:0 != 0. If so, get branding information as per table 7-1.
             switch (m_Brand) {
@@ -383,7 +383,7 @@
             if (cpu.FunctionCount < FeatureInformationFunction) return;
 
             CpuIdRegister features = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (features != null) {
+            if (features is not null) {
                 TestFeatures(FeaturesCpuId01Edx, FeatureGroup.StandardFeatures, features, 3);
                 if (Features["SEP"].Value && ProcessorSignature < 0x633)
                     Features["SEP"].Value = false;
@@ -397,7 +397,7 @@
 
             if (cpu.FunctionCount < ThermalPower) return;
             CpuIdRegister features6 = cpu.CpuRegisters.GetCpuId(ThermalPower, 0);
-            if (features6 != null) {
+            if (features6 is not null) {
                 TestFeatures(FeaturesCpuId06Eax, FeatureGroup.PowerManagement, features6, 0);
                 ReservedFeature(FeatureGroup.PowerManagement, features6, 0, unchecked((int)0xFE601008));
 
@@ -407,7 +407,7 @@
 
             if (cpu.FunctionCount < ExtendedFeatureFunction) return;
             CpuIdRegister features7 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 0);
-            if (features7 != null) {
+            if (features7 is not null) {
                 TestFeatures(FeaturesCpuId07Ebx, FeatureGroup.StructuredExtendedFeatures, features7, 1);
                 ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 1, 0x00400000);
 
@@ -419,7 +419,7 @@
 
                 if (features7.Result[0] > 0) {
                     CpuIdRegister features7s1 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 1);
-                    if (features7s1 != null) {
+                    if (features7s1 is not null) {
                         TestFeatures(FeaturesCpuId0701Eax, FeatureGroup.StructuredExtendedFeatures, features7s1, 0);
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 0, unchecked((int)0xFBBFE3CF));
 
@@ -435,7 +435,7 @@
 
                 if (features7.Result[0] > 1) {
                     CpuIdRegister features7s2 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 2);
-                    if (features7s2 != null) {
+                    if (features7s2 is not null) {
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 0, unchecked((int)0xFFFFFFFF));
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 1, unchecked((int)0xFFFFFFFF));
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 2, unchecked((int)0xFFFFFFFF));
@@ -446,7 +446,7 @@
 
                     for (int subfunction = 3; subfunction <= features7.Result[0]; subfunction++) {
                         CpuIdRegister features7sX = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, subfunction);
-                        if (features7sX != null) {
+                        if (features7sX is not null) {
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 0, unchecked((int)0xFFFFFFFF));
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 1, unchecked((int)0xFFFFFFFF));
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 2, unchecked((int)0xFFFFFFFF));
@@ -460,7 +460,7 @@
 
             if (cpu.FunctionCount < ExtendedProcessorState) return;
             CpuIdRegister features13 = cpu.CpuRegisters.GetCpuId(ExtendedProcessorState, 1);
-            if (features13 != null) {
+            if (features13 is not null) {
                 TestFeatures(FeaturesCpuId0D01Eax, FeatureGroup.ExtendedState, features13, 0);
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 0, unchecked((int)0xFFFFFFE0));
 
@@ -473,7 +473,7 @@
             if (cpu.FunctionCount < RdtMonitoring) return;
             if (Features["RDT-M"].Value) {
                 CpuIdRegister features15 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 0);
-                if (features15 != null) {
+                if (features15 is not null) {
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 0, unchecked((int)0xFFFFFFFF));
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 2, unchecked((int)0xFFFFFFFF));
 
@@ -481,7 +481,7 @@
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 3, unchecked((int)0xFFFFFFFD));
 
                     CpuIdRegister features15s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 1);
-                    if (features15s1 != null) {
+                    if (features15s1 is not null) {
                         TestFeatures(FeaturesCpuId0F01Eax, FeatureGroup.RdtMonitoring, features15s1, 0);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features15s1, 0, unchecked((int)0xFFFFF800));
 
@@ -494,7 +494,7 @@
             if (cpu.FunctionCount < RdtMonitoring + 1) return;
             if (Features["RDT-A"].Value) {
                 CpuIdRegister features16 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 0);
-                if (features16 != null) {
+                if (features16 is not null) {
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 0, unchecked((int)0xFFFFFFFF));
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 2, unchecked((int)0xFFFFFFFF));
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 3, unchecked((int)0xFFFFFFFF));
@@ -503,19 +503,19 @@
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 1, unchecked((int)0xFFFFFFF1));
 
                     CpuIdRegister features16s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 1);
-                    if (features16s1 != null) {
+                    if (features16s1 is not null) {
                         TestFeatures(FeaturesCpuId1001Ecx, FeatureGroup.RdtMonitoring, features16s1, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s1, 0, unchecked((int)0xFFFFFFF1));
                     }
 
                     CpuIdRegister features16s2 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 2);
-                    if (features16s2 != null) {
+                    if (features16s2 is not null) {
                         TestFeatures(FeaturesCpuId1002Ecx, FeatureGroup.RdtMonitoring, features16s2, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s2, 0, unchecked((int)0xFFFFFFF3));
                     }
 
                     CpuIdRegister features16s3 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 3);
-                    if (features16s3 != null) {
+                    if (features16s3 is not null) {
                         TestFeatures(FeaturesCpuId1003Ecx, FeatureGroup.RdtMonitoring, features16s3, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s3, 0, unchecked((int)0xFFFFFFFB));
                     }
@@ -525,7 +525,7 @@
             if (cpu.FunctionCount < SgxLeaf) return;
             if (Features["SGX"].Value) {
                 CpuIdRegister features18 = cpu.CpuRegisters.GetCpuId(SgxLeaf, 0);
-                if (features18 != null) {
+                if (features18 is not null) {
                     TestFeatures(FeaturesCpuId12Eax, FeatureGroup.Sgx, features18, 0);
                     ReservedFeature(FeatureGroup.ExtendedState, features18, 0, unchecked((int)0xFFFFF31C));
 
@@ -535,7 +535,7 @@
 
             if (cpu.FunctionCount < ProcTrace) return;
             CpuIdRegister features20 = cpu.CpuRegisters.GetCpuId(ProcTrace, 0);
-            if (features20 != null) {
+            if (features20 is not null) {
                 TestFeatures(FeaturesCpuId14Ebx, FeatureGroup.ProcessorTrace, features20, 1);
                 ReservedFeature(FeatureGroup.ProcessorTrace, features20, 1, unchecked((int)0xFFFFFE00));
 
@@ -547,7 +547,7 @@
 
             if (cpu.FunctionCount < KeyLocker) return;
             CpuIdRegister features25 = cpu.CpuRegisters.GetCpuId(KeyLocker, 0);
-            if (features25 != null) {
+            if (features25 is not null) {
                 TestFeatures(FeaturesCpuId19Eax, FeatureGroup.KeyLocker, features25, 0);
                 ReservedFeature(FeatureGroup.KeyLocker, features25, 0, unchecked((int)0xFFFFFFF8));
 
@@ -562,7 +562,7 @@
 
             if (cpu.FunctionCount < LastBranchRec) return;
             CpuIdRegister features30 = cpu.CpuRegisters.GetCpuId(LastBranchRec, 0);
-            if (features30 != null) {
+            if (features30 is not null) {
                 TestFeatures(FeaturesCpuId1CEax, FeatureGroup.LastBranchRecords, features30, 0);
                 ReservedFeature(FeatureGroup.LastBranchRecords, features30, 0, unchecked(0x3FFFFF00));
 
@@ -580,7 +580,7 @@
         {
             if (cpu.ExtendedFunctionCount < ExtendedInformationFunction - MaxExtendedFunction) return;
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
-            if (extfeat != null) {
+            if (extfeat is not null) {
                 TestFeatures(FeaturesCpuId800000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 2, unchecked((int)0xFFFFFEDE));
 
@@ -590,7 +590,7 @@
 
             if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
             CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
-            if (extfeat8 != null) {
+            if (extfeat8 is not null) {
                 TestFeatures(FeaturesCpuId80000008Ebx, FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1);
                 ReservedFeature(FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1, unchecked((int)0xFFFFFDFF));
             }
@@ -600,7 +600,7 @@
         {
             if (cpu.FunctionCount < PerfSampling) return;
             CpuIdRegister features10 = cpu.CpuRegisters.GetCpuId(PerfSampling, 0);
-            if (features10 == null) return;
+            if (features10 is null) return;
 
             int l = features10.Result[0] >> 24; // Get length of EBX bit vector
             for (int i = 0; i < 32; i++) {
@@ -699,7 +699,7 @@
             int level = 0;
 
             CpuIdRegister topo = cpu.CpuRegisters.GetCpuId(leaf, level);
-            while (topo != null) {
+            while (topo is not null) {
                 int ltype = (topo.Result[2] >> 8) & 0xFF;
                 if (ltype == 0) break;
 
@@ -749,7 +749,7 @@
                 bool leafCpu = false;
                 bool noExtraCache = false;
                 CpuIdRegister cache = cpu.CpuRegisters.GetCpuId(LegacyCache, 0);
-                if (cache != null && (cache.Result[0] & 0xFF) == 0x01) {
+                if (cache is not null && (cache.Result[0] & 0xFF) == 0x01) {
                     GetLegacyCacheTopology(cache.Result[0] & unchecked((int)0xFFFFFF00), ref leafCpu, ref leafTlb, ref noExtraCache);
                     GetLegacyCacheTopology(cache.Result[1], ref leafCpu, ref leafTlb, ref noExtraCache);
                     GetLegacyCacheTopology(cache.Result[2], ref leafCpu, ref leafTlb, ref noExtraCache);
@@ -907,7 +907,7 @@
             }
 
             if (!CacheLookup.TryGetValue(value, out List<CacheTopo> entries)) return;
-            if (entries == null) return;
+            if (entries is null) return;
 
             if (value == 0x49 && Family == 0xF && Model == 0x6) {
                 // Special case for 0x49 for Xeon Processor MP, Family 0Fh, Model 06h

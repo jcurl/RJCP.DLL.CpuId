@@ -97,7 +97,7 @@
         /// </returns>
         public bool Contains(CacheTopo item)
         {
-            return item == null ? false : m_CacheTopo.Contains(item);
+            return item is not null && m_CacheTopo.Contains(item);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@
         /// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         public int IndexOf(CacheTopo item)
         {
-            return item == null ? -1 : m_CacheTopo.IndexOf(item);
+            return item is null ? -1 : m_CacheTopo.IndexOf(item);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            return item == null ? false : m_CacheTopo.Remove(item);
+            return item is not null && m_CacheTopo.Remove(item);
         }
 
         /// <summary>

@@ -50,7 +50,7 @@
         {
             CpuIdXmlFactory factory = new();
             Cpu = factory.Create(fileName) as ICpuIdX86;
-            if (Cpu == null) throw new InvalidOperationException("Couldn't load CPU file");
+            if (Cpu is null) throw new InvalidOperationException("Couldn't load CPU file");
 
             Cpus = factory.CreateAll(fileName).OfType<ICpuIdX86>();
 
@@ -93,7 +93,7 @@
             ThrowHelper.ThrowIfNull(group);
             ThrowHelper.ThrowIfNull(registers);
             if (registers.Length == 0) throw new ArgumentException("No registers to check are provided", nameof(registers));
-            if (Cpu == null) throw new InvalidOperationException("CPU not loaded");
+            if (Cpu is null) throw new InvalidOperationException("CPU not loaded");
 
             if (!m_FeatureSet.TryGetValue(group, out List<FeatureSet> features)) {
                 string message = string.Format("Group '{0}' not found", group);
@@ -113,7 +113,7 @@
         {
             int bitMask = 1;
             for (int i = 0; i < 32; i++) {
-                if ((reg & bitMask) != 0 && featureSet.Set[i] != null) {
+                if ((reg & bitMask) != 0 && featureSet.Set[i] is not null) {
                     string regName = featureSet.Set[i];
                     if (regName.Equals(string.Empty)) regName = string.Format("{0}[{1}]", featureSet.Name, i);
                     Expected.Add(regName);
@@ -146,7 +146,7 @@
 
         public void AssertOnDifference()
         {
-            if (Cpu == null) throw new InvalidOperationException("CPU not loaded");
+            if (Cpu is null) throw new InvalidOperationException("CPU not loaded");
 
             if (Missing.Count == 0 && Additional.Count == 0) return;
 
@@ -170,7 +170,7 @@
 
         public void AssertOnMissingDescription()
         {
-            if (Cpu == null) throw new InvalidOperationException("CPU not loaded");
+            if (Cpu is null) throw new InvalidOperationException("CPU not loaded");
 
             // All features in the test case should have a description. An error here indicates a problem in the test
             // case.

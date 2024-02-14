@@ -41,7 +41,7 @@
         public override CpuIdRegister GetCpuId(int function, int subfunction)
         {
             CpuIdRegister result = base.GetCpuId(function, subfunction);
-            if (result == null) {
+            if (result is null) {
                 // It's not cached, so query the CPU for it. Note, we assume that each EAX/ECX pair always returns the
                 // same result for the same CPU core/thread.
                 _ = CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);

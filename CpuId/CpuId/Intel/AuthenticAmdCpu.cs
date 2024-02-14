@@ -73,7 +73,7 @@
             if (cpu.FunctionCount == 0) return;
 
             CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (feature == null) return;
+            if (feature is null) return;
 
             m_ProcessorSignature = feature.Result[0] & 0x0FFF3FFF;
             m_ExtendedFamily = (m_ProcessorSignature >> 20) & 0xFF;
@@ -86,8 +86,7 @@
 
         private string GetDescription()
         {
-            string brandString = GetProcessorBrandString();
-            return brandString != null ? brandString : BrandString;
+            return GetProcessorBrandString() ?? BrandString;
         }
 
         private readonly static string[] FeaturesCpuId01Ecx = new string[] {
@@ -263,7 +262,7 @@
             if (cpu.FunctionCount < FeatureInformationFunction) return;
 
             CpuIdRegister features = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-            if (features != null) {
+            if (features is not null) {
                 TestFeatures(FeaturesCpuId01Edx, FeatureGroup.StandardFeatures, features, 3);
                 if (Family == 5 && Model == 0) {
                     // [17] says AMD K5 Model 0, bit 9 is for PGE, where bit 13 is reserved.
@@ -291,7 +290,7 @@
 
             if (cpu.FunctionCount < ExtendedFeatureFunction) return;
             CpuIdRegister features7 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 0);
-            if (features7 != null) {
+            if (features7 is not null) {
                 TestFeatures(FeaturesCpuId07Ebx, FeatureGroup.StructuredExtendedFeatures, features7, 1);
                 ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 1, unchecked((int)0xDE636A56));
 
@@ -303,7 +302,7 @@
                 if (features7.Result[0] > 0) {
                     for (int subfunction = 1; subfunction < features7.Result[0]; subfunction++) {
                         CpuIdRegister features7sX = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, subfunction);
-                        if (features7sX != null) {
+                        if (features7sX is not null) {
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 0, unchecked((int)0xFFFFFFFF));
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 1, unchecked((int)0xFFFFFFFF));
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 2, unchecked((int)0xFFFFFFFF));
@@ -319,7 +318,7 @@
 
             if (cpu.FunctionCount < ExtendedProcessorState) return;
             CpuIdRegister features13 = cpu.CpuRegisters.GetCpuId(ExtendedProcessorState, 1);
-            if (features13 != null) {
+            if (features13 is not null) {
                 TestFeatures(FeaturesCpuId0D01Eax, FeatureGroup.ExtendedState, features13, 0);
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 0, unchecked((int)0xFFFFFFF0));
 
@@ -336,7 +335,7 @@
         {
             if (cpu.ExtendedFunctionCount < ExtendedInformationFunction - MaxExtendedFunction) return;
             CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
-            if (extfeat != null) {
+            if (extfeat is not null) {
                 TestFeatures(FeaturesCpuId80000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 2, unchecked((int)0x80144000));
 
@@ -355,7 +354,7 @@
 
             if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
             CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
-            if (extfeat8 != null) {
+            if (extfeat8 is not null) {
                 TestFeatures(FeaturesCpuId80000008Ebx, FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1);
                 ReservedFeature(FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1, unchecked((int)0x80400CA0));
             }
@@ -365,7 +364,7 @@
         {
             if (cpu.ExtendedFunctionCount < PowerFeature - MaxExtendedFunction) return;
             CpuIdRegister extfeat7 = cpu.CpuRegisters.GetCpuId(PowerFeature, 0);
-            if (extfeat7 != null) {
+            if (extfeat7 is not null) {
                 TestFeatures(FeaturesCpuId80000007Ebx, FeatureGroup.PowerManagement, extfeat7, 1);
                 ReservedFeature(FeatureGroup.PowerManagement, extfeat7, 1, unchecked((int)0xFFFFFFF0));
 
@@ -375,28 +374,28 @@
 
             if (cpu.ExtendedFunctionCount < SvmFeature - MaxExtendedFunction) return;
             CpuIdRegister extfeata = cpu.CpuRegisters.GetCpuId(SvmFeature, 0);
-            if (extfeata != null) {
+            if (extfeata is not null) {
                 TestFeatures(FeaturesCpuId8000000AEdx, FeatureGroup.SvmFeatures, extfeata, 3);
                 ReservedFeature(FeatureGroup.SvmFeatures, extfeata, 3, unchecked((int)0xC0404B00));
             }
 
             if (cpu.ExtendedFunctionCount < PerfOptIdent - MaxExtendedFunction) return;
             CpuIdRegister extfeat1a = cpu.CpuRegisters.GetCpuId(PerfOptIdent, 0);
-            if (extfeat1a != null) {
+            if (extfeat1a is not null) {
                 TestFeatures(FeaturesCpuId8000001AEax, FeatureGroup.PerformanceOptimizations, extfeat1a, 0);
                 ReservedFeature(FeatureGroup.PerformanceOptimizations, extfeat1a, 0, unchecked((int)0xFFFFFFF8));
             }
 
             if (cpu.ExtendedFunctionCount < InstrSampling - MaxExtendedFunction) return;
             CpuIdRegister extfeat1b = cpu.CpuRegisters.GetCpuId(InstrSampling, 0);
-            if (extfeat1b != null) {
+            if (extfeat1b is not null) {
                 TestFeatures(FeaturesCpuId8000001BEax, FeatureGroup.PerformanceSampling, extfeat1b, 0);
                 ReservedFeature(FeatureGroup.PerformanceSampling, extfeat1b, 0, unchecked((int)0xFFFFF600));
             }
 
             if (cpu.ExtendedFunctionCount < LwpCaps - MaxExtendedFunction) return;
             CpuIdRegister extfeat1c = cpu.CpuRegisters.GetCpuId(LwpCaps, 0);
-            if (extfeat1c != null) {
+            if (extfeat1c is not null) {
                 TestFeatures(FeaturesCpuId8000001CEax, FeatureGroup.LightweightProfiling, extfeat1c, 0);
                 ReservedFeature(FeatureGroup.LightweightProfiling, extfeat1c, 0, 0x1FFFFF80);
 
@@ -409,14 +408,14 @@
 
             if (cpu.ExtendedFunctionCount < ExtendedEncMem - MaxExtendedFunction) return;
             CpuIdRegister extfeat1f = cpu.CpuRegisters.GetCpuId(ExtendedEncMem, 0);
-            if (extfeat1f != null) {
+            if (extfeat1f is not null) {
                 TestFeatures(FeaturesCpuId8000001FEax, FeatureGroup.EncryptedMemory, extfeat1f, 0);
                 ReservedFeature(FeatureGroup.EncryptedMemory, extfeat1f, 0, unchecked((int)0xCCF00000));
             }
 
             if (cpu.ExtendedFunctionCount < PqosExtended - MaxExtendedFunction) return;
             CpuIdRegister extfeat20 = cpu.CpuRegisters.GetCpuId(PqosExtended, 0);
-            if (extfeat20 != null) {
+            if (extfeat20 is not null) {
                 ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 0, unchecked((int)0xFFFFFFFF));
 
                 TestFeatures(FeaturesCpuId80000020Ebx, FeatureGroup.PqosExtended, extfeat20, 1);
@@ -427,7 +426,7 @@
                 ReservedFeature(FeatureGroup.PqosExtended, extfeat20, 3, unchecked((int)0xFFFFFFFF));
             }
             CpuIdRegister extfeat20s3 = cpu.CpuRegisters.GetCpuId(PqosExtended, 3);
-            if (extfeat20s3 != null) {
+            if (extfeat20s3 is not null) {
                 if (Features["BMEC"].Value) {
                     TestFeatures(FeaturesCpuId80000020s3Ecx, FeatureGroup.PqosExtended, extfeat20s3, 2);
                     ReservedFeature(FeatureGroup.PqosExtended, extfeat20s3, 2, unchecked((int)0xFFFFFF80));
@@ -439,7 +438,7 @@
 
             if (cpu.ExtendedFunctionCount < Extended2 - MaxExtendedFunction) return;
             CpuIdRegister extfeat21 = cpu.CpuRegisters.GetCpuId(Extended2, 0);
-            if (extfeat21 != null) {
+            if (extfeat21 is not null) {
                 TestFeatures(FeaturesCpuId80000021Eax, FeatureGroup.ExtendedFeatures, extfeat21, 0);
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat21, 0, unchecked((int)0xFFFDDC32));
 
@@ -450,7 +449,7 @@
 
             if (cpu.ExtendedFunctionCount < PerfMonDebug - MaxExtendedFunction) return;
             CpuIdRegister extfeat22 = cpu.CpuRegisters.GetCpuId(PerfMonDebug, 0);
-            if (extfeat22 != null) {
+            if (extfeat22 is not null) {
                 TestFeatures(FeaturesCpuId80000022Eax, FeatureGroup.PerfMonDebug, extfeat22, 0);
                 ReservedFeature(FeatureGroup.PerfMonDebug, extfeat22, 0, unchecked((int)0xFFFFFFF8));
 
@@ -461,7 +460,7 @@
 
             if (cpu.ExtendedFunctionCount < MultiKeyEncMem - MaxExtendedFunction) return;
             CpuIdRegister extfeat23 = cpu.CpuRegisters.GetCpuId(MultiKeyEncMem, 0);
-            if (extfeat23 != null) {
+            if (extfeat23 is not null) {
                 TestFeatures(FeaturesCpuId80000023Eax, FeatureGroup.EncryptedMemory, extfeat22, 0);
                 ReservedFeature(FeatureGroup.EncryptedMemory, extfeat23, 0, unchecked((int)0xFFFFFFFE));
 
@@ -569,7 +568,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
-            if (cacheTlb == null) return;
+            if (cacheTlb is null) return;
 
             int ways = (cacheTlb.Result[2] >> 16) & 0xFF;
             if (ways == 0) return;
@@ -585,7 +584,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
-            if (cacheTlb == null) return;
+            if (cacheTlb is null) return;
 
             int ways = (cacheTlb.Result[3] >> 16) & 0xFF;
             if (ways == 0) return;
@@ -623,7 +622,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
             CpuIdRegister cacheL2 = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
-            if (cacheL2 == null) return;
+            if (cacheL2 is null) return;
 
             int ways = GetL2Associativity((cacheL2.Result[2] >> 12) & 0xF);
             if (ways < 0) return;
@@ -637,7 +636,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
             CpuIdRegister cacheL3 = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
-            if (cacheL3 == null) return;
+            if (cacheL3 is null) return;
 
             int ways = GetL2Associativity((cacheL3.Result[3] >> 12) & 0xF);
             if (ways < 0) return;
@@ -651,7 +650,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
-            if (cacheTlb == null) return;
+            if (cacheTlb is null) return;
 
             int ways2m = (cacheTlb.Result[0] >> 24) & 0xFF;
             if (ways2m != 0) {
@@ -669,7 +668,7 @@
 
             if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
-            if (cacheTlb1g == null) return;
+            if (cacheTlb1g is null) return;
 
             int ways1g = GetL2Associativity((cacheTlb1g.Result[0] >> 28) & 0xF);
             if (ways1g >= 0) {
@@ -682,7 +681,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheTlb - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb = cpu.CpuRegisters.GetCpuId(CacheTlb, 0);
-            if (cacheTlb == null) return;
+            if (cacheTlb is null) return;
 
             int ways2m = (cacheTlb.Result[0] >> 8) & 0xFF;
             if (ways2m != 0) {
@@ -700,7 +699,7 @@
 
             if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
-            if (cacheTlb1g == null) return;
+            if (cacheTlb1g is null) return;
 
             int ways1g = GetL2Associativity((cacheTlb1g.Result[0] >> 12) & 0xF);
             if (ways1g >= 0) {
@@ -713,7 +712,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
             CpuIdRegister cacheL2Tlb = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
-            if (cacheL2Tlb == null) return;
+            if (cacheL2Tlb is null) return;
 
             int ways2m = GetL2Associativity((cacheL2Tlb.Result[0] >> 28) & 0xF);
             if (ways2m >= 0) {
@@ -729,7 +728,7 @@
 
             if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
-            if (cacheTlb1g == null) return;
+            if (cacheTlb1g is null) return;
 
             int ways1g = GetL2Associativity((cacheTlb1g.Result[1] >> 28) & 0xF);
             if (ways1g >= 0) {
@@ -742,7 +741,7 @@
         {
             if (cpu.ExtendedFunctionCount < CacheL2Tlb - MaxExtendedFunction) return;
             CpuIdRegister cacheL2Tlb = cpu.CpuRegisters.GetCpuId(CacheL2Tlb, 0);
-            if (cacheL2Tlb == null) return;
+            if (cacheL2Tlb is null) return;
 
             int ways2m = GetL2Associativity((cacheL2Tlb.Result[0] >> 12) & 0xF);
             if (ways2m >= 0) {
@@ -758,7 +757,7 @@
 
             if (cpu.ExtendedFunctionCount < CacheTlb1G - MaxExtendedFunction) return;
             CpuIdRegister cacheTlb1g = cpu.CpuRegisters.GetCpuId(CacheTlb1G, 0);
-            if (cacheTlb1g == null) return;
+            if (cacheTlb1g is null) return;
 
             int ways1g = GetL2Associativity((cacheTlb1g.Result[1] >> 12) & 0xF);
             if (ways1g >= 0) {

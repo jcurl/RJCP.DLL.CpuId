@@ -58,7 +58,7 @@
             // If this library is upgraded to support .NET 5.0 or later, use the NativeLibrary implementation, see
             // https://learn.microsoft.com/en-us/dotnet/standard/native-interop/cross-platform#custom-import-resolver
 
-            if (m_CpuIdHandle == null)
+            if (m_CpuIdHandle is null)
                 m_CpuIdHandle = Win32.LoadLibrary<WindowsCpuIdFactory>("cpuid.dll");
 
             if (m_CpuIdHandle.IsInvalid)

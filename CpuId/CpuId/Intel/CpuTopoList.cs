@@ -97,7 +97,7 @@
         /// </returns>
         public bool Contains(CpuTopo item)
         {
-            return item == null ? false : m_CpuTopo.Contains(item);
+            return item is not null && m_CpuTopo.Contains(item);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@
         /// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         public int IndexOf(CpuTopo item)
         {
-            return item == null ? -1 : m_CpuTopo.IndexOf(item);
+            return item is null ? -1 : m_CpuTopo.IndexOf(item);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@
         {
             if (IsReadOnly)
                 throw new InvalidOperationException("List is read only");
-            return item == null ? false : m_CpuTopo.Remove(item);
+            return item is not null && m_CpuTopo.Remove(item);
         }
 
         /// <summary>

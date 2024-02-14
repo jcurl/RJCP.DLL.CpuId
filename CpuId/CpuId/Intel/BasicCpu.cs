@@ -52,12 +52,12 @@
             CpuRegisters = register;
 
             CpuIdRegister vendorFunction = register.GetCpuId(VendorIdFunction, 0);
-            if (vendorFunction == null) return;
+            if (vendorFunction is null) return;
             FunctionCount = vendorFunction.Result[0];
             VendorId = GetVendorId(vendorFunction);
 
             CpuIdRegister extendedFunction = register.GetCpuId(ExtendedFunction, 0);
-            if (extendedFunction == null) return;
+            if (extendedFunction is null) return;
             if ((extendedFunction.Result[0] & ExtendedFunction) != 0)
                 ExtendedFunctionCount = extendedFunction.Result[0] & 0x7FFFFFFF;
         }

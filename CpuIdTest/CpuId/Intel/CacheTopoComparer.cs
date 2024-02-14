@@ -6,8 +6,8 @@
     {
         public bool Equals(CacheTopo x, CacheTopo y)
         {
-            if (x == null && y == null) return true;
-            if (x == null || y == null) return false;
+            if (x is null && y is null) return true;
+            if (x is null || y is null) return false;
             if (x.GetType() != y.GetType()) return false;
 
             if (x.CacheType != y.CacheType || x.Level != y.Level) return false;

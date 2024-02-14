@@ -21,20 +21,17 @@
         public static OSArchitecture GetArchitecture()
         {
             OSArchitecture architecture;
-            bool nativeSystemInfo;
             SYSTEM_INFO lpSystemInfo;
 
             // GetNativeSystemInfo is independent if we're 64-bit or not But it needs _WIN32_WINNT 0x0501
             try {
                 GetNativeSystemInfo(out lpSystemInfo);
                 architecture = lpSystemInfo.uProcessorInfo.wProcessorArchitecture;
-                nativeSystemInfo = true;
             } catch {
                 architecture = OSArchitecture.Unknown;
-                nativeSystemInfo = false;
             }
 
-            if (architecture == OSArchitecture.Unknown || !nativeSystemInfo) {
+            if (architecture == OSArchitecture.Unknown) {
                 try {
                     GetSystemInfo(out lpSystemInfo);
                     architecture = lpSystemInfo.uProcessorInfo.wProcessorArchitecture;

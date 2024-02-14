@@ -43,7 +43,7 @@
 
         private static string GetHypervisor(CpuIdRegister register)
         {
-            if (register == null) return null;
+            if (register is null) return null;
 
             StringBuilder description = new();
             int ebx = register.Result[1];

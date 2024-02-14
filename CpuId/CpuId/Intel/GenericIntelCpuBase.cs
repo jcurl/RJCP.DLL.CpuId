@@ -96,7 +96,7 @@
 
         private static void WriteDescription(StringBuilder brand, CpuIdRegister register)
         {
-            if (register == null) return;
+            if (register is null) return;
 
             int eax = register.Result[0];
             int ebx = register.Result[1];
@@ -351,7 +351,7 @@
         {
             int subleaf = 0;
             CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
-            while (cache != null && (cache.Result[0] & 0xF) != 0) {
+            while (cache is not null && (cache.Result[0] & 0xF) != 0) {
                 int ltype = cache.Result[0] & 0xF;
 
                 CacheType ctype = CacheType.Invalid;
@@ -401,7 +401,7 @@
             CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
             int subleaves = cache.Result[0];
 
-            while (cache != null && subleaf <= subleaves) {
+            while (cache is not null && subleaf <= subleaves) {
                 int ttype = cache.Result[3] & 0x1F;
                 if (ttype != 0) {
                     CacheType ctype;

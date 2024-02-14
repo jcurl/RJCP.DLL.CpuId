@@ -69,7 +69,7 @@
         /// </exception>
         public ICpuId Create()
         {
-            if (FileName == null) throw new InvalidOperationException("FileName is null");
+            if (FileName is null) throw new InvalidOperationException("FileName is null");
             return string.IsNullOrEmpty(FileName) ? throw new InvalidOperationException("File name is empty") : Create(FileName);
         }
 
@@ -86,7 +86,7 @@
         public ICpuId Create(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
-            if (cpuIdNode == null) return null;
+            if (cpuIdNode is null) return null;
             string processor = cpuIdNode.Attributes["type"]?.Value ?? "x86";
 
             switch (processor) {
@@ -123,7 +123,7 @@
         /// </exception>
         public IEnumerable<ICpuId> CreateAll()
         {
-            if (FileName == null) throw new InvalidOperationException("FileName is null");
+            if (FileName is null) throw new InvalidOperationException("FileName is null");
             return string.IsNullOrEmpty(FileName) ? throw new InvalidOperationException("File name is empty") : CreateAll(FileName);
         }
 
@@ -136,7 +136,7 @@
         public IEnumerable<ICpuId> CreateAll(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
-            if (cpuIdNode == null)
+            if (cpuIdNode is null)
 #if NET40
                 return new ICpuId[0];
 #else

@@ -23,11 +23,11 @@
         private static int GetBrand(AuthenticAmdCpu cpu)
         {
             CpuIdRegister feature = cpu.Registers.GetCpuId(GenericIntelCpuBase.FeatureInformationFunction, 0);
-            if (feature == null) return 0;
+            if (feature is null) return 0;
             int brand = feature.Result[1] & 0xFF;
 
             CpuIdRegister extFeature = cpu.Registers.GetCpuId(GenericIntelCpuBase.ExtendedInformationFunction, 0);
-            return extFeature == null ?
+            return extFeature is null ?
                 brand :
                 brand | ((extFeature.Result[1] & 0xFFFF) << 8);
         }
