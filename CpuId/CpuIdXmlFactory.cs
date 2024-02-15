@@ -33,9 +33,7 @@
         /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
         public CpuIdXmlFactory(string fileName)
         {
-            ThrowHelper.ThrowIfNull(fileName);
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("FileName may not be an empty string", nameof(fileName));
-
+            ThrowHelper.ThrowIfNullOrEmpty(fileName);
             m_FileName = fileName;
         }
 
@@ -52,8 +50,7 @@
             get { return m_FileName; }
             set
             {
-                ThrowHelper.ThrowIfNull(value);
-                if (string.IsNullOrEmpty(value)) throw new ArgumentException("FileName may not be an empty string", nameof(value));
+                ThrowHelper.ThrowIfNullOrEmpty(value);
                 m_FileName = value;
             }
         }
@@ -101,8 +98,7 @@
 
         private static XmlNode GetCpuIdNode(string fileName)
         {
-            ThrowHelper.ThrowIfNull(fileName);
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name is empty", nameof(fileName));
+            ThrowHelper.ThrowIfNullOrEmpty(fileName);
 
             XmlDocument xmlDoc = new() {
                 XmlResolver = null
@@ -167,8 +163,7 @@
         /// <exception cref="ArgumentException"><paramref name="fileName" /> may not be an empty string.</exception>
         public static void Save(string fileName, IEnumerable<ICpuId> cpus)
         {
-            ThrowHelper.ThrowIfNull(fileName);
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("File name may not be empty", nameof(fileName));
+            ThrowHelper.ThrowIfNullOrEmpty(fileName);
 
             List<CpuId.Intel.GenericIntelCpuBase> x86cpus = new();
             foreach (ICpuId cpu in cpus) {

@@ -27,11 +27,9 @@
 
         public void AddFeatureSet(string group, string name, string[] featureSet)
         {
-            ThrowHelper.ThrowIfNull(group);
-            ThrowHelper.ThrowIfNull(name);
+            ThrowHelper.ThrowIfNullOrEmpty(group);
+            ThrowHelper.ThrowIfNullOrEmpty(name);
             ThrowHelper.ThrowIfNull(featureSet);
-            if (string.IsNullOrEmpty(group)) throw new ArgumentException("Group is empty", nameof(group));
-            if (string.IsNullOrEmpty(name)) throw new ArgumentException("Name is empty", nameof(name));
 
             if (!m_FeatureSet.TryGetValue(group, out List<FeatureSet> features)) {
                 features = new List<FeatureSet>();
