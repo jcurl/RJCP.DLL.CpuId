@@ -353,7 +353,7 @@
         public void CheckDescription()
         {
             // We should load a file that has the most features
-            GetCpu("i9-12900k.xml");
+            GetCpu("i9-12900K.xml");
             FeatureCheck.AssertOnMissingDescription();
         }
 
