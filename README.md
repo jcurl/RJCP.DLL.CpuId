@@ -17,6 +17,9 @@ for offline parsing.
     - [3.2.2. AMD](#322-amd)
 - [4. Further Help](#4-further-help)
 - [5. References](#5-references)
+- [6. Release History](#6-release-history)
+  - [6.1. Version 0.8.1](#61-version-081)
+  - [6.2. Version 0.8.0](#62-version-080)
 
 ## 1. Features
 
@@ -162,3 +165,42 @@ information.
   20734, Revision P, December 1999
 - [17a] AMD, _AMD Processor Recognition Application Note_, Publication Number:
   20734, Revision 3.00, April 2003
+
+## 6. Release History
+
+### 6.1. Version 0.8.1
+
+Features:
+
+- Interpret the TLB structure for more modern Intel CPUs (DOTNET-302)
+- Add the "Die" group to `CpuTopoType` (DOTNET-474)
+- Update Intel Feature Flags to SDM 2023-11, upto 1Fh (DOTNET-882, DOTNET-890)
+- Update AMD Feature Flags (DOTNET-882)
+- CpuFeatures now have descriptive strings, as we add more more features
+  (DOTNET-883, DOTNET-885, DOTNET-887)
+- Added AMD features 8000001B, 8000001C, 80000020, 80000021, 80000022, 80000023
+  (DOTNET-884)
+- Windows XP alternative to `GetCurrentProcessorNumber()` used (DOTNET-309)
+- Add Intel Hybrid BIG.little (DOTNET-891)
+- For Linux, calculate the AMD64 feature level (DOTNET-903)
+
+Bufgixes:
+
+- Properly set the number of partitions (DOTNET-878)
+- AMD RDPID (8000001A) corrected (DOTNET-882)
+- Bit feature flags checked for Intel and AMD and corrected (DOTNET-883)
+- AMD CPUID check infinite loop in DLL fixed (DOTNET-884)
+
+Quality:
+
+- Update README.md for NuGet package (DOTNET-809)
+- Minor performance warnings (DOTNET-886)
+- CPUDLL upgraded to use VS2022 and compile for Windows XP (DOTNET-888,
+  DOTNET-889)
+- Documentation clean up (DOTNET-891, DOTNET-904)
+- Update .NET 4.5 to 4.6.2 (DOTNET-936, DOTNET-937, DOTNET-938, DOTNET-942,
+  DOTNET-945, DOTNET-959)
+
+### 6.2. Version 0.8.0
+
+- Initial release
