@@ -32,6 +32,17 @@
     <RevisionControl>git</RevisionControl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">
+    <!-- See
+      https://learn.microsoft.com/en-us/dotnet/core/compatibility/serialization/7.0/binaryformatter-apis-produce-errors#recommended-action
+      https://stackoverflow.com/questions/77565011/how-to-fix-warning-msb3825-for-a-localizable-winform-containing-a-listview-with
+
+      At the moment, there appears to be no solution for .NET 6.0, .NET 8.0 for Windows Forms.
+    -->
+    <GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
+    <NoWarn>SYSLIB0011</NoWarn>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>

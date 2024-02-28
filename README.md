@@ -200,6 +200,7 @@ Quality:
 - Documentation clean up (DOTNET-891, DOTNET-904)
 - Update .NET 4.5 to 4.6.2 (DOTNET-936, DOTNET-937, DOTNET-938, DOTNET-942,
   DOTNET-945, DOTNET-959)
+- Update to .NET 8.0 (DOTNET-982, DOTNET-985)
 
 ### 6.2. Version 0.8.0
 
