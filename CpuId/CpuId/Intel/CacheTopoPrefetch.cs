@@ -19,8 +19,7 @@
             : base(1, cacheType)
         {
             CheckCacheType(cacheType);
-            if (lineSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(lineSize), "Prefetch Line Size ways must be positive");
+            ThrowHelper.ThrowIfNegative(lineSize);
 
             LineSize = lineSize;
         }

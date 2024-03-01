@@ -50,7 +50,7 @@
             get { return m_FileName; }
             set
             {
-                ThrowHelper.ThrowIfNullOrEmpty(value);
+                ThrowHelper.ThrowIfNullOrEmpty(value, nameof(FileName));
                 m_FileName = value;
             }
         }

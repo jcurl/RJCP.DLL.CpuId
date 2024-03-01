@@ -10,7 +10,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopoCpu"/> class.
         /// </summary>
-        /// <param name="level">The cache level.</param>
+        /// <param name="cacheLevel">The cache level.</param>
         /// <param name="cacheType">Type of the cache.</param>
         /// <param name="ways">
         /// The ways or slots (associativity) for each set in the cache. This can be zero (0) to indicate fully
@@ -30,16 +30,13 @@
         /// of <paramref name="ways"/> per set, with a total size of <paramref name="sizekb"/> kilobytes. This
         /// constructor assumes one partition.
         /// </remarks>
-        public CacheTopoCpu(int level, CacheType cacheType, int ways, int lineSize, int sizekb)
-            : base(level, cacheType)
+        public CacheTopoCpu(int cacheLevel, CacheType cacheType, int ways, int lineSize, int sizekb)
+            : base(cacheLevel, cacheType)
         {
             CheckCacheType(cacheType);
-            if (ways < 0)
-                throw new ArgumentOutOfRangeException(nameof(ways), "Associativity ways must zero (0) for fully associative, or be positive");
-            if (lineSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(lineSize), "LineSizes must be positive");
-            if (sizekb <= 0)
-                throw new ArgumentOutOfRangeException(nameof(sizekb), "Size must be positive");
+            ThrowHelper.ThrowIfNegative(ways);
+            ThrowHelper.ThrowIfNegativeOrZero(lineSize);
+            ThrowHelper.ThrowIfNegativeOrZero(sizekb);
 
             Partitions = 1;
             Size = sizekb * 1024;
@@ -59,7 +56,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopoCpu"/> class.
         /// </summary>
-        /// <param name="level">The cache level.</param>
+        /// <param name="cacheLevel">The cache level.</param>
         /// <param name="cacheType">Type of the cache.</param>
         /// <param name="ways">The ways or slots (associativity) for each set in the cache.</param>
         /// <param name="lineSize">Size of the line in bytes.</param>
@@ -74,18 +71,14 @@
         /// <para>- or -</para>
         /// <paramref name="partitions"/> must be positive.
         /// </exception>
-        public CacheTopoCpu(int level, CacheType cacheType, int ways, int lineSize, int sets, int partitions)
-            : base(level, cacheType)
+        public CacheTopoCpu(int cacheLevel, CacheType cacheType, int ways, int lineSize, int sets, int partitions)
+            : base(cacheLevel, cacheType)
         {
             CheckCacheType(cacheType);
-            if (ways <= 0)
-                throw new ArgumentOutOfRangeException(nameof(ways), "Associativity ways must be positive");
-            if (lineSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(lineSize), "LineSize must be positive");
-            if (sets <= 0)
-                throw new ArgumentOutOfRangeException(nameof(sets), "Sets must be positive");
-            if (partitions <= 0)
-                throw new ArgumentOutOfRangeException(nameof(partitions), "Partitions must be positive");
+            ThrowHelper.ThrowIfNegativeOrZero(ways);
+            ThrowHelper.ThrowIfNegativeOrZero(lineSize);
+            ThrowHelper.ThrowIfNegativeOrZero(sets);
+            ThrowHelper.ThrowIfNegativeOrZero(partitions);
 
             Associativity = ways;
             LineSize = lineSize;
@@ -100,7 +93,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopoCpu"/> class.
         /// </summary>
-        /// <param name="level">The cache level.</param>
+        /// <param name="cacheLevel">The cache level.</param>
         /// <param name="cacheType">Type of the cache.</param>
         /// <param name="ways">The ways or slots (associativity) for each set in the cache.</param>
         /// <param name="lineSize">Size of the line in bytes.</param>
@@ -119,18 +112,14 @@
         /// <para>- or -</para>
         /// <paramref name="partitions"/> must be positive.
         /// </exception>
-        public CacheTopoCpu(int level, CacheType cacheType, int ways, int lineSize, int sets, int partitions, long mask)
-            : base(level, cacheType)
+        public CacheTopoCpu(int cacheLevel, CacheType cacheType, int ways, int lineSize, int sets, int partitions, long mask)
+            : base(cacheLevel, cacheType)
         {
             CheckCacheType(cacheType);
-            if (ways <= 0)
-                throw new ArgumentOutOfRangeException(nameof(ways), "Associativity ways must be positive");
-            if (lineSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(lineSize), "LineSize must be positive");
-            if (sets <= 0)
-                throw new ArgumentOutOfRangeException(nameof(sets), "Sets must be positive");
-            if (partitions <= 0)
-                throw new ArgumentOutOfRangeException(nameof(partitions), "Partitions must be positive");
+            ThrowHelper.ThrowIfNegativeOrZero(ways);
+            ThrowHelper.ThrowIfNegativeOrZero(lineSize);
+            ThrowHelper.ThrowIfNegativeOrZero(sets);
+            ThrowHelper.ThrowIfNegativeOrZero(partitions);
 
             Associativity = ways;
             LineSize = lineSize;

@@ -22,10 +22,8 @@
             : base(1, cacheType)
         {
             CheckCacheType(cacheType);
-            if (ways <= 0)
-                throw new ArgumentOutOfRangeException(nameof(ways), "Associativity ways must be positive");
-            if (size <= 0)
-                throw new ArgumentOutOfRangeException(nameof(size), "Size must be positive");
+            ThrowHelper.ThrowIfNegativeOrZero(ways);
+            ThrowHelper.ThrowIfNegativeOrZero(size);
 
             Associativity = ways;
             Size = size;

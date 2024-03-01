@@ -21,7 +21,7 @@
             get { return m_Node; }
             set
             {
-                ThrowHelper.ThrowIfNull(value);
+                ThrowHelper.ThrowIfNull(value, nameof(Node));
                 m_Node = value;
             }
         }

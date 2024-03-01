@@ -25,7 +25,7 @@
             {
                 if (IsReadOnly)
                     throw new InvalidOperationException("List is read only");
-                ThrowHelper.ThrowIfNull(value);
+                ThrowHelper.ThrowIfNull(value, nameof(CpuTopoList));
                 m_CpuTopo[index] = value;
             }
         }

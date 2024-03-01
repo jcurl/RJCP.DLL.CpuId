@@ -10,7 +10,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopoTlb"/> class.
         /// </summary>
-        /// <param name="level">The cache level.</param>
+        /// <param name="cacheLevel">The cache level.</param>
         /// <param name="cacheType">Type of the cache.</param>
         /// <param name="ways">The associativity. Zero means fully associative.</param>
         /// <param name="entries">The total number of entries in the cache.</param>
@@ -23,13 +23,13 @@
         /// The constructor calculates the number of sets in the cache through the associativity and the number of
         /// entries.
         /// </remarks>
-        public CacheTopoTlb(int level, CacheType cacheType, int ways, int entries)
-            : this(level, cacheType, ways, entries, -1) { }
+        public CacheTopoTlb(int cacheLevel, CacheType cacheType, int ways, int entries)
+            : this(cacheLevel, cacheType, ways, entries, -1) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopoTlb"/> class.
         /// </summary>
-        /// <param name="level">The cache level.</param>
+        /// <param name="cacheLevel">The cache level.</param>
         /// <param name="cacheType">Type of the cache.</param>
         /// <param name="ways">The associativity. Zero means fully associative.</param>
         /// <param name="entries">The total number of entries in the cache.</param>
@@ -43,14 +43,12 @@
         /// The constructor calculates the number of sets in the cache through the associativity and the number of
         /// entries.
         /// </remarks>
-        public CacheTopoTlb(int level, CacheType cacheType, int ways, int entries, long mask)
-            : base(level, cacheType)
+        public CacheTopoTlb(int cacheLevel, CacheType cacheType, int ways, int entries, long mask)
+            : base(cacheLevel, cacheType)
         {
             CheckCacheType(cacheType);
-            if (ways < 0)
-                throw new ArgumentOutOfRangeException(nameof(ways), "Associativity ways must fully (0) or be positive");
-            if (entries <= 0)
-                throw new ArgumentOutOfRangeException(nameof(entries), "Entries must be positive");
+            ThrowHelper.ThrowIfNegative(ways);
+            ThrowHelper.ThrowIfNegativeOrZero(entries);
 
             Entries = entries;
             if (ways == 0) {

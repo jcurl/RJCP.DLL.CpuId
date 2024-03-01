@@ -11,15 +11,13 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheTopo"/> class.
         /// </summary>
-        /// <param name="level">The cache level in the cache hierarchy.</param>
+        /// <param name="cacheLevel">The cache level in the cache hierarchy.</param>
         /// <param name="cacheType">Type of the cache.</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="level"/> must be 1 or greater.</exception>
-        protected CacheTopo(int level, CacheType cacheType)
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="cacheLevel"/> must be 1 or greater.</exception>
+        protected CacheTopo(int cacheLevel, CacheType cacheType)
         {
-            if (level <= 0)
-                throw new ArgumentOutOfRangeException(nameof(level), "Cache Level must be 1 or greater");
-
-            Level = level;
+            ThrowHelper.ThrowIfNegativeOrZero(cacheLevel);
+            Level = cacheLevel;
             CacheType = cacheType;
         }
 
