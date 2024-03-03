@@ -118,7 +118,6 @@
     <Compile Include="CpuId\Intel\X86CpuIdFactory.cs" />
     <Compile Include="CpuId\WindowsCpuIdFactory.cs" />
     <Compile Include="CpuVendor.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICpuIdFactory.cs" />
     <Compile Include="Native\CpuIdLib+CpuIdInfo.cs" />
     <Compile Include="Native\CpuIdLib.cs" />
