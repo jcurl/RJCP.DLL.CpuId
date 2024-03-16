@@ -212,7 +212,7 @@
                     if (missingText.Length != 0) missingText.Append(", ");
                     missingText.Append(entry);
                 }
-                Assert.Fail("Missing descriptions for: {0}", missingText);
+                Assert.Fail($"Missing descriptions for: {missingText}");
             }
 
             // Now check if we're missing a feature in our feature set in the test case. Indicates a feature was added
@@ -235,7 +235,7 @@
                     if (missingText.Length != 0) missingText.Append(", ");
                     missingText.Append(entry);
                 }
-                Assert.Fail("Test case doesn't know about feature: {0}", missingText);
+                Assert.Fail($"Test case doesn't know about feature: {missingText}");
             }
         }
 
@@ -244,12 +244,12 @@
             foreach (CpuTopo cpuTopo in Cpu.Topology.CoreTopology) {
                 if (cpuTopo.TopoType == topoType && cpuTopo.Id == id) {
                     Assert.That(cpuTopo.Mask, Is.EqualTo(mask),
-                        "CPU Topo '{0}' of id {1} mask mismatch", topoType.ToString(), id);
+                        $"CPU Topo '{topoType}' of id {id} mask mismatch");
                     return;
                 }
             }
 
-            Assert.Fail("CPU Topo '{0}' of id {1} not found", topoType.ToString(), id);
+            Assert.Fail($"CPU Topo '{topoType}' of id {id} not found");
         }
     }
 }
