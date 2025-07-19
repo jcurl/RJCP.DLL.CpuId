@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Runtime.Versioning;
     using CpuId;
+    using CpuId.Intel;
     using NUnit.Framework;
 
     [TestFixture]
@@ -12,16 +13,50 @@
         [Test]
         [Platform("Win")]
         [SupportedOSPlatform("windows")]
-        public void CurrentCpuId()
+        public void FirstCpuId()
         {
-            var factory = new CpuIdFactory();
-            ICpuId cpu = factory.Create();
+            CpuIdFactory factory = new();
+            ICpuIdX86 cpu = factory.Create() as ICpuIdX86;
             Assert.That(cpu, Is.Not.Null);
             DumpCpu(cpu);
 
-            if (cpu is CpuId.Intel.ICpuIdX86 x86cpu) {
-                Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+            Assert.That(cpu.Topology.CoreTopology.IsReadOnly, Is.True);
+        }
+
+        [Test]
+        [Platform("Win")]
+        [SupportedOSPlatform("windows")]
+        public void CpuIdIndividualCores()
+        {
+            CpuIdFactory factory = new();
+            HashSet<int> apics = new();
+            for (int i = 0; i < Environment.ProcessorCount; i++) {
+                ICpuIdX86 cpu = factory.Create(i) as ICpuIdX86;
+                Assert.That(cpu, Is.Not.Null);
+                DumpCpu(cpu);
+
+                // Each core should have a unique APIC ID on Intel platforms.
+                int apic = cpu.Registers.GetCpuId(1, 0).Result[1] >> 24;
+                Assert.That(apics, Does.Not.Contain(apic));
+                apics.Add(apic);
+
+                Assert.That(cpu.Topology.CoreTopology.IsReadOnly, Is.True);
             }
+        }
+
+        [Test]
+        [Platform("Win")]
+        [SupportedOSPlatform("windows")]
+        public void InvalidCpuCore()
+        {
+            ICpuIdX86 cpu;
+            CpuIdFactory factory = new();
+
+            cpu = factory.Create(-1) as ICpuIdX86;
+            Assert.That(cpu, Is.Null);
+
+            cpu = factory.Create(64) as ICpuIdX86;
+            Assert.That(cpu, Is.Null);
         }
 
         [Test]
@@ -29,7 +64,7 @@
         [SupportedOSPlatform("windows")]
         public void AllCpuId()
         {
-            var factory = new CpuIdFactory();
+            CpuIdFactory factory = new();
             IEnumerable<ICpuId> cpus = factory.CreateAll();
 
             Assert.That(cpus, Is.Not.Null);
@@ -44,6 +79,27 @@
                     Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
                 }
             }
+
+            Assert.That(cpuNumber, Is.EqualTo(Environment.ProcessorCount));
+        }
+
+        [Test]
+        [Platform("Win")]
+        [SupportedOSPlatform("windows")]
+        public void GetRegister()
+        {
+            CpuIdFactory factory = new();
+
+            int core = Environment.ProcessorCount - 1;
+            ICpuIdX86 cpu = factory.Create(core) as ICpuIdX86;
+            Assert.That(cpu, Is.Not.Null);
+
+            // The test exercises getting the CPUID directly, hopefully from a value that is not cached by CpuRegisters.
+            // This will cause the underlying implementation of "cpuid" to get called for that specific function and
+            // subfunction. We should have pinning here. To test if this really works, will need to single step.
+            CpuIdRegister reg = cpu.Registers.GetCpuId(0x60000000, 0);
+            Assert.That(reg.Function, Is.EqualTo(0x60000000));
+            Assert.That(reg.SubFunction, Is.EqualTo(0));
         }
 
         private static void DumpCpu(ICpuId cpu)

@@ -117,6 +117,7 @@
     <Compile Include="CpuId\Intel\CpuIdLibFactory.cs" />
     <Compile Include="CpuVendor.cs" />
     <Compile Include="ICpuIdFactory.cs" />
+    <Compile Include="Native\ICpuPin.cs" />
     <Compile Include="Native\Win32\CpuIdLib+CpuIdInfo.cs" />
     <Compile Include="Native\Win32\CpuIdLib.cs" />
     <Compile Include="Native\Win32\Kernel32+LoadLibraryFlags.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Native\Win32\Kernel32+SYSTEM_INFO.cs" />
     <Compile Include="Native\Win32\Kernel32.cs" />
     <Compile Include="Native\Win32\OSArchitecture.cs" />
+    <Compile Include="Native\Win32\PinCpuWin32.cs" />
     <Compile Include="Native\Win32\SafeLibraryHandle.cs" />
     <Compile Include="Native\Win32\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

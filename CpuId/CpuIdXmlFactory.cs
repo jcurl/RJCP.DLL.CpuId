@@ -11,12 +11,15 @@
     /// </summary>
     public class CpuIdXmlFactory : ICpuIdFactory
     {
+        // This class is responsible for reading the XML file and passing all core nodes to the factory for the specific
+        // CPU. Currently implemented is only 'CpuIdX86XmlNodeFactory'.
+
         /// <summary>
         /// The default constructor, with no file name defined.
         /// </summary>
         /// <remarks>
         /// This is the default constructor. No file name is defined. One must set the file name property
-        /// <see cref="FileName"/>, or use <see cref="Create(string)"/> to load from a file.
+        /// <see cref="FileName"/>.
         /// </remarks>
         public CpuIdXmlFactory()
         {
@@ -67,23 +70,9 @@
         public ICpuId Create()
         {
             if (FileName is null) throw new InvalidOperationException("FileName is null");
-            return string.IsNullOrEmpty(FileName) ? throw new InvalidOperationException("File name is empty") : Create(FileName);
-        }
+            if (string.IsNullOrEmpty(FileName)) throw new InvalidOperationException("FileName is empty");
 
-        /// <summary>
-        /// Retrieves information about a CPU using the file name given as the parameter.
-        /// </summary>
-        /// <param name="fileName">Name of the file to load.</param>
-        /// <returns>CPU information.</returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="fileName"/> may not be <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory Method")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Factory Method")]
-        public ICpuId Create(string fileName)
-        {
-            XmlNode cpuIdNode = GetCpuIdNode(fileName);
+            XmlNode cpuIdNode = GetCpuIdNode(FileName);
             if (cpuIdNode is null) return null;
             string processor = cpuIdNode.Attributes["type"]?.Value ?? "x86";
 
@@ -91,6 +80,35 @@
             case "x86":
                 CpuId.Intel.CpuIdX86XmlNodeFactory x86Factory = new(cpuIdNode);
                 return x86Factory.Create();
+            default:
+                // This processor type is unknown.
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve information about the CPU for a specific core.
+        /// </summary>
+        /// <param name="core">The core.</param>
+        /// <returns>CPU information.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// <see cref="FileName"/> is <see langword="null"/>.
+        /// <para>- or -</para>
+        /// <see cref="FileName"/> is empty.
+        /// </exception>
+        public ICpuId Create(int core)
+        {
+            if (FileName is null) throw new InvalidOperationException("FileName is null");
+            if (string.IsNullOrEmpty(FileName)) throw new InvalidOperationException("FileName is empty");
+
+            XmlNode cpuIdNode = GetCpuIdNode(FileName);
+            if (cpuIdNode is null) return null;
+            string processor = cpuIdNode.Attributes["type"]?.Value ?? "x86";
+
+            switch (processor) {
+            case "x86":
+                CpuId.Intel.CpuIdX86XmlNodeFactory x86Factory = new(cpuIdNode);
+                return x86Factory.Create(core);
             default:
                 // This processor type is unknown.
                 return null;
@@ -129,9 +147,7 @@
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>An enumerable collection of all CPUs.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory method")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Factory Method")]
-        public IEnumerable<ICpuId> CreateAll(string fileName)
+        public static IEnumerable<ICpuId> CreateAll(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
             if (cpuIdNode is null)

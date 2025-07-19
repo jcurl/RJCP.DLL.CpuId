@@ -35,5 +35,14 @@
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         public static extern IntPtr GetCurrentProcess();
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        public static extern int GetCurrentThread();
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        public static extern int GetCurrentThreadId();
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        public static extern nuint SetThreadAffinityMask(int hThread, nuint dwThreadAffinityMask);
     }
 }

@@ -175,6 +175,10 @@ Features:
 
 - Use intrinsic CPUID for .NET 6.0 and later (DOTNET-1038)
 
+Bugfixes:
+
+- Pin CPU before getting CPUID (DOTNET-1061).
+
 ### 6.2. Version 0.8.1
 
 Features:

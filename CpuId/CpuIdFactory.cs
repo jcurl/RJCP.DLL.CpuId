@@ -48,6 +48,30 @@
         }
 
         /// <summary>
+        /// Retrieve information about the CPU for a specific core.
+        /// </summary>
+        /// <param name="core">The core.</param>
+        /// <returns>CPU information. If the core is out of range, then <see langword="null"/> is returned.</returns>
+        public ICpuId Create(int core)
+        {
+            if (Platform.IsWinNT()) {
+                OSArchitecture architecture = Win32.GetArchitecture();
+
+                switch (architecture) {
+                case OSArchitecture.x64:
+                case OSArchitecture.x86:
+                case OSArchitecture.x86_x64:
+                    CpuIdLibFactory factory = new();
+                    return factory.Create(core);
+                default:
+                    throw new PlatformNotSupportedException("Architecture is not supported");
+                }
+            }
+
+            throw new PlatformNotSupportedException("OS Platform is not supported");
+        }
+
+        /// <summary>
         /// Retrieves information about all CPUs detected by the Operating System.
         /// </summary>
         /// <returns>An enumerable collection of all CPUs.</returns>

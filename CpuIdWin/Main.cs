@@ -45,7 +45,7 @@
 
             IEnumerable<ICpuId> cpus;
             try {
-                cpus = Global.CpuXmlFactory.CreateAll(dlg.FileName);
+                cpus = CpuIdXmlFactory.CreateAll(dlg.FileName);
             } catch (Exception ex) {
 #if DEBUG
                 string message = string.Format("Error opening file: {0}", ex.ToString());

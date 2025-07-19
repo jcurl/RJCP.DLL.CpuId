@@ -14,7 +14,19 @@
         public ICpuId Create()
         {
             LoadLibrary();
-            return CpuIdX86.CreateCpuIdX86(new CpuIdLibRegisters());
+            ICpuRegisters registers = new CpuIdLibRegisters();
+            if (!registers.IsOnline) return null;
+
+            return CpuIdX86.CreateCpuIdX86(registers);
+        }
+
+        public ICpuId Create(int core)
+        {
+            LoadLibrary();
+            ICpuRegisters registers = new CpuIdLibRegisters(core);
+            if (!registers.IsOnline) return null;
+
+            return CpuIdX86.CreateCpuIdX86(registers);
         }
 
         public IEnumerable<ICpuId> CreateAll()

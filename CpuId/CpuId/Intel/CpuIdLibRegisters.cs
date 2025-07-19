@@ -12,6 +12,7 @@
     {
         internal const int MaxCpuLeaves = 256;
 
+        private readonly int m_Core = 0;
         private readonly List<CpuIdRegister> m_RegisterList = new();
 
         /// <summary>
@@ -22,6 +23,19 @@
         /// </remarks>
         public CpuIdLibRegisters()
         {
+            Initialise();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CpuIdLibRegisters"/> class.
+        /// </summary>
+        /// <param name="core">The core to query for the CPUID registers.</param>
+        /// <remarks>
+        /// Queries the local machine for CPU data.
+        /// </remarks>
+        public CpuIdLibRegisters(int core)
+        {
+            m_Core = core;
             Initialise();
         }
 
@@ -55,9 +69,15 @@
             CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[MaxCpuLeaves];
             int r;
             fixed (CpuIdLib.CpuIdInfo* cpuidptr = &data[0]) {
-                r = CpuIdLib.iddump(cpuidptr, Marshal.SizeOf(data[0]) * data.Length);
+                r = CpuIdLib.iddumponcore(cpuidptr, Marshal.SizeOf(data[0]) * data.Length, m_Core);
             }
-            Initialise(data, 0, r);
+
+            if (r > 0) {
+                Initialise(data, 0, r);
+            } else {
+                // Couldn't get information about the core. Mark the instance as offline.
+                IsOnline = false;
+            }
         }
 
         private void Initialise(CpuIdLib.CpuIdInfo[] data, int offset, int length)
@@ -72,11 +92,14 @@
 
         public CpuIdRegister GetCpuId(int function, int subfunction)
         {
-            _ = CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);
-            return new CpuIdRegister(function, subfunction, new int[] { eax, ebx, ecx, edx });
+            Native.ICpuPin pin = new Native.Win32.PinCpuWin32();
+            using (pin.Pin(m_Core)) {
+                _ = CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);
+                return new CpuIdRegister(function, subfunction, new int[] { eax, ebx, ecx, edx });
+            }
         }
 
-        public bool IsOnline { get { return true; } }
+        public bool IsOnline { get; private set; } = true;
 
         public IEnumerator<CpuIdRegister> GetEnumerator()
         {

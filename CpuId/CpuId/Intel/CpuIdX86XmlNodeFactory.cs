@@ -26,11 +26,39 @@
             }
         }
 
+        /// <summary>
+        /// Retrieve information about the first CPU.
+        /// </summary>
+        /// <returns>CPU information.</returns>
+        /// <exception cref="InvalidOperationException">Node is not defined.</exception>
+        /// <remarks>
+        /// Because this factory is given an <see cref="XmlNode"/> during construction, and this should only be a single
+        /// core, this is considered the first core. If this is really the first core of a multiprocessor system or not,
+        /// is defined by the factory that creates this factory.
+        /// </remarks>
         public ICpuId Create()
         {
             if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNode cpuNode = Node.SelectSingleNode("./processor");
+            return CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode));
+        }
+
+        /// <summary>
+        /// Retrieve information about the CPU for a specific core.
+        /// </summary>
+        /// <param name="core">The core.</param>
+        /// <returns>CPU information only for <paramref name="core"/> 0.</returns>
+        /// <remarks>
+        /// This method can only return the same information as <see cref="Create()"/>. The constructor of this class
+        /// receives the precise core information. The factory that constructs this class must handle the creation for a
+        /// specific core.
+        /// </remarks>
+        public ICpuId Create(int core)
+        {
+            if (Node is null) throw new InvalidOperationException("Node is not defined");
+
+            XmlNode cpuNode = Node.SelectSingleNode($"./processor[{core + 1}]");
             return CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode));
         }
 

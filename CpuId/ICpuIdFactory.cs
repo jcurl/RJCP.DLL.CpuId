@@ -9,10 +9,17 @@
     public interface ICpuIdFactory
     {
         /// <summary>
-        /// Retrieve information about the current CPU.
+        /// Retrieve information about the first CPU.
         /// </summary>
         /// <returns>CPU information.</returns>
         ICpuId Create();
+
+        /// <summary>
+        /// Retrieve information about the CPU for a specific core.
+        /// </summary>
+        /// <param name="core">The core.</param>
+        /// <returns>CPU information.</returns>
+        ICpuId Create(int core);
 
         /// <summary>
         /// Retrieves information about all CPUs detected by the Operating System.

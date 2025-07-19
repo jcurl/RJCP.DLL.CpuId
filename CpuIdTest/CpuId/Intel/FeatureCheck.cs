@@ -16,9 +16,9 @@
                 Set = featureSet;
             }
 
-            public string Name { get; private set; }
+            public string Name { get; }
 
-            public string[] Set { get; private set; }
+            public string[] Set { get; }
         }
 
         // Key is the group (e.g. "standard", or "extended")
@@ -38,19 +38,19 @@
             features.Add(new FeatureSet(name, featureSet));
         }
 
-        public HashSet<string> Expected { get; private set; } = new HashSet<string>();
+        public HashSet<string> Expected { get; } = new HashSet<string>();
 
-        public HashSet<string> Missing { get; private set; } = new HashSet<string>();
+        public HashSet<string> Missing { get; } = new HashSet<string>();
 
-        public HashSet<string> Additional { get; private set; } = new HashSet<string>();
+        public HashSet<string> Additional { get; } = new HashSet<string>();
 
         public void LoadCpu(string fileName)
         {
-            CpuIdXmlFactory factory = new();
-            Cpu = factory.Create(fileName) as ICpuIdX86;
+            CpuIdXmlFactory factory = new(fileName);
+            Cpu = factory.Create() as ICpuIdX86;
             if (Cpu is null) throw new InvalidOperationException("Couldn't load CPU file");
 
-            Cpus = factory.CreateAll(fileName).OfType<ICpuIdX86>();
+            Cpus = factory.CreateAll().OfType<ICpuIdX86>();
 
             Initialize();
         }

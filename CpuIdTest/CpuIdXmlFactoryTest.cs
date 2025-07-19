@@ -14,16 +14,6 @@
         private readonly static string MultiCpu = Path.Combine(Deploy.TestDirectory, "TestResources", "GenuineIntel", "i7-9700.xml");
 
         [Test]
-        public void IntelCreateFromXmlFile()
-        {
-            CpuIdXmlFactory factory = new();
-            ICpuId cpu = factory.Create(MultiCpu);
-
-            Assert.That(cpu, Is.Not.Null);
-            Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
-        }
-
-        [Test]
         public void IntelCreateFromXmlFileProperty()
         {
             CpuIdXmlFactory factory = new() {
@@ -46,10 +36,28 @@
         }
 
         [Test]
+        public void IntelCreateFromXmlSpecificCore()
+        {
+            CpuIdXmlFactory factory = new(MultiCpu);
+
+            // This test file has exactly 8 cores.
+            for (int i = 0; i < 8; i++) {
+                CpuId.Intel.ICpuIdX86 cpu = factory.Create(i) as CpuId.Intel.ICpuIdX86;
+
+                Assert.That(cpu, Is.Not.Null);
+                Assert.That(cpu.Description, Is.EqualTo("Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"));
+
+                // Ensure that we've got each different core. The register eax=1, out ebx contains the APIC which is
+                // dependent on the core.
+                int apic = cpu.Registers.GetCpuId(1, 0).Result[1] >> 25;
+                Assert.That(apic, Is.EqualTo(i));
+            }
+        }
+
+        [Test]
         public void IntelCreateAllFromXmlFile()
         {
-            CpuIdXmlFactory factory = new();
-            IEnumerable<ICpuId> cpus = factory.CreateAll(MultiCpu);
+            IEnumerable<ICpuId> cpus = CpuIdXmlFactory.CreateAll(MultiCpu);
 
             Assert.That(cpus, Is.Not.Null);
             Assert.That(cpus.Count(), Is.EqualTo(8));
@@ -91,32 +99,31 @@
         {
             // The main purpose of this test is to ensure that we can load as man XML dumps as possible, and that
             // instantiation doesn't crash.
-            CreateAll("contrib", "instlatx64", "AuthenticAMD");
-            CreateAll("contrib", "instlatx64", "GenuineIntel");
-            CreateAll("contrib", "other");
-            CreateAll("contrib", "users");
-            CreateAll("AuthenticAmd");
-            CreateAll("GenuineIntel");
-            CreateAll("GenericIntel");
+            CreateAllDir("contrib", "instlatx64", "AuthenticAMD");
+            CreateAllDir("contrib", "instlatx64", "GenuineIntel");
+            CreateAllDir("contrib", "other");
+            CreateAllDir("contrib", "users");
+            CreateAllDir("AuthenticAmd");
+            CreateAllDir("GenuineIntel");
+            CreateAllDir("GenericIntel");
         }
 
-        private static void CreateAll(params string[] path)
+        private static void CreateAllDir(params string[] path)
         {
             string directory = Path.Combine(path);
             string fullPath = Path.IsPathRooted(directory) ?
                 directory :
                 Path.Combine(Deploy.TestDirectory, "TestResources", directory);
-            CpuIdXmlFactory factory = new();
             string[] files = Directory.GetFiles(fullPath, "*.xml", SearchOption.AllDirectories);
             foreach (string file in files) {
-                CreateAll(factory, file);
+                CreateAll(file);
             }
         }
 
-        private static void CreateAll(CpuIdXmlFactory factory, string fileName)
+        private static void CreateAll(string fileName)
         {
             Console.WriteLine("Instantiating: {0}", fileName);
-            IEnumerable<ICpuId> cpus = factory.CreateAll(fileName);
+            IEnumerable<ICpuId> cpus = CpuIdXmlFactory.CreateAll(fileName);
             foreach (ICpuId cpu in cpus) {
                 Assert.That(cpu, Is.Not.Null);
 

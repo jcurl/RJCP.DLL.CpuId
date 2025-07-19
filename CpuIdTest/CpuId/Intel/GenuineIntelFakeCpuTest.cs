@@ -12,8 +12,8 @@
         {
             string fullPath = Path.Combine(TestResources, fileName);
 
-            CpuIdXmlFactory factory = new();
-            ICpuId cpu = factory.Create(fullPath);
+            CpuIdXmlFactory factory = new(fullPath);
+            ICpuId cpu = factory.Create();
             ICpuIdX86 x86cpu = cpu as ICpuIdX86;
             Assert.That(x86cpu, Is.Not.Null);
             Assert.That(x86cpu.Topology.CoreTopology.IsReadOnly, Is.True);
