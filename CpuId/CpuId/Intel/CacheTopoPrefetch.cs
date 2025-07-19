@@ -35,6 +35,6 @@
         /// Gets the size of the prefetch line in bytes.
         /// </summary>
         /// <value>The size of the prefetch line in bytes.</value>
-        public int LineSize { get; private set; }
+        public int LineSize { get; }
     }
 }

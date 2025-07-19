@@ -72,7 +72,7 @@
         /// Gets the associativity.
         /// </summary>
         /// <value>The associativity, where 0 is fully associative.</value>
-        public int Associativity { get; private set; }
+        public int Associativity { get; }
 
         /// <summary>
         /// Gets the total number of TLB entries.
@@ -82,13 +82,13 @@
         /// TLBs don't have a "size", like a CPU data/instruction cache, but a number of entries which map pages from
         /// virtual memory to physical memory.
         /// </remarks>
-        public int Entries { get; private set; }
+        public int Entries { get; }
 
         /// <summary>
         /// Gets the number of sets in the cache.
         /// </summary>
         /// <value>The number of sets. If there is only one set, the cache is fully associative.</value>
-        public int Sets { get; private set; }
+        public int Sets { get; }
 
         /// <summary>
         /// Defines the APIC mask for which cores share this cache.
@@ -104,6 +104,6 @@
         /// But user code should not be able to change this value after it is set.
         /// </para>
         /// </remarks>
-        public long Mask { get; private set; }
+        public long Mask { get; }
     }
 }

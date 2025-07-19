@@ -40,12 +40,12 @@
         /// Gets the associativity of the cache.
         /// </summary>
         /// <value>The associativity of the cache.</value>
-        public int Associativity { get; private set; }
+        public int Associativity { get; }
 
         /// <summary>
         /// Gets the size of the cache in micro-ops.
         /// </summary>
         /// <value>The size of the cache, in micro ops.</value>
-        public int Size { get; private set; }
+        public int Size { get; }
     }
 }

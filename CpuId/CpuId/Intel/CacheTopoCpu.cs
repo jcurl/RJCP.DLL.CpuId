@@ -145,31 +145,31 @@
         /// An associativity of 1 is direct mapped. Other values are the number of entries / slots for each set in the
         /// cache.
         /// </remarks>
-        public int Associativity { get; private set; }
+        public int Associativity { get; }
 
         /// <summary>
         /// Gets the size of each line, in bytes.
         /// </summary>
         /// <value>The size of each line, in bytes.</value>
-        public int LineSize { get; private set; }
+        public int LineSize { get; }
 
         /// <summary>
         /// Gets the number of cache partitions.
         /// </summary>
         /// <value>The number of cache partitions.</value>
-        public int Partitions { get; private set; }
+        public int Partitions { get; }
 
         /// <summary>
         /// Gets the number of sets in the cache.
         /// </summary>
         /// <value>The number of sets. If there is only one set, the cache is fully associative.</value>
-        public int Sets { get; private set; }
+        public int Sets { get; }
 
         /// <summary>
         /// Gets the size of the cache in bytes.
         /// </summary>
         /// <value>The size of the cache, in bytes.</value>
-        public int Size { get; private set; }
+        public int Size { get; }
 
         /// <summary>
         /// Defines the APIC mask for which cores share this cache.

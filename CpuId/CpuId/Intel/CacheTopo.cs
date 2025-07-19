@@ -25,13 +25,13 @@
         /// Gets the cache level.
         /// </summary>
         /// <value>The cache level.</value>
-        public int Level { get; private set; }
+        public int Level { get; }
 
         /// <summary>
         /// Gets the type of this cache descriptor.
         /// </summary>
         /// <value>The type of this cache descriptor.</value>
-        public CacheType CacheType { get; private set; }
+        public CacheType CacheType { get; }
 
         /// <inheritdoc/>
         public override string ToString()

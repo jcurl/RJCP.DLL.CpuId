@@ -28,7 +28,7 @@
             }
         }
 
-        public int Key { get; private set; }
+        public int Key { get; }
 
         public string Value { get; set; }
 
