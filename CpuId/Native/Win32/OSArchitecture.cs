@@ -1,4 +1,4 @@
-﻿namespace RJCP.Diagnostics.Native
+﻿namespace RJCP.Diagnostics.Native.Win32
 {
     /// <summary>
     /// The processor architecture on which the machine is running.

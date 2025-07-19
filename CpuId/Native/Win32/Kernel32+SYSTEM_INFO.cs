@@ -1,4 +1,4 @@
-﻿namespace RJCP.Diagnostics.Native
+﻿namespace RJCP.Diagnostics.Native.Win32
 {
     using System;
     using System.Runtime.InteropServices;

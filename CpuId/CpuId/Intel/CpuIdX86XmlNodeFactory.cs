@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Xml;
 
-    internal class X86CpuIdFactoryXml : X86CpuIdFactoryBase
+    internal class CpuIdX86XmlNodeFactory : ICpuIdFactory
     {
-        public X86CpuIdFactoryXml() { }
+        public CpuIdX86XmlNodeFactory() { }
 
-        public X86CpuIdFactoryXml(XmlNode node)
+        public CpuIdX86XmlNodeFactory(XmlNode node)
         {
             ThrowHelper.ThrowIfNull(node);
             Node = node;
@@ -26,36 +26,25 @@
             }
         }
 
-        public override ICpuId Create()
+        public ICpuId Create()
         {
             if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNode cpuNode = Node.SelectSingleNode("./processor");
-            return Create(new BasicCpu(cpuNode));
+            return CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode));
         }
 
-        public override IEnumerable<ICpuId> CreateAll()
+        public IEnumerable<ICpuId> CreateAll()
         {
             if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNodeList cpuNodes = Node.SelectNodes("./processor");
-            IEnumerable<BasicCpu> cpus = GetCpuNodes(cpuNodes);
+
             List<ICpuId> ids = new();
-            foreach (BasicCpu cpu in cpus) {
-                ids.Add(Create(cpu));
+            foreach (XmlNode cpuNode in cpuNodes) {
+                ids.Add(CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode)));
             }
             return ids;
-        }
-
-        private static List<BasicCpu> GetCpuNodes(XmlNodeList xmlNodes)
-        {
-            List<BasicCpu> cpus = new();
-            foreach (XmlNode cpuNode in xmlNodes) {
-                BasicCpu cpu = new(cpuNode);
-                cpus.Add(cpu);
-            }
-
-            return cpus;
         }
 
         /// <summary>

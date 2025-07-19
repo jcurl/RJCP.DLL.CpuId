@@ -5,11 +5,11 @@
     /// </summary>
     public class GenericIntelCpu : GenericIntelCpuBase
     {
-        internal GenericIntelCpu(BasicCpu cpu) : base(cpu)
+        internal GenericIntelCpu(ICpuRegisters cpu) : base(cpu)
         {
-            if (cpu.FunctionCount == 0) return;
+            if (FunctionCount == 0) return;
 
-            CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            CpuIdRegister feature = cpu.GetCpuId(FeatureInformationFunction, 0);
             int eax = feature.Result[0];
             ProcessorSignature = eax & 0x0FFF3FFF;
 

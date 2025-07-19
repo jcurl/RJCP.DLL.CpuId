@@ -3,11 +3,6 @@
 This document covers usage of the library and a high level overview of its
 organisation. For detailed API information, see the MAML documentation in code.
 
-<!--
-    This documentation uses Visual Studio Code with Markdown All in One
-    to generate the table of contents and the numbering
--->
-
 - [1. Supported Platforms](#1-supported-platforms)
   - [1.1. Libraries and Location](#11-libraries-and-location)
 - [2. Instantiating](#2-instantiating)
@@ -51,8 +46,8 @@ consists of two parts:
 The library is required to get access to the native CPU instruction CPUID for a
 live capture.
 
-On platforms that are not supportd, it is still possible to read and present XML
-files that contain CPU ID information.
+On platforms that are not supported, it is still possible to read and present
+XML files that contain CPU ID information.
 
 ### 1.1. Libraries and Location
 
@@ -89,7 +84,7 @@ perform post-mortem analysis.
 #### 2.1.1. CPUID on Windows
 
 The first class responsible for reading the CPUID information is the
-`WindowsCpuIdFactory` which loads the appropriate DLL dependending on the
+`WindowsCpuIdFactory` which loads the appropriate DLL depending on the
 architecture which is running. This is a feature of Windows, that once the DLL
 is loaded in memory, P/Invoke simply only needs to refer to the DLL image in
 memory, not on disk, so all P/Invoke methods are applicable for 32-bit as well
@@ -140,7 +135,7 @@ single CPU.
 To get a collection of all CPUs that the Operating System is aware of:
 
 ```csharp
-using SYstem.Collections.Generic;
+using System.Collections.Generic;
 using RJCP.Diagnostics;
 using RJCP.Diagnostics.CpuId;
 
@@ -159,7 +154,7 @@ later).
 Use the following code snippet to load data from a previously saved XML file.
 
 ```csharp
-using SYstem.Collections.Generic;
+using System.Collections.Generic;
 using RJCP.Diagnostics;
 using RJCP.Diagnostics.CpuId;
 
@@ -172,7 +167,7 @@ The factory `CpuIdXmlFactory` implements the `ICpuIdFactory` interface, so it
 can be used as a mock in your unit testing.
 
 ```csharp
-using SYstem.Collections.Generic;
+using System.Collections.Generic;
 using RJCP.Diagnostics;
 using RJCP.Diagnostics.CpuId;
 
@@ -205,7 +200,7 @@ work is in the framework itself. You can use this for your own programs to make
 a dump within code.
 
 ```csharp
-using SYstem.Collections.Generic;
+using System.Collections.Generic;
 using RJCP.Diagnostics;
 using RJCP.Diagnostics.CpuId;
 

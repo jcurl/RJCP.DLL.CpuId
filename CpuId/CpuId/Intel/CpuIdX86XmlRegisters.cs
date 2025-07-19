@@ -1,11 +1,15 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Xml;
 
-    internal class CpuXmlRegisters : CpuRegistersBase
+    internal class CpuIdX86XmlRegisters : ICpuRegisters
     {
-        public CpuXmlRegisters(XmlNode node)
+        private readonly List<CpuIdRegister> m_RegisterList = new();
+
+        public CpuIdX86XmlRegisters(XmlNode node)
         {
             XmlNodeList registers = node.SelectNodes("./register");
             foreach (XmlNode register in registers) {
@@ -30,7 +34,7 @@
             }
 
             CpuIdRegister result = new(function, subfunction, registers);
-            AddRegister(result);
+            m_RegisterList.Add(result);
         }
 
         private static bool TryGetHexValue(string value, out int result)
@@ -38,6 +42,22 @@
             return int.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result);
         }
 
-        public override bool IsOnline { get { return false; } }
+        public CpuIdRegister GetCpuId(int function, int subfunction)
+        {
+            // Wrap this class around a CpuIdRegisters for proper function.
+            return null;
+        }
+
+        public bool IsOnline { get { return false; } }
+
+        public IEnumerator<CpuIdRegister> GetEnumerator()
+        {
+            return m_RegisterList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

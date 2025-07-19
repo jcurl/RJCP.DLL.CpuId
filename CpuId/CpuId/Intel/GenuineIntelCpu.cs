@@ -31,7 +31,7 @@
         private int m_SteppingId;
         private int m_Brand;
 
-        internal GenuineIntelCpu(BasicCpu cpu) : base(cpu)
+        internal GenuineIntelCpu(ICpuRegisters cpu) : base(cpu)
         {
             Features.DescriptionPrefix = "INTEL";
             GetProcessorSignature(cpu);
@@ -60,11 +60,11 @@
             GetCacheTopology(cpu);
         }
 
-        private void GetProcessorSignature(BasicCpu cpu)
+        private void GetProcessorSignature(ICpuRegisters cpu)
         {
-            if (cpu.FunctionCount == 0) return;
+            if (FunctionCount == 0) return;
 
-            CpuIdRegister feature = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            CpuIdRegister feature = cpu.GetCpuId(FeatureInformationFunction, 0);
             if (feature is null) return;
 
             int eax = feature.Result[0];
@@ -378,11 +378,11 @@
             null, null, null, null, null, null, null, null
         };
 
-        private void FindFeatures(BasicCpu cpu)
+        private void FindFeatures(ICpuRegisters cpu)
         {
-            if (cpu.FunctionCount < FeatureInformationFunction) return;
+            if (FunctionCount < FeatureInformationFunction) return;
 
-            CpuIdRegister features = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            CpuIdRegister features = cpu.GetCpuId(FeatureInformationFunction, 0);
             if (features is not null) {
                 TestFeatures(FeaturesCpuId01Edx, FeatureGroup.StandardFeatures, features, 3);
                 if (Features["SEP"].Value && ProcessorSignature < 0x633)
@@ -395,8 +395,8 @@
 
             FindExtendedFeatures(cpu);
 
-            if (cpu.FunctionCount < ThermalPower) return;
-            CpuIdRegister features6 = cpu.CpuRegisters.GetCpuId(ThermalPower, 0);
+            if (FunctionCount < ThermalPower) return;
+            CpuIdRegister features6 = cpu.GetCpuId(ThermalPower, 0);
             if (features6 is not null) {
                 TestFeatures(FeaturesCpuId06Eax, FeatureGroup.PowerManagement, features6, 0);
                 ReservedFeature(FeatureGroup.PowerManagement, features6, 0, unchecked((int)0xFE601008));
@@ -405,8 +405,8 @@
                 ReservedFeature(FeatureGroup.PowerManagement, features6, 2, unchecked((int)0xFFFF00F6));
             }
 
-            if (cpu.FunctionCount < ExtendedFeatureFunction) return;
-            CpuIdRegister features7 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 0);
+            if (FunctionCount < ExtendedFeatureFunction) return;
+            CpuIdRegister features7 = cpu.GetCpuId(ExtendedFeatureFunction, 0);
             if (features7 is not null) {
                 TestFeatures(FeaturesCpuId07Ebx, FeatureGroup.StructuredExtendedFeatures, features7, 1);
                 ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 1, 0x00400000);
@@ -418,7 +418,7 @@
                 ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7, 3, 0x002210C1);
 
                 if (features7.Result[0] > 0) {
-                    CpuIdRegister features7s1 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 1);
+                    CpuIdRegister features7s1 = cpu.GetCpuId(ExtendedFeatureFunction, 1);
                     if (features7s1 is not null) {
                         TestFeatures(FeaturesCpuId0701Eax, FeatureGroup.StructuredExtendedFeatures, features7s1, 0);
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s1, 0, unchecked((int)0xFBBFE3CF));
@@ -434,7 +434,7 @@
                 }
 
                 if (features7.Result[0] > 1) {
-                    CpuIdRegister features7s2 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, 2);
+                    CpuIdRegister features7s2 = cpu.GetCpuId(ExtendedFeatureFunction, 2);
                     if (features7s2 is not null) {
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 0, unchecked((int)0xFFFFFFFF));
                         ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7s2, 1, unchecked((int)0xFFFFFFFF));
@@ -445,7 +445,7 @@
                     }
 
                     for (int subfunction = 3; subfunction <= features7.Result[0]; subfunction++) {
-                        CpuIdRegister features7sX = cpu.CpuRegisters.GetCpuId(ExtendedFeatureFunction, subfunction);
+                        CpuIdRegister features7sX = cpu.GetCpuId(ExtendedFeatureFunction, subfunction);
                         if (features7sX is not null) {
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 0, unchecked((int)0xFFFFFFFF));
                             ReservedFeature(FeatureGroup.StructuredExtendedFeatures, features7sX, 1, unchecked((int)0xFFFFFFFF));
@@ -458,8 +458,8 @@
 
             FindPerformanceFeature(cpu);
 
-            if (cpu.FunctionCount < ExtendedProcessorState) return;
-            CpuIdRegister features13 = cpu.CpuRegisters.GetCpuId(ExtendedProcessorState, 1);
+            if (FunctionCount < ExtendedProcessorState) return;
+            CpuIdRegister features13 = cpu.GetCpuId(ExtendedProcessorState, 1);
             if (features13 is not null) {
                 TestFeatures(FeaturesCpuId0D01Eax, FeatureGroup.ExtendedState, features13, 0);
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 0, unchecked((int)0xFFFFFFE0));
@@ -470,9 +470,9 @@
                 ReservedFeature(FeatureGroup.ExtendedState, features13, 3, unchecked((int)0xFFFFFFFF));
             }
 
-            if (cpu.FunctionCount < RdtMonitoring) return;
+            if (FunctionCount < RdtMonitoring) return;
             if (Features["RDT-M"].Value) {
-                CpuIdRegister features15 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 0);
+                CpuIdRegister features15 = cpu.GetCpuId(RdtMonitoring, 0);
                 if (features15 is not null) {
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 0, unchecked((int)0xFFFFFFFF));
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 2, unchecked((int)0xFFFFFFFF));
@@ -480,7 +480,7 @@
                     TestFeatures(FeaturesCpuId0FEdx, FeatureGroup.RdtMonitoring, features15, 3);
                     ReservedFeature(FeatureGroup.RdtMonitoring, features15, 3, unchecked((int)0xFFFFFFFD));
 
-                    CpuIdRegister features15s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring, 1);
+                    CpuIdRegister features15s1 = cpu.GetCpuId(RdtMonitoring, 1);
                     if (features15s1 is not null) {
                         TestFeatures(FeaturesCpuId0F01Eax, FeatureGroup.RdtMonitoring, features15s1, 0);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features15s1, 0, unchecked((int)0xFFFFF800));
@@ -491,9 +491,9 @@
                 }
             }
 
-            if (cpu.FunctionCount < RdtMonitoring + 1) return;
+            if (FunctionCount < RdtMonitoring + 1) return;
             if (Features["RDT-A"].Value) {
-                CpuIdRegister features16 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 0);
+                CpuIdRegister features16 = cpu.GetCpuId(RdtMonitoring + 1, 0);
                 if (features16 is not null) {
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 0, unchecked((int)0xFFFFFFFF));
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 2, unchecked((int)0xFFFFFFFF));
@@ -502,19 +502,19 @@
                     TestFeatures(FeaturesCpuId10Ebx, FeatureGroup.RdtMonitoring, features16, 1);
                     ReservedFeature(FeatureGroup.RdtMonitoring, features16, 1, unchecked((int)0xFFFFFFF1));
 
-                    CpuIdRegister features16s1 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 1);
+                    CpuIdRegister features16s1 = cpu.GetCpuId(RdtMonitoring + 1, 1);
                     if (features16s1 is not null) {
                         TestFeatures(FeaturesCpuId1001Ecx, FeatureGroup.RdtMonitoring, features16s1, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s1, 0, unchecked((int)0xFFFFFFF1));
                     }
 
-                    CpuIdRegister features16s2 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 2);
+                    CpuIdRegister features16s2 = cpu.GetCpuId(RdtMonitoring + 1, 2);
                     if (features16s2 is not null) {
                         TestFeatures(FeaturesCpuId1002Ecx, FeatureGroup.RdtMonitoring, features16s2, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s2, 0, unchecked((int)0xFFFFFFF3));
                     }
 
-                    CpuIdRegister features16s3 = cpu.CpuRegisters.GetCpuId(RdtMonitoring + 1, 3);
+                    CpuIdRegister features16s3 = cpu.GetCpuId(RdtMonitoring + 1, 3);
                     if (features16s3 is not null) {
                         TestFeatures(FeaturesCpuId1003Ecx, FeatureGroup.RdtMonitoring, features16s3, 2);
                         ReservedFeature(FeatureGroup.RdtMonitoring, features16s3, 0, unchecked((int)0xFFFFFFFB));
@@ -522,9 +522,9 @@
                 }
             }
 
-            if (cpu.FunctionCount < SgxLeaf) return;
+            if (FunctionCount < SgxLeaf) return;
             if (Features["SGX"].Value) {
-                CpuIdRegister features18 = cpu.CpuRegisters.GetCpuId(SgxLeaf, 0);
+                CpuIdRegister features18 = cpu.GetCpuId(SgxLeaf, 0);
                 if (features18 is not null) {
                     TestFeatures(FeaturesCpuId12Eax, FeatureGroup.Sgx, features18, 0);
                     ReservedFeature(FeatureGroup.ExtendedState, features18, 0, unchecked((int)0xFFFFF31C));
@@ -533,8 +533,8 @@
                 }
             }
 
-            if (cpu.FunctionCount < ProcTrace) return;
-            CpuIdRegister features20 = cpu.CpuRegisters.GetCpuId(ProcTrace, 0);
+            if (FunctionCount < ProcTrace) return;
+            CpuIdRegister features20 = cpu.GetCpuId(ProcTrace, 0);
             if (features20 is not null) {
                 TestFeatures(FeaturesCpuId14Ebx, FeatureGroup.ProcessorTrace, features20, 1);
                 ReservedFeature(FeatureGroup.ProcessorTrace, features20, 1, unchecked((int)0xFFFFFE00));
@@ -545,8 +545,8 @@
                 ReservedFeature(FeatureGroup.ProcessorTrace, features20, 3, unchecked((int)0xFFFFFFFF));
             }
 
-            if (cpu.FunctionCount < KeyLocker) return;
-            CpuIdRegister features25 = cpu.CpuRegisters.GetCpuId(KeyLocker, 0);
+            if (FunctionCount < KeyLocker) return;
+            CpuIdRegister features25 = cpu.GetCpuId(KeyLocker, 0);
             if (features25 is not null) {
                 TestFeatures(FeaturesCpuId19Eax, FeatureGroup.KeyLocker, features25, 0);
                 ReservedFeature(FeatureGroup.KeyLocker, features25, 0, unchecked((int)0xFFFFFFF8));
@@ -560,8 +560,8 @@
                 ReservedFeature(FeatureGroup.KeyLocker, features25, 3, unchecked((int)0xFFFFFFFF));
             }
 
-            if (cpu.FunctionCount < LastBranchRec) return;
-            CpuIdRegister features30 = cpu.CpuRegisters.GetCpuId(LastBranchRec, 0);
+            if (FunctionCount < LastBranchRec) return;
+            CpuIdRegister features30 = cpu.GetCpuId(LastBranchRec, 0);
             if (features30 is not null) {
                 TestFeatures(FeaturesCpuId1CEax, FeatureGroup.LastBranchRecords, features30, 0);
                 ReservedFeature(FeatureGroup.LastBranchRecords, features30, 0, unchecked(0x3FFFFF00));
@@ -576,10 +576,10 @@
             }
         }
 
-        private void FindExtendedFeatures(BasicCpu cpu)
+        private void FindExtendedFeatures(ICpuRegisters cpu)
         {
-            if (cpu.ExtendedFunctionCount < ExtendedInformationFunction - MaxExtendedFunction) return;
-            CpuIdRegister extfeat = cpu.CpuRegisters.GetCpuId(ExtendedInformationFunction, 0);
+            if (ExtendedFunctionCount < ExtendedInformationFunction - ExtendedFunction) return;
+            CpuIdRegister extfeat = cpu.GetCpuId(ExtendedInformationFunction, 0);
             if (extfeat is not null) {
                 TestFeatures(FeaturesCpuId800000001Ecx, FeatureGroup.ExtendedFeatures, extfeat, 2);
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 2, unchecked((int)0xFFFFFEDE));
@@ -588,18 +588,18 @@
                 ReservedFeature(FeatureGroup.ExtendedFeatures, extfeat, 3, unchecked((int)0xD3EFF7FF));
             }
 
-            if (cpu.ExtendedFunctionCount < ExtendedFeatureIds - MaxExtendedFunction) return;
-            CpuIdRegister extfeat8 = cpu.CpuRegisters.GetCpuId(ExtendedFeatureIds, 0);
+            if (ExtendedFunctionCount < ExtendedFeatureIds - ExtendedFunction) return;
+            CpuIdRegister extfeat8 = cpu.GetCpuId(ExtendedFeatureIds, 0);
             if (extfeat8 is not null) {
                 TestFeatures(FeaturesCpuId80000008Ebx, FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1);
                 ReservedFeature(FeatureGroup.ExtendedFeaturesIdentifiers, extfeat8, 1, unchecked((int)0xFFFFFDFF));
             }
         }
 
-        private void FindPerformanceFeature(BasicCpu cpu)
+        private void FindPerformanceFeature(ICpuRegisters cpu)
         {
-            if (cpu.FunctionCount < PerfSampling) return;
-            CpuIdRegister features10 = cpu.CpuRegisters.GetCpuId(PerfSampling, 0);
+            if (FunctionCount < PerfSampling) return;
+            CpuIdRegister features10 = cpu.GetCpuId(PerfSampling, 0);
             if (features10 is null) return;
 
             int l = features10.Result[0] >> 24; // Get length of EBX bit vector
@@ -618,10 +618,10 @@
             get { return CpuVendor.GenuineIntel; }
         }
 
-        private void GetCpuTopology(BasicCpu cpu)
+        private void GetCpuTopology(ICpuRegisters cpu)
         {
-            if (cpu.FunctionCount >= NativeModelId) {
-                CpuIdRegister nativeId = cpu.CpuRegisters.GetCpuId(NativeModelId, 0);
+            if (FunctionCount >= NativeModelId) {
+                CpuIdRegister nativeId = cpu.GetCpuId(NativeModelId, 0);
                 if (nativeId.Result[0] != 0) {
                     BigLittleIntelCoreType coreType = (BigLittleIntelCoreType)((nativeId.Result[0] >> 24) & 0xFF);
                     int modelId = nativeId.Result[0] & 0xFFFFFF;
@@ -642,11 +642,11 @@
             }
 
             if (!Features["HTT"].Value || !Features["APIC"].Value) {
-                if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology) {
-                    CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+                if (Features["x2APIC"].Value && FunctionCount >= ExtendedTopology) {
+                    CpuIdRegister x2apic = cpu.GetCpuId(ExtendedTopology, 0);
                     Topology.ApicId = x2apic.Result[3];
-                } else if (cpu.FunctionCount >= FeatureInformationFunction) {
-                    CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                } else if (FunctionCount >= FeatureInformationFunction) {
+                    CpuIdRegister apic = cpu.GetCpuId(FeatureInformationFunction, 0);
                     Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 } else {
                     Topology.ApicId = -1;
@@ -659,21 +659,21 @@
                 return;
             }
 
-            if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology2) {
-                CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+            if (Features["x2APIC"].Value && FunctionCount >= ExtendedTopology2) {
+                CpuIdRegister x2apic = cpu.GetCpuId(ExtendedTopology, 0);
                 Topology.ApicId = x2apic.Result[3];
                 GetExtendedTopology(cpu, ExtendedTopology2);
-            } else if (Features["x2APIC"].Value && cpu.FunctionCount >= ExtendedTopology) {
-                CpuIdRegister x2apic = cpu.CpuRegisters.GetCpuId(ExtendedTopology, 0);
+            } else if (Features["x2APIC"].Value && FunctionCount >= ExtendedTopology) {
+                CpuIdRegister x2apic = cpu.GetCpuId(ExtendedTopology, 0);
                 Topology.ApicId = x2apic.Result[3];
                 GetExtendedTopology(cpu, ExtendedTopology);
-            } else if (cpu.FunctionCount >= LegacyTopology) {
-                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
-                CpuIdRegister topo = cpu.CpuRegisters.GetCpuId(LegacyTopology, 0);
+            } else if (FunctionCount >= LegacyTopology) {
+                CpuIdRegister apic = cpu.GetCpuId(FeatureInformationFunction, 0);
+                CpuIdRegister topo = cpu.GetCpuId(LegacyTopology, 0);
                 Topology.ApicId = (apic.Result[1] >> 24) & 0xFF;
                 GetLegacyTopology(apic, topo);
             } else {
-                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                CpuIdRegister apic = cpu.GetCpuId(FeatureInformationFunction, 0);
                 Topology.ApicId = Features["APIC"].Value ?
                     (apic.Result[1] >> 24) & 0xFF :
                     0;
@@ -684,21 +684,21 @@
             }
         }
 
-        private int GetMaxNumberOfLogicalProcessors(BasicCpu cpu)
+        private int GetMaxNumberOfLogicalProcessors(ICpuRegisters cpu)
         {
             if (Features["HTT"].Value) {
-                CpuIdRegister apic = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+                CpuIdRegister apic = cpu.GetCpuId(FeatureInformationFunction, 0);
                 return (apic.Result[1] >> 16) & 0xFF;
             }
             return 1;
         }
 
-        private void GetExtendedTopology(BasicCpu cpu, int leaf)
+        private void GetExtendedTopology(ICpuRegisters cpu, int leaf)
         {
             int lwidth = 0;
             int level = 0;
 
-            CpuIdRegister topo = cpu.CpuRegisters.GetCpuId(leaf, level);
+            CpuIdRegister topo = cpu.GetCpuId(leaf, level);
             while (topo is not null) {
                 int ltype = (topo.Result[2] >> 8) & 0xFF;
                 if (ltype == 0) break;
@@ -712,10 +712,10 @@
 
                 level++;
                 lwidth = cwidth;
-                topo = cpu.CpuRegisters.GetCpuId(leaf, level);
+                topo = cpu.GetCpuId(leaf, level);
             }
 
-            topo = cpu.CpuRegisters.GetCpuId(FeatureInformationFunction, 0);
+            topo = cpu.GetCpuId(FeatureInformationFunction, 0);
             int pwidth = Log2Pof2((topo.Result[1] >> 16) & 0xFF);
             int pmask = -1 << pwidth;
             Topology.CoreTopology.Add(new CpuTopo(Topology.ApicId >> pwidth, CpuTopoType.Package, pmask));
@@ -742,13 +742,13 @@
             Topology.CoreTopology.Add(new CpuTopo(pkgId, CpuTopoType.Package, pkgMask));
         }
 
-        private void GetCacheTopology(BasicCpu cpu)
+        private void GetCacheTopology(ICpuRegisters cpu)
         {
-            if (cpu.FunctionCount >= LegacyCache) {
+            if (FunctionCount >= LegacyCache) {
                 bool leafTlb = false;
                 bool leafCpu = false;
                 bool noExtraCache = false;
-                CpuIdRegister cache = cpu.CpuRegisters.GetCpuId(LegacyCache, 0);
+                CpuIdRegister cache = cpu.GetCpuId(LegacyCache, 0);
                 if (cache is not null && (cache.Result[0] & 0xFF) == 0x01) {
                     GetLegacyCacheTopology(cache.Result[0] & unchecked((int)0xFFFFFF00), ref leafCpu, ref leafTlb, ref noExtraCache);
                     GetLegacyCacheTopology(cache.Result[1], ref leafCpu, ref leafTlb, ref noExtraCache);
@@ -757,8 +757,8 @@
                 }
                 FixLegacyCacheMask(noExtraCache);
 
-                if (leafCpu && cpu.FunctionCount > LegacyTopology) GetCacheTopologyLeaf(LegacyTopology);
-                if (leafTlb && cpu.FunctionCount > AddressTranslation) GetCacheTlbTopologyLeaf(AddressTranslation);
+                if (leafCpu && FunctionCount > LegacyTopology) GetCacheTopologyLeaf(LegacyTopology);
+                if (leafTlb && FunctionCount > AddressTranslation) GetCacheTlbTopologyLeaf(AddressTranslation);
             }
         }
 

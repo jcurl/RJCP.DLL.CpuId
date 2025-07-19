@@ -1,54 +1,104 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
     using System;
-    using System.Runtime.Versioning;
-    using Native;
+    using System.Collections;
+    using System.Collections.Generic;
 
-    [SupportedOSPlatform("windows")]
-    internal class CpuRegisters : CpuRegistersBase
+    internal class CpuRegisters : ICpuRegisters
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CpuRegisters"/> class.
-        /// </summary>
-        /// <param name="data">The CPUID data.</param>
-        /// <param name="offset">The offset into <paramref name="data"/> for the node in question.</param>
-        /// <param name="length">The length of the cpu data <paramref name="data"/> for the node in question.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="data"/> is <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="offset"/> is negative</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="length"/> is negative</exception>
-        /// <exception cref="ArgumentException">
-        /// The <paramref name="length"/> and <paramref name="offset"/> would exceed the boundaries of the array/buffer
-        /// <paramref name="data"/>.
-        /// </exception>
-        /// <remarks>
-        /// Creates CPU data based on the native CPU data read.
-        /// </remarks>
-        public CpuRegisters(CpuIdLib.CpuIdInfo[] data, int offset, int length)
-        {
-            ThrowHelper.ThrowIfArrayOutOfBounds(data, offset, length);
+        private readonly Dictionary<int, List<CpuIdRegister>> m_Registers = new();
+        private readonly List<CpuIdRegister> m_RegisterList = new();
 
-            for (int i = 0; i < length; i++) {
-                int r = offset + i;
-                CpuIdRegister result = new(data[r].veax, data[r].vecx,
-                    new int[] { data[r].peax, data[r].pebx, data[r].pecx, data[r].pedx });
-                AddRegister(result);
+        private int m_CurrentFunction;
+        private int m_CurrentSubfunction;
+        private int m_NextRegisterIndex;
+        private List<CpuIdRegister> m_CurrentRegisterList;
+
+        private readonly ICpuRegisters m_CpuRegisters;
+
+        public CpuRegisters(ICpuRegisters cpuRegisters)
+        {
+            ThrowHelper.ThrowIfNull(cpuRegisters);
+            m_CpuRegisters = cpuRegisters;
+
+            foreach (CpuIdRegister cpuRegister in cpuRegisters) {
+                AddRegister(cpuRegister);
             }
         }
 
-        public override CpuIdRegister GetCpuId(int function, int subfunction)
+        public CpuIdRegister GetCpuId(int function, int subfunction)
         {
-            CpuIdRegister result = base.GetCpuId(function, subfunction);
-            if (result is null) {
-                // It's not cached, so query the CPU for it. Note, we assume that each EAX/ECX pair always returns the
-                // same result for the same CPU core/thread.
-                _ = CpuIdLib.cpuid(function, subfunction, out int eax, out int ebx, out int ecx, out int edx);
-                result = new CpuIdRegister(function, subfunction, new int[] { eax, ebx, ecx, edx });
-                AddRegister(result);
+            CpuIdRegister cpuRegister = GetCachedCpuId(function, subfunction);
+            if (cpuRegister is not null) return cpuRegister;
+
+            // Not cached, so query the concrete implementation.
+            cpuRegister = m_CpuRegisters.GetCpuId(function, subfunction);
+            if (cpuRegister is not null) {
+                AddRegister(cpuRegister);
+                return cpuRegister;
             }
 
-            return result;
+            return null;
         }
 
-        public override bool IsOnline { get { return true; } }
+        private CpuIdRegister GetCachedCpuId(int function, int subfunction)
+        {
+            if (m_CurrentFunction == function && m_CurrentRegisterList is not null) {
+                if (m_CurrentSubfunction == subfunction)
+                    return GetNextSubfunction(subfunction);
+            } else {
+                m_CurrentRegisterList = null;
+                if (!m_Registers.TryGetValue(function, out m_CurrentRegisterList)) {
+                    return null;
+                }
+                m_CurrentFunction = function;
+            }
+
+            m_NextRegisterIndex = 0;
+            m_CurrentSubfunction = subfunction;
+            return GetNextSubfunction(subfunction);
+        }
+
+        private CpuIdRegister GetNextSubfunction(int subfunction)
+        {
+            CpuIdRegister result;
+            int lastRegisterIndex = m_NextRegisterIndex;
+            do {
+                if (m_NextRegisterIndex == m_CurrentRegisterList.Count) {
+                    if (lastRegisterIndex == 0) return null;
+                    m_NextRegisterIndex = 0;
+                }
+                result = m_CurrentRegisterList[m_NextRegisterIndex];
+                m_NextRegisterIndex++;
+
+                if (result.SubFunction == subfunction) return result;
+                if (lastRegisterIndex == m_NextRegisterIndex) return null;
+            } while (true);
+        }
+
+        private void AddRegister(CpuIdRegister result)
+        {
+            ThrowHelper.ThrowIfNull(result);
+
+            if (!m_Registers.TryGetValue(result.Function, out List<CpuIdRegister> registers)) {
+                registers = new List<CpuIdRegister>();
+                m_Registers.Add(result.Function, registers);
+            }
+
+            registers.Add(result);
+            m_RegisterList.Add(result);
+        }
+
+        public bool IsOnline { get { return m_CpuRegisters.IsOnline; } }
+
+        public IEnumerator<CpuIdRegister> GetEnumerator()
+        {
+            return m_RegisterList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

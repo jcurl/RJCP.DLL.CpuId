@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using CpuId;
+    using CpuId.Intel;
+    using Native.Win32;
     using RJCP.Core.Environment;
 
     /// <summary>
@@ -29,8 +31,17 @@
         public ICpuId Create()
         {
             if (Platform.IsWinNT()) {
-                WindowsCpuIdFactory factory = new();
-                return factory.Create();
+                OSArchitecture architecture = Win32.GetArchitecture();
+
+                switch (architecture) {
+                case OSArchitecture.x64:
+                case OSArchitecture.x86:
+                case OSArchitecture.x86_x64:
+                    CpuIdLibFactory factory = new();
+                    return factory.Create();
+                default:
+                    throw new PlatformNotSupportedException("Architecture is not supported");
+                }
             }
 
             throw new PlatformNotSupportedException("OS Platform is not supported");
@@ -55,8 +66,17 @@
         public IEnumerable<ICpuId> CreateAll()
         {
             if (Platform.IsWinNT()) {
-                WindowsCpuIdFactory factory = new();
-                return factory.CreateAll();
+                OSArchitecture architecture = Win32.GetArchitecture();
+
+                switch (architecture) {
+                case OSArchitecture.x64:
+                case OSArchitecture.x86:
+                case OSArchitecture.x86_x64:
+                    CpuIdLibFactory factory = new();
+                    return factory.CreateAll();
+                default:
+                    throw new PlatformNotSupportedException("Architecture is not supported");
+                }
             }
 
             throw new PlatformNotSupportedException("OS Platform is not supported");

@@ -4,48 +4,36 @@
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using System.Runtime.Versioning;
-    using Native;
+    using Native.Win32;
 
     [SupportedOSPlatform("windows")]
-    internal class X86CpuIdFactory : X86CpuIdFactoryBase
+    internal class CpuIdLibFactory : ICpuIdFactory
     {
-        private const int MaxCpuLeaves = 256;
         private const int MaxCpus = 64;
 
-        public override ICpuId Create()
+        public ICpuId Create()
         {
-            return Create(GetLocalCpuNode());
+            LoadLibrary();
+            return CpuIdX86.CreateCpuIdX86(new CpuIdLibRegisters());
         }
 
-        public override IEnumerable<ICpuId> CreateAll()
+        public IEnumerable<ICpuId> CreateAll()
         {
-            IEnumerable<BasicCpu> cpus = GetLocalCpuNodes();
+            LoadLibrary();
+            IEnumerable<ICpuRegisters> cpus = GetLocalCpuNodes();
             List<ICpuId> ids = new();
-            foreach (BasicCpu cpu in cpus) {
-                ids.Add(Create(cpu));
+            foreach (ICpuRegisters cpu in cpus) {
+                ids.Add(CpuIdX86.CreateCpuIdX86(cpu));
             }
             return ids;
         }
 
-        private static unsafe BasicCpu GetLocalCpuNode()
+        private static unsafe List<ICpuRegisters> GetLocalCpuNodes()
         {
             if (CpuIdLib.hascpuid() == 0)
                 throw new PlatformNotSupportedException("CPUID instruction not supported");
 
-            CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[MaxCpuLeaves];
-            int r;
-            fixed (CpuIdLib.CpuIdInfo* cpuidptr = &data[0]) {
-                r = CpuIdLib.iddump(cpuidptr, Marshal.SizeOf(data[0]) * data.Length);
-            }
-            return new BasicCpu(data, 0, r);
-        }
-
-        private static unsafe List<BasicCpu> GetLocalCpuNodes()
-        {
-            if (CpuIdLib.hascpuid() == 0)
-                throw new PlatformNotSupportedException("CPUID instruction not supported");
-
-            CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[MaxCpuLeaves * MaxCpus];
+            CpuIdLib.CpuIdInfo[] data = new CpuIdLib.CpuIdInfo[CpuIdLibRegisters.MaxCpuLeaves * MaxCpus];
             int r;
             fixed (CpuIdLib.CpuIdInfo* cpuidptr = &data[0]) {
                 r = CpuIdLib.iddumpall(cpuidptr, Marshal.SizeOf(data[0]) * data.Length);
@@ -53,14 +41,14 @@
 
             // Each CPU has the first element with EAX=0xFFFFFFFF and the CPU number as ECX. This isn't captured by the
             // CPUID instruction, but a part of the library to allow separating the CPU information
-            List<BasicCpu> cpus = new();
+            List<ICpuRegisters> cpus = new();
             int cpustart = 0;
             for (int i = 0; i < r; i++) {
                 if (data[i].veax == -1) {
                     // Describes the start of a CPU node.
                     if (i - cpustart > 0) {
                         // Process the data that we had.
-                        BasicCpu cpu = new(data, cpustart + 1, i - cpustart - 1);
+                        ICpuRegisters cpu = new CpuIdLibRegisters(data, cpustart + 1, i - cpustart - 1);
                         cpus.Add(cpu);
                     }
                     cpustart = i;
@@ -68,11 +56,20 @@
             }
             if (r - cpustart > 0) {
                 // Process the data that we had.
-                BasicCpu cpu = new(data, cpustart + 1, r - cpustart - 1);
+                ICpuRegisters cpu = new CpuIdLibRegisters(data, cpustart + 1, r - cpustart - 1);
                 cpus.Add(cpu);
             }
 
             return cpus;
+        }
+
+        private static SafeLibraryHandle m_CpuIdHandle;
+
+        private static void LoadLibrary()
+        {
+            m_CpuIdHandle ??= Win32.LoadLibrary<CpuIdLibFactory>("cpuid.dll");
+            if (m_CpuIdHandle.IsInvalid)
+                throw new PlatformNotSupportedException("Cannot load platform specific libraries");
         }
     }
 }

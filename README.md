@@ -18,8 +18,9 @@ for offline parsing.
 - [4. Further Help](#4-further-help)
 - [5. References](#5-references)
 - [6. Release History](#6-release-history)
-  - [6.1. Version 0.8.1](#61-version-081)
-  - [6.2. Version 0.8.0](#62-version-080)
+  - [6.1. Version 0.8.2](#61-version-082)
+  - [6.2. Version 0.8.1](#62-version-081)
+  - [6.3. Version 0.8.0](#63-version-080)
 
 ## 1. Features
 
@@ -30,7 +31,7 @@ It performs a register dump, or can load a previously saved register dump, and
 interpret:
 
 - the features for AMD/Intel (see [Supported Processors and
-  Features](#31-supported-processors-and-features) for more information)
+  Features](#32-supported-processors-and-features) for more information)
 - the brand string/description
 - CPU and Cache and Topology
 
@@ -168,7 +169,13 @@ information.
 
 ## 6. Release History
 
-### 6.1. Version 0.8.1
+### 6.1. Version 0.8.2
+
+Features:
+
+- Use intrinsic CPUID for .NET 6.0 and later (DOTNET-1038)
+
+### 6.2. Version 0.8.1
 
 Features:
 
@@ -202,6 +209,6 @@ Quality:
   DOTNET-945, DOTNET-959)
 - Update to .NET 8.0 (DOTNET-982, DOTNET-985)
 
-### 6.2. Version 0.8.0
+### 6.3. Version 0.8.0
 
 - Initial release

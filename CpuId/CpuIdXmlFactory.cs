@@ -80,6 +80,7 @@
         /// </exception>
         /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory Method")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Factory Method")]
         public ICpuId Create(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
@@ -88,7 +89,7 @@
 
             switch (processor) {
             case "x86":
-                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new(cpuIdNode);
+                CpuId.Intel.CpuIdX86XmlNodeFactory x86Factory = new(cpuIdNode);
                 return x86Factory.Create();
             default:
                 // This processor type is unknown.
@@ -129,6 +130,7 @@
         /// <param name="fileName">Name of the file.</param>
         /// <returns>An enumerable collection of all CPUs.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Factory method")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Factory Method")]
         public IEnumerable<ICpuId> CreateAll(string fileName)
         {
             XmlNode cpuIdNode = GetCpuIdNode(fileName);
@@ -142,7 +144,7 @@
 
             switch (processor) {
             case "x86":
-                CpuId.Intel.X86CpuIdFactoryXml x86Factory = new(cpuIdNode);
+                CpuId.Intel.CpuIdX86XmlNodeFactory x86Factory = new(cpuIdNode);
                 return x86Factory.CreateAll();
             default:
                 // This processor type is unknown.
@@ -173,7 +175,7 @@
             }
 
             using (XmlWriter xmlWriter = XmlWriter.Create(fileName, SaveXmlSettings())) {
-                if (x86cpus.Count > 0) CpuId.Intel.X86CpuIdFactoryXml.Save(xmlWriter, x86cpus);
+                if (x86cpus.Count > 0) CpuId.Intel.CpuIdX86XmlNodeFactory.Save(xmlWriter, x86cpus);
             }
         }
 

@@ -11,19 +11,24 @@
     /// </summary>
     public abstract class GenericIntelCpuBase : ICpuIdX86
     {
+        internal const int VendorIdFunction = 0;
+        internal const int ExtendedFunction = unchecked((int)0x80000000);
         internal const int FeatureInformationFunction = 1;
         internal const int ExtendedFeatureFunction = 7;
         internal const int ExtendedProcessorState = 13;
-        internal const int MaxExtendedFunction = unchecked((int)0x80000000);
         internal const int ExtendedInformationFunction = unchecked((int)0x80000001);
         internal const int ProcessorBrand1Function = unchecked((int)0x80000002);
         internal const int ProcessorBrand2Function = unchecked((int)0x80000003);
         internal const int ProcessorBrand3Function = unchecked((int)0x80000004);
         internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
 
-        private readonly BasicCpu m_Cpu;
+        private readonly ICpuRegisters m_Cpu;
 
-        private protected GenericIntelCpuBase(BasicCpu cpu)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenericIntelCpuBase"/> class.
+        /// </summary>
+        /// <param name="cpu">The object to access CPUID registers.</param>
+        protected GenericIntelCpuBase(ICpuRegisters cpu)
         {
             m_Cpu = cpu;
         }
@@ -37,13 +42,13 @@
         /// <inheritdoc/>
         public string VendorId
         {
-            get { return m_Cpu.VendorId; }
+            get { return CpuIdX86.GetVendorId(m_Cpu); }
         }
 
         /// <inheritdoc/>
         public ICpuRegisters Registers
         {
-            get { return m_Cpu.CpuRegisters; }
+            get { return m_Cpu; }
         }
 
         /// <inheritdoc/>
@@ -76,6 +81,48 @@
         /// <inheritdoc/>
         public int FeatureLevel { get; protected set; }
 
+        private int m_FunctionCount = -1;
+
+        /// <summary>
+        /// Gets the number of Basic functions.
+        /// </summary>
+        /// <value>The number of basic functions.</value>
+        protected int FunctionCount
+        {
+            get
+            {
+                if (m_FunctionCount == -1) {
+                    m_FunctionCount = 0;
+                    CpuIdRegister vendorFunction = m_Cpu.GetCpuId(VendorIdFunction, 0);
+                    if (vendorFunction is not null)
+                        m_FunctionCount = vendorFunction.Result[0];
+                }
+                return m_FunctionCount;
+            }
+        }
+
+        private int m_ExtendedFunctionCount = -1;
+
+        /// <summary>
+        /// Gets the number of extended functions.
+        /// </summary>
+        /// <value>The number of extended functions.</value>
+        protected int ExtendedFunctionCount
+        {
+            get
+            {
+                if (m_ExtendedFunctionCount == -1) {
+                    m_ExtendedFunctionCount = 0;
+                    CpuIdRegister extendedFunction = m_Cpu.GetCpuId(ExtendedFunction, 0);
+                    if (extendedFunction is not null) {
+                        if ((extendedFunction.Result[0] & ExtendedFunction) != 0)
+                            m_ExtendedFunctionCount = extendedFunction.Result[0] & 0xFFFFFFF;
+                    }
+                }
+                return m_ExtendedFunctionCount;
+            }
+        }
+
         /// <summary>
         /// Gets the brand string from registers 80000002-80000004h.
         /// </summary>
@@ -84,11 +131,11 @@
         /// </returns>
         protected string GetProcessorBrandString()
         {
-            if (m_Cpu.ExtendedFunctionCount >= 4) {
+            if (ExtendedFunctionCount >= 4) {
                 StringBuilder brand = new(50);
-                WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand1Function, 0));
-                WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand2Function, 0));
-                WriteDescription(brand, m_Cpu.CpuRegisters.GetCpuId(ProcessorBrand3Function, 0));
+                WriteDescription(brand, m_Cpu.GetCpuId(ProcessorBrand1Function, 0));
+                WriteDescription(brand, m_Cpu.GetCpuId(ProcessorBrand2Function, 0));
+                WriteDescription(brand, m_Cpu.GetCpuId(ProcessorBrand3Function, 0));
                 return brand.ToString().Trim();
             }
             return null;
@@ -350,7 +397,7 @@
         protected void GetCacheTopologyLeaf(int leaf)
         {
             int subleaf = 0;
-            CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+            CpuIdRegister cache = m_Cpu.GetCpuId(leaf, subleaf);
             while (cache is not null && (cache.Result[0] & 0xF) != 0) {
                 int ltype = cache.Result[0] & 0xF;
 
@@ -387,7 +434,7 @@
                 }
 
                 subleaf++;
-                cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+                cache = m_Cpu.GetCpuId(leaf, subleaf);
             }
         }
 
@@ -398,7 +445,7 @@
         protected void GetCacheTlbTopologyLeaf(int leaf)
         {
             int subleaf = 0;
-            CpuIdRegister cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+            CpuIdRegister cache = m_Cpu.GetCpuId(leaf, subleaf);
             int subleaves = cache.Result[0];
 
             while (cache is not null && subleaf <= subleaves) {
@@ -446,7 +493,7 @@
 
                 if (subleaf < subleaves) {
                     subleaf++;
-                    cache = m_Cpu.CpuRegisters.GetCpuId(leaf, subleaf);
+                    cache = m_Cpu.GetCpuId(leaf, subleaf);
                 } else {
                     cache = null;
                 }
