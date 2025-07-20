@@ -77,6 +77,10 @@
     <Compile Include="CpuId\Intel\GenericIntelCpuTest.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelCpuTest.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelFakeCpuTest.cs" />
+    <None Include="Native\Win32\CpuIdLibTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Compile Include="Native\Win32\CpuIdLibTest.cs" />
   </ItemGroup>
 

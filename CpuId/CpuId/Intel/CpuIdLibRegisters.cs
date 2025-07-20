@@ -30,11 +30,13 @@
         /// Initializes a new instance of the <see cref="CpuIdLibRegisters"/> class.
         /// </summary>
         /// <param name="core">The core to query for the CPUID registers.</param>
-        /// <remarks>
-        /// Queries the local machine for CPU data.
-        /// </remarks>
+        /// <remarks>Queries the local machine for CPU data.</remarks>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="core"/> is not a valid core number.</exception>
         public CpuIdLibRegisters(int core)
         {
+            if (core < 0 || core >= Environment.ProcessorCount)
+                throw new ArgumentOutOfRangeException(nameof(core));
+
             m_Core = core;
             Initialise();
         }

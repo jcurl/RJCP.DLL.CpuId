@@ -83,8 +83,6 @@
     <Compile Include="CpuId\Intel\AuthenticAmdCpu.cs" />
     <Compile Include="CpuId\Intel\BigLittleIntel.cs" />
     <Compile Include="CpuId\Intel\BigLittleIntelCoreType.cs" />
-    <Compile Include="CpuId\Intel\CpuIdX86.cs" />
-    <Compile Include="CpuId\Intel\IBigLittle.cs" />
     <Compile Include="CpuId\Intel\CacheTopo.cs" />
     <Compile Include="CpuId\Intel\CacheTopoCpu.cs" />
     <Compile Include="CpuId\Intel\CacheTopoList.cs" />
@@ -92,19 +90,25 @@
     <Compile Include="CpuId\Intel\CacheTopoTlb.cs" />
     <Compile Include="CpuId\Intel\CacheTopoTrace.cs" />
     <Compile Include="CpuId\Intel\CacheType.cs" />
+    <Compile Include="CpuId\Intel\CpuIdLibFactory.cs" />
+    <Compile Include="CpuId\Intel\CpuIdLibRegisters.cs" />
+    <None Include="CpuId\Intel\CpuIdNetFactory.cs" />
+    <None Include="CpuId\Intel\CpuIdNetRegisters.cs" />
     <Compile Include="CpuId\Intel\CpuIdRegister.cs" />
+    <Compile Include="CpuId\Intel\CpuIdX86.cs" />
+    <Compile Include="CpuId\Intel\CpuIdX86XmlNodeFactory.cs" />
+    <Compile Include="CpuId\Intel\CpuIdX86XmlRegisters.cs" />
+    <Compile Include="CpuId\Intel\CpuRegisters.cs" />
     <Compile Include="CpuId\Intel\CpuTopo.cs" />
     <Compile Include="CpuId\Intel\CpuTopoList.cs" />
     <Compile Include="CpuId\Intel\CpuTopoType.cs" />
-    <Compile Include="CpuId\Intel\CpuIdLibRegisters.cs" />
-    <Compile Include="CpuId\Intel\CpuRegisters.cs" />
-    <Compile Include="CpuId\Intel\CpuIdX86XmlRegisters.cs" />
     <Compile Include="CpuId\Intel\FamilyTree\INode.cs" />
     <Compile Include="CpuId\Intel\FamilyTree\Node.cs" />
     <Compile Include="CpuId\Intel\FamilyTree\NodeEmpty.cs" />
     <Compile Include="CpuId\Intel\GenericIntelCpu.cs" />
     <Compile Include="CpuId\Intel\GenericIntelCpuBase.cs" />
     <Compile Include="CpuId\Intel\GenuineIntelCpu.cs" />
+    <Compile Include="CpuId\Intel\IBigLittle.cs" />
     <Compile Include="CpuId\Intel\ICpuIdX86.cs" />
     <Compile Include="CpuId\Intel\ICpuRegisters.cs" />
     <Compile Include="CpuId\Intel\IntelLegacySignatures.cs" />
@@ -113,8 +117,6 @@
     <Compile Include="CpuId\Intel\InternalCheck\MainFunction.cs" />
     <Compile Include="CpuId\Intel\InternalCheck\SubFunction.cs" />
     <Compile Include="CpuId\Intel\Topology.cs" />
-    <Compile Include="CpuId\Intel\CpuIdX86XmlNodeFactory.cs" />
-    <Compile Include="CpuId\Intel\CpuIdLibFactory.cs" />
     <Compile Include="CpuVendor.cs" />
     <Compile Include="ICpuIdFactory.cs" />
     <Compile Include="Native\ICpuPin.cs" />
@@ -134,6 +136,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CpuFeatures.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
+    <Compile Include="CpuId\Intel\CpuIdNetFactory.cs" />
+    <Compile Include="CpuId\Intel\CpuIdNetRegisters.cs" />
   </ItemGroup>
 
   <ItemGroup>

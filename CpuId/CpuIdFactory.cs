@@ -30,21 +30,7 @@
         /// </remarks>
         public ICpuId Create()
         {
-            if (Platform.IsWinNT()) {
-                OSArchitecture architecture = Win32.GetArchitecture();
-
-                switch (architecture) {
-                case OSArchitecture.x64:
-                case OSArchitecture.x86:
-                case OSArchitecture.x86_x64:
-                    CpuIdLibFactory factory = new();
-                    return factory.Create();
-                default:
-                    throw new PlatformNotSupportedException("Architecture is not supported");
-                }
-            }
-
-            throw new PlatformNotSupportedException("OS Platform is not supported");
+            return GetFactory().Create();
         }
 
         /// <summary>
@@ -54,21 +40,7 @@
         /// <returns>CPU information. If the core is out of range, then <see langword="null"/> is returned.</returns>
         public ICpuId Create(int core)
         {
-            if (Platform.IsWinNT()) {
-                OSArchitecture architecture = Win32.GetArchitecture();
-
-                switch (architecture) {
-                case OSArchitecture.x64:
-                case OSArchitecture.x86:
-                case OSArchitecture.x86_x64:
-                    CpuIdLibFactory factory = new();
-                    return factory.Create(core);
-                default:
-                    throw new PlatformNotSupportedException("Architecture is not supported");
-                }
-            }
-
-            throw new PlatformNotSupportedException("OS Platform is not supported");
+            return GetFactory().Create(core);
         }
 
         /// <summary>
@@ -89,6 +61,11 @@
         /// </remarks>
         public IEnumerable<ICpuId> CreateAll()
         {
+            return GetFactory().CreateAll();
+        }
+
+        private static ICpuIdFactory GetFactory()
+        {
             if (Platform.IsWinNT()) {
                 OSArchitecture architecture = Win32.GetArchitecture();
 
@@ -96,8 +73,11 @@
                 case OSArchitecture.x64:
                 case OSArchitecture.x86:
                 case OSArchitecture.x86_x64:
-                    CpuIdLibFactory factory = new();
-                    return factory.CreateAll();
+#if NETFRAMEWORK
+                    return new CpuIdLibFactory();
+#else
+                    return new CpuIdNetFactory();
+#endif
                 default:
                     throw new PlatformNotSupportedException("Architecture is not supported");
                 }

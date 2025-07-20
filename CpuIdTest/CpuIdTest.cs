@@ -49,14 +49,15 @@
         [SupportedOSPlatform("windows")]
         public void InvalidCpuCore()
         {
-            ICpuIdX86 cpu;
             CpuIdFactory factory = new();
 
-            cpu = factory.Create(-1) as ICpuIdX86;
-            Assert.That(cpu, Is.Null);
+            Assert.That(() => {
+                _ = factory.Create(-1);
+            }, Throws.TypeOf<ArgumentOutOfRangeException>());
 
-            cpu = factory.Create(64) as ICpuIdX86;
-            Assert.That(cpu, Is.Null);
+            Assert.That(() => {
+                _ = factory.Create(64);
+            }, Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Test]

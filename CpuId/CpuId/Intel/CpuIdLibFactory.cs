@@ -22,6 +22,9 @@
 
         public ICpuId Create(int core)
         {
+            if (core < 0 || core >= Environment.ProcessorCount)
+                throw new ArgumentOutOfRangeException(nameof(core));
+
             LoadLibrary();
             ICpuRegisters registers = new CpuIdLibRegisters(core);
             if (!registers.IsOnline) return null;
