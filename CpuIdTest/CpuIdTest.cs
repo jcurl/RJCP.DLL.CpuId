@@ -8,11 +8,16 @@
     using NUnit.Framework;
 
     [TestFixture]
+#if NETCOREAPP
+    [Platform("Win,Linux")]
+    [SupportedOSPlatform("Linux")]
+#else
+    [Platform("Win")]
+#endif
+    [SupportedOSPlatform("windows")]
     public class CpuIdTest
     {
         [Test]
-        [Platform("Win")]
-        [SupportedOSPlatform("windows")]
         public void FirstCpuId()
         {
             CpuIdFactory factory = new();
@@ -24,8 +29,6 @@
         }
 
         [Test]
-        [Platform("Win")]
-        [SupportedOSPlatform("windows")]
         public void CpuIdIndividualCores()
         {
             CpuIdFactory factory = new();
@@ -45,8 +48,6 @@
         }
 
         [Test]
-        [Platform("Win")]
-        [SupportedOSPlatform("windows")]
         public void InvalidCpuCore()
         {
             CpuIdFactory factory = new();
@@ -61,8 +62,6 @@
         }
 
         [Test]
-        [Platform("Win")]
-        [SupportedOSPlatform("windows")]
         public void AllCpuId()
         {
             CpuIdFactory factory = new();
@@ -85,8 +84,6 @@
         }
 
         [Test]
-        [Platform("Win")]
-        [SupportedOSPlatform("windows")]
         public void GetRegister()
         {
             CpuIdFactory factory = new();

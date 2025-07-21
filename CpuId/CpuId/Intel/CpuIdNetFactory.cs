@@ -5,6 +5,7 @@
     using System.Runtime.Versioning;
 
     [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("Linux")]
     internal class CpuIdNetFactory : ICpuIdFactory
     {
         private const int MaxCpus = 64;

@@ -6,6 +6,9 @@
     using CpuId.Intel;
     using Native.Win32;
     using RJCP.Core.Environment;
+#if NETCOREAPP
+    using System.Runtime.InteropServices;
+#endif
 
     /// <summary>
     /// Factory for getting a class with information about the CPU on the current thread.
@@ -66,6 +69,7 @@
 
         private static ICpuIdFactory GetFactory()
         {
+#if NETFRAMEWORK
             if (Platform.IsWinNT()) {
                 OSArchitecture architecture = Win32.GetArchitecture();
 
@@ -73,15 +77,21 @@
                 case OSArchitecture.x64:
                 case OSArchitecture.x86:
                 case OSArchitecture.x86_x64:
-#if NETFRAMEWORK
                     return new CpuIdLibFactory();
-#else
-                    return new CpuIdNetFactory();
-#endif
                 default:
                     throw new PlatformNotSupportedException("Architecture is not supported");
                 }
             }
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ||
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                switch (RuntimeInformation.ProcessArchitecture) {
+                case Architecture.X86:
+                case Architecture.X64:
+                    return new CpuIdNetFactory();
+                }
+            }
+#endif
 
             throw new PlatformNotSupportedException("OS Platform is not supported");
         }

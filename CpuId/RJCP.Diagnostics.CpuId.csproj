@@ -120,6 +120,8 @@
     <Compile Include="CpuVendor.cs" />
     <Compile Include="ICpuIdFactory.cs" />
     <Compile Include="Native\ICpuPin.cs" />
+    <None Include="Native\Linux\Glibc.cs" />
+    <None Include="Native\Linux\PinCpuLinux.cs" />
     <Compile Include="Native\Win32\CpuIdLib+CpuIdInfo.cs" />
     <Compile Include="Native\Win32\CpuIdLib.cs" />
     <Compile Include="Native\Win32\Kernel32+LoadLibraryFlags.cs" />
@@ -141,6 +143,8 @@
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
     <Compile Include="CpuId\Intel\CpuIdNetFactory.cs" />
     <Compile Include="CpuId\Intel\CpuIdNetRegisters.cs" />
+    <Compile Include="Native\Linux\Glibc.cs" />
+    <Compile Include="Native\Linux\PinCpuLinux.cs" />
   </ItemGroup>
 
   <ItemGroup>

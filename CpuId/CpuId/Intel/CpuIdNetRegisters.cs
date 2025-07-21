@@ -5,8 +5,14 @@
     using System.Collections.Generic;
     using System.Runtime.Intrinsics.X86;
     using System.Runtime.Versioning;
+    using Native.Win32;
+#if NETCOREAPP
+    using System.Runtime.InteropServices;
+    using Native.Linux;
+#endif
 
     [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("Linux")]
     internal class CpuIdNetRegisters : ICpuRegisters
     {
         internal const int MaxCpuLeaves = 256;
@@ -54,11 +60,23 @@
 
         public CpuIdRegister GetCpuId(int function, int subfunction)
         {
-            Native.ICpuPin pin = new Native.Win32.PinCpuWin32();
-            using (pin.Pin(m_Core)) {
+            using (Pin(m_Core)) {
                 var (Eax, Ebx, Ecx, Edx) = X86Base.CpuId(function, subfunction);
                 return new CpuIdRegister(function, subfunction, new[] { Eax, Ebx, Ecx, Edx });
             }
+        }
+
+        private static IDisposable Pin(int core)
+        {
+            Native.ICpuPin pin;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                pin = new PinCpuWin32();
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
+                pin = new PinCpuLinux();
+            } else {
+                throw new PlatformNotSupportedException("Unknown platform");
+            }
+            return pin.Pin(core);
         }
 
         public bool IsOnline { get { return true; } }
