@@ -525,5 +525,22 @@
                 xmlWriter.WriteEndElement();
             }
         }
+
+        internal static void CpuRegisters(ICollection<CpuIdRegister> registersList, ICpuRegisters registers, uint baseReg)
+        {
+            uint maxLeaf = baseReg;
+            while (true) {
+                CpuIdRegister reg = registers.GetCpuId(unchecked((int)baseReg), 0);
+                registersList.Add(reg);
+                if (maxLeaf == baseReg) {
+                    maxLeaf = unchecked((uint)reg.Result[0]);
+                    if ((maxLeaf & 0xFFFF0000) != (baseReg & 0xFFFF0000))
+                        return;
+                }
+
+                baseReg++;
+                if (baseReg > maxLeaf) return;
+            }
+        }
     }
 }

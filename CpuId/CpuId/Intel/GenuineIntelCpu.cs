@@ -968,5 +968,137 @@
                 }
             }
         }
+
+        internal static IEnumerable<CpuIdRegister> CpuRegisters(ICpuRegisters registers)
+        {
+            List<CpuIdRegister> registerList = new();
+
+            CpuIdDumpNormal(registerList, registers);
+            CpuRegisters(registerList, registers, 0x20000000);
+
+            if (registerList.Count > 1 &&
+                registerList[1].Function == 1 && (registerList[1].Result[2] & 0x80000000) != 0) {
+                // We know where to find the HYPERVISOR bit if it is set.
+                CpuRegisters(registerList, registers, 0x40000000);
+            }
+
+            CpuRegisters(registerList, registers, 0x80000000);
+            return registerList;
+        }
+
+        private static void CpuIdDumpNormal(ICollection<CpuIdRegister> registersList, ICpuRegisters registers)
+        {
+            uint baseReg = 0;
+            uint maxLeaf = baseReg;
+
+            bool sgx = false;
+            while (true) {
+                CpuIdRegister reg = registers.GetCpuId(unchecked((int)baseReg), 0);
+                registersList.Add(reg);
+                switch (baseReg) {
+                case 0x00000000:
+                    // Maximum number of leaves and branding.
+                    maxLeaf = unchecked((uint)reg.Result[0]);
+                    break;
+                case 0x00000002: {
+                    // Cache descriptors.
+                    int subleaves = reg.Result[0] & 0xFF;
+                    for (int subleaf = 1; subleaf < subleaves; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        registersList.Add(reg);
+                    }
+                    break;
+                }
+                case 0x00000004: {
+                    // Deterministic Cache Parameters
+                    int subleaf = 1;
+                    while ((reg.Result[0] & 0x1F) != 0) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        registersList.Add(reg);
+                        subleaf++;
+                    }
+                    break;
+                }
+                case 0x00000007: {
+                    // Structured Extended Feature Flags.
+                    uint subleaves = unchecked((uint)reg.Result[0]);
+                    sgx = (reg.Result[1] & 0x04) != 0;
+                    for (uint subleaf = 1; subleaf <= subleaves; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                        registersList.Add(reg);
+                    }
+                    break;
+                }
+                case 0x0000000B:
+                case 0x0000001F: {
+                    // x2APIC features
+                    uint subleaf = 1;
+                    while ((reg.Result[1] & 0xFFFF) != 0) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                        registersList.Add(reg);
+                        subleaf++;
+                    }
+                    break;
+                }
+                case 0x0000000D: {
+                    // Processor Extended State
+                    for (int subleaf = 1; subleaf < 64; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        if (subleaf < 2 ||
+                            reg.Result[0] != 0 ||
+                            reg.Result[1] != 0 ||
+                            reg.Result[2] != 0 ||
+                            reg.Result[3] != 0) {
+                            registersList.Add(reg);
+                        }
+                    }
+                    break;
+                }
+                case 0x0000000F: {
+                    reg = registers.GetCpuId(unchecked((int)baseReg), 1);
+                    registersList.Add(reg);
+                    break;
+                }
+                case 0x00000010: {
+                    uint subleaf = 1;
+                    uint residbit = unchecked((uint)reg.Result[1]) >> 1;
+                    while (residbit != 0) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                        registersList.Add(reg);
+                        residbit >>= 1;
+                        subleaf++;
+                    }
+                    break;
+                }
+                case 0x00000012: {
+                    if (sgx) {
+                        uint subleaf = 1;
+                        while (subleaf <= 2 || (subleaf <= 0xFF && ((reg.Result[0] & 0x0F) != 0))) {
+                            reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                            registersList.Add(reg);
+                            subleaf++;
+                        }
+                    }
+                    break;
+                }
+                case 0x00000014:
+                case 0x00000017:
+                case 0x00000018:
+                case 0x00000020: {
+                    uint subleaves = unchecked((uint)reg.Result[0]);
+                    for (uint subleaf = 1; subleaf <= subleaves; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                        registersList.Add(reg);
+                    }
+                    break;
+                }
+                default:
+                    break;
+                }
+
+                if (baseReg == maxLeaf) return;
+                baseReg++;
+            }
+        }
     }
 }

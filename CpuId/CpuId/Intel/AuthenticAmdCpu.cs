@@ -1,5 +1,6 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -763,6 +764,118 @@
             if (ways1g >= 0) {
                 int entries1g = cacheTlb1g.Result[0] & 0xFFF;
                 Topology.CacheTopology.Add(new CacheTopoTlb(2, CacheType.InstructionTlb1G, ways1g, entries1g));
+            }
+        }
+
+        internal static IEnumerable<CpuIdRegister> CpuRegisters(ICpuRegisters registers)
+        {
+            List<CpuIdRegister> registerList = new();
+
+            CpuIdDumpNormal(registerList, registers);
+
+            if (registerList.Count > 1 &&
+                registerList[1].Function == 1 && (registerList[1].Result[2] & 0x80000000) != 0) {
+                // We know where to find the HYPERVISOR bit if it is set.
+                CpuRegisters(registerList, registers, 0x40000000);
+            }
+
+            CpuIdDumpExtended(registerList, registers);
+            return registerList;
+        }
+
+        private static void CpuIdDumpNormal(ICollection<CpuIdRegister> registersList, ICpuRegisters registers)
+        {
+            uint baseReg = 0;
+            uint maxLeaf = baseReg;
+
+            while (true) {
+                CpuIdRegister reg = registers.GetCpuId(unchecked((int)baseReg), 0);
+                registersList.Add(reg);
+                switch (baseReg) {
+                case 0x00000000:
+                    // Maximum number of leaves and branding.
+                    maxLeaf = unchecked((uint)reg.Result[0]);
+                    break;
+                case 0x00000007: {
+                    // Structured Extended Feature Flags.
+                    uint subleaves = unchecked((uint)reg.Result[0]);
+                    for (uint subleaf = 1; subleaf <= subleaves; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), unchecked((int)subleaf));
+                        registersList.Add(reg);
+                    }
+                    break;
+                }
+                case 0x0000000D: {
+                    // Processor Extended State
+                    for (int subleaf = 1; subleaf < 64; subleaf++) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        if (subleaf < 2 ||
+                            reg.Result[0] != 0 ||
+                            reg.Result[1] != 0 ||
+                            reg.Result[2] != 0 ||
+                            reg.Result[3] != 0) {
+                            registersList.Add(reg);
+                        }
+                    }
+                    break;
+                }
+                default:
+                    break;
+                }
+
+                if (baseReg == maxLeaf) return;
+                baseReg++;
+            }
+        }
+
+        private static void CpuIdDumpExtended(ICollection<CpuIdRegister> registersList, ICpuRegisters registers)
+        {
+            uint baseReg = 0x80000000;
+            uint maxLeaf = baseReg;
+
+            while (true) {
+                CpuIdRegister reg = registers.GetCpuId(unchecked((int)baseReg), 0);
+                registersList.Add(reg);
+                switch (baseReg) {
+                case 0x80000000:
+                    // Maximum number of leaves and branding.
+                    maxLeaf = unchecked((uint)reg.Result[0]);
+                    break;
+                case 0x8000001D: {
+                    int subleaf = 1;
+                    while (subleaf <= 0xFF && (reg.Result[0] & 0x1F) != 0) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        registersList.Add(reg);
+                        subleaf++;
+                    }
+                    break;
+                }
+                case 0x80000020: {
+                    reg = registers.GetCpuId(unchecked((int)baseReg), 1);
+                    registersList.Add(reg);
+                    reg = registers.GetCpuId(unchecked((int)baseReg), 2);
+                    registersList.Add(reg);
+                    reg = registers.GetCpuId(unchecked((int)baseReg), 3);
+                    registersList.Add(reg);
+                    reg = registers.GetCpuId(unchecked((int)baseReg), 5);
+                    registersList.Add(reg);
+                    break;
+                }
+                case 0x80000026: {
+                    int subleaf = 1;
+                    while (subleaf <= 0xFF && (reg.Result[2] & 0xFF00) != 0) {
+                        reg = registers.GetCpuId(unchecked((int)baseReg), subleaf);
+                        registersList.Add(reg);
+                        subleaf++;
+                    }
+                    break;
+                }
+                default:
+                    break;
+                }
+
+                if (baseReg == maxLeaf) return;
+                baseReg++;
             }
         }
     }

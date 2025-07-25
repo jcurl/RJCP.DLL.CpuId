@@ -1,5 +1,7 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// CPU information for a generic Intel Clone.
     /// </summary>
@@ -25,6 +27,16 @@
             Description = string.Empty;
 
             Topology.CoreTopology.IsReadOnly = true;
+        }
+
+        internal static IEnumerable<CpuIdRegister> CpuRegisters(ICpuRegisters registers)
+        {
+            List<CpuIdRegister> registersList = new();
+            CpuRegisters(registersList, registers, 0);
+            CpuRegisters(registersList, registers, 0x20000000);
+            CpuRegisters(registersList, registers, 0x40000000);
+            CpuRegisters(registersList, registers, 0x80000000);
+            return registersList;
         }
     }
 }

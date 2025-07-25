@@ -18,7 +18,37 @@
         internal const int MaxCpuLeaves = 256;
 
         private readonly int m_Core = 0;
-        private readonly List<CpuIdRegister> m_RegisterList = new();
+        private readonly IEnumerable<CpuIdRegister> m_RegisterList;
+
+        /// <summary>
+        /// Get CPUID information on the current thread.
+        /// </summary>
+        /// <remarks>
+        /// Get the CPU information on the local thread. This is so we can give methods to classes to get CPU
+        /// information, and configure the thread prior, to reduce the number of system calls for querying.
+        /// </remarks>
+        private sealed class CpuIdNetLocal : ICpuRegisters
+        {
+            public bool IsOnline { get { return true; } }
+
+            public CpuIdRegister GetCpuId(int function, int subfunction)
+            {
+                var (Eax, Ebx, Ecx, Edx) = X86Base.CpuId(function, subfunction);
+                return new CpuIdRegister(function, subfunction, new[] { Eax, Ebx, Ecx, Edx });
+            }
+
+            public IEnumerator<CpuIdRegister> GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        private readonly CpuIdNetLocal m_CpuIdLocal = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CpuIdNetRegisters"/> class.
@@ -27,7 +57,7 @@
         public CpuIdNetRegisters()
         {
             CheckPlatform();
-            Initialise();
+            m_RegisterList = Initialise();
         }
 
         /// <summary>
@@ -43,7 +73,7 @@
                 throw new ArgumentOutOfRangeException(nameof(core));
 
             m_Core = core;
-            Initialise();
+            m_RegisterList = Initialise();
         }
 
         private static void CheckPlatform()
@@ -52,17 +82,24 @@
                 throw new PlatformNotSupportedException("X86Base not supported");
         }
 
-        private void Initialise()
+        private IEnumerable<CpuIdRegister> Initialise()
         {
-            // TODO: Enumerate all values and pass to Initialise(registers). The enumeration should be done in the appropriate
-            // class and add to m_RegisterList.
+            using (Pin(m_Core)) {
+                switch (CpuIdX86.GetVendorId(m_CpuIdLocal)) {
+                case "GenuineIntel":
+                    return GenuineIntelCpu.CpuRegisters(m_CpuIdLocal);
+                case "AuthenticAMD":
+                    return AuthenticAmdCpu.CpuRegisters(m_CpuIdLocal);
+                default:
+                    return GenericIntelCpu.CpuRegisters(m_CpuIdLocal);
+                }
+            }
         }
 
         public CpuIdRegister GetCpuId(int function, int subfunction)
         {
             using (Pin(m_Core)) {
-                var (Eax, Ebx, Ecx, Edx) = X86Base.CpuId(function, subfunction);
-                return new CpuIdRegister(function, subfunction, new[] { Eax, Ebx, Ecx, Edx });
+                return m_CpuIdLocal.GetCpuId(function, subfunction);
             }
         }
 
