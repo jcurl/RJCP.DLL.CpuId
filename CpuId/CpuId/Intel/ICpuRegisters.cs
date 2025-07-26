@@ -1,11 +1,9 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Access to the CPU's Identification Registers.
     /// </summary>
-    public interface ICpuRegisters : IEnumerable<CpuIdRegister>
+    public interface ICpuRegisters
     {
         /// <summary>
         /// Call the CPU Identification Register function.

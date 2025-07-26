@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Xml;
 
     internal class CpuIdX86XmlNodeFactory : ICpuIdFactory
     {
-        public CpuIdX86XmlNodeFactory() { }
-
         public CpuIdX86XmlNodeFactory(XmlNode node)
         {
             ThrowHelper.ThrowIfNull(node);
@@ -29,7 +28,7 @@
         /// <summary>
         /// Retrieve information about the first CPU.
         /// </summary>
-        /// <returns>CPU information.</returns>
+        /// <returns>CPU information for the first entry in the XML file.</returns>
         /// <exception cref="InvalidOperationException">Node is not defined.</exception>
         /// <remarks>
         /// Because this factory is given an <see cref="XmlNode"/> during construction, and this should only be a single
@@ -38,17 +37,14 @@
         /// </remarks>
         public ICpuId Create()
         {
-            if (Node is null) throw new InvalidOperationException("Node is not defined");
-
-            XmlNode cpuNode = Node.SelectSingleNode("./processor");
-            return CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode));
+            return Create(0);
         }
 
         /// <summary>
         /// Retrieve information about the CPU for a specific core.
         /// </summary>
         /// <param name="core">The core.</param>
-        /// <returns>CPU information only for <paramref name="core"/> 0.</returns>
+        /// <returns>CPU information only for <paramref name="core"/>, defined by the position in the XML file.</returns>
         /// <remarks>
         /// This method can only return the same information as <see cref="Create()"/>. The constructor of this class
         /// receives the precise core information. The factory that constructs this class must handle the creation for a
@@ -59,9 +55,15 @@
             if (Node is null) throw new InvalidOperationException("Node is not defined");
 
             XmlNode cpuNode = Node.SelectSingleNode($"./processor[{core + 1}]");
-            return CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode));
+            if (cpuNode is null) return null;
+            return Create(cpuNode);
         }
 
+        /// <summary>
+        /// Retrieves information about all CPUs detected by the Operating System.
+        /// </summary>
+        /// <returns>An enumerable collection of all CPUs.</returns>
+        /// <exception cref="InvalidOperationException">Node is not defined</exception>
         public IEnumerable<ICpuId> CreateAll()
         {
             if (Node is null) throw new InvalidOperationException("Node is not defined");
@@ -70,9 +72,44 @@
 
             List<ICpuId> ids = new();
             foreach (XmlNode cpuNode in cpuNodes) {
-                ids.Add(CpuIdX86.CreateCpuIdX86(new CpuIdX86XmlRegisters(cpuNode)));
+                ids.Add(Create(cpuNode));
             }
             return ids;
+        }
+
+        private static ICpuId Create(XmlNode cpuNode)
+        {
+            List<CpuIdRegister> registerList = new();
+            XmlNodeList registers = cpuNode.SelectNodes("./register");
+            foreach (XmlNode register in registers) {
+                AddCpuRegister(registerList, register);
+            }
+            return CpuIdX86.CreateCpuIdX86(registerList);
+        }
+
+        private static void AddCpuRegister(ICollection<CpuIdRegister> list, XmlNode registerNode)
+        {
+            if (!TryGetHexValue(registerNode.Attributes["eax"]?.Value, out int function)) return;
+            if (!TryGetHexValue(registerNode.Attributes["ecx"]?.Value, out int subfunction)) return;
+            string registerOutput = registerNode.InnerText;
+            if (string.IsNullOrWhiteSpace(registerOutput)) return;
+            string[] registerValues = registerOutput.Split(',');
+            if (registerValues.Length != 4) return;
+
+            int[] registers = new int[4];
+            int i = 0;
+            foreach (string registerValue in registerValues) {
+                if (!TryGetHexValue(registerValue, out registers[i])) return;
+                i++;
+            }
+
+            CpuIdRegister result = new(function, subfunction, registers);
+            list.Add(result);
+        }
+
+        private static bool TryGetHexValue(string value, out int result)
+        {
+            return int.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out result);
         }
 
         /// <summary>

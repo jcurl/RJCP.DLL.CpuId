@@ -45,7 +45,7 @@
         /// Access to the CPUID registers for the CPU.
         /// </summary>
         /// <value>The CPUID registers.</value>
-        ICpuRegisters Registers { get; }
+        CpuRegisters Registers { get; }
 
         /// <summary>
         /// Gets the topology.

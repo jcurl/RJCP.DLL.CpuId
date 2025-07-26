@@ -97,7 +97,6 @@
     <Compile Include="CpuId\Intel\CpuIdRegister.cs" />
     <Compile Include="CpuId\Intel\CpuIdX86.cs" />
     <Compile Include="CpuId\Intel\CpuIdX86XmlNodeFactory.cs" />
-    <Compile Include="CpuId\Intel\CpuIdX86XmlRegisters.cs" />
     <Compile Include="CpuId\Intel\CpuRegisters.cs" />
     <Compile Include="CpuId\Intel\CpuTopo.cs" />
     <Compile Include="CpuId\Intel\CpuTopoList.cs" />

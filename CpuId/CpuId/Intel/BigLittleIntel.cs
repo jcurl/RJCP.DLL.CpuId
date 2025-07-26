@@ -9,7 +9,7 @@
         /// Initializes a new instance of the <see cref="BigLittleIntel"/> class.
         /// </summary>
         /// <param name="isPerformance">Set to <see langword="true"/> if this is a performance core.</param>
-        /// <param name="coreType">Type of the microarchtiectural core.</param>
+        /// <param name="coreType">Type of the microarchitectural core.</param>
         /// <param name="modelId">The model identifier for the core.</param>
         public BigLittleIntel(bool isPerformance, BigLittleIntelCoreType coreType, int modelId)
         {

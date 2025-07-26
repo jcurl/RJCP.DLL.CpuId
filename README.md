@@ -24,8 +24,7 @@ for offline parsing.
 
 ## 1. Features
 
-This program is limited to querying Intel and AMD processors, as of November
-2020.
+This program is limited to querying Intel and AMD processors, as of 2024.
 
 It performs a register dump, or can load a previously saved register dump, and
 interpret:
@@ -35,18 +34,18 @@ interpret:
 - the brand string/description
 - CPU and Cache and Topology
 
-It is written for Windows XP SP3, Windows Server 2003 and later, using .NET 4.0,
-to try and target as many CPUs as possible.
+It is written for Windows XP SP3, Windows Server 2003 and later, using .NET 4.0
+and .NET Core, to try and target as many x86 CPUs as possible.
 
 ## 2. Project Organization
 
 There are 4 projects:
 
 - A C++ library compiled with Visual Studio 2022 IDE with Windows XP
-  compatibility
-- A .NET Assembly reusable in other projects
-- CPUID for Windows
-- CPUID Console to dump CPUID data to an XML file
+  compatibility.
+- A .NET Assembly reusable in other projects.
+- CPUID for Windows.
+- CPUID Console to dump CPUID data to an XML file.
 
 ### 2.1. The Windows Tool
 
@@ -173,11 +172,15 @@ information.
 
 Features:
 
-- Use intrinsic CPUID for .NET 6.0 and later (DOTNET-1038)
+- Use intrinsic CPUID for .NET 6.0 and later (DOTNET-1038).
+  - Part of this work required a refactoring with some minor API changes.
 
 Bugfixes:
 
 - Pin CPU before getting CPUID (DOTNET-1061).
+  - The semantics of the `ICpuIdFactory.Create()` changed from capturing for the
+    current CPU, to capturing for CPU Core 0 to be consistent across all
+    implementations (XML, DLL Native, Net Core Native).
 
 ### 6.2. Version 0.8.1
 

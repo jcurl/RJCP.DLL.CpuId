@@ -22,7 +22,7 @@
         internal const int ProcessorBrand3Function = unchecked((int)0x80000004);
         internal const int ExtendedFeatureIds = unchecked((int)0x80000008);
 
-        private readonly ICpuRegisters m_Cpu;
+        private readonly CpuRegisters m_Cpu;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericIntelCpuBase"/> class.
@@ -30,7 +30,7 @@
         /// <param name="cpu">The object to access CPUID registers.</param>
         protected GenericIntelCpuBase(ICpuRegisters cpu)
         {
-            m_Cpu = cpu;
+            m_Cpu = cpu as CpuRegisters;
         }
 
         /// <inheritdoc/>
@@ -46,7 +46,7 @@
         }
 
         /// <inheritdoc/>
-        public ICpuRegisters Registers
+        public CpuRegisters Registers
         {
             get { return m_Cpu; }
         }

@@ -4,7 +4,10 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    internal class CpuRegisters : ICpuRegisters
+    /// <summary>
+    /// Provide a view of CPU registers.
+    /// </summary>
+    public class CpuRegisters : ICpuRegisters, IEnumerable<CpuIdRegister>
     {
         private readonly Dictionary<int, List<CpuIdRegister>> m_Registers = new();
         private readonly List<CpuIdRegister> m_RegisterList = new();
@@ -16,28 +19,32 @@
 
         private readonly ICpuRegisters m_CpuRegisters;
 
-        public CpuRegisters(ICpuRegisters cpuRegisters)
+        internal CpuRegisters(ICpuRegisters cpuRegisters, IEnumerable<CpuIdRegister> list)
         {
-            ThrowHelper.ThrowIfNull(cpuRegisters);
             m_CpuRegisters = cpuRegisters;
 
-            foreach (CpuIdRegister cpuRegister in cpuRegisters) {
-                AddRegister(cpuRegister);
+            list ??= cpuRegisters as IEnumerable<CpuIdRegister>;
+            if (list is not null) {
+                foreach (CpuIdRegister cpuRegister in list) {
+                    AddRegister(cpuRegister);
+                }
             }
         }
 
+        /// <inheritdoc />
         public CpuIdRegister GetCpuId(int function, int subfunction)
         {
             CpuIdRegister cpuRegister = GetCachedCpuId(function, subfunction);
             if (cpuRegister is not null) return cpuRegister;
 
             // Not cached, so query the concrete implementation.
-            cpuRegister = m_CpuRegisters.GetCpuId(function, subfunction);
-            if (cpuRegister is not null) {
-                AddRegister(cpuRegister);
-                return cpuRegister;
+            if (m_CpuRegisters is not null) {
+                cpuRegister = m_CpuRegisters.GetCpuId(function, subfunction);
+                if (cpuRegister is not null) {
+                    AddRegister(cpuRegister);
+                    return cpuRegister;
+                }
             }
-
             return null;
         }
 
@@ -89,8 +96,17 @@
             m_RegisterList.Add(result);
         }
 
-        public bool IsOnline { get { return m_CpuRegisters.IsOnline; } }
+        /// <inheritdoc />
+        public bool IsOnline
+        {
+            get
+            {
+                if (m_CpuRegisters is null) return false;
+                return m_CpuRegisters.IsOnline;
+            }
+        }
 
+        /// <inheritdoc />
         public IEnumerator<CpuIdRegister> GetEnumerator()
         {
             return m_RegisterList.GetEnumerator();

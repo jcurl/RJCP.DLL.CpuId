@@ -12,10 +12,7 @@
 
         public ICpuId Create()
         {
-            ICpuRegisters registers = new CpuIdNetRegisters();
-            if (!registers.IsOnline) return null;
-
-            return CpuIdX86.CreateCpuIdX86(registers);
+            return Create(0);
         }
 
         public ICpuId Create(int core)
@@ -23,10 +20,16 @@
             if (core < 0 || core >= Environment.ProcessorCount)
                 throw new ArgumentOutOfRangeException(nameof(core));
 
-            ICpuRegisters registers = new CpuIdNetRegisters(core);
-            if (!registers.IsOnline) return null;
+            IEnumerable<CpuIdRegister> registers;
+            using (CpuIdNetRegisters.Pin(core)) {
+                // This constructor doesn't pin to a particular thread. This allows the enumeration of the registers to
+                // be done without trying to pin/unpin per CPUID register which would be very slow.
+                ICpuRegisters local = new CpuIdNetRegisters();
+                registers = CpuIdX86.QueryCpu(local);
+            }
 
-            return CpuIdX86.CreateCpuIdX86(registers);
+            ICpuRegisters cpu = new CpuIdNetRegisters(core);
+            return CpuIdX86.CreateCpuIdX86(cpu, registers);
         }
 
         public IEnumerable<ICpuId> CreateAll()
@@ -35,8 +38,7 @@
 
             int cpus = Math.Min(MaxCpus, Environment.ProcessorCount);
             for (int core = 0; core < cpus; core++) {
-                ICpuRegisters registers = new CpuIdNetRegisters(core);
-                ids.Add(CpuIdX86.CreateCpuIdX86(registers));
+                ids.Add(Create(core));
             }
             return ids;
         }

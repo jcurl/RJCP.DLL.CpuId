@@ -1,14 +1,25 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
+    using System.Collections.Generic;
+
     internal static class CpuIdX86
     {
         private const int VendorIdFunction = 0;
 
         public static ICpuIdX86 CreateCpuIdX86(ICpuRegisters cpuRegisters)
         {
-            ICpuIdX86 x86cpu;
+            return CreateCpuIdX86(cpuRegisters, cpuRegisters as IEnumerable<CpuIdRegister>);
+        }
 
-            ICpuRegisters cpu = new CpuRegisters(cpuRegisters);
+        public static ICpuIdX86 CreateCpuIdX86(IEnumerable<CpuIdRegister> list)
+        {
+            return CreateCpuIdX86(null, list);
+        }
+
+        public static ICpuIdX86 CreateCpuIdX86(ICpuRegisters cpuRegisters, IEnumerable<CpuIdRegister> list)
+        {
+            ICpuIdX86 x86cpu;
+            ICpuRegisters cpu = new CpuRegisters(cpuRegisters, list);
 
             switch (GetVendorId(cpu)) {
             case "GenuineIntel":
@@ -35,6 +46,18 @@
             x86cpu.Topology.CoreTopology.IsReadOnly = true;
             x86cpu.Topology.CacheTopology.IsReadOnly = true;
             return x86cpu;
+        }
+
+        public static IEnumerable<CpuIdRegister> QueryCpu(ICpuRegisters cpuRegisters)
+        {
+            switch (GetVendorId(cpuRegisters)) {
+            case "GenuineIntel":
+                return GenuineIntelCpu.CpuRegisters(cpuRegisters);
+            case "AuthenticAMD":
+                return AuthenticAmdCpu.CpuRegisters(cpuRegisters);
+            default:
+                return GenericIntelCpu.CpuRegisters(cpuRegisters);
+            }
         }
 
         public static string GetVendorId(ICpuRegisters registers)

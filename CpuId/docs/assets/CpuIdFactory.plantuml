@@ -39,8 +39,11 @@ namespace Native {
 namespace CpuId {
     namespace Intel {
         ~class CpuIdX86 <<static>> {
-            +{static} CreateCpuIdX86(ICpuIdRegisters): ICpuIdX86
+            +{static} CreateCpuIdX86(ICpuIdRegisters,\n IEnumerable<CpuIdRegisters> cache): ICpuIdX86
         }
+        ~class CpuIdNetFactory <<Linux>> <<Windows>> {
+        }
+        ICpuIdFactory <|-d-- CpuIdNetFactory
         ~class CpuIdLibFactory <<Windows>> {
         }
         ICpuIdFactory <|-d- CpuIdLibFactory
@@ -52,7 +55,7 @@ namespace CpuId {
         }
         ~class CpuIdLibRegisters <<Windows>> {
         }
-        ~class CpuXmlRegisters {
+        ~class CpuIdNetRegisters <<Linux>> <<Windows>> {
         }
 
         +class GenuineIntelCpu <<ICpuIdX86>> {
@@ -72,13 +75,15 @@ namespace CpuId {
         CpuIdLibRegisters .d.> Native.Win32.CpuIdLib : <<uses>>
         CpuRegisters *-r- CpuIdLibRegisters
 
+        CpuIdNetFactory -d-> CpuIdX86 : <<uses>>
+        CpuIdNetFactory .d...> CpuIdNetRegisters : <<creates>>
+        CpuRegisters *-r- CpuIdNetRegisters
+
         CpuIdX86 ..> GenuineIntelCpu : <<returns>>
         CpuIdX86 ..> GenericIntelCpu : <<returns>>
         CpuIdX86 ..> AuthenticAmdCpu : <<returns>>
 
         CpuIdX86XmlNodeFactory -d-> CpuIdX86 : <<uses>>
-        CpuIdX86XmlNodeFactory .d...> CpuXmlRegisters : <<creates>>
-        CpuRegisters *-l- CpuXmlRegisters
     }
 }
 

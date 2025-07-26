@@ -1,8 +1,6 @@
 ﻿namespace RJCP.Diagnostics.CpuId.Intel
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Runtime.Intrinsics.X86;
     using System.Runtime.Versioning;
     using Native.Win32;
@@ -13,98 +11,53 @@
 
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("Linux")]
-    internal class CpuIdNetRegisters : ICpuRegisters
+    internal class CpuIdNetRegisters : ICpuRegisters//, IEnumerable<CpuIdRegister>
     {
         internal const int MaxCpuLeaves = 256;
-
-        private readonly int m_Core = 0;
-        private readonly IEnumerable<CpuIdRegister> m_RegisterList;
+        private readonly int m_Core = -1;
 
         /// <summary>
-        /// Get CPUID information on the current thread.
+        /// Initializes a new instance of the <see cref="CpuIdNetRegisters"/> class.
         /// </summary>
         /// <remarks>
-        /// Get the CPU information on the local thread. This is so we can give methods to classes to get CPU
-        /// information, and configure the thread prior, to reduce the number of system calls for querying.
+        /// Allows capturing register data for the current core. Be sure to pin to the correct thread first.
         /// </remarks>
-        private sealed class CpuIdNetLocal : ICpuRegisters
-        {
-            public bool IsOnline { get { return true; } }
-
-            public CpuIdRegister GetCpuId(int function, int subfunction)
-            {
-                var (Eax, Ebx, Ecx, Edx) = X86Base.CpuId(function, subfunction);
-                return new CpuIdRegister(function, subfunction, new[] { Eax, Ebx, Ecx, Edx });
-            }
-
-            public IEnumerator<CpuIdRegister> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
-
-        private readonly CpuIdNetLocal m_CpuIdLocal = new();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CpuIdNetRegisters"/> class.
-        /// </summary>
-        /// <remarks>Queries the local machine for CPU data.</remarks>
         public CpuIdNetRegisters()
-        {
-            CheckPlatform();
-            m_RegisterList = Initialise();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CpuIdNetRegisters"/> class.
-        /// </summary>
-        /// <param name="core">The core to query for the CPUID registers.</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="core"/> is not a valid core number.</exception>
-        /// <remarks>Queries the local machine for CPU data.</remarks>
-        public CpuIdNetRegisters(int core)
-        {
-            CheckPlatform();
-            if (core < 0 || core >= Environment.ProcessorCount)
-                throw new ArgumentOutOfRangeException(nameof(core));
-
-            m_Core = core;
-            m_RegisterList = Initialise();
-        }
-
-        private static void CheckPlatform()
         {
             if (!X86Base.IsSupported)
                 throw new PlatformNotSupportedException("X86Base not supported");
         }
 
-        private IEnumerable<CpuIdRegister> Initialise()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CpuIdNetRegisters"/> class.
+        /// </summary>
+        /// <param name="core">The core to pin to.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="core"/> is not a valid core number.</exception>
+        /// <remarks>Queries the local machine for CPU data.</remarks>
+        public CpuIdNetRegisters(int core)
         {
-            using (Pin(m_Core)) {
-                switch (CpuIdX86.GetVendorId(m_CpuIdLocal)) {
-                case "GenuineIntel":
-                    return GenuineIntelCpu.CpuRegisters(m_CpuIdLocal);
-                case "AuthenticAMD":
-                    return AuthenticAmdCpu.CpuRegisters(m_CpuIdLocal);
-                default:
-                    return GenericIntelCpu.CpuRegisters(m_CpuIdLocal);
-                }
-            }
+            if (!X86Base.IsSupported)
+                throw new PlatformNotSupportedException("X86Base not supported");
+
+            if (core < 0 || core >= Environment.ProcessorCount)
+                throw new ArgumentOutOfRangeException(nameof(core));
+
+            m_Core = core;
         }
 
         public CpuIdRegister GetCpuId(int function, int subfunction)
         {
             using (Pin(m_Core)) {
-                return m_CpuIdLocal.GetCpuId(function, subfunction);
+                var (Eax, Ebx, Ecx, Edx) = X86Base.CpuId(function, subfunction);
+                return new CpuIdRegister(function, subfunction, new[] { Eax, Ebx, Ecx, Edx });
             }
         }
 
-        private static IDisposable Pin(int core)
+        internal static IDisposable Pin(int core)
         {
+            // Special case that we don't pin a core.
+            if (core < 0) return null;
+
             Native.ICpuPin pin;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                 pin = new PinCpuWin32();
@@ -117,15 +70,5 @@
         }
 
         public bool IsOnline { get { return true; } }
-
-        public IEnumerator<CpuIdRegister> GetEnumerator()
-        {
-            return m_RegisterList.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
 }

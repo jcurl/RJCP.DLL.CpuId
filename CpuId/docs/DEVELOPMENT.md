@@ -8,7 +8,7 @@ organisation. For detailed API information, see the MAML documentation in code.
 - [2. Instantiating](#2-instantiating)
   - [2.1. The Factory Model Layout](#21-the-factory-model-layout)
     - [2.1.1. CPUID on Windows](#211-cpuid-on-windows)
-    - [2.1.2. CPUID on Linux (Not Implemented)](#212-cpuid-on-linux-not-implemented)
+    - [2.1.2. CPUID on Linux (GLibC only) and Windows](#212-cpuid-on-linux-glibc-only-and-windows)
   - [2.2. Instantiate from the Local CPU](#22-instantiate-from-the-local-cpu)
   - [2.3. Instantiate from a Saved XML file](#23-instantiate-from-a-saved-xml-file)
     - [2.3.1. The XML File Format](#231-the-xml-file-format)
@@ -40,22 +40,22 @@ This library supports only Intel and AMD processors for Windows XP and later. It
 consists of two parts:
 
 - Native DLL for 32-bit and 64-bit Intel, compiled with Visual Studio 2022 with
-  Windows XP support; and
-- .NET DLL for parsing the CPUID information returned on those processors.
-
-The library is required to get access to the native CPU instruction CPUID for a
-live capture.
+  Windows XP support (.NET Framework only); and
+- .NET DLL for parsing the CPUID information.
+  - On .NET Core 6.0 and later, the `X86Base` intrinsics are used to read the
+    CPUID information. P/Invoke is used so is compatible with Windows and GLibC
+    Linux.
 
 On platforms that are not supported, it is still possible to read and present
 XML files that contain CPU ID information.
 
 ### 1.1. Libraries and Location
 
-The .NET assembly supports 32-bit and 64-bit. For this, the library `cpuid.dll`
-is required where the assembly is in the folder `x86` for 32-bit and `x64` for
-64-bit. On startup with Windows, it checks the bit-size through `IntPtr` and
-then uses the Operating System call `LoadLibrary` to load the appropriate
-version. The APIs between 32-bit and 64-bit are identical.
+The .NET Framework assembly supports 32-bit and 64-bit. For this, the library
+`cpuid.dll` is required where the assembly is in the folder `x86` for 32-bit and
+`x64` for 64-bit. On startup with Windows, it checks the bit-size through
+`IntPtr` and then uses the Operating System call `LoadLibrary` to load the
+appropriate version. The APIs between 32-bit and 64-bit are identical.
 
 If the libraries are not found, or can't be loaded by the Operating System, you
 will not be able to get CPUID information for the current CPU.
@@ -95,25 +95,16 @@ library to retrieve the CPUID information. It's not shown in the above diagram,
 but the libraries are wrapped around the class `CpuIdLib` which P/Invokes into
 the native windows libraries.
 
-#### 2.1.2. CPUID on Linux (Not Implemented)
+#### 2.1.2. CPUID on Linux (GLibC only) and Windows
 
 Classes and methods that rely on Windows API or the `cpuid.dll` library are
-marked as `[SupportedOSPlatform("windows")]`. In the UML diagram, these are
+marked as `[SupportedOSPlatform("Windows")]`. In the UML diagram, these are
 marked as blue.
 
-You can see in the UML diagram, that the code is not implemented for Linux.
-However, the software is architected that it could be easy to add.
-
-- Create a new `LinuxCpuIdFactory` class, that derives from
-  `X86CpuIdFactoryBase`.
-- There are multiple ways of reading the CPUID information. One could use the
-  Kernel interfaces, a kernel module, or write a shared object that obtains this
-  information. One could implement a factory for each mechanism, and then
-  iterate through each factory in the order preferred, until the information is
-  obtained.
-- The factory class would read the information, put it into a `BasicCpu`
-  structure (not shown) and call the base class. All parsing of the CPUID
-  information is already implemented.
+Classes that rely on Linux GLibC API (used to pin threads, because the
+intrinsics or .NET core doesn't have functionality to pin native OS threads) are
+marked as `[SupportedOSPlatform("Linux")]`. These are marked as yellow in the
+UML diagram.
 
 ### 2.2. Instantiate from the Local CPU
 
@@ -127,10 +118,17 @@ ICpuIdFactory factory = new CpuIdFactory();
 ICpuId cpu = factory.Create();
 ```
 
-The resultant `ICpuId` contains the information required. The information is
-obtained for the CPU that the thread was running on and should be fixed prior
-using Operating System calls for managing threads to have its affinity to only a
-single CPU.
+The resultant `ICpuId` contains the information required for the first CPU in
+the system. You can specify the `core` with:
+
+```csharp
+using RJCP.Diagnostics;
+using RJCP.Diagnostics.CpuId;
+
+int core = 0;
+ICpuIdFactory factory = new CpuIdFactory();
+ICpuId cpu = factory.Create(core);
+```
 
 To get a collection of all CPUs that the Operating System is aware of:
 
