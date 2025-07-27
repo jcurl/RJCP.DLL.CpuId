@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Text;
     using System.Windows.Forms;
     using CpuId;
     using Microsoft.Win32;
@@ -99,22 +100,59 @@
         {
             string machine = Environment.MachineName.ToLowerInvariant();
             ICpuId firstCpu = cpuIdTree1.Cores[0];
+            string fileName;
+
             if (firstCpu is CpuId.Intel.ICpuIdX86 x86cpu) {
                 if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
-                    return m_IsLocal
+                    fileName = m_IsLocal
                         ? string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, machine)
                         : string.Format("{0}{1:X07}.xml", firstCpu.VendorId, x86cpu.ProcessorSignature);
+                } else {
+                    fileName = m_IsLocal
+                        ? string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, SanitiseFileName(firstCpu.Description), machine)
+                        : string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, SanitiseFileName(firstCpu.Description));
                 }
-                return m_IsLocal
-                    ? string.Format("{0}{1:X07} ({2}, {3}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description, machine)
-                    : string.Format("{0}{1:X07} ({2}).xml", firstCpu.VendorId, x86cpu.ProcessorSignature, firstCpu.Description);
+            } else if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
+                fileName = m_IsLocal
+                    ? string.Format("{0} ({1}).xml", firstCpu.VendorId, machine)
+                    : string.Format("{0}.xml", firstCpu.VendorId);
+            } else {
+                fileName = m_IsLocal
+                    ? string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, SanitiseFileName(firstCpu.Description), machine)
+                    : string.Format("{0} ({1}).xml", firstCpu.VendorId, SanitiseFileName(firstCpu.Description));
             }
-            if (string.IsNullOrWhiteSpace(firstCpu.Description)) {
-                return m_IsLocal ? string.Format("{0} ({1}).xml", firstCpu.VendorId, machine) : string.Format("{0}.xml", firstCpu.VendorId);
+            return fileName;
+        }
+
+        private static string SanitiseFileName(string fileName)
+        {
+            StringBuilder sanitised = new();
+            char[] invalid = System.IO.Path.GetInvalidFileNameChars();
+
+            int p = 0;
+            while (true) {
+                int index = fileName.IndexOfAny(invalid, p);
+                if (index == -1) {
+#if NETFRAMEWORK
+                    sanitised.Append(fileName.Substring(p));
+#else
+                    sanitised.Append(fileName.AsSpan(p));
+#endif
+                    return sanitised.ToString();
+                } else if (index == p) {
+                    sanitised.Append('_');
+                    p++;
+                } else {
+#if NETFRAMEWORK
+                    sanitised.Append(fileName.Substring(p, index - p)).Append('_');
+#else
+                    sanitised.Append(fileName.AsSpan(p, index - p)).Append('_');
+#endif
+                    p = index + 1;
+                }
+
+                if (p > fileName.Length) return sanitised.ToString();
             }
-            return m_IsLocal
-                ? string.Format("{0} ({1}, {2}).xml", firstCpu.VendorId, firstCpu.Description, machine)
-                : string.Format("{0} ({1}).xml", firstCpu.VendorId, firstCpu.Description);
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)

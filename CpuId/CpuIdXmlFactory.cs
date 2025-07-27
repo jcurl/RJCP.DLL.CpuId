@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text;
     using System.Xml;
     using CpuId;
@@ -177,8 +178,31 @@
         /// </summary>
         /// <param name="fileName">Name of the file to write to.</param>
         /// <param name="cpus">The collection of CPUs that should be written to the XML writer.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="fileName" /> may not be <see langword="null" />.</exception>
-        /// <exception cref="ArgumentException"><paramref name="fileName" /> may not be an empty string.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="fileName"/> may not be <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="fileName"/> may not be an empty string.</exception>
+        /// <exception cref="NotSupportedException">
+        /// .NET Framework and .NET Core versions older than 2.1: <paramref name="fileName"/> is an empty string (""),
+        /// contains only white space, or contains one or more invalid characters.
+        /// <para>- or -</para>
+        /// <paramref name="fileName"/> refers to a non-file device, such as "con:", "com1:", "lpt1:", etc. in an NTFS
+        /// environment.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// <paramref name="fileName"/> refers to a non-file device, such as "con:", "com1:", "lpt1:", etc. in a
+        /// non-NTFS environment.
+        /// </exception>
+        /// <exception cref="System.Security.SecurityException">
+        /// The caller does not have the required permission.
+        /// </exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException">
+        /// <paramref name="fileName"/> is invalid, such as being on an unmapped drive.
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException">The file or directory is set for read-only access.</exception>
+        /// <exception cref="System.IO.PathTooLongException">
+        /// The specified path, <paramref name="fileName"/>, or both exceed the system-defined maximum length.
+        /// </exception>
         public static void Save(string fileName, IEnumerable<ICpuId> cpus)
         {
             ThrowHelper.ThrowIfNullOrEmpty(fileName);
@@ -191,6 +215,30 @@
             }
 
             using (XmlWriter xmlWriter = XmlWriter.Create(fileName, SaveXmlSettings())) {
+                if (x86cpus.Count > 0) CpuId.Intel.CpuIdX86XmlNodeFactory.Save(xmlWriter, x86cpus);
+            }
+        }
+
+        /// <summary>
+        /// Writes the cached CPUID information to an XML file.
+        /// </summary>
+        /// <param name="stream">The stream to write to.</param>
+        /// <param name="cpus">The collection of CPUs that should be written to the XML writer.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="stream"/> may not be <see langword="null"/>.
+        /// </exception>
+        public static void Save(Stream stream, IEnumerable<ICpuId> cpus)
+        {
+            ThrowHelper.ThrowIfNull(stream);
+
+            List<CpuId.Intel.GenericIntelCpuBase> x86cpus = new();
+            foreach (ICpuId cpu in cpus) {
+                if (cpu is CpuId.Intel.GenericIntelCpuBase x86cpu) {
+                    x86cpus.Add(x86cpu);
+                }
+            }
+
+            using (XmlWriter xmlWriter = XmlWriter.Create(stream, SaveXmlSettings())) {
                 if (x86cpus.Count > 0) CpuId.Intel.CpuIdX86XmlNodeFactory.Save(xmlWriter, x86cpus);
             }
         }
