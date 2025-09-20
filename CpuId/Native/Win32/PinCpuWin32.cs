@@ -34,7 +34,7 @@
             if (core < 0 || core >= IntPtr.Size * 8 || core >= Environment.ProcessorCount)
                 throw new ArgumentOutOfRangeException(nameof(core), core, "Core outside of accessible number of CPUs");
 
-            nuint pin = (nuint)(1 << core);
+            nuint pin = (nuint)1 << core;
 
             Thread.BeginThreadAffinity();
             nuint oldAffinity = Kernel32.SetThreadAffinityMask(Kernel32.GetCurrentThread(), pin);
