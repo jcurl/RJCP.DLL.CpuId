@@ -25,11 +25,11 @@
         {
             ICpuIdX86 cpu = GetCpu("nofunctions.xml");
             Assert.That(cpu.VendorId, Is.EqualTo("GenuineIntel"));
-            Assert.That(cpu.ProcessorSignature, Is.EqualTo(0));
-            Assert.That(cpu.Model, Is.EqualTo(0));
-            Assert.That(cpu.Family, Is.EqualTo(0));
-            Assert.That(cpu.ProcessorType, Is.EqualTo(0));
-            Assert.That(cpu.Stepping, Is.EqualTo(0));
+            Assert.That(cpu.ProcessorSignature, Is.Zero);
+            Assert.That(cpu.Model, Is.Zero);
+            Assert.That(cpu.Family, Is.Zero);
+            Assert.That(cpu.ProcessorType, Is.Zero);
+            Assert.That(cpu.Stepping, Is.Zero);
             Assert.That(cpu.Features["FPU"].Value, Is.False);
         }
 
@@ -40,11 +40,11 @@
             Assert.That(cpu.VendorId, Is.EqualTo("GenuineIntel"));
 
             // Even though the file contains CPUID[01h], it shouldn't be queried because 0h says it doesn't exist.
-            Assert.That(cpu.ProcessorSignature, Is.EqualTo(0));
-            Assert.That(cpu.Model, Is.EqualTo(0));
-            Assert.That(cpu.Family, Is.EqualTo(0));
-            Assert.That(cpu.ProcessorType, Is.EqualTo(0));
-            Assert.That(cpu.Stepping, Is.EqualTo(0));
+            Assert.That(cpu.ProcessorSignature, Is.Zero);
+            Assert.That(cpu.Model, Is.Zero);
+            Assert.That(cpu.Family, Is.Zero);
+            Assert.That(cpu.ProcessorType, Is.Zero);
+            Assert.That(cpu.Stepping, Is.Zero);
             Assert.That(cpu.Features["FPU"].Value, Is.False);
         }
 
@@ -58,7 +58,7 @@
             Assert.That(cpu.ProcessorSignature, Is.EqualTo(0x482));
             Assert.That(cpu.Model, Is.EqualTo(8));
             Assert.That(cpu.Family, Is.EqualTo(4));
-            Assert.That(cpu.ProcessorType, Is.EqualTo(0));
+            Assert.That(cpu.ProcessorType, Is.Zero);
             Assert.That(cpu.Stepping, Is.EqualTo(2));
             Assert.That(cpu.Features["FPU"].Value, Is.True);
 

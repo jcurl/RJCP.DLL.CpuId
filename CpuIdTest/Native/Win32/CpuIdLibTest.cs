@@ -38,7 +38,7 @@
         public void GetCpuId()
         {
             int result = CpuIdLib.cpuid(0, 0, out int eax, out int ebx, out int ecx, out int edx);
-            Assert.That(result, Is.EqualTo(0));
+            Assert.That(result, Is.Zero);
             Console.WriteLine($"EAX={eax:x08}h EBX={ebx:x08}h ECX={ecx:x08}h EDX={edx:x08}h");
         }
 

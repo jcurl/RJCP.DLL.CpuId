@@ -97,7 +97,7 @@
             // subfunction. We should have pinning here. To test if this really works, will need to single step.
             CpuIdRegister reg = cpu.Registers.GetCpuId(0x60000000, 0);
             Assert.That(reg.Function, Is.EqualTo(0x60000000));
-            Assert.That(reg.SubFunction, Is.EqualTo(0));
+            Assert.That(reg.SubFunction, Is.Zero);
         }
 
         private static void DumpCpu(ICpuId cpu)
