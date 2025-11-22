@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CpuIdTree));
             this.tvwCpuId = new RJCP.Diagnostics.CpuIdWin.Controls.ThemeTreeView();
-            this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.pnlInfo = new System.Windows.Forms.Panel();
+            this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // tvwCpuId
@@ -48,17 +47,6 @@
             this.tvwCpuId.TabIndex = 0;
             this.tvwCpuId.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwCpuId_AfterSelect);
             // 
-            // imgList
-            // 
-            this.imgList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgList.ImageStream")));
-            this.imgList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgList.Images.SetKeyName(0, "icoCpu");
-            this.imgList.Images.SetKeyName(1, "icoDetails");
-            this.imgList.Images.SetKeyName(2, "icoCache");
-            this.imgList.Images.SetKeyName(3, "icoDump");
-            this.imgList.Images.SetKeyName(4, "icoFeatures");
-            this.imgList.Images.SetKeyName(5, "icoTopology");
-            // 
             // pnlInfo
             // 
             this.pnlInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -69,6 +57,12 @@
             this.pnlInfo.Name = "pnlInfo";
             this.pnlInfo.Size = new System.Drawing.Size(604, 480);
             this.pnlInfo.TabIndex = 1;
+            // 
+            // imgList
+            // 
+            this.imgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imgList.ImageSize = new System.Drawing.Size(16, 16);
+            this.imgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // CpuIdTree
             // 

@@ -5,6 +5,8 @@
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Drawing;
+    using System.IO;
+    using System.Resources;
     using System.Windows.Forms;
     using CpuId;
     using CpuId.Intel;
@@ -16,10 +18,41 @@
 
         private int m_NodeId;
 
+        private readonly ResourceManager m_Resources = new(typeof(CpuIdTree));
+        private const string icoCpu = "icoCpu";
+        private const string icoDetails = "icoDetails";
+        private const string icoCache = "icoCache";
+        private const string icoDump = "icoDump";
+        private const string icoFeatures = "icoFeatures";
+        private const string icoTopology = "icoTopology";
+
         public CpuIdTree()
         {
             InitializeComponent();
+
+            // We have to load the images explicitly, and can no longer rely on the BinaryFormatter implementation that
+            // the imgList uses when loading multiple images from a resource. This is the case from VS2022 17.12 and
+            // later (and VS2026).
+            imgList.Images.Add(icoCpu, GetIconResource(icoCpu));
+            imgList.Images.Add(icoDetails, GetIconResource(icoDetails));
+            imgList.Images.Add(icoCache, GetIconResource(icoCache));
+            imgList.Images.Add(icoDump, GetIconResource(icoDump));
+            imgList.Images.Add(icoFeatures, GetIconResource(icoFeatures));
+            imgList.Images.Add(icoTopology, GetIconResource(icoTopology));
+
             m_Cores.CollectionChanged += Cores_CollectionChanged;
+        }
+
+        private Icon GetIconResource(string name)
+        {
+            return m_Resources.GetObject(name) as Icon;
+        }
+
+        public static Icon IconFromBytes(byte[] bytes)
+        {
+            using (var ms = new MemoryStream(bytes)) {
+                return new Icon(ms);
+            }
         }
 
         private void Cores_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -79,8 +112,8 @@
                 ? string.Format("Node: APIC {0:X8}", x86cpuId.Topology.ApicId)
                 : string.Format("Node: {0}", nodeNumber);
             TreeNode node = new(nodeName) {
-                ImageKey = "icoCpu",
-                SelectedImageKey = "icoCpu"
+                ImageKey = icoCpu,
+                SelectedImageKey = icoCpu
             };
             m_NodeControls.Add(node, new TreeNodeData() {
                 NodeType = NodeType.CpuRootNode,
@@ -88,8 +121,8 @@
             });
 
             TreeNode nodeDetails = new("Details") {
-                ImageKey = "icoDetails",
-                SelectedImageKey = "icoDetails"
+                ImageKey = icoDetails,
+                SelectedImageKey = icoDetails
             };
             m_NodeControls.Add(nodeDetails, new TreeNodeData() {
                 NodeType = NodeType.CpuDetails,
@@ -99,8 +132,8 @@
 
             if (IsIntelOrAmd(cpuId)) {
                 TreeNode nodeFeatures = new("Features") {
-                    ImageKey = "icoFeatures",
-                    SelectedImageKey = "icoFeatures"
+                    ImageKey = icoFeatures,
+                    SelectedImageKey = icoFeatures
                 };
                 m_NodeControls.Add(nodeFeatures, new TreeNodeData() {
                     NodeType = NodeType.CpuFeatures,
@@ -109,8 +142,8 @@
                 node.Nodes.Add(nodeFeatures);
 
                 TreeNode nodeTopology = new("Topology") {
-                    ImageKey = "icoTopology",
-                    SelectedImageKey = "icoTopology"
+                    ImageKey = icoTopology,
+                    SelectedImageKey = icoTopology
                 };
                 m_NodeControls.Add(nodeTopology, new TreeNodeData() {
                     NodeType = NodeType.CpuTopology,
@@ -119,8 +152,8 @@
                 node.Nodes.Add(nodeTopology);
 
                 TreeNode nodeCache = new("Cache") {
-                    ImageKey = "icoCache",
-                    SelectedImageKey = "icoCache"
+                    ImageKey = icoCache,
+                    SelectedImageKey = icoCache
                 };
                 m_NodeControls.Add(nodeCache, new TreeNodeData() {
                     NodeType = NodeType.CpuCache,
@@ -131,8 +164,8 @@
 
             if (IsX86Cpu(cpuId)) {
                 TreeNode nodeDump = new("Dump") {
-                    ImageKey = "icoDump",
-                    SelectedImageKey = "icoDump"
+                    ImageKey = icoDump,
+                    SelectedImageKey = icoDump
                 };
                 m_NodeControls.Add(nodeDump, new TreeNodeData() {
                     NodeType = NodeType.CpuDump,
