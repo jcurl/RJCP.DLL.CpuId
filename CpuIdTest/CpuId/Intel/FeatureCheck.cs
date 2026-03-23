@@ -47,9 +47,8 @@
         public void LoadCpu(string fileName)
         {
             CpuIdXmlFactory factory = new(fileName);
-            Cpu = factory.Create() as ICpuIdX86;
-            if (Cpu is null) throw new InvalidOperationException("Couldn't load CPU file");
-
+            Cpu = factory.Create() as ICpuIdX86
+                ?? throw new InvalidOperationException("Couldn't load CPU file");
             Cpus = factory.CreateAll().OfType<ICpuIdX86>();
 
             Initialize();

@@ -45,13 +45,13 @@ namespace RJCP.Diagnostics.Native.Linux
             CPU_ZERO(ref set);
             CPU_SET(core, ref set);
 
-            int result = sched_setaffinity(0, (IntPtr)Marshal.SizeOf<cpu_set_t>(), ref set);
+            int result = sched_setaffinity(0, new IntPtr(Marshal.SizeOf<cpu_set_t>()), ref set);
             return result == 0;
         }
 
         public static bool SetThreadAffinity(cpu_set_t set)
         {
-            int result = sched_setaffinity(0, (IntPtr)Marshal.SizeOf<cpu_set_t>(), ref set);
+            int result = sched_setaffinity(0, new IntPtr(Marshal.SizeOf<cpu_set_t>()), ref set);
             return result == 0;
         }
 
@@ -59,7 +59,7 @@ namespace RJCP.Diagnostics.Native.Linux
         {
             set = new cpu_set_t();
             CPU_ZERO(ref set);
-            int result = sched_getaffinity(0, (IntPtr)Marshal.SizeOf<cpu_set_t>(), ref set);
+            int result = sched_getaffinity(0, new IntPtr(Marshal.SizeOf<cpu_set_t>()), ref set);
             return result == 0;
         }
     }
